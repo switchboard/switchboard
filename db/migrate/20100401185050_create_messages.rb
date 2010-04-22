@@ -7,6 +7,7 @@ class CreateMessages < ActiveRecord::Migration
       t.string :origin
       t.string :origin_id
       t.integer :message_state_id
+      t.string :type
 
       t.timestamps
     end
