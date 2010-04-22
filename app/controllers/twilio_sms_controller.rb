@@ -7,6 +7,8 @@ class TwilioSmsController < ApplicationController
         sms_sid = params['SmsSid']
         account_sid = params['AccountSid']
 
-        Message.create(:from => from, :to => to, :body => body, :origin => 'twilio', :origin_id => 'sms_sid')  
+        message = Message.create(:from => from, :to => to, :body => body, :origin => 'twilio', :origin_id => 'sms_sid')  
+        incoming = MessageState.find_or_create_by_name("incoming")
+        incoming.messages << message
     end 
 end

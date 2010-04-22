@@ -1,0 +1,629 @@
+  [4;36;1mSQL (3.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.7ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (29.6ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (28.5ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+  [4;36;1mSQL (2.3ms)[0m   [0;1mCREATE TABLE "queues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "created" datetime, "modified" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (2.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("queues")[0m
+  [4;36;1mSQL (5.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.5ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (3.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (2.8ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.7ms)[0m   [0;1mPRAGMA index_list("messages")[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mPRAGMA index_list("queues")[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (15.7ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (51.6ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+  [4;36;1mSQL (2.5ms)[0m   [0;1mCREATE TABLE "queues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (2.0ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "created" datetime, "modified" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (2.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (2.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("queues")[0m
+  [4;36;1mSQL (5.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.5ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (4.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+Migrating to CreateMessages (20100401185050)
+Migrating to CreateTwilioSms (20100401191354)
+  [4;36;1mSQL (1.4ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mCREATE TABLE "twilio_sms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sms_id" varchar(255), "account_sid" varchar(255), "from" varchar(255), "to" varchar(255), "body" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100401191354')[0m
+  [4;35;1mSQL (3.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (2.7ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (3.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("messages")[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mPRAGMA index_list("queues")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("twilio_sms")[0m
+
+
+Processing ApplicationController#index (for 76.124.106.91 at 2010-04-01 23:35:21) [GET]
+
+SyntaxError (/home/josh/mmp-sms/app/controllers/twilio_sms_controller.rb:6: dynamic constant assignment
+        SmsSid = params['SmsSid']
+                ^
+/home/josh/mmp-sms/app/controllers/twilio_sms_controller.rb:7: dynamic constant assignment
+        AccountSid = params['AccountSid']
+                    ^):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (253.5ms)
+Rendered rescues/_request_and_response (7.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 76.124.106.91 at 2010-04-01 23:36:43) [GET]
+  Parameters: {"body"=>"\"this is a test\"", "from"=>"\"2679777848\"", "to"=>"2155551212"}
+
+NameError (uninitialized constant TwilioSmsController::TwillioSms):
+  app/controllers/twilio_sms_controller.rb:8:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (284.1ms)
+Rendered rescues/_request_and_response (8.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 76.124.106.91 at 2010-04-01 23:37:11) [GET]
+  Parameters: {"body"=>"this is a test", "from"=>"2679777848", "to"=>"2155551212"}
+
+NameError (uninitialized constant TwilioSmsController::TwillioSms):
+  app/controllers/twilio_sms_controller.rb:8:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (441.0ms)
+Rendered rescues/_request_and_response (2.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 76.124.106.91 at 2010-04-01 23:38:02) [GET]
+  Parameters: {"body"=>"this is a test", "from"=>"2679777848", "to"=>"2155551212"}
+  [4;36;1mTwilioSms Create (1.9ms)[0m   [0;1mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "sms_id", "to", "account_sid") VALUES('2010-04-01 19:38:02', NULL, NULL, '2010-04-01 19:38:02', NULL, NULL, NULL)[0m
+
+ActionView::MissingTemplate (Missing template twilio_sms/index.erb in view path app/views):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 76.124.106.91 at 2010-04-01 23:38:34) [GET]
+  Parameters: {"body"=>"this is a test", "from"=>"2679777848", "to"=>"2155551212"}
+  [4;35;1mTwilioSms Create (1.5ms)[0m   [0mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "sms_id", "to", "account_sid") VALUES('2010-04-01 19:38:34', NULL, NULL, '2010-04-01 19:38:34', NULL, NULL, NULL)[0m
+Rendering twilio_sms/index
+Completed in 91ms (View: 21, DB: 2) | 200 OK [http://durga.serve.com/twilio_sms/?body=this%20is%20a%20test&from=2679777848&to=2155551212]
+
+
+Processing TwilioSmsController#index (for 204.236.252.188 at 2010-04-01 23:45:29) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"This is a real SMS test", "SmsMessageSid"=>"SM8a7a4bc75a456bc395fdc994f51df74f", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM8a7a4bc75a456bc395fdc994f51df74f"}
+
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (444.1ms)
+Rendered rescues/_request_and_response (9.3ms)
+Rendering rescues/layout (unprocessable_entity)
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-01 23:47:55) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"Another real test", "SmsMessageSid"=>"SM237547e49cbbe673b2f9e51f549aa60f", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM237547e49cbbe673b2f9e51f549aa60f"}
+  [4;36;1mTwilioSms Create (1.9ms)[0m   [0;1mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "sms_id", "to", "account_sid") VALUES('2010-04-01 19:47:55', 'Another real test', '2679777848', '2010-04-01 19:47:55', NULL, '2153466997', NULL)[0m
+Rendering twilio_sms/index
+Completed in 171ms (View: 20, DB: 2) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-01 23:49:22) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"Test o mat", "SmsMessageSid"=>"SM78fd09073a66fb8d0fc6190e8e164e70", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM78fd09073a66fb8d0fc6190e8e164e70"}
+
+NameError (undefined local variable or method `sms_id' for #<TwilioSmsController:0xb6e23e8c>):
+  app/controllers/twilio_sms_controller.rb:9:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (268.4ms)
+Rendered rescues/_request_and_response (8.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 184.73.87.223 at 2010-04-01 23:49:41) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"Another", "SmsMessageSid"=>"SMe1dcb60301a5791f0a27ed3aae75c78d", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SMe1dcb60301a5791f0a27ed3aae75c78d"}
+
+ActiveRecord::UnknownAttributeError (unknown attribute: sms_sid):
+  app/controllers/twilio_sms_controller.rb:9:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (464.3ms)
+Rendered rescues/_request_and_response (3.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-01 23:51:23) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM1547cf1869153c66465d8d3ca4f028bc", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM1547cf1869153c66465d8d3ca4f028bc"}
+
+ActiveRecord::UnknownAttributeError (unknown attribute: sms_sid):
+  app/controllers/twilio_sms_controller.rb:9:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (291.8ms)
+Rendered rescues/_request_and_response (3.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (5.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.6ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (1.3ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (1.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (7.5ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "created" datetime, "modified" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.7ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (35.3ms)[0m   [0;1mCREATE TABLE "queues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (2.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.6ms)[0m   [0;1mCREATE TABLE "twilio_sms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sms_id" varchar(255), "account_sid" varchar(255), "from" varchar(255), "to" varchar(255), "body" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (2.9ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (6.1ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (6.2ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (3.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSELECT version FROM "schema_migrations"[0m
+  [4;36;1mSQL (50.5ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100401191354')[0m
+  [4;35;1mSQL (53.9ms)[0m   [0mINSERT INTO "schema_migrations" (version) VALUES ('20100401184709')[0m
+  [4;36;1mSQL (37.2ms)[0m   [0;1mINSERT INTO "schema_migrations" (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (1.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (6.6ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (6.4ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.8ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+  [4;36;1mSQL (2.4ms)[0m   [0;1mCREATE TABLE "queues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "created" datetime, "modified" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+Migrating to CreateTwilioSms (20100401191354)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "twilio_sms" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "sms_sid" varchar(255), "account_sid" varchar(255), "from" varchar(255), "to" varchar(255), "body" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401191354')[0m
+  [4;36;1mSQL (3.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.8ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (3.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("queues")[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("twilio_sms")[0m
+
+
+Processing TwilioSmsController#index (for 184.73.87.223 at 2010-04-01 23:54:22) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"Another test", "SmsMessageSid"=>"SM68e07b9d661097c7675985f62f113e55", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM68e07b9d661097c7675985f62f113e55"}
+  [4;36;1mTwilioSms Create (2.0ms)[0m   [0;1mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "to", "account_sid", "sms_sid") VALUES('2010-04-01 19:54:22', 'Another test', '2679777848', '2010-04-01 19:54:22', '2153466997', 'AC8320a2e64a184dd450a41a8533020e81', 'SM68e07b9d661097c7675985f62f113e55')[0m
+Rendering twilio_sms/index
+Completed in 147ms (View: 21, DB: 2) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-01 23:54:59) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"This is what were texting OMG", "SmsMessageSid"=>"SM15add23276627aeca500fbadef1e90e7", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM15add23276627aeca500fbadef1e90e7"}
+  [4;35;1mTwilioSms Create (1.7ms)[0m   [0mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "to", "account_sid", "sms_sid") VALUES('2010-04-01 19:54:59', 'This is what were texting OMG', '2679777848', '2010-04-01 19:54:59', '2153466997', 'AC8320a2e64a184dd450a41a8533020e81', 'SM15add23276627aeca500fbadef1e90e7')[0m
+Rendering twilio_sms/index
+Completed in 69ms (View: 4, DB: 2) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-02 00:12:04) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM57ce5d082eed72bc9fcd7c28c075ddd3", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM57ce5d082eed72bc9fcd7c28c075ddd3"}
+  [4;36;1mTwilioSms Create (1.5ms)[0m   [0;1mINSERT INTO "twilio_sms" ("created_at", "body", "from", "updated_at", "to", "account_sid", "sms_sid") VALUES('2010-04-01 20:12:04', 'this is a sandbox test', '2679777848', '2010-04-01 20:12:04', '4155992671', 'AC8320a2e64a184dd450a41a8533020e81', 'SM57ce5d082eed72bc9fcd7c28c075ddd3')[0m
+  [4;35;1mMessage Create (1.6ms)[0m   [0mINSERT INTO "messages" ("modified", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin", "created") VALUES(NULL, '2010-04-01 20:12:04', 'this is a sandbox test', 'sms_sid', '2679777848', '2010-04-01 20:12:04', '4155992671', 'twilio', NULL)[0m
+Rendering twilio_sms/index
+Completed in 137ms (View: 4, DB: 3) | 200 OK [http://durga.serve.com/twilio_sms/]
+  [4;36;1mSQL (2.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (8.2ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (41.2ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateQueues (20100401184709)
+  [4;36;1mSQL (2.4ms)[0m   [0;1mCREATE TABLE "queues" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "queue_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (2.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mPRAGMA index_list("queues")[0m
+
+
+Processing TwilioSmsController#index (for 204.236.201.40 at 2010-04-02 00:35:17) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM332333d200d029b0d0dcc87af2d63ead", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM332333d200d029b0d0dcc87af2d63ead"}
+  [4;36;1mMessage Create (1.6ms)[0m   [0;1mINSERT INTO "messages" ("created_at", "body", "origin_id", "from", "updated_at", "to", "origin", "queue_id") VALUES('2010-04-01 20:35:17', 'this is a sandbox test', 'sms_sid', '2679777848', '2010-04-01 20:35:17', '4155992671', 'twilio', NULL)[0m
+
+NoMethodError (undefined method `find_or_create_by_name' for Queue:Class):
+  app/controllers/twilio_sms_controller.rb:11:in `index'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /usr/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /usr/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /usr/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /usr/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /usr/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (438.6ms)
+Rendered rescues/_request_and_response (8.7ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (2.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.4ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (15.8ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (35.9ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateMessageStates (20100401184709)
+  [4;36;1mSQL (2.5ms)[0m   [0;1mCREATE TABLE "message_states" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "queue_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (2.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("message_states")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (2.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.7ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (7.1ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (5.9ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateMessageStates (20100401184709)
+  [4;36;1mSQL (2.3ms)[0m   [0;1mCREATE TABLE "message_states" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (1.9ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "queue_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (3.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (3.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("message_states")[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mPRAGMA index_list("messages")[0m
+  [4;36;1mSQL (5.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mMessageState Load (1.2ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;36;1mMessageState Create (1.5ms)[0m   [0;1mINSERT INTO "message_states" ("name", "created_at", "updated_at") VALUES('incoming', '2010-04-01 20:47:08', '2010-04-01 20:47:08')[0m
+  [4;35;1mMessageState Load (2.0ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+
+
+Processing TwilioSmsController#index (for 204.236.201.40 at 2010-04-02 00:48:30) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM0722c40236cae0454875d99a7b7b0f80", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM0722c40236cae0454875d99a7b7b0f80"}
+  [4;35;1mMessage Create (1.5ms)[0m   [0mINSERT INTO "messages" ("created_at", "body", "origin_id", "from", "updated_at", "to", "origin", "queue_id") VALUES('2010-04-01 20:48:30', 'this is a sandbox test', 'sms_sid', '2679777848', '2010-04-01 20:48:30', '4155992671', 'twilio', NULL)[0m
+  [4;36;1mMessageState Load (2.0ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;35;1mMessage Update (1.5ms)[0m   [0mUPDATE "messages" SET "updated_at" = '2010-04-01 20:48:30' WHERE "id" = 1[0m
+Rendering twilio_sms/index
+Completed in 175ms (View: 5, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+  [4;36;1mSQL (1.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (74.8ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (1.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateMessageStates (20100401184709)
+  [4;36;1mSQL (2.4ms)[0m   [0;1mCREATE TABLE "message_states" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.9ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401184709')[0m
+Migrating to CreateMessages (20100401185050)
+  [4;36;1mSQL (2.0ms)[0m   [0;1mCREATE TABLE "messages" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "from" varchar(255), "to" varchar(255), "body" varchar(255), "origin" varchar(255), "origin_id" varchar(255), "message_state_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (1.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100401185050')[0m
+  [4;36;1mSQL (2.8ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (2.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (3.1ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("message_states")[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mPRAGMA index_list("messages")[0m
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-02 00:50:34) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM832c8ba376772d33db4ef5de112477e7", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM832c8ba376772d33db4ef5de112477e7"}
+  [4;36;1mMessage Create (1.5ms)[0m   [0;1mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-01 20:50:34', 'this is a sandbox test', 'sms_sid', '2679777848', '2010-04-01 20:50:34', '4155992671', 'twilio')[0m
+  [4;35;1mMessageState Load (0.9ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;36;1mMessageState Create (1.4ms)[0m   [0;1mINSERT INTO "message_states" ("name", "created_at", "updated_at") VALUES('incoming', '2010-04-01 20:50:34', '2010-04-01 20:50:34')[0m
+  [4;35;1mMessage Update (1.4ms)[0m   [0mUPDATE "messages" SET "updated_at" = '2010-04-01 20:50:34', "message_state_id" = 1 WHERE "id" = 1[0m
+Rendering twilio_sms/index
+Completed in 192ms (View: 4, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.201.40 at 2010-04-02 00:51:56) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"this is a sandbox test", "SmsMessageSid"=>"SM3fefd66b10d47f48d5b126d557fc8c74", "FromCity"=>"PHILADELPHIA", "From"=>"2679777848", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19123", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SM3fefd66b10d47f48d5b126d557fc8c74"}
+  [4;36;1mMessage Create (1.5ms)[0m   [0;1mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-01 20:51:56', 'this is a sandbox test', 'sms_sid', '2679777848', '2010-04-01 20:51:56', '4155992671', 'twilio')[0m
+  [4;35;1mMessageState Load (2.0ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;36;1mMessage Update (1.5ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-01 20:51:56', "message_state_id" = 1 WHERE "id" = 2[0m
+Rendering twilio_sms/index
+Completed in 143ms (View: 5, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-22 18:31:17) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"test this is another sandbox test on apr 22", "SmsMessageSid"=>"SMfbb2b07c7825eafae0fdd3f3dd53c5ab", "FromCity"=>"PHILADELPHIA", "From"=>"2677024687", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19107", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SMfbb2b07c7825eafae0fdd3f3dd53c5ab"}
+  [4;35;1mMessage Create (1.6ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-22 14:31:17', 'test this is another sandbox test on apr 22', 'sms_sid', '2677024687', '2010-04-22 14:31:17', '4155992671', 'twilio')[0m
+  [4;36;1mMessageState Load (2.5ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;35;1mMessage Update (1.4ms)[0m   [0mUPDATE "messages" SET "updated_at" = '2010-04-22 14:31:17', "message_state_id" = 1 WHERE "id" = 3[0m
+Rendering twilio_sms/index
+Completed in 318ms (View: 5, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-22 18:33:18) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"CA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"oh another test", "SmsMessageSid"=>"SMdbd9d05e7f98b24b842e563220ded4f3", "FromCity"=>"PHILADELPHIA", "From"=>"2677024687", "SmsStatus"=>"received", "To"=>"4155992671", "FromCountry"=>"US", "FromZip"=>"19107", "ToCity"=>"NOVATO", "ToZip"=>"94949", "ToCountry"=>"US", "SmsSid"=>"SMdbd9d05e7f98b24b842e563220ded4f3"}
+  [4;36;1mMessage Create (1.6ms)[0m   [0;1mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-22 14:33:18', 'oh another test', 'sms_sid', '2677024687', '2010-04-22 14:33:18', '4155992671', 'twilio')[0m
+  [4;35;1mMessageState Load (2.4ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;36;1mMessage Update (1.2ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 14:33:18', "message_state_id" = 1 WHERE "id" = 4[0m
+Rendering twilio_sms/index
+Completed in 144ms (View: 5, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+  [4;36;1mMessage Create (1.7ms)[0m   [0;1mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-22 16:06:23', 'first outgoing message', NULL, NULL, '2010-04-22 16:06:23', '2153466997', NULL)[0m
+  [4;35;1mMessageState Load (2.2ms)[0m   [0mSELECT * FROM "message_states" [0m
+  [4;36;1mMessageState Create (1.3ms)[0m   [0;1mINSERT INTO "message_states" ("name", "created_at", "updated_at") VALUES('outgoing', '2010-04-22 16:07:12', '2010-04-22 16:07:12')[0m
+  [4;35;1mMessage Load (1.1ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessage Update (1.4ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 16:07:18', "message_state_id" = 2 WHERE "id" = 5[0m
+  [4;35;1mMessageState Load (1.1ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" IS NULL) LIMIT 1[0m
+  [4;36;1mMessageState Load (1.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" IS NULL) LIMIT 1[0m
+  [4;36;1mMessageState Load (1.9ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.3ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessageState Load (2.0ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.3ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessageState Load (2.0ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.1ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessageState Load (2.4ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.6ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+
+
+Processing TwilioSmsController#index (for 204.236.250.68 at 2010-04-22 20:59:42) [POST]
+  Parameters: {"FromState"=>"PA", "ToState"=>"PA", "AccountSid"=>"AC8320a2e64a184dd450a41a8533020e81", "Body"=>"first outgoing message", "SmsMessageSid"=>"SM9f8ae6e29d7d10beec94beef4b89dfb5", "FromCity"=>"PHILADELPHIA", "From"=>"2153466997", "SmsStatus"=>"received", "To"=>"2153466997", "FromCountry"=>"US", "FromZip"=>"19090", "ToCity"=>"PHILADELPHIA", "ToZip"=>"19090", "ToCountry"=>"US", "SmsSid"=>"SM9f8ae6e29d7d10beec94beef4b89dfb5"}
+  [4;35;1mMessage Create (1.6ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(NULL, '2010-04-22 16:59:42', 'first outgoing message', 'sms_sid', '2153466997', '2010-04-22 16:59:42', '2153466997', 'twilio')[0m
+  [4;36;1mMessageState Load (2.2ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'incoming') LIMIT 1[0m
+  [4;35;1mMessage Update (1.3ms)[0m   [0mUPDATE "messages" SET "updated_at" = '2010-04-22 16:59:42', "message_state_id" = 1 WHERE "id" = 6[0m
+Rendering twilio_sms/index
+Completed in 134ms (View: 4, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/]
+  [4;36;1mMessageState Create (2.5ms)[0m   [0;1mINSERT INTO "message_states" ("name", "created_at", "updated_at") VALUES('sent', '2010-04-22 17:04:19', '2010-04-22 17:04:19')[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;35;1mMessageState Load (1.5ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" IS NULL) LIMIT 1[0m
+  [4;36;1mMessageState Load (2.0ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;35;1mMessageState Load (1.0ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" IS NULL) LIMIT 1[0m
+  [4;36;1mMessageState Load (2.5ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;35;1mMessageState Load (2.2ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;36;1mMessage Load (2.8ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;35;1mMessage Update (1.4ms)[0m   [0mUPDATE "messages" SET "updated_at" = '2010-04-22 17:24:47', "message_state_id" = 3 WHERE "id" = 5[0m
+  [4;36;1mMessageState Load (2.5ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;35;1mMessageState Load (2.4ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;36;1mMessage Load (1.1ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessageState Load (2.2ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;35;1mMessageState Load (2.3ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;36;1mMessage Load (1.1ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessageState Load (1.9ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Create (1.5ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(2, '2010-04-22 17:33:16', 'hello world via the twilio outgoing message handler!', NULL, NULL, '2010-04-22 17:33:16', '2677024687', NULL)[0m
+  [4;36;1mMessage Load (2.2ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;35;1mMessageState Load (1.9ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;36;1mMessageState Load (1.6ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.5ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessage Update (1.3ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 17:33:18', "message_state_id" = 3 WHERE "id" = 7[0m
+  [4;36;1mMessageState Load (2.0ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Create (1.5ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(2, '2010-04-22 17:35:32', 'hello world via the twilio outgoing message handler!', NULL, NULL, '2010-04-22 17:35:32', '2677024687', NULL)[0m
+  [4;36;1mMessage Load (2.2ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;35;1mMessageState Load (1.8ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;36;1mMessageState Load (1.9ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.3ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessage Update (1.7ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 17:35:33', "message_state_id" = 3 WHERE "id" = 8[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Create (1.4ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(2, '2010-04-22 17:43:43', 'hello world via the twilio outgoing message handler!', NULL, NULL, '2010-04-22 17:43:43', '2677024687', NULL)[0m
+  [4;36;1mMessage Load (2.7ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;35;1mMessageState Load (2.4ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.6ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessage Update (1.4ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 17:43:44', "message_state_id" = 3 WHERE "id" = 9[0m
