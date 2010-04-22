@@ -35,7 +35,7 @@ module Switchboard
         private
         def messages_to_handle
             state = MessageState.find_by_name(@state)
-            messages = state.find(:all, conditions => { @message_conditions } )
+            messages = state.find(:all, conditions =>  @message_conditions  )
             return messages
         end 
     end
