@@ -17,7 +17,7 @@ module Switchboard
         ## override this function in subclasses
         def handle_messages!()
             messages_to_handle.each do |message| 
-                puts "abstract message handler called; doing nothing to message " + message.id
+                puts "abstract message handler called; doing nothing to message " + message.id.to_s
             end 
         end 
 
@@ -34,8 +34,8 @@ module Switchboard
 
         private
         def messages_to_handle
-            state = MessageState.find_by_name(@state)
-            messages = state.find(:all, conditions =>  @message_conditions  )
+            state = MessageState.find_by_name(@state_name)
+            messages = state.messages.find(:all, :conditions =>  @message_conditions  )
             return messages
         end 
     end
