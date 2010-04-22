@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100401185050) do
+ActiveRecord::Schema.define(:version => 20100422122230) do
+
+  create_table "message_states", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", :force => true do |t|
     t.string   "from"
@@ -17,13 +23,30 @@ ActiveRecord::Schema.define(:version => 20100401185050) do
     t.string   "body"
     t.string   "origin"
     t.string   "origin_id"
-    t.integer  "queue_id"
+    t.integer  "message_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "queues", :force => true do |t|
+  create_table "phone_message_boxes", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phone_messages", :force => true do |t|
+    t.string   "body"
+    t.string   "from"
+    t.string   "to"
+    t.integer  "phone_message_box_id"
+    t.integer  "phone_id"
+    t.boolean  "read",                 :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "phones", :force => true do |t|
+    t.string   "number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
