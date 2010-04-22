@@ -620,3 +620,10 @@ Completed in 134ms (View: 4, DB: 5) | 200 OK [http://durga.serve.com/twilio_sms/
   [4;36;1mMessageState Load (1.9ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
   [4;35;1mMessage Load (2.3ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
   [4;36;1mMessage Update (1.7ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 17:35:33', "message_state_id" = 3 WHERE "id" = 8[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Create (1.4ms)[0m   [0mINSERT INTO "messages" ("message_state_id", "created_at", "body", "origin_id", "from", "updated_at", "to", "origin") VALUES(2, '2010-04-22 17:43:43', 'hello world via the twilio outgoing message handler!', NULL, NULL, '2010-04-22 17:43:43', '2677024687', NULL)[0m
+  [4;36;1mMessage Load (2.7ms)[0m   [0;1mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;35;1mMessageState Load (2.4ms)[0m   [0mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'sent') LIMIT 1[0m
+  [4;36;1mMessageState Load (2.1ms)[0m   [0;1mSELECT * FROM "message_states" WHERE ("message_states"."name" = 'outgoing') LIMIT 1[0m
+  [4;35;1mMessage Load (2.6ms)[0m   [0mSELECT * FROM "messages" WHERE ("messages".message_state_id = 2) [0m
+  [4;36;1mMessage Update (1.4ms)[0m   [0;1mUPDATE "messages" SET "updated_at" = '2010-04-22 17:43:44', "message_state_id" = 3 WHERE "id" = 9[0m
