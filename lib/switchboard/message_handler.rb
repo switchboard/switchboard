@@ -5,7 +5,11 @@ module Switchboard
 
         ## I think it'd be good if the handler had a set of states it was allowed
         ## to send messages to, and confirmed it was sending them to an allowed state.
-        attr_accessor :outgoing_states
+        attr_accessor :output_states
+
+
+        ## This should be extended to have multiple input and output states 
+        ## with both input and output states having conditions
 
         ## A MessageHandler instance handles messages in a particular state,
         ## the name of which is stored in @state.
@@ -22,7 +26,7 @@ module Switchboard
         end 
 
         ## messages = MessageState.find_by_name(@state).messages.find(:all,conditions => @conditions)
-        def initialize(state_name, message_conditions) 
+        def initialize(state_name, message_conditions ) 
             @state_name = state_name
             @message_conditions = message_conditions 
         end 
@@ -34,9 +38,14 @@ module Switchboard
 
         private
         def messages_to_handle
-            state = MessageState.find_by_name(@state_name)
-            messages = state.messages.find(:all, :conditions =>  @message_conditions  )
+            messages = input_state.messages.find(:all, :conditions =>  @message_conditions  )
             return messages
         end 
+
+        ## there should be multiple input states
+        def input_state
+            return MessageState.find_by_name(@state_name)
+        end
+     
     end
 end
