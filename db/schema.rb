@@ -11,19 +11,19 @@
 
 ActiveRecord::Schema.define(:version => 20100401185050) do
 
+  create_table "message_states", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "messages", :force => true do |t|
     t.string   "from"
     t.string   "to"
     t.string   "body"
     t.string   "origin"
     t.string   "origin_id"
-    t.integer  "queue_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "queues", :force => true do |t|
-    t.string   "name"
+    t.integer  "message_state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
