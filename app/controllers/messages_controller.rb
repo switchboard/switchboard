@@ -1,14 +1,12 @@
-class ReceiveSmsController < ApplicationController
+class MessagesController < ApplicationController
     skip_before_filter :verify_authenticity_token
     def index
     end 
 
-    def twilio
-      if request.post?
-        @message = TwilioMessage.create_from_params(params)
-        queue_message
-      end
-    end
+   def create 
+     # assignment of @message assumed in subclasses
+     queue_message if @message
+   end
 
   protected
 
