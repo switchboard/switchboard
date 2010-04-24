@@ -20,7 +20,7 @@ module Switchboard::MessageHandlers::Incoming
             
                 if (tokens.length > 1) 
                     if List.exists?({:name => list_name}) 
-                        list.find_by_name(list_name)
+                        list = List.find_by_name(list_name)
                         list.phone_numbers.each do |phone_number|
                             body = '[' + list_name + '] ' + tokens[1..-1].join(' ')
                             create_outgoing_message(phone_number.number, body)
