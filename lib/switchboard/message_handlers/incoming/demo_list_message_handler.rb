@@ -27,7 +27,7 @@ module Switchboard::MessageHandlers::Incoming
                         end
                         handled_state.messages.push(message)
                     else 
-                        create_outgoing_message(message.from, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet."
+                        create_outgoing_message(message.from, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet.")
                         handled_state.messages.push(message)
                     end
                 end 
