@@ -15,5 +15,5 @@ outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOutgoingMessageHandler.
 while true
     incoming.handle_messages!
     outgoing.handle_messages!
-    sleep(2)
+    sleep(1)
 end
