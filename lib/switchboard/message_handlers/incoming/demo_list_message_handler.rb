@@ -19,7 +19,7 @@ module Switchboard::MessageHandlers::Incoming
             
                 if (tokens.length > 1) 
                     list.phone_numbers.each do |phone_number|
-                        body = '[' + list_name + '] ' + '  '.join( tokens[1..-1] )
+                        body = '[' + list_name + '] ' + tokens[1..-1].join(' ')
                         create_outgoing_message(phone_number.number, body)
                     end
                 end 
