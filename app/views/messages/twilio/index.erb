@@ -1,0 +1,9 @@
+<% if @message %>
+  Your message has been received!<br><br>
+  message contents:<br>
+  to: <%= @message.to %>
+  body: <%= @message.body %>
+  <br><br>
+  <a href='/send_sms/twilio'>send another twilio message</a>
+<% end %>
+
