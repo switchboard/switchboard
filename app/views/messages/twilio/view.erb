@@ -1,0 +1,5 @@
+<ul>
+<% @messages.each do |message| %>
+  <li>From: <%= message.from %>; To: <%= message.to %>; Body: <%= message.body %>
+<% end %>
+</ul>

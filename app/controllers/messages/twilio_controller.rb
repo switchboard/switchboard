@@ -5,4 +5,7 @@ class Messages::TwilioController < MessagesController
       super
     end
 
+    def view
+      @messages = TwilioMessage.find(:all)
+    end
 end
