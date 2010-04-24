@@ -1,12 +1,13 @@
 require 'switchboard/message_handlers/incoming_message_handler.rb'
 require 'twilio/twilio_sender'
 
-module Switchboard::MessageHandlers::Outgoing
+module Switchboard::MessageHandlers::Incoming
     class DemoListMessageHandler < Switchboard::MessageHandlers::IncomingMessageHandler
         def handle_messages!()
             ## should be  outgoing_states.each |state,conditions| do 
+            handled_state = MessageState.find_by_name('handled')
             messages_to_handle.each do |message|
-                tokens = message.split(/ /)
+                tokens = message.body.split(/ /)
                 list_name = tokens[0].upcase
                 list = List.find_or_create_by_name(list_name)
                  
@@ -22,10 +23,11 @@ module Switchboard::MessageHandlers::Outgoing
                         create_outgoing_message(phone_number.number, body)
                     end
                 end 
+                handled_state.messages.push(message)
+                handled_state.save
             end
         end
 
-        private
 
         def create_outgoing_message(to, body)
             message = Message.new
