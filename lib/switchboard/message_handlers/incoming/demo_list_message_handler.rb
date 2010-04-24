@@ -14,7 +14,7 @@ module Switchboard::MessageHandlers::Incoming
                     list = List.find_or_create_by_name(list_name)
                     num = PhoneNumber.create!(:number => message.from )
                     list.add_phone_number(num)
-                    create_outgoing_message( message.from, "You have joined the text message list called '" + listname + "'!" )
+                    create_outgoing_message( message.from, "You have joined the text message list called '" + list_name + "'!" )
                     handled_state.messages.push(message)
                 end
             

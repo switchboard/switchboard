@@ -10,8 +10,10 @@ require 'switchboard/message_handlers/incoming/demo_list_message_handler.rb'
 require 'switchboard/message_handlers/outgoing/twilio_outgoing_message_handler.rb'
 
 incoming = Switchboard::MessageHandlers::Incoming::DemoListMessageHandler.new
-incoming.handle_messages!
 
 outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOutgoingMessageHandler.new
-outgoing.handle_messages!
-
+while true
+    incoming.handle_messages!
+    outgoing.handle_messages!
+    sleep(2)
+end
