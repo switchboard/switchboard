@@ -12,9 +12,13 @@ module Switchboard::MessageHandlers::Incoming
                  
                 if (tokens.length == 1)
                     list = List.find_or_create_by_name(list_name)
-                    num = PhoneNumber.create!(:number => message.from )
-                    list.add_phone_number(num)
-                    create_outgoing_message( message.from, "You have joined the text message list called '" + list_name + "'!" )
+                    num = PhoneNumber.find_or_create_by_number( message.from )
+                    if list.has_number?(num) 
+                        create_outgoing_message( message.from, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
+                    else
+                        list.add_phone_number(num)
+                        create_outgoing_message( message.from, "You have joined the text message list called '" + list_name + "'!" )
+                    end
                     handled_state.messages.push(message)
                 end
             
