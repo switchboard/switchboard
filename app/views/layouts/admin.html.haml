@@ -9,6 +9,7 @@
   %body
     #masthead
       %h1 Switchboard
-    #content
-      Welcome, Admin
-      = yield
+    #container
+      = render :partial => '/admin/menu'
+      #content
+        = yield
