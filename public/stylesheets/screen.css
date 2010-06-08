@@ -88,22 +88,53 @@ a img {
 #masthead {
   margin: 20px;
   background-color: white;
+  height: 60px;
+  border: 1px solid black;
 }
 
-/* line 5, ../../app/stylesheets/partials/_page.sass */
+/* line 7, ../../app/stylesheets/partials/_page.sass */
 #container {
   margin: 20px;
   padding: 5px;
   border: 1px solid black;
   background: #eeeeee;
-}
-
-/* line 11, ../../app/stylesheets/partials/_page.sass */
-#content {
-  margin: 15px;
+  width: 790px;
 }
 
 /* line 14, ../../app/stylesheets/partials/_page.sass */
+#content {
+  margin: 15px;
+  border: 1px solid black;
+  width: 750px;
+  padding-bottom: 20px;
+  height: 400px;
+}
+
+/* line 21, ../../app/stylesheets/partials/_page.sass */
+#select_list {
+  top: 10px;
+  width: 200px;
+  float: left;
+  position: relative;
+  padding-left: 10px;
+}
+
+/* line 29, ../../app/stylesheets/partials/_page.sass */
+#col2 {
+  top: 10px;
+  width: 275px;
+  position: relative;
+  display: inline;
+}
+
+/* line 36, ../../app/stylesheets/partials/_page.sass */
+#col3 {
+  top: 10px;
+  width: 275px;
+  float: right;
+}
+
+/* line 42, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
