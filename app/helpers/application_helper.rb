@@ -5,4 +5,12 @@ module ApplicationHelper
     return "active" if link.match(/^#{Regexp.escape(request.path)}$/i)
   end
 
+  def show_spinner(id)
+    "$('%s').show();" % id
+  end
+
+  def hide_spinner(id)
+    "$('%s').hide();" % id
+  end
+
 end

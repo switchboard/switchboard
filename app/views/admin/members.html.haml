@@ -1,13 +1,14 @@
 #select_list
   Which List?
+  = image_tag("spinner.gif", :id => 'which_list_spinner', :style => 'display: none')
   %br
   = select_list
 
 #col2
   List Membership
   %br
-  %select{:multiple => "multiple", :size => 20}
-    %option{:value => 1}Option 1
+  #show_member_list
+    %ul#member_list
 
 #col3
   = render :partial => 'add_contact'
