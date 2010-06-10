@@ -1,5 +1,6 @@
 %h3 
   Which List?
   = image_tag("spinner.gif", :id => 'which_list_spinner', :style => 'display: none')
-%p
-= select_list
+#selectlist
+  %ul
+    = select_list(action)

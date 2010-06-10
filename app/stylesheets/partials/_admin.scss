@@ -1,3 +1,21 @@
+#selectlist {
+  padding: 5px;
+  border: 1.5px solid grey;
+  margin-right: 20px;
+  margin-top: 20px;
+  li {
+    padding: 3px;
+    &:hover {
+      cursor: default;
+      background-color: #aaa;
+    }
+  }
+}
+
+.choose_list_icon {
+  float: right;
+}
+
 .remove_member_icon {
   float: right;
   display: none;
