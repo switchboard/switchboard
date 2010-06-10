@@ -31,4 +31,22 @@ class List < ActiveRecord::Base
     return numbers
   end
 
+  def create_outgoing_message(num, body)
+
+      if ( num.provider_email != '' and num.provider_email != nil  )
+        message = EmailMessage.new
+        message.to = num.number + "@" + num.provider_email
+        message.from = self.name + "@mmptext.info"
+      else
+        message = TwilioMessage.new
+        message.to = num.number
+      end
+
+      message.body = body
+
+      message_state = MessageState.find_by_name("outgoing")
+      message_state.messages.push(message)
+      message_state.save!
+  end
+
 end

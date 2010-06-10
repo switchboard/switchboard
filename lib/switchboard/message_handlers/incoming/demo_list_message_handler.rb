@@ -2,52 +2,85 @@ require 'switchboard/message_handlers/incoming_message_handler.rb'
 require 'twilio/twilio_sender'
 
 module Switchboard::MessageHandlers::Incoming
-    class DemoListMessageHandler < Switchboard::MessageHandlers::IncomingMessageHandler
-        def handle_messages!()
-            ## should be  outgoing_states.each |state,conditions| do 
-            handled_state = MessageState.find_by_name('handled')
-            messages_to_handle.each do |message|
-                tokens = message.body.split(/ /)
-                list_name = tokens[0].upcase
-                 
-                if (tokens.length == 1)
-                    list = List.find_or_create_by_name(list_name)
-                    num = PhoneNumber.find_or_create_by_number( message.from )
-                    if list.has_number?(num) 
-                        create_outgoing_message( message.from, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
-                    else
-                        list.add_phone_number(num)
-                        create_outgoing_message( message.from, "You have joined the text message list called '" + list_name + "'!" )
-                    end
-                    handled_state.messages.push(message)
-                end
-            
-                if (tokens.length > 1) 
-                    if List.exists?({:name => list_name}) 
-                        list = List.find_by_name(list_name)
-                        list.phone_numbers.each do |phone_number|
-                            body = '[' + list_name + '] ' + tokens[1..-1].join(' ')
-                            create_outgoing_message(phone_number.number, body)
-                        end
-                        handled_state.messages.push(message)
-                    else 
-                        create_outgoing_message(message.from, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet.")
-                        handled_state.messages.push(message)
-                    end
-                end 
-                handled_state.save
-            end
+  class DemoListMessageHandler < Switchboard::MessageHandlers::IncomingMessageHandler
+    def handle_messages!()
+      ## should be  outgoing_states.each |state,conditions| do 
+      handled_state = MessageState.find_by_name('handled')
+      messages_to_handle.each do |message|
+      tokens = message.body.split(/ /)
+      puts tokens.to_s 
+      if ( message.respond_to? :carrier )
+        list_name = message.default_list 
+        puts "received email message for list " + list_name
+      else
+        list_name = tokens.shift
+        list_name.upcase!
+      end
+
+      puts "before content test"
+      puts "token length test: " + tokens.length.to_s
+
+      if (message.respond_to? :carrier ) 
+        number_string = message.number
+      else
+        number_string = message.from
+      end  
+
+      num = PhoneNumber.find_or_create_by_number( number_string ) 
+
+      puts "number string is: " + number_string
+      if (message.respond_to? :carrier)  
+        num.provider_email = message.carrier 
+      end  
+
+      if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =! /join/i ) )
+        puts "join message found"
+        list = List.find_or_create_by_name(list_name)
+
+        if list.has_number?(num) 
+          create_outgoing_message( num, message.to, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
+        else
+          list.add_phone_number(num)
+          create_outgoing_message( num, message.to, "You have joined the text message list called '" + list_name + "'!" )
         end
-
-
-        def create_outgoing_message(to, body)
-            message = Message.new
-            message.to = to
-            message.body = body
-
-            message_state = MessageState.find_by_name("outgoing")
-            message_state.messages.push(message)
-            message_state.save! 
+        handled_state.messages.push(message)
+      end
+          
+      if (tokens.length > 1) 
+        if List.exists?({:name => list_name}) 
+          list = List.find_by_name(list_name)
+          list.phone_numbers.each do |phone_number|
+            body = '[' + list_name + '] ' + tokens.join(' ')
+            puts "sending message: " + body + " to: " + phone_number.number
+            create_outgoing_message(num, message.to, body)
+          end
+          handled_state.messages.push(message)
+        else 
+          create_outgoing_message(num, message.to, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet.")
+          handled_state.messages.push(message)
         end
+      end 
+      handled_state.save
+    end
+  end
+
+
+      def create_outgoing_message(num, from, body)
+
+          if ( num.provider_email != '' and num.provider_email != nil  )
+            message = EmailMessage.new
+            message.to = num.number + "@" + num.provider_email
+            message.from = from
+          else
+            message = TwilioMessage.new
+            message.to = num.number
+          end
+
+          message.body = body
+
+          message_state = MessageState.find_by_name("outgoing")
+          message_state.messages.push(message)
+          message_state.save! 
+      end
     end
 end
