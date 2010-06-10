@@ -184,39 +184,40 @@ textarea {
 /* line 6, ../../app/stylesheets/partials/_admin.scss */
 #selectlist li {
   padding: 3px;
+  margin: 1px;
 }
-/* line 8, ../../app/stylesheets/partials/_admin.scss */
+/* line 9, ../../app/stylesheets/partials/_admin.scss */
 #selectlist li:hover {
   cursor: default;
   background-color: #aaa;
 }
 
-/* line 15, ../../app/stylesheets/partials/_admin.scss */
+/* line 16, ../../app/stylesheets/partials/_admin.scss */
 .choose_list_icon {
   float: right;
 }
 
-/* line 19, ../../app/stylesheets/partials/_admin.scss */
+/* line 20, ../../app/stylesheets/partials/_admin.scss */
 .remove_member_icon {
   float: right;
   display: none;
 }
 
-/* line 25, ../../app/stylesheets/partials/_admin.scss */
+/* line 26, ../../app/stylesheets/partials/_admin.scss */
 #member_list li {
   padding: 3px;
 }
-/* line 27, ../../app/stylesheets/partials/_admin.scss */
+/* line 28, ../../app/stylesheets/partials/_admin.scss */
 #member_list li:hover {
   cursor: default;
   background-color: #aaa;
 }
-/* line 30, ../../app/stylesheets/partials/_admin.scss */
+/* line 31, ../../app/stylesheets/partials/_admin.scss */
 #member_list li:hover .remove_member_icon {
   display: inline;
 }
 
-/* line 37, ../../app/stylesheets/partials/_admin.scss */
+/* line 38, ../../app/stylesheets/partials/_admin.scss */
 #show_member_list {
   width: 200px;
   padding: 5px;
