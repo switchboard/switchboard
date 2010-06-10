@@ -13,4 +13,18 @@ module ApplicationHelper
     "$('%s').hide();" % id
   end
 
+  def prettify_ajax_errors(objects=[])
+    html = '<ul>'
+    objects.each do |obj|
+      obj.errors.full_messages.each do |msg|
+        html << '<li>'+msg+'</li>'
+      end
+    end
+    html << '</ul>'
+  end
+
+  def link_to_remote_with_icon(icon, html_options={})
+    image_tag("icons/16/#{icon}", html_options)
+  end
+
 end

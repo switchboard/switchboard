@@ -1,6 +1,25 @@
+.remove_member_icon {
+  float: right;
+  display: none;
+}
+
+#member_list {
+  li {
+    padding: 3px;
+    &:hover {
+      cursor: default;
+      background-color: #aaa; 
+      .remove_member_icon {
+        display: inline;
+      }
+    }
+  }
+}
+
 #show_member_list {
   width: 200px;
   padding: 5px;
   float: left;
   margin-top: 20px;
 }
+
