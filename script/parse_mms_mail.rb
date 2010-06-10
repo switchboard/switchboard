@@ -1,5 +1,7 @@
 #!/usr/bin/ruby  
 require 'rubygems'
+require 'net/http'
+
   require 'mms2r'
   mail = MMS2R.parse STDIN.read
   mms = MMS2R::Media.new(mail)
@@ -15,3 +17,6 @@ puts "mail had some text: #{file.inspect}" unless file.nil?
 
 filename = "/tmp/mms_received"
 File.open(filename, "a" ) {|f| f.write(message) }
+
+res = Net::HTTP.post_form(URI.parse('http://localhost:3000/messages/email/create'), 
+    { 'From' => number, 'Body' => text } ); 
