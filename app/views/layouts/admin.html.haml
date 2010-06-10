@@ -10,6 +10,8 @@
   %body
     #masthead
       %h1 Switchboard
+    #flash_messages_container{:style => 'display: none'}
+      = flash_messages
     #container
       = render :partial => '/admin/menu'
       #content
