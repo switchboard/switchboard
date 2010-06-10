@@ -19,5 +19,5 @@ puts "mail had some text: #{file.inspect}" unless file.nil?
 filename = "/tmp/mms_received"
 File.open(filename, "a" ) {|f| f.write(message) }
 
-res = Net::HTTP.post_form(URI.parse('http://localhost:3000/messages/email/create'), 
+res = Net::HTTP.post_form(URI.parse('http://localhost:8080/messages/email/create'), 
     { 'From' => mms.mail.from, 'Body' => text, 'To' => to } ); 
