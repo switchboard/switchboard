@@ -6,7 +6,7 @@
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
       = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    = javascript_include_tag "prototype"
+    = javascript_include_tag :all 
   %body
     #masthead
       %h1 Switchboard
@@ -16,3 +16,5 @@
       = render :partial => '/admin/menu'
       #content
         = yield
+    #footer
+      = render :partial => '/layouts/footer'

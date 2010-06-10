@@ -1,8 +1,9 @@
 #select_list
-  Which List?
-  %br
-  = select_list
+  = render :partial => 'list_lists', :locals => {:action => 'list_messages'}
 
 #col2
+  %span#compose_message{:style => 'display: inline'}
+
+  %span#recent_messages{:style => 'display: inline'}
 
 #col3

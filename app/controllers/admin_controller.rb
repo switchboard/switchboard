@@ -52,4 +52,11 @@ class AdminController < ApplicationController
     redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => list.id}
   end
 
+  def list_messages
+    list = List.find(params[:list_id])
+    render :update do |page|
+      page.replace_html 'compose_message', :partial => '/admin/message_body'
+    end
+  end
+
 end
