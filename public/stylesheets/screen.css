@@ -93,6 +93,13 @@ a img {
 }
 
 /* line 7, ../../app/stylesheets/partials/_page.sass */
+#flash_messages_container {
+  margin: 20px;
+  padding: 5px;
+  border: 1px solid red;
+}
+
+/* line 12, ../../app/stylesheets/partials/_page.sass */
 #container {
   margin: 20px;
   padding: 5px;
@@ -101,7 +108,7 @@ a img {
   width: 790px;
 }
 
-/* line 14, ../../app/stylesheets/partials/_page.sass */
+/* line 19, ../../app/stylesheets/partials/_page.sass */
 #content {
   margin: 15px;
   border: 1px solid black;
@@ -110,7 +117,7 @@ a img {
   height: 400px;
 }
 
-/* line 21, ../../app/stylesheets/partials/_page.sass */
+/* line 26, ../../app/stylesheets/partials/_page.sass */
 #select_list {
   top: 10px;
   width: 200px;
@@ -119,7 +126,7 @@ a img {
   padding-left: 10px;
 }
 
-/* line 29, ../../app/stylesheets/partials/_page.sass */
+/* line 34, ../../app/stylesheets/partials/_page.sass */
 #col2 {
   top: 10px;
   width: 275px;
@@ -127,14 +134,14 @@ a img {
   display: inline;
 }
 
-/* line 36, ../../app/stylesheets/partials/_page.sass */
+/* line 41, ../../app/stylesheets/partials/_page.sass */
 #col3 {
   top: 10px;
   width: 275px;
   float: right;
 }
 
-/* line 42, ../../app/stylesheets/partials/_page.sass */
+/* line 47, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
