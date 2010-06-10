@@ -20,4 +20,4 @@ filename = "/tmp/mms_received"
 File.open(filename, "a" ) {|f| f.write(message) }
 
 res = Net::HTTP.post_form(URI.parse('http://localhost:3000/messages/email/create'), 
-    { 'From' => number, 'Body' => text, 'To' => to } ); 
+    { 'From' => mms.mail.from, 'Body' => text, 'To' => to } ); 
