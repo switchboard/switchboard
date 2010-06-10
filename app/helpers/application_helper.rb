@@ -23,4 +23,8 @@ module ApplicationHelper
     html << '</ul>'
   end
 
+  def link_to_remote_with_icon(icon, html_options={})
+    image_tag("icons/16/#{icon}", html_options)
+  end
+
 end

@@ -10,7 +10,7 @@ class PhoneNumber < ActiveRecord::Base
   end
 
   def display_number_with_name
-    if self.user and !self.user.first_name.empty?
+    if self.user and !self.user.first_name.nil?
       display_name = " (#{self.user.first_name})"
     else
       display_name = ""

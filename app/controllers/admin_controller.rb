@@ -45,7 +45,11 @@ class AdminController < ApplicationController
     end
   end
 
-  def view_member
+  def remove_member
+    list = List.find(params[:list_id])
+    number = PhoneNumber.find(params[:number_id])
+    list.remove_phone_number(number)
+    redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => list.id}
   end
 
 end

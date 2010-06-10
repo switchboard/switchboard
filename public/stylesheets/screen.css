@@ -127,6 +127,13 @@ a img {
 }
 
 /* line 34, ../../app/stylesheets/partials/_page.sass */
+h3 {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: inline;
+}
+
+/* line 39, ../../app/stylesheets/partials/_page.sass */
 #col2 {
   top: 10px;
   width: 275px;
@@ -134,19 +141,44 @@ a img {
   display: inline;
 }
 
-/* line 41, ../../app/stylesheets/partials/_page.sass */
+/* line 46, ../../app/stylesheets/partials/_page.sass */
 #col3 {
   top: 10px;
   width: 275px;
   float: right;
 }
 
-/* line 47, ../../app/stylesheets/partials/_page.sass */
+/* line 52, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
+/* line 55, ../../app/stylesheets/partials/_page.sass */
+p {
+  margin: 5px 10px;
+}
+
 /* line 1, ../../app/stylesheets/partials/_admin.scss */
+.remove_member_icon {
+  float: right;
+  display: none;
+}
+
+/* line 7, ../../app/stylesheets/partials/_admin.scss */
+#member_list li {
+  padding: 3px;
+}
+/* line 9, ../../app/stylesheets/partials/_admin.scss */
+#member_list li:hover {
+  cursor: default;
+  background-color: #aaa;
+}
+/* line 12, ../../app/stylesheets/partials/_admin.scss */
+#member_list li:hover .remove_member_icon {
+  display: inline;
+}
+
+/* line 19, ../../app/stylesheets/partials/_admin.scss */
 #show_member_list {
   width: 200px;
   padding: 5px;

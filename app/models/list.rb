@@ -16,7 +16,7 @@ class List < ActiveRecord::Base
 
   def remove_phone_number(phone_number)
     return unless self.has_number?(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).destroy!
+    self.list_memberships.find_by_phone_number_id(phone_number.id).destroy
   end
 
   def has_number?(phone_number)
