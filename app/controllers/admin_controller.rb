@@ -66,7 +66,11 @@ class AdminController < ApplicationController
   def send_message
     @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body])
     if @message.save
-      redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+      #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+      render :update do |page|
+        page.replace_html 'flash_messages_container', "Your message has been queued!"
+        page.show 'flash_messages_container'
+      end
     else
       render :update do |page|
         page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
