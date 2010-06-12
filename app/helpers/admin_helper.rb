@@ -25,6 +25,15 @@ module AdminHelper
     link_to_remote_with_icon('remove.png', {:onclick => onclick})
   end
 
+  def send_message_onclick(list_id)
+    remote_function(
+      :url => {:controller => 'admin', :action => 'send_message'},
+      :with => "'list_id=#{list_id}&message_body='+$('message_body_textarea').value",
+      :loading => show_spinner('send_message_spinner'),
+      :complete => hide_spinner('send_message_spinner')
+    )
+  end
+
 #  def select_list_members(memberships)
 #    collection_select(nil, nil, memberships, :id, :display_for_select, {}, {:id => 'show_members', :multiple => 1, :size => 20) 
 #  end

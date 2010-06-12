@@ -42,3 +42,18 @@
   margin-top: 20px;
 }
 
+#send_message_button {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid black;
+  font-size: 2em;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 150px; 
+  text-align: center;
+  &:hover {
+    background-color: #99FFFF;
+  }
+}
+

@@ -1,4 +1,4 @@
-#add_contact_form
+#add_contact_form{:style => 'display: none'}
   %h3 Contact
   %p
   - remote_form_for :user, @user, :url => {:action => 'add_member'}, :html => {:id => 'add_contact_form'} do |f|

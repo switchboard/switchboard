@@ -1,3 +1,5 @@
 %h3 What to Say?
 %br
-= text_area_tag('message_body', 'type your message here', {:id => 'message_body_textarea', :size => '20x5'})
+= text_area_tag('message_body', 'type your message here', {:id => 'message_body_textarea', :size => '30x5', :onkeyup => "countMessageBody(this)"})
+%br
+%span#character_count

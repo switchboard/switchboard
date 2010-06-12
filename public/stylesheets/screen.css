@@ -130,46 +130,50 @@ a img {
   float: left;
   position: relative;
   padding-left: 10px;
+  height: 300px;
 }
 
-/* line 38, ../../app/stylesheets/partials/_page.sass */
+/* line 39, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 10px;
   display: inline;
 }
 
-/* line 43, ../../app/stylesheets/partials/_page.sass */
+/* line 44, ../../app/stylesheets/partials/_page.sass */
 #col2 {
-  top: 10px;
+  top: 142px;
   width: 275px;
-  position: relative;
+  left: 240px;
+  position: absolute;
   display: inline;
+  padding: 5px;
 }
 
-/* line 50, ../../app/stylesheets/partials/_page.sass */
+/* line 53, ../../app/stylesheets/partials/_page.sass */
 #col3 {
   top: 10px;
   width: 275px;
   float: right;
+  position: relative;
 }
 
-/* line 56, ../../app/stylesheets/partials/_page.sass */
+/* line 60, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 59, ../../app/stylesheets/partials/_page.sass */
+/* line 63, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 62, ../../app/stylesheets/partials/_page.sass */
+/* line 66, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 20px;
 }
 
-/* line 65, ../../app/stylesheets/partials/_page.sass */
+/* line 69, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
@@ -223,4 +227,21 @@ textarea {
   padding: 5px;
   float: left;
   margin-top: 20px;
+}
+
+/* line 45, ../../app/stylesheets/partials/_admin.scss */
+#send_message_button {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid black;
+  font-size: 2em;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+}
+/* line 55, ../../app/stylesheets/partials/_admin.scss */
+#send_message_button:hover {
+  background-color: #99FFFF;
 }
