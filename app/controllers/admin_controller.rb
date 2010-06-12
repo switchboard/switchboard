@@ -52,10 +52,24 @@ class AdminController < ApplicationController
     redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => list.id}
   end
 
-  def list_messages
+  def compose_message
     list = List.find(params[:list_id])
     render :update do |page|
+      page.hide 'flash_messages_container'
       page.replace_html 'compose_message', :partial => '/admin/message_body'
+      page.replace_html 'col3', :partial => '/admin/send_message_button', :locals => {:list_id => list.id}
+    end
+  end
+
+  def send_message
+    @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body])
+    if @message.save
+      redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+    else
+      render :update do |page|
+        page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
+        page.show 'flash_messages_container'
+      end
     end
   end
 

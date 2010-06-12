@@ -8,4 +8,8 @@ class Message < ActiveRecord::Base
     end
   end
 
+  def from_web?
+    self.from == 'Web'
+  end
+
 end

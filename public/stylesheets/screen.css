@@ -224,3 +224,20 @@ textarea {
   float: left;
   margin-top: 20px;
 }
+
+/* line 45, ../../app/stylesheets/partials/_admin.scss */
+#send_message_button {
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid black;
+  font-size: 2em;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+}
+/* line 55, ../../app/stylesheets/partials/_admin.scss */
+#send_message_button:hover {
+  background-color: #99FFFF;
+}
