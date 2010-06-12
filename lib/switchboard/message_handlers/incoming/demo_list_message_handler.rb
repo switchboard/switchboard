@@ -12,6 +12,8 @@ module Switchboard::MessageHandlers::Incoming
       if ( message.respond_to? :carrier )
         list_name = message.default_list 
         puts "received email message for list " + list_name
+      elsif ( message.from_web? )
+        list_name = message.to
       else
         list_name = tokens.shift
         list_name.upcase!
