@@ -12,7 +12,9 @@ class AdminController < ApplicationController
       else 
         page.replace_html 'member_list', :partial => '/admin/member', :collection => numbers 
       end
+      page.show 'show_members'
       page.replace 'hidden_list_id', hidden_field_tag('user[list_id]', list.id, :id => 'hidden_list_id')
+      page.show 'add_contact_form'
       page.hide 'flash_messages_container'
     end
   end
