@@ -151,7 +151,8 @@ h3 {
 
 /* line 51, ../../app/stylesheets/partials/_page.sass */
 #col2 {
-  top: 142px;
+  top: auto;
+  margin-top: 5px;
   width: 275px;
   left: auto;
   position: absolute;
