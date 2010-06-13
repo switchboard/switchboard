@@ -9,14 +9,22 @@ module Switchboard::MessageHandlers::Incoming
       messages_to_handle.each do |message|
       tokens = message.body.split(/ /)
       puts tokens.to_s 
+
+      message_sender = ''
       if ( message.respond_to? :carrier )
         list_name = message.default_list 
         puts "received email message for list " + list_name
+        message_sender = message.to
       elsif ( message.from_web? )
-        list_name = message.to
+        puts "received web message"
+        list_id = message.to
+        list_name = List.find_by_id(list_id).name
+        puts " -- web message for list " + list_name
+        message_sender = '2153466997'
       else
         list_name = tokens.shift
         list_name.upcase!
+        message_sender = '2153466997'
       end
 
       puts "before content test"
@@ -53,12 +61,12 @@ module Switchboard::MessageHandlers::Incoming
           list = List.find_by_name(list_name)
           list.phone_numbers.each do |phone_number|
             body = '[' + list_name + '] ' + tokens.join(' ')
-            puts "sending message: " + body + " to: " + phone_number.number
-            create_outgoing_message(num, message.to, body)
+            puts "sending message: " + body + ", to: " + phone_number.number
+            create_outgoing_message(phone_number, message_sender, body)
           end
           handled_state.messages.push(message)
         else 
-          create_outgoing_message(num, message.to, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet.")
+          create_outgoing_message(num, message_sender, "It seems like you were trying to send a message to the list called " + list_name + ", but no one has started that list yet.") unless message.from_web?
           handled_state.messages.push(message)
         end
       end 
@@ -70,10 +78,12 @@ module Switchboard::MessageHandlers::Incoming
       def create_outgoing_message(num, from, body)
 
           if ( num.provider_email != '' and num.provider_email != nil  )
+            puts "sending email message"
             message = EmailMessage.new
             message.to = num.number + "@" + num.provider_email
             message.from = from
           else
+            puts "sending twilio message to: " + num.number
             message = TwilioMessage.new
             message.to = num.number
           end
