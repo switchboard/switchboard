@@ -31,22 +31,38 @@ class List < ActiveRecord::Base
     return numbers
   end
 
+
+  def create_email_message(num)
+    message = EmailMessage.new
+    message.to = num.number + "@" + num.provider_email
+    message.from = self.name + "@mmptext.info"
+    return message
+  end
+
+  def create_twilio_message(num)
+    message = TwilioMessage.new
+    message.to = num.number
+    return message
+  end
+
   def create_outgoing_message(num, body)
+    # once there are other external gateways, or not all phone numbers support the commercial gateway
+    # this gets more complicated 
 
-      if ( num.provider_email != '' and num.provider_email != nil  )
-        message = EmailMessage.new
-        message.to = num.number + "@" + num.provider_email
-        message.from = self.name + "@mmptext.info"
-      else
-        message = TwilioMessage.new
-        message.to = num.number
-      end
+    if ( num.can_receive_email? and self.allow_email_gateway? and
+      ( (! self.allow_commercial_gateway?) or self.prefer_email ))
+      message = create_email_message(num)
+    elsif (self.allow_email_gateway? and num.can_receive_gateway?)
+      message = create_twilio_message(num)
+    else 
+      raise "list & subscriber settings make sending message impossible for num: " + num.to
+    end
 
-      message.body = body
+    message.body = body
 
-      message_state = MessageState.find_by_name("outgoing")
-      message_state.messages.push(message)
-      message_state.save!
+    message_state = MessageState.find_by_name("outgoing")
+    message_state.messages.push(message)
+    message_state.save!
   end
 
 end

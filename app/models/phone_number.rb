@@ -18,4 +18,11 @@ class PhoneNumber < ActiveRecord::Base
     self.number + display_name 
   end
 
+  def can_receive_email?
+    return ! self.provider_email.blank?
+  end
+
+  def can_receive_gateway?
+    return true
+  end
 end

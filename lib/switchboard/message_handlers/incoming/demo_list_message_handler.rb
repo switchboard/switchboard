@@ -62,7 +62,7 @@ module Switchboard::MessageHandlers::Incoming
           list.phone_numbers.each do |phone_number|
             body = '[' + list_name + '] ' + tokens.join(' ')
             puts "sending message: " + body + ", to: " + phone_number.number
-            create_outgoing_message(phone_number, message_sender, body)
+            list.create_outgoing_message(phone_number, body)
           end
           handled_state.messages.push(message)
         else 
