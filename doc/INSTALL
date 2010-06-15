@@ -1,0 +1,17 @@
+REQUIREMENTS
+============
+
+Ruby Gems
+----------
+* haml
+* compass >= 0.10.1
+* authlogic
+
+INSTALL
+=======
+
+1. set up database:
+  % rake db:migrate
+
+2. load seed data:
+  % rake db:seed
