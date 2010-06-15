@@ -1,0 +1,7 @@
+%h3 List Configuration
+
+- remote_form_for :list, :url => { :controller => 'lists', :action => 'update'} do |f|
+  = f.check_box(:use_welcome_message) + "use welcome message"
+  %br
+  %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
+  = submit_tag
