@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20100615213345) do
     t.boolean  "all_users_can_send_messages", :default => true
     t.boolean  "open_membership",             :default => true
     t.boolean  "moderated_membership"
+    t.boolean  "use_welcome_message",         :default => false
+    t.string   "custom_welcome_message"
   end
 
   create_table "message_states", :force => true do |t|
