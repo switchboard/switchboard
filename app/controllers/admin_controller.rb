@@ -10,9 +10,9 @@ class AdminController < ApplicationController
     #select_html = collection_select(nil, nil, list.members, :id, :name, {}, {:multiple => 1, :size => 20})
     render :update do |page|
       if numbers.empty?
-        page.replace_html 'show_member_list', 'No members to display'
+        page.replace_html 'member_list', '<li>No Members to display.</li>'
       else 
-        page.replace_html 'member_list', :partial => '/admin/member', :collection => numbers 
+        page.replace_html 'member_list', :partial => '/admin/member', :collection => numbers, :locals => {:list_id => list.id} 
       end
       page.show 'show_members'
       page.replace 'hidden_list_id', hidden_field_tag('user[list_id]', list.id, :id => 'hidden_list_id')

@@ -15,10 +15,10 @@ module AdminHelper
     ) 
   end
  
-  def link_to_remove_member(member)
+  def link_to_remove_member(member, list_id)
     onclick = remote_function(
       :url => {:controller => 'admin', :action => 'remove_member'},
-      :with => "'list_id='+$('selectlist').value+'&number_id=#{member.id}'",
+      :with => "'list_id=#{list_id}&number_id=#{member.id}'",
       :loading => show_spinner('which_member_spinner'),
       :complete => hide_spinner('which_member_spinner')
     )
