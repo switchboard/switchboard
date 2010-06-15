@@ -25,6 +25,8 @@ class AdminController < ApplicationController
     error_objs = []
     ps = params[:user]
     number = ps.delete('phone')
+    ps[:password] = 'user!'
+    ps[:password_confirmation] = 'user!'
     @list = List.find(ps.delete('list_id'))
     @phone = PhoneNumber.find_by_number(number) if !number.empty?
     if @phone.nil?

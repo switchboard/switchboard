@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   has_many :phone_numbers
 
   acts_as_authentic do |c|
-    c.validate_password_field = false
+    #c.validate_password_field = false  <--- this breaks the creation of seed data
+    c.ignore_blank_passwords = true
     c.validate_email_field = false
     c.validate_login_field = false
   end
