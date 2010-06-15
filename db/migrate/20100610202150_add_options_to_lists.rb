@@ -21,21 +21,21 @@ class AddOptionsToLists < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :lists, :allow_email_gateway
-    drop_column :lists, :allow_commercial_gateway
-    drop_column :lists, :prefer_email
+    remove_column :lists, :allow_email_gateway
+    remove_column :lists, :allow_commercial_gateway
+    remove_column :lists, :prefer_email
 
-    drop_column :lists, :incoming_phone_number
-    drop_column :lists, :use_incoming_keyword
+    remove_column :lists, :incoming_phone_number
+    remove_column :lists, :use_incoming_keyword
 
-    drop_column :lists, :email_admin_with_response
-    drop_column :lists, :text_admin_with_response
-    drop_column :lists, :save_response_in_interface
+    remove_column :lists, :email_admin_with_response
+    remove_column :lists, :text_admin_with_response
+    remove_column :lists, :save_response_in_interface
 
-    drop_column :lists, :all_users_can_send_messages
+    remove_column :lists, :all_users_can_send_messages
 
-    drop_column :lists, :open_membership
-    drop_column :lists, :moderated_membership
+    remove_column :lists, :open_membership
+    remove_column :lists, :moderated_membership
 
   end
 end

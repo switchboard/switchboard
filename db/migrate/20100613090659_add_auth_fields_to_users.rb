@@ -8,10 +8,10 @@ class AddAuthFieldsToUsers < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :users, :crypted_password
-    drop_column :users, :password_salt
-    drop_column :users, :persistence_token
-    drop_column :users, :perishable_token
-    drop_column :users, :admin
+    remove_column :users, :crypted_password
+    remove_column :users, :password_salt
+    remove_column :users, :persistence_token
+    remove_column :users, :perishable_token
+    remove_column :users, :admin
   end
 end

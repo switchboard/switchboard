@@ -5,7 +5,7 @@ class AddProviderEmailToPhoneNumber < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :phone_numbers, :provider_email
-    drop_column :phone_numbers, :gateway_preference  
+    remove_column :phone_numbers, :provider_email
+    remove_column :phone_numbers, :gateway_preference  
   end
 end
