@@ -1,4 +1,4 @@
-%li{:onclick => select_list_onclick(list.id, action), :id => "list_id_#{list.id}"}
+%li{:onclick => select_list_onclick(list.id, action, controller), :id => "list_id_#{list.id}"}
   = list.name
   %span.choose_list_icon
     = image_tag("icons/arrow_right.png")

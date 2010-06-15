@@ -1,13 +1,13 @@
 module AdminHelper
 
-  def select_list(action)
-    render :partial => '/admin/list', :collection => List.find(:all), :locals => {:action => action}
+  def select_list(action, controller)
+    render :partial => '/admin/list', :collection => List.find(:all), :locals => {:action => action, :controller => controller}
     #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  
   end
 
-  def select_list_onclick(list_id, action)
+  def select_list_onclick(list_id, action, controller)
     onclick = remote_function(
-      :url => {:controller => 'admin', :action => action},
+      :url => {:controller => controller, :action => action},
       :with => "'list_id=#{list_id}'",
       :loading => show_spinner('which_list_spinner'),
       :complete => hide_spinner('which_list_spinner'),
