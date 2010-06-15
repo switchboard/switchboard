@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100424124453) do
+ActiveRecord::Schema.define(:version => 20100615213345) do
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(:version => 20100424124453) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "long_name"
+    t.boolean  "allow_email_gateway",         :default => true
+    t.boolean  "allow_commercial_gateway",    :default => true
+    t.boolean  "prefer_email",                :default => true
+    t.string   "incoming_phone_number"
+    t.boolean  "use_incoming_keyword"
+    t.boolean  "email_admin_with_response"
+    t.boolean  "text_admin_with_response"
+    t.boolean  "save_response_in_interface"
+    t.boolean  "all_users_can_send_messages", :default => true
+    t.boolean  "open_membership",             :default => true
+    t.boolean  "moderated_membership"
   end
 
   create_table "message_states", :force => true do |t|
@@ -63,6 +75,11 @@ ActiveRecord::Schema.define(:version => 20100424124453) do
     t.string   "number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.integer  "user_id"
+    t.string   "provider_email"
+    t.string   "gateway_preference"
   end
 
   create_table "phones", :force => true do |t|
@@ -75,6 +92,20 @@ ActiveRecord::Schema.define(:version => 20100424124453) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "perishable_token"
+    t.boolean  "admin",             :default => false
+    t.string   "login"
   end
 
 end

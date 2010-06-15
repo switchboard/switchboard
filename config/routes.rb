@@ -44,4 +44,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :messages do |messages|
     messages.resources :twilio
   end
+  map.resource :user_session
+  map.resource :account, :controller => "users"
+  map.resources :users
 end

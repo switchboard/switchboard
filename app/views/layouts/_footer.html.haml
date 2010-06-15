@@ -1,1 +1,5 @@
-Icons from <a href='http://dryicons.com'>DryIcons</a>
+#footer
+  Icons from <a href='http://dryicons.com'>DryIcons</a>
+  - if @current_user
+    #logout
+      = link_to 'Logout', :action => 'destroy', :controller => 'user_sessions'

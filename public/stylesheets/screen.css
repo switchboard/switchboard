@@ -101,13 +101,15 @@ body {
 }
 
 /* line 13, ../../app/stylesheets/partials/_page.sass */
-#flash_messages_container {
+.flash_notice {
+  text-align: left;
   margin: 20px auto;
   padding: 5px;
   border: 1px solid red;
+  width: 790px;
 }
 
-/* line 18, ../../app/stylesheets/partials/_page.sass */
+/* line 20, ../../app/stylesheets/partials/_page.sass */
 #content_container {
   margin: 20px auto;
   padding: 5px;
@@ -117,13 +119,19 @@ body {
   text-align: left;
 }
 
-/* line 26, ../../app/stylesheets/partials/_page.sass */
+/* line 28, ../../app/stylesheets/partials/_page.sass */
 #footer {
   margin: 20px;
   width: 790px;
+  margin: 20px auto;
 }
 
-/* line 30, ../../app/stylesheets/partials/_page.sass */
+/* line 33, ../../app/stylesheets/partials/_page.sass */
+#logout {
+  float: right;
+}
+
+/* line 36, ../../app/stylesheets/partials/_page.sass */
 #content {
   margin: 15px;
   border: 1px solid black;
@@ -132,7 +140,7 @@ body {
   height: 400px;
 }
 
-/* line 37, ../../app/stylesheets/partials/_page.sass */
+/* line 43, ../../app/stylesheets/partials/_page.sass */
 #select_list {
   top: 10px;
   width: 200px;
@@ -142,17 +150,16 @@ body {
   height: 300px;
 }
 
-/* line 46, ../../app/stylesheets/partials/_page.sass */
+/* line 52, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 10px;
   display: inline;
 }
 
-/* line 51, ../../app/stylesheets/partials/_page.sass */
+/* line 57, ../../app/stylesheets/partials/_page.sass */
 #col2 {
   top: auto;
-  margin-top: 5px;
   width: 275px;
   left: auto;
   position: absolute;
@@ -160,7 +167,7 @@ h3 {
   padding: 5px;
 }
 
-/* line 60, ../../app/stylesheets/partials/_page.sass */
+/* line 66, ../../app/stylesheets/partials/_page.sass */
 #col3 {
   top: 10px;
   width: 275px;
@@ -168,22 +175,22 @@ h3 {
   position: relative;
 }
 
-/* line 67, ../../app/stylesheets/partials/_page.sass */
+/* line 73, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 70, ../../app/stylesheets/partials/_page.sass */
+/* line 76, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 73, ../../app/stylesheets/partials/_page.sass */
+/* line 79, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 20px;
 }
 
-/* line 76, ../../app/stylesheets/partials/_page.sass */
+/* line 82, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }

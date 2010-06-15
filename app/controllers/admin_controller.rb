@@ -1,5 +1,7 @@
 class AdminController < ApplicationController
 
+  before_filter :require_admin
+
   helper 'admin'
 
   def show_members
@@ -26,7 +28,7 @@ class AdminController < ApplicationController
     @list = List.find(ps.delete('list_id'))
     @phone = PhoneNumber.find_by_number(number) if !number.empty?
     if @phone.nil?
-      @user = User.create(ps)
+      @user = User.new(ps)
       if @user.save
         @phone = PhoneNumber.create(:number => number, :user => @user)
       else
@@ -37,7 +39,7 @@ class AdminController < ApplicationController
       @list.add_phone_number(@phone)
       redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => @list.id}
     else
-      error_objs << @phone
+      error_objs << @phone unless @phone.nil?
       # if this were ever able to be called as a regular POST and not an xhr request
       # then we'd want to use respond_to do |format| instead of this.
       render :update do |page|
@@ -81,4 +83,6 @@ class AdminController < ApplicationController
     end
   end
 
+  private
+  
 end

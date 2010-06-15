@@ -14,13 +14,19 @@ module ApplicationHelper
   end
 
   def prettify_ajax_errors(objects=[])
-    html = '<ul>'
+    html = '<ul class="flash_notice">'
     objects.each do |obj|
       obj.errors.full_messages.each do |msg|
         html << '<li>'+msg+'</li>'
       end
     end
     html << '</ul>'
+  end
+
+  def flash_messages
+    [:notice, :warning, :message].collect do |key|
+      content_tag(:div, flash[key], :class => "flash_#{key}") unless flash[key].blank?
+    end.join
   end
 
   def link_to_remote_with_icon(icon, html_options={})
