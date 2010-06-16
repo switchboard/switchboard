@@ -43,15 +43,27 @@ module Switchboard::MessageHandlers::Incoming
         num.provider_email = message.carrier 
       end  
 
-      if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =! /join/i ) )
+      if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] !~ /join/i ) )
         puts "join message found"
         list = List.find_or_create_by_name(list_name)
 
         if list.has_number?(num) 
           create_outgoing_message( num, message.to, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
         else
+          message.list = list
+          num.user = User.new
           list.add_phone_number(num)
-          create_outgoing_message( num, message.to, "You have joined the text message list called '" + list_name + "'!" )
+          message.sender = num.user
+          message.save
+          welcome_message = "u have joined the text message list called '" + list_name + "'!"
+          if list.use_welcome_message?:
+            puts "this list uses the welcome message"
+            welcome_message = list.custom_welcome_message
+          else
+            welcome_message = "no custom, but: " + list.custom_welcome_message
+          end
+
+          create_outgoing_message( num, message.to, welcome_message ) 
         end
         handled_state.messages.push(message)
       end
