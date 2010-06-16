@@ -38,6 +38,7 @@ module Switchboard::MessageHandlers::Incoming
         puts "Message is from number: " + number_string
 
         num = PhoneNumber.find_or_create_by_number( number_string ) 
+        num.save
 
         if (message.respond_to? :carrier)  
           num.provider_email = message.carrier 
@@ -54,7 +55,13 @@ module Switchboard::MessageHandlers::Incoming
  
         if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =~ /join/i ) )  ## join message
           puts "join message found"
-          list = List.find_or_create_by_name(list_name)
+
+          list = List.find_by_name(list_name)
+          if (list == nil) 
+            create_outgoing_message( num, message.to, "I'm sorry, but I'm not sure what you're trying to do." )
+            handled_state.messages.push(message)
+            next
+          end
 
           if list.has_number?(num) 
             create_outgoing_message( num, message.to, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
@@ -68,16 +75,18 @@ module Switchboard::MessageHandlers::Incoming
                 num.save
                 num.user.save
               end
+
               list.add_phone_number(num)
+
               message.sender = num.user
               message.save
-              welcome_message = "You have joined the text message list called '" + list_name + "'!"
-              if list.use_welcome_message?:
-                puts "this list uses the welcome message"
-                welcome_message = list.custom_welcome_message
-              end
+              #welcome_message = "You have joined the text message list called '" + list_name + "'!"
+              #if list.use_welcome_message?:
+              #  puts "this list uses the welcome message"
+              #  welcome_message = list.custom_welcome_message
+              #end
 
-              create_outgoing_message( num, message.to, welcome_message ) 
+              #create_outgoing_message( num, message.to, welcome_message ) 
             else ## not list.open_membership
               create_outgoing_message( num, message.to, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
             end

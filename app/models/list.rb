@@ -14,7 +14,14 @@ class List < ActiveRecord::Base
 
   def add_phone_number(phone_number)
     return if self.has_number?(phone_number)
+    puts "adding number: " + phone_number.number 
+    self.save
     self.list_memberships.create! :phone_number_id => phone_number.id
+    if(self.use_welcome_message?)
+      puts "has welcome message, and creating outgoing message"
+      welcome_message = self.custom_welcome_message
+      create_outgoing_message( phone_number, welcome_message )
+    end 
   end
 
   def remove_phone_number(phone_number)
@@ -78,6 +85,10 @@ class List < ActiveRecord::Base
     message_state = MessageState.find_by_name("outgoing")
     message_state.messages.push(message)
     message_state.save!
+  end
+
+  def name=(value)
+    self[:name] = value.upcase!
   end
 
   ### these methods make editing lists easier
