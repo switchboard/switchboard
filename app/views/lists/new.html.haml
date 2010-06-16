@@ -1,0 +1,23 @@
+%h3 Create a List
+
+- form_tag '/lists/create' do
+  %p
+    List Name (cannot contain spaces): 
+    = text_field_tag('list[name]') 
+  %p
+    (Optional) Long name for the list: 
+    = text_field_tag('list[long_name]')
+  %p
+    List Type:
+    %br
+    = radio_button_tag('list[list_type]', 'discussion') + "Discussion List: all users can send messages to the list (recommended for small lists only!)"
+    %br
+    = radio_button_tag("list[list_type]", 'announcement', true) + "Announcement List: only list owners can send messages to the list"
+  %p
+    Joining Policy:
+    %br
+    = radio_button_tag('list[join_policy]', 'open', true) + "Open: anyone can join"
+    %br
+    = radio_button_tag('list[join_policy]', 'closed') + "Closed: new members must be added by administrators"
+  %p
+    = submit_tag 'Create!'

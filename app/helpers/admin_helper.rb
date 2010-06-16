@@ -5,6 +5,10 @@ module AdminHelper
     #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  
   end
 
+  def list_class(list_id)
+    (params[:selected_list] == list_id.to_s) ? 'active_list' : ""
+  end
+
   def select_list_onclick(list_id, action, controller)
     onclick = remote_function(
       :url => {:controller => controller, :action => action},
@@ -32,6 +36,13 @@ module AdminHelper
       :loading => show_spinner('send_message_spinner'),
       :complete => hide_spinner('send_message_spinner')
     )
+  end
+
+  def edit_list_form
+    if params[:selected_list]
+      @list = List.find(params[:selected_list])
+      render :partial => 'lists/edit'
+    end
   end
 
 #  def select_list_members(memberships)

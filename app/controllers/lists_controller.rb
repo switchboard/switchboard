@@ -2,13 +2,22 @@ class ListsController < ApplicationController
   before_filter :require_admin
   before_filter :get_list, :except => [:new, :create] 
 
-  helper 'lists'
+  helper 'lists', 'admin'
+
+  layout 'admin'
 
   def new
   end
   
   def create
-    # not used yet
+    @list = List.create(params[:list])
+    if @list.save
+      flash[:message] = "Your list has been created!"
+      redirect_to :controller => 'admin', :action => 'manage', :params => {:selected_list => @list.id}
+    else
+      flash[:notice] = "A list by this name already exists. Please choose another list name"
+      redirect_to :action => 'new'
+    end
   end
   
   def show
@@ -18,7 +27,7 @@ class ListsController < ApplicationController
     if !@list.nil?
       if request.xhr?
         render :update do |page|
-          page.replace_html 'col2', :partial => 'lists/edit'
+          page.replace_html 'edit_list', :partial => 'lists/edit'
           page.hide 'flash_messages_container'
         end
       end

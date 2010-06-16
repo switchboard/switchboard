@@ -197,49 +197,54 @@ textarea {
 }
 
 /* line 1, ../../app/stylesheets/partials/_admin.scss */
+#create_list {
+  display: inline;
+}
+
+/* line 5, ../../app/stylesheets/partials/_admin.scss */
 #selectlist {
   padding: 5px;
   border: 1.5px solid grey;
   margin-right: 20px;
   margin-top: 20px;
 }
-/* line 6, ../../app/stylesheets/partials/_admin.scss */
+/* line 10, ../../app/stylesheets/partials/_admin.scss */
 #selectlist li {
   padding: 3px;
   margin: 1px;
 }
-/* line 9, ../../app/stylesheets/partials/_admin.scss */
+/* line 13, ../../app/stylesheets/partials/_admin.scss */
 #selectlist li:hover {
   cursor: default;
   background-color: #aaa;
 }
 
-/* line 16, ../../app/stylesheets/partials/_admin.scss */
+/* line 20, ../../app/stylesheets/partials/_admin.scss */
 .choose_list_icon {
   float: right;
 }
 
-/* line 20, ../../app/stylesheets/partials/_admin.scss */
+/* line 24, ../../app/stylesheets/partials/_admin.scss */
 .remove_member_icon {
   float: right;
   display: none;
 }
 
-/* line 26, ../../app/stylesheets/partials/_admin.scss */
+/* line 30, ../../app/stylesheets/partials/_admin.scss */
 #member_list li {
   padding: 3px;
 }
-/* line 28, ../../app/stylesheets/partials/_admin.scss */
+/* line 32, ../../app/stylesheets/partials/_admin.scss */
 #member_list li:hover {
   cursor: default;
   background-color: #aaa;
 }
-/* line 31, ../../app/stylesheets/partials/_admin.scss */
+/* line 35, ../../app/stylesheets/partials/_admin.scss */
 #member_list li:hover .remove_member_icon {
   display: inline;
 }
 
-/* line 38, ../../app/stylesheets/partials/_admin.scss */
+/* line 42, ../../app/stylesheets/partials/_admin.scss */
 #show_member_list {
   width: 200px;
   padding: 5px;
@@ -247,7 +252,7 @@ textarea {
   margin-top: 20px;
 }
 
-/* line 45, ../../app/stylesheets/partials/_admin.scss */
+/* line 49, ../../app/stylesheets/partials/_admin.scss */
 #send_message_button {
   margin-top: 20px;
   padding-top: 20px;
@@ -259,12 +264,12 @@ textarea {
   width: 150px;
   text-align: center;
 }
-/* line 55, ../../app/stylesheets/partials/_admin.scss */
+/* line 59, ../../app/stylesheets/partials/_admin.scss */
 #send_message_button:hover {
   background-color: #99FFFF;
 }
 
-/* line 60, ../../app/stylesheets/partials/_admin.scss */
+/* line 64, ../../app/stylesheets/partials/_admin.scss */
 .config_heading {
   font-size: 1.25em;
 }

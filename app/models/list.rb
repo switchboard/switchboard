@@ -1,6 +1,7 @@
 class List < ActiveRecord::Base
 
   validates_presence_of :name
+  validates_uniqueness_of :name
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
   belongs_to :user 
@@ -71,6 +72,22 @@ class List < ActiveRecord::Base
   
   def welcome_message=(message)
     self.update_attribute('custom_welcome_message', message)
+  end
+
+  def list_type
+    self.all_users_can_send_messages ? 'discussion' : 'announcement'
+  end
+
+  def list_type=(type)
+    self.update_attribute('all_users_can_send_messages', (type == 'discussion'))
+  end
+
+  def join_policy
+    self.open_membership ? 'open' : 'closed'
+  end
+
+  def join_policy=(policy)
+    self.update_attribute("open_membership", (policy == 'open'))
   end
 
   protected
