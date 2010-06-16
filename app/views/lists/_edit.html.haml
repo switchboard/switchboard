@@ -21,6 +21,6 @@
     %span.config_heading Join Policy
     %ul
       %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
-      %li= f.radio_button(:join_policy, 'cloased') + "Closed (admins must add)"
+      %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
     %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
     = submit_tag
