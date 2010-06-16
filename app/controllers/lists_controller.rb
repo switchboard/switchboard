@@ -2,6 +2,8 @@ class ListsController < ApplicationController
   before_filter :require_admin
   before_filter :get_list, :except => [:new, :create] 
 
+  helper 'lists'
+
   def new
   end
   

@@ -66,13 +66,14 @@ class List < ActiveRecord::Base
   end
 
   def welcome_message
-    self.use_welcome_message && self.welcome_message_text
+    self.custom_welcome_message || self.default_welcome_message
   end
   
+  def welcome_message=(message)
+    self.update_attribute('custom_welcome_message', message)
+  end
+
   protected
-    def welcome_message_text
-      self.custom_welcome_message || self.default_welcome_message
-    end
 
     def default_welcome_message
       "Welcome to the '#{self.name}' list! To unsbuscribe, text '....'. To receive help, text '....'" 

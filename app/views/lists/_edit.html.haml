@@ -1,7 +1,13 @@
 %h3 List Configuration
 
 - remote_form_for :list, :url => { :controller => 'lists', :action => 'update'} do |f|
-  = f.check_box(:use_welcome_message) + "use welcome message"
+  %span.config_heading Welcome Message
+  %br
+  = f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + "use welcome message"
+  %br
+  = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '30x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
+  %br
+  %span#character_count
   %br
   %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
   = submit_tag

@@ -155,9 +155,10 @@ h3 {
   margin-top: 5px;
   margin-bottom: 10px;
   display: inline;
+  font-size: 1.5em;
 }
 
-/* line 57, ../../app/stylesheets/partials/_page.sass */
+/* line 58, ../../app/stylesheets/partials/_page.sass */
 #col2 {
   top: auto;
   width: 275px;
@@ -167,7 +168,7 @@ h3 {
   padding: 5px;
 }
 
-/* line 66, ../../app/stylesheets/partials/_page.sass */
+/* line 67, ../../app/stylesheets/partials/_page.sass */
 #col3 {
   top: 10px;
   width: 275px;
@@ -175,22 +176,22 @@ h3 {
   position: relative;
 }
 
-/* line 73, ../../app/stylesheets/partials/_page.sass */
+/* line 74, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 76, ../../app/stylesheets/partials/_page.sass */
+/* line 77, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 79, ../../app/stylesheets/partials/_page.sass */
+/* line 80, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 20px;
 }
 
-/* line 82, ../../app/stylesheets/partials/_page.sass */
+/* line 83, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
@@ -261,4 +262,9 @@ textarea {
 /* line 55, ../../app/stylesheets/partials/_admin.scss */
 #send_message_button:hover {
   background-color: #99FFFF;
+}
+
+/* line 60, ../../app/stylesheets/partials/_admin.scss */
+.config_heading {
+  font-size: 1.25em;
 }
