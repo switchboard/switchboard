@@ -4,6 +4,7 @@ class List < ActiveRecord::Base
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
   belongs_to :user 
+  has_many :messages, :order => "created_at DESC"
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
@@ -31,6 +32,18 @@ class List < ActiveRecord::Base
     return numbers
   end
 
+
+  def most_recent_message
+    return ( self.messages.count > 0 ? self.messages[0] : nil )
+  end
+
+  def most_recent_messages( count )
+    return self.messages.find( :all, :order => "created_at DESC", :limit => count )
+  end
+
+  def most_recent_message_from_user(user)
+    self.messages.find( :all, :conditions => [ :user_id => user.id ], :order => "created_at DESC", :limit => 1 )
+  end
 
   def create_email_message(num)
     message = EmailMessage.new
