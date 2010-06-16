@@ -82,7 +82,7 @@ module Switchboard::MessageHandlers::Incoming
           message.list = list
           message.sender = num.user 
           message.save
-          if (list.all_users_can_send_messages?)
+          if (message.from_web? or list.all_users_can_send_messages?)
             list.phone_numbers.each do |phone_number|
               body = '[' + list_name + '] ' + tokens.join(' ')
               puts "sending message: " + body + ", to: " + phone_number.number
