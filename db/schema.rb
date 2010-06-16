@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100616003433) do
+ActiveRecord::Schema.define(:version => 20100616003435) do
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20100616003433) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "list_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
   end
 
   create_table "phone_message_boxes", :force => true do |t|
