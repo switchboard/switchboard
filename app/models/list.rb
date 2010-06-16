@@ -42,7 +42,7 @@ class List < ActiveRecord::Base
   end
 
   def most_recent_message_from_user(user)
-    self.messages.find( :all, :conditions => [ :user_id => user.id ], :order => "created_at DESC", :limit => 1 )
+    self.messages.find( :all, :conditions => { :sender_id => user.id }, :order => "created_at DESC", :limit => 1 )
   end
 
   def create_email_message(num)
