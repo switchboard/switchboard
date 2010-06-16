@@ -24,11 +24,10 @@ module Switchboard::MessageHandlers::Incoming
       else
         list_name = tokens.shift
         list_name.upcase!
+        puts "received text message for list: " + list_name
         message_sender = '2153466997'
       end
 
-      puts "before content test"
-      puts "token length test: " + tokens.length.to_s
 
       if (message.respond_to? :carrier ) 
         number_string = message.number
@@ -36,14 +35,15 @@ module Switchboard::MessageHandlers::Incoming
         number_string = message.from
       end  
 
+      puts "Message is from number: " + number_string
+
       num = PhoneNumber.find_or_create_by_number( number_string ) 
 
-      puts "number string is: " + number_string
       if (message.respond_to? :carrier)  
         num.provider_email = message.carrier 
       end  
 
-      if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] !~ /join/i ) )
+      if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =~ /join/i ) )
         puts "join message found"
         list = List.find_or_create_by_name(list_name)
 
