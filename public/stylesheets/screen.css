@@ -137,7 +137,7 @@ body {
   border: 1px solid black;
   width: 750px;
   padding-bottom: 20px;
-  height: 400px;
+  height: 500px;
 }
 
 /* line 43, ../../app/stylesheets/partials/_page.sass */
@@ -147,7 +147,7 @@ body {
   float: left;
   position: relative;
   padding-left: 10px;
-  height: 300px;
+  height: 500px;
 }
 
 /* line 52, ../../app/stylesheets/partials/_page.sass */
@@ -165,7 +165,7 @@ h3 {
   left: auto;
   position: absolute;
   display: inline;
-  padding: 5px;
+  padding: 10px 5px 0 0;
 }
 
 /* line 67, ../../app/stylesheets/partials/_page.sass */
@@ -183,25 +183,33 @@ h3 {
   top: auto;
   left: auto;
   display: inline;
-  padding: 5px;
+  padding: 10px 5px;
+}
+/* line 81, ../../app/stylesheets/partials/_page.sass */
+#col2-3 form {
+  padding-top: 10px;
+}
+/* line 83, ../../app/stylesheets/partials/_page.sass */
+#col2-3 ul {
+  padding: 10px 0;
 }
 
-/* line 82, ../../app/stylesheets/partials/_page.sass */
+/* line 86, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 85, ../../app/stylesheets/partials/_page.sass */
+/* line 89, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 88, ../../app/stylesheets/partials/_page.sass */
+/* line 92, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 20px;
 }
 
-/* line 91, ../../app/stylesheets/partials/_page.sass */
+/* line 95, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
@@ -282,4 +290,17 @@ textarea {
 /* line 64, ../../app/stylesheets/partials/_admin.scss */
 .config_heading {
   font-size: 1.25em;
+}
+
+/* line 68, ../../app/stylesheets/partials/_admin.scss */
+.create_list_options {
+  padding: 5px;
+}
+/* line 70, ../../app/stylesheets/partials/_admin.scss */
+.create_list_options li {
+  padding: 5px;
+}
+/* line 72, ../../app/stylesheets/partials/_admin.scss */
+.create_list_options li .list_option {
+  font-weight: bold;
 }

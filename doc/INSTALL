@@ -6,6 +6,7 @@ Ruby Gems
 * haml
 * compass >= 0.10.1
 * authlogic
+* will_paginate
 
 INSTALL
 =======

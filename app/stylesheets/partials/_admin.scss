@@ -64,3 +64,14 @@
 .config_heading {
   font-size: 1.25em;
 }
+
+.create_list_options {
+  padding: 5px;
+  li {
+    padding: 5px;
+    .list_option {
+      font-weight: bold;
+    }
+  }
+}
+  

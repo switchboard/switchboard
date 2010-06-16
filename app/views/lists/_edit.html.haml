@@ -1,34 +1,26 @@
-- remote_form_for :list, :url => { :controller => 'lists', :action => 'update'} do |f|
-  #col2
+#col2-3
+  %h3 List Configuration
+  - remote_form_for :list, :url => { :controller => 'lists', :action => 'update'} do |f|
     %span.config_heading Welcome Message
-    %br
-    = f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + "use welcome message"
-    %br
-    = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '30x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
-    %br
-    %span#character_count
-    %br
-    %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
-    %br
+    %ul
+      %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + "use welcome message"
+      %li 
+        = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '30x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
+        %br
+        %span#character_count
     %span.config_heading Sending Preferences
-    %br
-    = f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
-    %br
-    = f.check_box(:allow_commercial_gateway) + "Allow commercial gateway ($0.03/msg)"
-    - if @list.allow_email_gateway
-      %br
-      = f.check_box(:prefer_email) + "Prefer email over commercial gateway"
-  #col3
+    %ul
+      %li= f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
+      %li= f.check_box(:allow_commercial_gateway) + "Allow commercial gateway ($0.03/msg)"
+      - if @list.allow_email_gateway
+        %li= f.check_box(:prefer_email) + "Prefer email over commercial gateway"
     %span.config_heading List Type
-    %br
-    = f.radio_button(:list_type, 'discussion') + "Discussion (anyone can send)"	
-    %br
-    = f.radio_button(:list_type, 'announcement') + "Announcement (admins can send)"
-    %br
+    %ul
+      %li= f.radio_button(:list_type, 'discussion') + "Discussion (anyone can send)"	
+      %li= f.radio_button(:list_type, 'announcement') + "Announcement (admins can send)"
     %span.config_heading Join Policy
-    %br
-    = f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
-    %br
-    = f.radio_button(:join_policy, 'cloased') + "Closed (admins must add)"
-    %br
+    %ul
+      %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
+      %li= f.radio_button(:join_policy, 'cloased') + "Closed (admins must add)"
+    %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
     = submit_tag

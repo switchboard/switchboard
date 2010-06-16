@@ -1,6 +1,6 @@
 class List < ActiveRecord::Base
 
-  validates_presence_of :name
+  validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
   validates_uniqueness_of :name
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships

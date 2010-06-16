@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   before_filter :require_admin
-  before_filter :get_list, :except => [:new, :create] 
+  before_filter :get_list, :except => [:new, :create, :check_name_available] 
 
   helper 'lists', 'admin'
 
@@ -15,7 +15,7 @@ class ListsController < ApplicationController
       flash[:message] = "Your list has been created!"
       redirect_to :controller => 'admin', :action => 'manage', :params => {:selected_list => @list.id}
     else
-      flash[:notice] = "A list by this name already exists. Please choose another list name"
+      flash[:notice] = "There was a problem creating your list. Please try another list name."
       redirect_to :action => 'new'
     end
   end
@@ -46,11 +46,23 @@ class ListsController < ApplicationController
   end
 
   def messages
-    @messages = @list.messages
+    @messages = Message.paginate_by_list_id(@list.id, :page => params[:page], :per_page => 10)
     if request.xhr?
       render :update do |page|
         page.replace_html "message_list", :partial => 'lists/message', :collection => @messages
+        page.replace_html 'pagination', :partial => 'lists/message_pagination_links'
       end
+    end
+  end
+
+  def check_name_available
+    if params[:name] =~ /\s+/
+      avail = "List name cannot contain spaces!"
+    else
+      avail = List.find_by_name(params[:name]) ? "Not Available." : "Available!"
+    end
+    render :update do |page|
+      page.replace_html "availability", avail
     end
   end
 
