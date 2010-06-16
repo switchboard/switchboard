@@ -66,10 +66,10 @@ class List < ActiveRecord::Base
     if ( num.can_receive_email? and self.allow_email_gateway? and
       ( (! self.allow_commercial_gateway?) or self.prefer_email ))
       message = create_email_message(num)
-    elsif (self.allow_email_gateway? and num.can_receive_gateway?)
+    elsif (self.allow_commercial_gateway? and num.can_receive_gateway?)
       message = create_twilio_message(num)
     else 
-      raise "list & subscriber settings make sending message impossible for num: " + num.to
+      raise "list & subscriber settings make sending message impossible for num: " + num.number
     end
 
     message.body = body
