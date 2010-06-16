@@ -80,6 +80,10 @@ class List < ActiveRecord::Base
     message_state.save!
   end
 
+  def name=(value)
+    self[:name] = value.upcase!
+  end
+
   ### these methods make editing lists easier
   def welcome_message
     self.custom_welcome_message || self.default_welcome_message
