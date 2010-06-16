@@ -79,6 +79,7 @@ class List < ActiveRecord::Base
     message_state.save!
   end
 
+  ### these methods make editing lists easier
   def welcome_message
     self.custom_welcome_message || self.default_welcome_message
   end
@@ -102,6 +103,7 @@ class List < ActiveRecord::Base
   def join_policy=(policy)
     self.update_attribute("open_membership", (policy == 'open'))
   end
+  ### /these methods make editing lists easier
 
   protected
 
