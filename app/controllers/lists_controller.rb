@@ -41,7 +41,10 @@ class ListsController < ApplicationController
          page.show "flash_messages_container"
        end
     else
-      render :action => :edit
+      render :update do |page|
+        page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@list]} 
+        page.show "flash_messages_container"    
+      end
     end
   end
 
