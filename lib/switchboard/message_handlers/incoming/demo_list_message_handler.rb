@@ -43,6 +43,15 @@ module Switchboard::MessageHandlers::Incoming
           num.provider_email = message.carrier 
         end  
 
+        if ( list_name =~ /^leave$/i or list_name =~ /^quit$/ )
+          create_outgoing_message( num, message.to, "I think you have asked to not recieve any more text messages, so I am dropping you from all of our lists." )
+          lists = List.find(:all).each { |l|
+            l.remove_phone_number(num)
+          } 
+          handled_state.messages.push(message)
+          next;
+        end 
+ 
         if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =~ /join/i ) )  ## join message
           puts "join message found"
           list = List.find_or_create_by_name(list_name)
@@ -75,7 +84,15 @@ module Switchboard::MessageHandlers::Incoming
           end
           handled_state.messages.push(message)
           next 
-        else ## not a join message
+        elsif ( tokens.length == 1 and ( tokens[0] =~ /^leave$/i or tokens[0] =~ /^quit$/i )  )   ## join message
+          puts "Quitting list.  Message was: " + tokens[0]
+          list = List.find_by_name(list_name)
+          create_outgoing_message( num, message.to, "I think you have asked to leave this list, so I am dropping you from the " + list_name + " list." )
+          list.remove_phone_number(num)
+          list.save
+          handled_state.messages.push(message)
+          next
+       else ## not a join message
             if List.exists?({:name => list_name}) 
               list = List.find_by_name(list_name)
               message.list = list
@@ -98,9 +115,7 @@ module Switchboard::MessageHandlers::Incoming
     end  ## message loop -- handled a message
   end
 
-
       def create_outgoing_message(num, from, body)
-
           if ( num.provider_email != '' and num.provider_email != nil  )
             puts "sending email message"
             message = EmailMessage.new
