@@ -98,11 +98,24 @@ module Switchboard::MessageHandlers::Incoming
               message.list = list
               message.sender = num.user 
               message.save
-              if (message.from_web? or list.all_users_can_send_messages?)
+              if (message.from_web? or list.all_users_can_send_messages? or list.admin == num)
                 list.phone_numbers.each do |phone_number|
                   body = '[' + list_name + '] ' + tokens.join(' ')
                   puts "sending message: " + body + ", to: " + phone_number.number
                   list.create_outgoing_message(phone_number, body)
+                end
+              else
+                if (list.admin != nil)
+                  admin_msg = '[' + list_name + ' from '
+                    admin_msg +=  num.number.to_s
+
+                  if ( ! num.user.first_name.blank? and num.user.first_name != 'Unknown' )
+                    admin_msg += "/ " + num.user.first_name.to_s + " " + num.user.last_name.to_s 
+                  end
+
+                  admin_msg += '] '
+                  admin_msg += tokens.join(' ') 
+                  create_outgoing_message( list.admin, message_sender, admin_msg )
                 end
               end
               handled_state.messages.push(message)
