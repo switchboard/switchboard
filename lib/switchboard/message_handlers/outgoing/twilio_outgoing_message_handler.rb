@@ -4,6 +4,7 @@ require 'twilio/twilio_sender'
 module Switchboard::MessageHandlers::Outgoing
     class TwilioOutgoingMessageHandler < Switchboard::MessageHandlers::OutgoingMessageHandler
         def handle_messages!()
+            puts "Handling outgoing messages."
             sender = Twilio::TwilioSender.new()
             ## these should come from an array of output connectors (tuple of state & conditions)
             output_state_name = 'sent'
@@ -12,6 +13,8 @@ module Switchboard::MessageHandlers::Outgoing
             outgoing_states = [ outgoing_state ]
             ## should be  outgoing_states.each |state,conditions| do 
             messages_to_handle.each do |message|
+                puts "About to send a message.  To: " + message.to
+                puts "Outgoing message body: " + message.body
                 sender.send_sms( message.to, message.body )
                 outgoing_state.messages.push(message) 
                 outgoing_state.save
