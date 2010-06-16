@@ -1,4 +1,5 @@
 #select_list
-  Which List?
-  %br
-  = select_list
+  = render :partial => 'list_lists', :locals => {:action => 'messages', :controller => 'lists'}
+
+#col2-3
+  %ul#message_list

@@ -68,7 +68,8 @@ class AdminController < ApplicationController
   end
 
   def send_message
-    @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body])
+    @list = List.find(params[:list_id])
+    @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
 
     MessageState.find_by_name("incoming")
     if MessageState.find_by_name("incoming").add_message(@message)

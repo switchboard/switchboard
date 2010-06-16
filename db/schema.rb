@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100615225353) do
+ActiveRecord::Schema.define(:version => 20100616003433) do
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(:version => 20100615225353) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
     t.integer  "list_id"
   end
 

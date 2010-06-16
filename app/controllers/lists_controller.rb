@@ -45,6 +45,15 @@ class ListsController < ApplicationController
     end
   end
 
+  def messages
+    @messages = @list.messages
+    if request.xhr?
+      render :update do |page|
+        page.replace_html "message_list", :partial => 'lists/message', :collection => @messages
+      end
+    end
+  end
+
   private
     def get_list
       @list = List.find(params[:list_id])

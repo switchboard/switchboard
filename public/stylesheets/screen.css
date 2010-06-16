@@ -177,21 +177,31 @@ h3 {
 }
 
 /* line 74, ../../app/stylesheets/partials/_page.sass */
+#col2-3 {
+  width: 550px;
+  position: absolute;
+  top: auto;
+  left: auto;
+  display: inline;
+  padding: 5px;
+}
+
+/* line 82, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 77, ../../app/stylesheets/partials/_page.sass */
+/* line 85, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 80, ../../app/stylesheets/partials/_page.sass */
+/* line 88, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 20px;
 }
 
-/* line 83, ../../app/stylesheets/partials/_page.sass */
+/* line 91, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
