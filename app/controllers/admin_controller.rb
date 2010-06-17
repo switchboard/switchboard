@@ -29,7 +29,7 @@ class AdminController < ApplicationController
     ps[:password_confirmation] = 'user!'
     @list = List.find(ps.delete('list_id'))
     @phone = PhoneNumber.find_by_number(number) if !number.empty?
-    if @phone.nil?
+    if @phone.nil? or @phone.user.nil?
       @user = User.new(ps)
       if @user.save
         @phone = PhoneNumber.create(:number => number, :user => @user)
