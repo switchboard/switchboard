@@ -14,8 +14,13 @@ module Switchboard::MessageHandlers::Outgoing
 
             ## should be  outgoing_states.each |state,conditions| do 
             messages_to_handle.each do |message|
-              puts "handling outgoing message"
-
+              puts "handling outgoing message."
+              puts "message's to: " + message.to
+              puts "message's body: " + message.body
+              ## this is a terrible hack
+              if (message.to == 'Web') 
+                puts "WARNING: incorrect messages are being generated to Web"
+              else
                 if ( message.respond_to? :carrier) 
                   puts "emailing message"
                   send_email  message.to, :body => message.body, :from => message.from
@@ -23,6 +28,7 @@ module Switchboard::MessageHandlers::Outgoing
                   puts "texting response"
                   sender.send_sms( message.to, message.body )
                 end
+              end
                 outgoing_state.messages.push(message) 
                 outgoing_state.save
             end
