@@ -10,8 +10,14 @@ module Switchboard::MessageHandlers::Incoming
         tokens = message.body.split(/ /)
         puts tokens.to_s 
 
+        puts "Message was sent to: " + message.to
+
         message_sender = ''
-        if ( message.respond_to? :carrier )
+        if ( List.find_by_incoming_number(message.to) != nil)
+          puts "found list w/out keyword!"
+          list_name = List.find_by_incoming_number(message.to).name
+          message_sender = message.to
+        elsif ( message.respond_to? :carrier )
           list_name = message.default_list 
           puts "received email message for list " + list_name
           message_sender = message.to
@@ -52,7 +58,8 @@ module Switchboard::MessageHandlers::Incoming
           handled_state.messages.push(message)
           next;
         end 
- 
+
+        puts "processing message" 
         if (tokens.length == 0 or ( tokens.length == 1 and tokens[0] =~ /join/i ) )  ## join message
           puts "join message found"
 
@@ -103,6 +110,7 @@ module Switchboard::MessageHandlers::Incoming
           next
        else ## not a join message
             if List.exists?({:name => list_name}) 
+              puts "List received a message"
               list = List.find_by_name(list_name)
               message.list = list
               message.sender = num.user 
