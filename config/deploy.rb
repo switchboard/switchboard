@@ -6,7 +6,7 @@ set :scm, :git
 
 role :web, "mmp.vpscustomer.com"                          # Your HTTP server, Apache/etc
 role :app, "mmp.vpscustomer.com"                          # This may be the same as your `Web` server
-role :db,  "localhost", :primary => true # This is where Rails migrations will run
+role :db,  "mmp.vpscustomer.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 set :user, "switchboard"
