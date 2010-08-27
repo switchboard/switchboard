@@ -13,7 +13,12 @@ incoming = Switchboard::MessageHandlers::Incoming::DemoListMessageHandler.new
 
 outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOrEmailOutgoingMessageHandler.new
 while true
+  begin
     incoming.handle_messages!
     outgoing.handle_messages!
     sleep(1)
+  rescue
+    puts "fail!"
+    sleep(1)
+  end
 end

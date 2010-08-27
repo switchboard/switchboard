@@ -78,7 +78,6 @@ module Switchboard::MessageHandlers::Incoming
               if (num.user == nil)
                 puts "adding user for num: " + num.number
                 num.user = User.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
-                num.user.first_name = 'Unknown'
                 num.save
                 num.user.save
               end
@@ -126,7 +125,7 @@ module Switchboard::MessageHandlers::Incoming
                   admin_msg = '[' + list_name + ' from '
                     admin_msg +=  num.number.to_s
 
-                  if ( ! num.user.first_name.blank? and num.user.first_name != 'Unknown' )
+                  if ( num.user != nil and (! num.user.first_name.blank?) )
                     admin_msg += "/ " + num.user.first_name.to_s + " " + num.user.last_name.to_s 
                   end
 
