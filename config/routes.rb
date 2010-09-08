@@ -41,13 +41,14 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '/', :controller => 'user_sessions', :action => 'new'
 
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
-
-  map.namespace :messages do |messages|
-    messages.resources :twilio
-  end
   map.resource :user_session
   map.resource :account, :controller => "users"
+  map.resources :lists do |list|
+    list.resources :users
+    list.resources :phone_numbers
+    list.resources :messages
+  end
   map.resources :users
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end
