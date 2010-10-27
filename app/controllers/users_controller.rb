@@ -1,26 +1,13 @@
 class UsersController < ApplicationController
 #  before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:show, :edit, :update]
-  layout 'admin'
+#  before_filter :require_user, :only => [:show, :edit, :update]
   
   def new
     @user = User.new
   end
-
-  def index
-  end
   
   def create
-    phone_number = PhoneNumber.create!(:number => params[:user].delete('phone_number'))
-    params[:user].merge!({:password => 'inactive', :password_confirmation => 'inactive'})
-    @user = User.create!(params[:user])
-    @user.phone_numbers << phone_number
-    reparams = Hash.new
-    if @list
-      @list.add_phone_number phone_number
-      reparams = {:list_id => @list.id}
-    end 
-    redirect_to :action => 'new', :params => reparams
+    # not used yet
   end
   
   def show

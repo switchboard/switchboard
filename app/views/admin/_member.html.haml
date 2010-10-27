@@ -1,5 +1,5 @@
 %li
   = member.display_number_with_name
   %span.remove_member_icon
-    = link_to_remove_member(member, @list.id)
+    = link_to_remove_member(member, list_id)
     = image_tag("spinner.gif", :id => 'which_member_spinner', :style => 'display: none')

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100621142434) do
+ActiveRecord::Schema.define(:version => 20100616182958) do
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20100621142434) do
     t.boolean  "use_welcome_message",         :default => false
     t.string   "custom_welcome_message"
     t.integer  "admin_id"
-    t.string   "incoming_number"
   end
 
   create_table "message_states", :force => true do |t|

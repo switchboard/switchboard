@@ -1,6 +1,6 @@
 %h3
   Status
 %p
-  #send_message_button{:onclick => send_message_onclick(@list.id)} SEND
+  #send_message_button{:onclick => send_message_onclick(list_id)} SEND
   %br
   = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')

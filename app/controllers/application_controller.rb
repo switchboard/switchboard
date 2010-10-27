@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
 
-  before_filter :get_list
-
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -28,10 +26,6 @@ class ApplicationController < ActionController::Base
         flash[:notice] = "You are not authorized to view that page."
         redirect_to new_user_session_url
       end
-    end
-
-    def get_list
-      @list = List.find_by_id(params[:list_id] || params[:id])
     end
 
 end
