@@ -6,7 +6,6 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @messages = Message.paginate_by_list_id(@list.id, :page => params[:page], :per_page => 10)
   end 
 
   def create 
