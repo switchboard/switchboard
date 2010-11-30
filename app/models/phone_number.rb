@@ -25,4 +25,5 @@ class PhoneNumber < ActiveRecord::Base
   def can_receive_gateway?
     return true
   end
+
 end

@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100621142434) do
+ActiveRecord::Schema.define(:version => 20101128201653) do
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
     t.integer  "phone_number_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_admin"
   end
 
   create_table "lists", :force => true do |t|
@@ -36,7 +37,6 @@ ActiveRecord::Schema.define(:version => 20100621142434) do
     t.boolean  "moderated_membership"
     t.boolean  "use_welcome_message",         :default => false
     t.string   "custom_welcome_message"
-    t.integer  "admin_id"
     t.string   "incoming_number"
   end
 
