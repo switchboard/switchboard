@@ -31,6 +31,12 @@ class List < ActiveRecord::Base
   def has_number?(phone_number)
     self.list_memberships.exists?(:phone_number_id => phone_number.id)
   end
+ 
+  def admins
+    self.list_memberships.collect { |mem| 
+      mem.phone_number if mem.is_admin
+    }
+  end
 
   def number_is_admin?(phone_number)
     self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin
