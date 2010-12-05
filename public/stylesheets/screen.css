@@ -1,4 +1,4 @@
-/* line 14, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 14, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -18,70 +18,74 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   vertical-align: baseline;
 }
 
-/* line 17, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 17, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 body {
   line-height: 1;
   color: black;
   background: white;
 }
 
-/* line 19, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 19, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 21, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 21, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: separate;
   border-spacing: 0;
   vertical-align: middle;
 }
 
-/* line 23, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 23, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 25, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 25, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: "" "";
 }
-/* line 96, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 96, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
 }
 
-/* line 27, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+/* line 27, ../../../../../../usr/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 1, ../../app/stylesheets/partials/_nav.scss */
-#top_nav {
+/* line 2, ../../app/stylesheets/partials/_nav.scss */
+#buttons li {
+  text-align: center;
   display: inline;
+  float: left;
 }
-/* line 3, ../../app/stylesheets/partials/_nav.scss */
-#top_nav ul {
-  list-style-type: none;
-}
-/* line 5, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/utilities/lists/_inline-list.scss */
-#top_nav ul, #top_nav ul li {
-  margin: 0px;
-  padding: 0px;
-  display: inline;
-}
-/* line 5, ../../app/stylesheets/partials/_nav.scss */
-#top_nav ul li {
-  margin: 0;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+/* line 6, ../../app/stylesheets/partials/_nav.scss */
+#buttons li a {
+  display: inline-block;
+  width: 263px;
+  padding: 15px 0 15px 0;
+  background-color: #00FF33;
   border-bottom: 1px solid black;
-  padding: 5px;
+  color: black;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+/* line 15, ../../app/stylesheets/partials/_nav.scss */
+#buttons li a.middle {
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+}
+/* line 19, ../../app/stylesheets/partials/_nav.scss */
+#buttons li a:hover {
+  background-color: #006600;
 }
 
-/* line 15, ../../app/stylesheets/partials/_nav.scss */
+/* line 26, ../../app/stylesheets/partials/_nav.scss */
 #menu {
   float: right;
   display: block;
@@ -89,7 +93,7 @@ a img {
   height: 350px;
 }
 
-/* line 22, ../../app/stylesheets/partials/_nav.scss */
+/* line 33, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list {
   border: 3px solid black;
   width: 90%;
@@ -98,17 +102,17 @@ a img {
   height: 225px;
   background-color: white;
 }
-/* line 23, ../../app/stylesheets/partials/_nav.scss */
+/* line 34, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul {
   height: 150px;
   overflow: hidden;
   margin: 10px 0 15px 0;
 }
-/* line 27, ../../app/stylesheets/partials/_nav.scss */
+/* line 38, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul li {
   margin-top: 5px;
 }
-/* line 31, ../../app/stylesheets/partials/_nav.scss */
+/* line 42, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list p.next {
   text-align: center;
 }
@@ -120,47 +124,46 @@ body {
 
 /* line 4, ../../app/stylesheets/partials/_page.sass */
 #masthead {
-  margin: 20px auto;
+  margin: 10px auto 0 auto;
   background-color: white;
   height: 50px;
   border: 1px solid black;
-  width: 790px;
-  padding: 5px;
+  border-bottom: 0px;
+  width: 791px;
   text-align: left;
 }
 
 /* line 13, ../../app/stylesheets/partials/_page.sass */
 .flash_notice {
   text-align: left;
-  margin: 20px auto;
-  padding: 5px;
+  margin: 0 auto;
   border: 1px solid red;
-  width: 790px;
+  width: 792px;
+  display: none;
 }
 
 /* line 20, ../../app/stylesheets/partials/_page.sass */
 #content_container {
-  margin: 20px auto;
-  padding: 5px;
+  margin: 0 auto;
   border: 1px solid black;
   background: #eeeeee;
-  width: 790px;
+  width: 791px;
   text-align: left;
 }
 
-/* line 28, ../../app/stylesheets/partials/_page.sass */
+/* line 27, ../../app/stylesheets/partials/_page.sass */
 #footer {
   margin: 20px;
-  width: 790px;
+  width: 792px;
   margin: 20px auto;
 }
 
-/* line 33, ../../app/stylesheets/partials/_page.sass */
+/* line 32, ../../app/stylesheets/partials/_page.sass */
 #logout {
   float: right;
 }
 
-/* line 36, ../../app/stylesheets/partials/_page.sass */
+/* line 35, ../../app/stylesheets/partials/_page.sass */
 #content {
   margin: 60px 15px 15px 15px;
   padding: 15px;
@@ -171,7 +174,7 @@ body {
   background: white;
 }
 
-/* line 45, ../../app/stylesheets/partials/_page.sass */
+/* line 44, ../../app/stylesheets/partials/_page.sass */
 #select_list {
   top: 10px;
   width: 200px;
@@ -179,9 +182,10 @@ body {
   position: relative;
   padding-left: 10px;
   height: 500px;
+  overflow: auto;
 }
 
-/* line 54, ../../app/stylesheets/partials/_page.sass */
+/* line 53, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -189,69 +193,33 @@ h3 {
   font-size: 1.5em;
 }
 
-/* line 60, ../../app/stylesheets/partials/_page.sass */
-#col2 {
-  top: auto;
-  width: 275px;
-  left: auto;
-  position: absolute;
-  display: inline;
-  padding: 10px 5px 0 0;
-}
-
-/* line 69, ../../app/stylesheets/partials/_page.sass */
-#col3 {
-  top: 10px;
-  width: 275px;
-  float: right;
-  position: relative;
-}
-
-/* line 76, ../../app/stylesheets/partials/_page.sass */
-#col2-3 {
-  width: 550px;
-  position: absolute;
-  top: auto;
-  left: auto;
-  display: inline;
-  padding: 10px 5px;
-}
-/* line 83, ../../app/stylesheets/partials/_page.sass */
-#col2-3 form {
-  padding-top: 10px;
-}
-/* line 85, ../../app/stylesheets/partials/_page.sass */
-#col2-3 ul {
-  padding: 10px 0;
-}
-
-/* line 88, ../../app/stylesheets/partials/_page.sass */
+/* line 59, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 91, ../../app/stylesheets/partials/_page.sass */
+/* line 62, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 94, ../../app/stylesheets/partials/_page.sass */
+/* line 65, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 98, ../../app/stylesheets/partials/_page.sass */
+/* line 69, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 101, ../../app/stylesheets/partials/_page.sass */
+/* line 72, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
 
-/* line 104, ../../app/stylesheets/partials/_page.sass */
+/* line 75, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }
