@@ -1,20 +1,12 @@
-#menu
-  - if @list
-    %h3= @list.name
-    %ul
-      %li 
-        %a{:href => '/admin/manage'} Change Lists
-      %li
-        %a{:href => new_list_path} Create New List
-    %br
-    %hr
-    %br
-    %ul
-      %li
-        %a{:href => edit_list_path(@list)} Settings
-      %li
-        %a{:href => list_phone_numbers_path(@list)} Members
-      %li
-        %a{:href => list_messages_path(@list)} Messages
-  - else
-    %a{:href => new_list_path} Create New List
+%div#top_nav
+  %ul
+    %li{:class => active_nav('/lists/new')} 
+      %a{:href => '/lists/new'} Create List 
+    %li{:class => active_nav('/admin/compose')} 
+      %a{:href=> '/admin/compose'} Send a Message
+    %li{:class => active_nav('/admin/manage')} 
+      %a{:href => '/admin/manage'} Manage Lists
+    %li{:class => active_nav('/admin/members')}
+      %a{:href => '/admin/members'} Manage List Members
+    %li{:class => active_nav('/admin/responses')}
+      %a{:href => '/admin/responses'} List Responses

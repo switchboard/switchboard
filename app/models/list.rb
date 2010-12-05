@@ -4,7 +4,6 @@ class List < ActiveRecord::Base
   validates_uniqueness_of :name
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
-
   belongs_to :admin, :class_name => 'PhoneNumber'
  
   has_many :messages, :order => "created_at DESC"

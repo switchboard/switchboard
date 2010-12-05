@@ -1,0 +1,19 @@
+#add_contact_form{:style => 'display: none'}
+  %h3 Contact
+  %p
+  - remote_form_for :user, @user, :url => {:action => 'add_member'}, :html => {:id => 'add_contact_form'} do |f|
+    First Name
+    %br
+    = f.text_field :first_name
+    Last Name
+    %br
+    = f.text_field :last_name
+    Email
+    %br
+    = f.text_field :email
+    Phone
+    %br
+    = f.text_field :phone
+    = hidden_field_tag 'user[list_id]', '', :id => 'hidden_list_id'
+    = submit_tag 'Save'
+    = image_tag("spinner.gif", :id => 'add_contact_spinnger', :style => 'display: none')

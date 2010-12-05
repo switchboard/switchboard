@@ -4,6 +4,23 @@ class AdminController < ApplicationController
 
   helper 'admin'
 
+  def show_members
+    list = List.find(params[:list_id])
+    numbers = list.phone_numbers
+    #select_html = collection_select(nil, nil, list.members, :id, :name, {}, {:multiple => 1, :size => 20})
+    render :update do |page|
+      if numbers.empty?
+        page.replace_html 'member_list', '<li>No Members to display.</li>'
+      else 
+        page.replace_html 'member_list', :partial => '/admin/member', :collection => numbers, :locals => {:list_id => list.id} 
+      end
+      page.show 'show_members'
+      page.replace 'hidden_list_id', hidden_field_tag('user[list_id]', list.id, :id => 'hidden_list_id')
+      page.show 'add_contact_form'
+      page.hide 'flash_messages_container'
+    end
+  end
+
   def add_member
     error_objs = []
     ps = params[:user]

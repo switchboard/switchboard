@@ -1,0 +1,12 @@
+#select_list
+  = render :partial => 'list_lists', :locals => {:action => 'show_members'}
+
+#col2
+  #show_members{:style => 'display: none'}
+    %h3 List Membership
+    %p
+      #show_member_list
+        %ul#member_list
+
+#col3
+  = render :partial => 'add_contact'

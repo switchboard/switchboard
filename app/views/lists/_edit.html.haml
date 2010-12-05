@@ -1,0 +1,34 @@
+#col2-3
+  %h3 List Configuration
+  - remote_form_for :list, :url => { :controller => 'lists', :action => 'update'} do |f|
+    %span.config_heading Welcome Message
+    %ul
+      %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + "use welcome message"
+      %li 
+        = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '30x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
+        %br
+        %span#character_count
+    %span.config_heading Sending Preferences
+    %ul
+      %li= f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
+      %li= f.check_box(:allow_commercial_gateway) + "Allow commercial gateway ($0.03/msg)"
+      - if @list.allow_email_gateway
+        %li= f.check_box(:prefer_email) + "Prefer email over commercial gateway"
+    %span.config_heading List Type
+    %ul
+      %li= f.radio_button(:list_type, 'discussion', {:onclick => "$('list_admin').hide();"}) + "Discussion (anyone can send)"	
+      %li= f.radio_button(:list_type, 'announcement', {:onclick => "$('list_admin').show();"}) + "Announcement (admins can send)"
+      - display = (@list.list_type == 'announcement') ?  "inline" : "none"
+      %span#list_admin{:style => "display: #{display}"}
+        %br
+        %span.config_heading List Admin: 
+        - if @list.phone_numbers.empty?
+          You must add list members to add an admin!
+        - else
+          = f.collection_select(:admin_id, @list.phone_numbers, :id, :number)
+    %span.config_heading Join Policy
+    %ul
+      %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
+      %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
+    %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
+    = submit_tag
