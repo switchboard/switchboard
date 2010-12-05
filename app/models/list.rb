@@ -142,14 +142,14 @@ class List < ActiveRecord::Base
     message.list = self 
     message.sender = num.user
     message.save
-    if (message.from_web? or self.all_users_can_send_messages? or @admin == num)
+    if (message.from_web? or self.all_users_can_send_messages? or self.number_is_admin?(num))
       self.phone_numbers.each do |phone_number|
         body = '[' + self[:name] + '] ' + message.tokens.join(' ')
         puts "sending message: " + body + ", to: " + phone_number.number
         self.create_outgoing_message(phone_number, body)
       end
     else
-      if (list.admin != nil)
+      if (!self.admins.empty?)
         admin_msg = '[' + self[:name] + ' from '
         admin_msg +=  num.number.to_s
 
@@ -159,7 +159,9 @@ class List < ActiveRecord::Base
 
         admin_msg += '] '
         admin_msg += tokens.join(' ')
-        self.create_outgoing_message(list.admin, admin_msg )
+        self.admins.each do |admin|
+          self.create_outgoing_message(admin, admin_msg )
+        end
       end
     end
   end
