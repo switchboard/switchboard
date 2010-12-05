@@ -22,4 +22,19 @@ class User < ActiveRecord::Base
     self.admin
   end
 
+  def full_name 
+    puts("generating full name")
+    name = ''
+    if ( ! @first_name.blank? ) 
+      name += @first_name
+    end
+
+    if ( ! @last_name.blank? )
+      ## add a space if necessary
+      name += ( name != '' ? ' ' : '')
+      name += @last_name
+    end
+    puts("name: " + name)
+    name
+  end
 end
