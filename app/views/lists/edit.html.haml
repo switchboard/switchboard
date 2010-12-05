@@ -17,6 +17,12 @@
   %ul
     %li= f.radio_button(:list_type, 'discussion', {:onclick => "$('list_admin').hide();"}) + "Discussion (anyone can send)"	
     %li= f.radio_button(:list_type, 'announcement', {:onclick => "$('list_admin').show();"}) + "Announcement (admins can send)"
+  - if @list.list_type == 'announcement'
+    #announcement_list_options
+      %span.config_heading Responses Handling
+      Send responses to all admins via:
+      %ul
+        %li= f.check_box(:text_admin_with_response) + "Text"
   %span.config_heading Join Policy
   %ul
     %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
