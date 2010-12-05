@@ -7,6 +7,10 @@
       = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '30x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
       %br
       %span#character_count
+  %span.config_heading Incoming Phone Number
+  Accept messages to this list from only this phone number (keep blank to use default number)
+  %ul
+    %li= f.text_field(:incoming_number)
   %span.config_heading Sending Preferences
   %ul
     %li= f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
