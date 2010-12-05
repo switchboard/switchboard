@@ -137,15 +137,34 @@ class List < ActiveRecord::Base
   end
   ### /these methods make editing lists easier
 
+
+  def prepare_content(message, num)
+    ##?TODO: add config about initial list name prefix
+     body = '[' + self[:name] + '] ' + message.tokens.join(' ')
+
+    ## add automatic signature to messages on discussion lists 
+    if ( self.all_users_can_send_messages? ) 
+      if (num.user == nil) 
+        puts "no user defined for phone number, so no signature attached"
+      end 
+      if (num.user != nil) 
+        body += "(" + num.user.full_name + ")"
+      end
+    end
+    body
+  end
+
   def handle_send_action(message, num)
     message.list = self 
     message.sender = num.user
     message.save
     if (message.from_web? or self.all_users_can_send_messages? or self.number_is_admin?(num))
+      content = self.prepare_content(message, num)
+      logger.info("sending message: " + content + ", to: " + self[:name])
       self.phone_numbers.each do |phone_number|
-        body = '[' + self[:name] + '] ' + message.tokens.join(' ')
-        puts "sending message: " + body + ", to: " + phone_number.number
-        self.create_outgoing_message(phone_number, body)
+        content = prepare_content(message, num)
+        logger.debug("sending message: " + content + ", to: " + phone_number.number )
+        self.create_outgoing_message(phone_number, content)
       end
     else
       if (!self.admins.empty? and self.text_admin_with_list_response)

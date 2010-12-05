@@ -42,11 +42,13 @@ module Switchboard::MessageHandlers::Incoming
     ## Main method for handling incoming messages.
     ## Determine which list the message is headed for, determine action, handle action.
     def handle_messages!()
+      puts ("Handling incoming messages")
       default_outgoing_number = "2153466997"
 
       ##?REVIEW: could have multiple outgoing states
       handled_state = MessageState.find_by_name('handled')
       messages_to_handle.each do |message|
+        puts ("Handling incoming messages -- individual message")
         message.tokens = message.body.split(/ /)
         
         list = determine_list(message) 
