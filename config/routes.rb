@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
     list.resources :phone_numbers
     list.resources :messages
   end
+  map.resources :messages
   map.resources :users
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
