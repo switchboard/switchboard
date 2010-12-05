@@ -69,6 +69,13 @@ class ListsController < ApplicationController
     end
   end
 
+  def toggle_admin
+    return unless request.xhr?
+    number = PhoneNumber.find(params[:list_member_id])
+    @list.toggle_admin(number)
+    render :nothing => true
+  end
+
   private
     def get_list
       @list = List.find(params[:id])

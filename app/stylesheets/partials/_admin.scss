@@ -39,6 +39,22 @@
   }
 }
 
+.toggle {
+  span {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px;
+    margin-top: -25px;
+  }
+  &:hover {
+    span {
+      display: inline;
+    }
+  }
+}
+
 #show_member_list {
   width: 200px;
   padding: 5px;
@@ -75,3 +91,6 @@
   }
 }
   
+#character_count {
+  float: right;
+}

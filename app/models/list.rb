@@ -4,8 +4,6 @@ class List < ActiveRecord::Base
   validates_uniqueness_of :name
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
-  belongs_to :admin, :class_name => 'PhoneNumber'
- 
   has_many :messages, :order => "created_at DESC"
 
   ## 
@@ -31,6 +29,28 @@ class List < ActiveRecord::Base
 
   def has_number?(phone_number)
     self.list_memberships.exists?(:phone_number_id => phone_number.id)
+  end
+ 
+  def admins
+    self.list_memberships.collect { |mem| 
+      mem.phone_number if mem.is_admin
+    }
+  end
+
+  def number_is_admin?(phone_number)
+    self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin
+  end
+ 
+  def toggle_admin(phone_number)
+    self.number_is_admin?(phone_number) ? self.remove_admin(phone_number) : self.add_admin(phone_number)
+  end
+
+  def remove_admin(phone_number)
+    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => nil)
+  end
+
+  def add_admin(phone_number)
+    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => 1)
   end
 
   def phone_numbers
