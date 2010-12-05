@@ -87,37 +87,11 @@ module Switchboard::MessageHandlers::Incoming
           next
        else ## send action (send a message to a list)
         Rails.logger.info("List received a message: " + list.name )
-        handle_send_action(message,list,num)
+        list.handle_send_action(message, num)
         handled_state.messages.push(message)
       end
       handled_state.save
     end  ## message loop -- handled a message
-  end
-
-  def handle_send_action(message, list, num)
-    message.list = list
-    message.sender = num.user 
-    message.save
-    if (message.from_web? or list.all_users_can_send_messages? or list.admin == num)
-      list.phone_numbers.each do |phone_number|
-        body = '[' + list.name + '] ' + message.tokens.join(' ')
-        puts "sending message: " + body + ", to: " + phone_number.number
-        list.create_outgoing_message(phone_number, body)
-      end
-    else
-      if (list.admin != nil)
-        admin_msg = '[' + list_name + ' from '
-        admin_msg +=  num.number.to_s
-
-        if ( num.user != nil and (! num.user.first_name.blank?) )
-          admin_msg += "/ " + num.user.first_name.to_s + " " + num.user.last_name.to_s 
-        end
-
-        admin_msg += '] '
-        admin_msg += tokens.join(' ') 
-        list.create_outgoing_message(list.admin, admin_msg )
-      end
-    end
   end
 
       def create_outgoing_message(num, from, body)

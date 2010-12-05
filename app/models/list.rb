@@ -117,6 +117,34 @@ class List < ActiveRecord::Base
   end
   ### /these methods make editing lists easier
 
+  def handle_send_action(message, num)
+    message.list = self 
+    message.sender = num.user
+    message.save
+    if (message.from_web? or self.all_users_can_send_messages? or @admin == num)
+      self.phone_numbers.each do |phone_number|
+        body = '[' + self[:name] + '] ' + message.tokens.join(' ')
+        puts "sending message: " + body + ", to: " + phone_number.number
+        self.create_outgoing_message(phone_number, body)
+      end
+    else
+      if (list.admin != nil)
+        admin_msg = '[' + self[:name] + ' from '
+        admin_msg +=  num.number.to_s
+
+        if ( num.user != nil and (! num.user.first_name.blank?) )
+          admin_msg += "/ " + num.user.first_name.to_s + " " + num.user.last_name.to_s
+        end
+
+        admin_msg += '] '
+        admin_msg += tokens.join(' ')
+        self.create_outgoing_message(list.admin, admin_msg )
+      end
+    end
+  end
+
+  
+
   protected
 
     def default_welcome_message
