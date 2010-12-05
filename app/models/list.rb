@@ -143,7 +143,30 @@ class List < ActiveRecord::Base
     end
   end
 
-  
+  def handle_join_message(message,  tokens, num)
+    if self.has_number?(num)
+      self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
+    else
+      if (self.open_membership)
+        message.list = self
+        if (num.user == nil)
+          puts "adding user for num: " + num.number
+          num.user = User.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
+          num.save
+          num.user.save
+        end
+
+        self.add_phone_number(num)
+
+        message.sender = num.user
+        message.save
+        self.save 
+      else ## not list.open_membership
+        self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
+      end
+    end
+  end
+
 
   protected
 

@@ -74,71 +74,23 @@ module Switchboard::MessageHandlers::Incoming
           next
         end
     
-        if ( first_token =~ /^join$/i )  ## join action
-          handle_join_message(message, list_name, tokens, num)
+       if ( first_token =~ /^join$/i )  ## join action
+          list.handle_join_message(message, tokens, num)
           next 
-        elsif ( first_token =~ /^leave$/i or first_token =~ /^quit$/i )  ## quit action
+       elsif ( first_token =~ /^leave$/i or first_token =~ /^quit$/i )  ## quit action
+          ##?TODO: move to list model 
           Rails.logger.info("Received list quit message")
-          list = List.find_by_name(list_name)
-          create_outgoing_message( num, message.to, "You have been removed from the " + list_name + " list, as you requested." )
+          list.create_outgoing_message( num, "You have been removed from the " + list_name + " list, as you requested." )
           list.remove_phone_number(num)
           list.save
-          handled_state.messages.push(message)
-          next
        else ## send action (send a message to a list)
         Rails.logger.info("List received a message: " + list.name )
         list.handle_send_action(message, num)
-        handled_state.messages.push(message)
-      end
-      handled_state.save
-    end  ## message loop -- handled a message
-  end
-
-      def create_outgoing_message(num, from, body)
-          if ( num.provider_email != '' and num.provider_email != nil  )
-            puts "sending email message"
-            message = EmailMessage.new
-            message.to = num.number + "@" + num.provider_email
-            message.from = from
-          else
-            puts "sending twilio message to: " + num.number
-            message = TwilioMessage.new
-            message.to = num.number
-          end
-
-          message.body = body
-
-          message_state = MessageState.find_by_name("outgoing")
-          message_state.messages.push(message)
-          message_state.save! 
-      end
-
-      def handle_join_message(message, list, tokens, num)
-        puts "join message found"
-
-        if list.has_number?(num) 
-          create_outgoing_message( num, message.to, "It seems like you are trying to join the list '" + list_name + "', but you are already a member.")
-        else
-          if (list.open_membership)
-            message.list = list
-            if (num.user == nil)
-              puts "adding user for num: " + num.number
-              num.user = User.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
-              num.save
-              num.user.save
-            end
-
-            list.add_phone_number(num)
-
-            message.sender = num.user
-            message.save
-
-          else ## not list.open_membership
-            create_outgoing_message( num, message.to, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
-          end
         end
-        handled_state.messages.push(message)
-      end
 
+        handled_state.messages.push(message)
+        handled_state.save
+      end  ## message loop -- handled a message
     end
+  end
 end
