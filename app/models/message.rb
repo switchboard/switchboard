@@ -18,4 +18,23 @@ class Message < ActiveRecord::Base
     self.from == 'Web'
   end
 
+  ## returns phone number of message sender
+  def sender_number
+    if self.respond_to? :carrier
+      return self[:number]
+    else 
+      return self[:from]
+    end
+  end
+
+
+  ## save an array of 'tokens' (words) from the message that haven't been processed yet
+  def tokens=(tokens)
+    @tokens = tokens
+  end
+
+  def tokens
+    @tokens
+  end
+
 end
