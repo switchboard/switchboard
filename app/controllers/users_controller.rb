@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    phone_number = PhoneNumber.create!(:number => params[:user].delete('phone_number'))
+    phone_number = PhoneNumber.find_or_create_by_number(:number => params[:user].delete('phone_number'))
     params[:user].merge!({:password => 'inactive', :password_confirmation => 'inactive'})
     @user = User.create!(params[:user])
     @user.phone_numbers << phone_number
