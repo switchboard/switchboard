@@ -208,6 +208,14 @@ class List < ActiveRecord::Base
     end
   end
 
+  def self.top_five(options)
+    # how do we determine the top five lists? get random five for now!
+    List.find(:all, :limit => 5, :conditions => ['id NOT IN (?)', options[:remove_list_id]])
+  end
+
+  def self.more_than_five
+    List.find(:all).size > 5
+  end
 
   protected
 
