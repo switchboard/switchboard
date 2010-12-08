@@ -1,3 +1,14 @@
+// fonts?!
+@font-face {
+  font-family: DINPro;
+  src: url('/fonts/DINPro-Regular.otf');
+}
+@font-face {
+  font-family: DINPro-Medium;
+  src: url('/fonts/DINPro-Medium.otf');
+}
+
+
 // This import applies a global reset to any page that imports this stylesheet.
 @import "compass/reset";
 @import "compass/utilities/lists";

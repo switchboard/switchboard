@@ -11,7 +11,7 @@
       border-bottom: 1px solid black;
       color: black;
       font-weight: bold;
-      font-family: sans-serif;
+      font-family: "DINPro", Arial, sans-serif;
       &.middle {
         border-right: 1px solid black;
         border-left: 1px solid black;
@@ -32,6 +32,7 @@
   width: 263px;
   height: 350px;
   #switch_list {
+    font-family: "DINPRO", Arial, sans-serif;
     color: white;
     background-color: #660000;
     padding: 5px;
@@ -49,7 +50,7 @@
       z-index: 100;
       position: absolute;
       margin-top: 20px;
-      margin-left: -110px;
+      margin-left: -90px;
       width: 263px;
       li {
         a {

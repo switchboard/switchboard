@@ -1,3 +1,13 @@
+@font-face {
+  font-family: DINPro;
+  src: url("/fonts/DINPro-Regular.otf");
+}
+
+@font-face {
+  font-family: DINPro-Medium;
+  src: url("/fonts/DINPro-Medium.otf");
+}
+
 /* line 14, ../../../../../../opt/ruby-enterprise-1.8.7-2010.02/lib/ruby/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -73,7 +83,7 @@ a img {
   border-bottom: 1px solid black;
   color: black;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: "DINPro", Arial, sans-serif;
 }
 /* line 15, ../../app/stylesheets/partials/_nav.scss */
 #buttons li a.middle {
@@ -98,40 +108,41 @@ a img {
 }
 /* line 34, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list {
+  font-family: "DINPRO", Arial, sans-serif;
   color: white;
   background-color: #660000;
   padding: 5px;
   border: 1px solid black;
 }
-/* line 40, ../../app/stylesheets/partials/_nav.scss */
+/* line 41, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list:hover span {
   display: inline;
 }
-/* line 44, ../../app/stylesheets/partials/_nav.scss */
+/* line 45, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list a {
   color: white;
 }
-/* line 47, ../../app/stylesheets/partials/_nav.scss */
+/* line 48, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list span {
   display: none;
   z-index: 100;
   position: absolute;
   margin-top: 20px;
-  margin-left: -110px;
+  margin-left: -90px;
   width: 263px;
 }
-/* line 54, ../../app/stylesheets/partials/_nav.scss */
+/* line 55, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list span li {
   background-color: #CC0000;
   padding: 5px;
   border: 1px solid white;
 }
-/* line 55, ../../app/stylesheets/partials/_nav.scss */
+/* line 56, ../../app/stylesheets/partials/_nav.scss */
 #menu #switch_list span li a {
   color: black;
 }
 
-/* line 66, ../../app/stylesheets/partials/_nav.scss */
+/* line 67, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list {
   border: 3px solid black;
   width: 90%;
@@ -140,17 +151,17 @@ a img {
   height: 225px;
   background-color: white;
 }
-/* line 67, ../../app/stylesheets/partials/_nav.scss */
+/* line 68, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul {
   height: 150px;
   overflow: hidden;
   margin: 10px 0 15px 0;
 }
-/* line 71, ../../app/stylesheets/partials/_nav.scss */
+/* line 72, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul li {
   margin-top: 5px;
 }
-/* line 75, ../../app/stylesheets/partials/_nav.scss */
+/* line 76, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list p.next {
   text-align: center;
 }
@@ -163,8 +174,9 @@ body {
 /* line 4, ../../app/stylesheets/partials/_page.sass */
 #masthead {
   margin: 10px auto 0 auto;
-  background-color: white;
-  height: 50px;
+  background-color: #fffb00;
+  background-image: url("/images/dot.gif");
+  height: 80px;
   border: 1px solid black;
   border-bottom: 0px;
   width: 791px;
@@ -172,6 +184,18 @@ body {
 }
 
 /* line 13, ../../app/stylesheets/partials/_page.sass */
+.logo {
+  z-index: 100;
+  background-color: #fffb00;
+  height: 60px;
+  width: 490px;
+  padding-left: 5px;
+  margin-left: 20px;
+  font-family: "DINPro-Medium", Arial, sans-serif;
+  font-size: 3.8em;
+}
+
+/* line 23, ../../app/stylesheets/partials/_page.sass */
 .flash_notice {
   text-align: left;
   margin: 0 auto;
@@ -180,7 +204,7 @@ body {
   display: none;
 }
 
-/* line 20, ../../app/stylesheets/partials/_page.sass */
+/* line 30, ../../app/stylesheets/partials/_page.sass */
 #content_container {
   margin: 0 auto;
   border: 1px solid black;
@@ -189,19 +213,19 @@ body {
   text-align: left;
 }
 
-/* line 27, ../../app/stylesheets/partials/_page.sass */
+/* line 37, ../../app/stylesheets/partials/_page.sass */
 #footer {
   margin: 20px;
   width: 792px;
   margin: 20px auto;
 }
 
-/* line 32, ../../app/stylesheets/partials/_page.sass */
+/* line 42, ../../app/stylesheets/partials/_page.sass */
 #logout {
   float: right;
 }
 
-/* line 35, ../../app/stylesheets/partials/_page.sass */
+/* line 45, ../../app/stylesheets/partials/_page.sass */
 #content {
   margin: 60px 15px 15px 15px;
   padding: 15px;
@@ -212,7 +236,7 @@ body {
   background: white;
 }
 
-/* line 44, ../../app/stylesheets/partials/_page.sass */
+/* line 54, ../../app/stylesheets/partials/_page.sass */
 #select_list {
   top: 10px;
   width: 200px;
@@ -223,7 +247,7 @@ body {
   overflow: auto;
 }
 
-/* line 53, ../../app/stylesheets/partials/_page.sass */
+/* line 63, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -231,33 +255,33 @@ h3 {
   font-size: 1.5em;
 }
 
-/* line 59, ../../app/stylesheets/partials/_page.sass */
+/* line 69, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 62, ../../app/stylesheets/partials/_page.sass */
+/* line 72, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 65, ../../app/stylesheets/partials/_page.sass */
+/* line 75, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 69, ../../app/stylesheets/partials/_page.sass */
+/* line 79, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 72, ../../app/stylesheets/partials/_page.sass */
+/* line 82, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
 
-/* line 75, ../../app/stylesheets/partials/_page.sass */
+/* line 85, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }
