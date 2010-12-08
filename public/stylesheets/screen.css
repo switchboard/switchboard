@@ -141,9 +141,16 @@ a img {
 #menu #switch_list span li a {
   color: black;
 }
+/* line 65, ../../app/stylesheets/partials/_nav.scss */
+#menu #current_list {
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+}
 
-/* line 67, ../../app/stylesheets/partials/_nav.scss */
+/* line 72, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list {
+  margin-top: 20px;
   border: 3px solid black;
   width: 90%;
   margin-left: -10px;
@@ -151,17 +158,17 @@ a img {
   height: 225px;
   background-color: white;
 }
-/* line 68, ../../app/stylesheets/partials/_nav.scss */
+/* line 74, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul {
   height: 150px;
   overflow: hidden;
   margin: 10px 0 15px 0;
 }
-/* line 72, ../../app/stylesheets/partials/_nav.scss */
+/* line 78, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list ul li {
   margin-top: 5px;
 }
-/* line 76, ../../app/stylesheets/partials/_nav.scss */
+/* line 82, ../../app/stylesheets/partials/_nav.scss */
 #sidebar_message_list p.next {
   text-align: center;
 }
@@ -211,21 +218,23 @@ body {
   background: #eeeeee;
   width: 791px;
   text-align: left;
+  background: grey;
+  background-image: url("/images/dot.gif");
 }
 
-/* line 37, ../../app/stylesheets/partials/_page.sass */
+/* line 39, ../../app/stylesheets/partials/_page.sass */
 #footer {
   margin: 20px;
   width: 792px;
   margin: 20px auto;
 }
 
-/* line 42, ../../app/stylesheets/partials/_page.sass */
+/* line 44, ../../app/stylesheets/partials/_page.sass */
 #logout {
   float: right;
 }
 
-/* line 45, ../../app/stylesheets/partials/_page.sass */
+/* line 47, ../../app/stylesheets/partials/_page.sass */
 #content {
   margin: 60px 15px 15px 15px;
   padding: 15px;
@@ -233,10 +242,10 @@ body {
   height: 300px;
   overflow: auto;
   border: 3px solid black;
-  background: white;
+  background-color: white;
 }
 
-/* line 54, ../../app/stylesheets/partials/_page.sass */
+/* line 56, ../../app/stylesheets/partials/_page.sass */
 #select_list {
   top: 10px;
   width: 200px;
@@ -247,7 +256,7 @@ body {
   overflow: auto;
 }
 
-/* line 63, ../../app/stylesheets/partials/_page.sass */
+/* line 65, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -255,33 +264,33 @@ h3 {
   font-size: 1.5em;
 }
 
-/* line 69, ../../app/stylesheets/partials/_page.sass */
+/* line 71, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 72, ../../app/stylesheets/partials/_page.sass */
+/* line 74, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 75, ../../app/stylesheets/partials/_page.sass */
+/* line 77, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 79, ../../app/stylesheets/partials/_page.sass */
+/* line 81, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 82, ../../app/stylesheets/partials/_page.sass */
+/* line 84, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
 
-/* line 85, ../../app/stylesheets/partials/_page.sass */
+/* line 87, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }
