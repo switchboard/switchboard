@@ -23,8 +23,8 @@ module AdminHelper
     onclick = remote_function(
       :url => {:controller => 'admin', :action => 'remove_member'},
       :with => "'list_id=#{list_id}&number_id=#{member.id}'",
-      :loading => show_spinner('which_member_spinner'),
-      :complete => hide_spinner('which_member_spinner')
+      :loading => show_spinner("which_member_spinner_#{member.id}"),
+      :complete => hide_spinner("which_member_spinner_#{member.id}")
     )
     link_to_remote_with_icon('remove.png', {:onclick => onclick})
   end

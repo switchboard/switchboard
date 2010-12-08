@@ -38,7 +38,9 @@ class AdminController < ApplicationController
     list = List.find(params[:list_id])
     number = PhoneNumber.find(params[:number_id])
     list.remove_phone_number(number)
-    redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => list.id}
+    render :update do |page|
+      page.remove "member_#{number.id}"
+    end
   end
 
   def compose_message
