@@ -29,24 +29,27 @@ namespace :deploy do
    end
 end
 
-namespace :background_task_server do
-
+namespace :switchboard_server do
+  desc "Setup the switchboard server directory"
   task :setup, :roles => :app do
     run "mkdir -p /usr/local/switchboard/run" 
     run "chown #{user}:#{group} /usr/local/switchboard/tmp/run" 
   end
 
-  # start background task server
+  # start background server
+  desc "Start the switchboard background server"
   task :start, :roles => :app do
     run "#{current_path}/script/switchboard_server_control.rb start -- production" 
   end
 
-  # stop background task server
+  # stop background server
+  desc "Stop the switchboard background server"
   task :stop, :roles => :app do
     run "#{current_path}/script/switchboard_server_control.rb stop -- production" 
   end
 
-  # start background task server
+  # restart the background server
+  desc "Restart the switchboard background server"
   task :restart, :roles => :app do
     # TODO: since restart won't cold_start, we could read call to status, if 
     # it returns:
