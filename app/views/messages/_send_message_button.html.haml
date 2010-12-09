@@ -1,6 +1,6 @@
 To List: 
 %span.red= @list.name
 %p
-  #send_message_button{:onclick => send_message_onclick(@list.id), :class => 'dinpro'} SEND
+  #send_message_button{:onclick => send_message_onclick(@list.id), :class => 'dinpro'} PREVIEW 
   %br
   = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')

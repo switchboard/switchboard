@@ -54,20 +54,36 @@ class AdminController < ApplicationController
 
   def send_message
     @list = List.find(params[:list_id])
-    @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
-
-    MessageState.find_by_name("incoming")
-    if MessageState.find_by_name("incoming").add_message(@message)
-      #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
-      render :update do |page|
-        page.replace_html 'flash_messages_container', "Your message will be sent!"
-        page.show 'flash_messages_container'
+    return unless request.xhr? and @list
+    if params[:confirmed]
+      @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
+      MessageState.find_by_name("incoming")
+      if MessageState.find_by_name("incoming").add_message(@message)
+        #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+        render :update do |page|
+          page.replace_html 'flash_messages_container', "Your message will be sent!"
+          page.show 'flash_messages_container'
+        end
+      else
+        render :update do |page|
+          page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
+          page.show 'flash_messages_container'
+        end
       end
-    else
-      render :update do |page|
-        page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
-        page.show 'flash_messages_container'
-      end
+     else 
+       render :update do |page|
+         page.replace_html 'message_preview', 'Your message will be sent as it appears below:'
+         page << "$('message_body_textarea').value = '#{params[:message_body]}';"
+         page << "$('confirmed_send_message_button').show();"
+       end
+     end
+  end
+ 
+  def remove_send_button
+    return unless request.xhr?
+    render :update do |page|
+      page.hide 'confirmed_send_message_button'
+      page.replace_html 'message_preview', ''
     end
   end
 

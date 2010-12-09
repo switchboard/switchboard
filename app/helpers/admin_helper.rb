@@ -29,10 +29,11 @@ module AdminHelper
     link_to_remote_with_icon('remove.png', {:onclick => onclick})
   end
 
-  def send_message_onclick(list_id)
+  def send_message_onclick(list_id, confirmed=nil)
+    confirmed = confirmed  ? "+'&confirmed=1'" : ''
     remote_function(
       :url => {:controller => 'admin', :action => 'send_message'},
-      :with => "'list_id=#{list_id}&message_body='+$('message_body_textarea').value",
+      :with => "'list_id=#{list_id}&message_body='+$('message_body_textarea').value#{confirmed}",
       :loading => show_spinner('send_message_spinner'),
       :complete => hide_spinner('send_message_spinner')
     )

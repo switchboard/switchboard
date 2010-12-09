@@ -376,6 +376,7 @@ a {
 /* line 65, ../../app/stylesheets/partials/_admin.scss */
 #send_message_button {
   margin-top: 20px;
+  float: left;
   padding-top: 20px;
   padding-bottom: 20px;
   border: 2px solid black;
@@ -385,35 +386,60 @@ a {
   width: 150px;
   text-align: center;
 }
-/* line 75, ../../app/stylesheets/partials/_admin.scss */
+/* line 76, ../../app/stylesheets/partials/_admin.scss */
 #send_message_button:hover {
   background-color: #99FFFF;
 }
 
-/* line 80, ../../app/stylesheets/partials/_admin.scss */
+/* line 81, ../../app/stylesheets/partials/_admin.scss */
+#confirmed_send_message_button {
+  float: right;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid black;
+  font-size: 2em;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+}
+/* line 92, ../../app/stylesheets/partials/_admin.scss */
+#confirmed_send_message_button:hover {
+  background-color: #99FFFF;
+}
+
+/* line 97, ../../app/stylesheets/partials/_admin.scss */
 .config_heading {
   font-size: 1.25em;
 }
 
-/* line 84, ../../app/stylesheets/partials/_admin.scss */
+/* line 101, ../../app/stylesheets/partials/_admin.scss */
 .create_list_options {
   padding: 5px;
 }
-/* line 86, ../../app/stylesheets/partials/_admin.scss */
+/* line 103, ../../app/stylesheets/partials/_admin.scss */
 .create_list_options li {
   padding: 5px;
 }
-/* line 88, ../../app/stylesheets/partials/_admin.scss */
+/* line 105, ../../app/stylesheets/partials/_admin.scss */
 .create_list_options li .list_option {
   font-weight: bold;
 }
 
-/* line 94, ../../app/stylesheets/partials/_admin.scss */
+/* line 111, ../../app/stylesheets/partials/_admin.scss */
 #character_count {
   float: right;
 }
 
-/* line 98, ../../app/stylesheets/partials/_admin.scss */
+/* line 115, ../../app/stylesheets/partials/_admin.scss */
 .dinpro {
   font-family: 'DINPro', Arial, sans-serif;
+}
+
+/* line 119, ../../app/stylesheets/partials/_admin.scss */
+#message_body_preview {
+  border: 4px solid grey;
+  padding: 8px;
+  margin: 5px;
 }
