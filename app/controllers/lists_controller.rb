@@ -34,8 +34,13 @@ class ListsController < ApplicationController
     return unless @list
     @csv = Attachment.new(params[:members_csv])
     if @csv.save!
-      @list.import_from_attachment(@csv.id)
-      redirect_to list_phone_numbers_url(@list) 
+      results = @list.import_from_attachment(@csv.id)
+      @errors = results[:errors]
+      @successes = results[:successes]
+      if @errors.length == 0
+        flash[:notice] = "All #{@successes} contacts successfully added!"
+        redirect_to list_phone_numbers_url(@list) 
+      end
     end
   end
 

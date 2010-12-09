@@ -1,0 +1,7 @@
+%h4{:class => 'red dinpro'}= 'successes'.upcase
+%ul
+  %li= @successes.to_s + ' contacts successfully added.'
+%br
+%h4{:class => 'red dinpro'}= 'errors'.upcase
+%ul
+  = render :partial => '/lists/import_error', :collection => @errors

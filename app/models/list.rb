@@ -26,29 +26,34 @@ class List < ActiveRecord::Base
 
   def import_from_attachment(attachment_id)
     return unless csv = self.attachments.find(attachment_id)
+    errors = []
+    successes = 0
     FasterCSV.parse(DbFile.find(csv.db_file_id).data) do |row|
-      firstname = row[0]
-      lastname = row[1]
       email = row[2]
       number = row[3]
-      user_hash = {:first_name => firstname, :last_name => lastname, :password => 'password', :password_confirmation => 'password'}
-      next unless row[3] =~ /\d+/
-      number.sub!(/\D/, '');
-      if ! phone_number = PhoneNumber.find_by_number(number)
-        if row[2] =~ /@/
-          puts "adding new number with first name: '#{firstname}', last name: '#{lastname}', email: '#{email}'"
-          email.sub!(/\s/, '') unless email.blank?
-          user = User.find_or_create_by_email(user_hash.merge!(:email => email))
-        else
-          puts "adding new number with first name: '#{firstname}', last name: '#{lastname}'"
-          user = User.new(user_hash)
-          user.save!
+      user_hash = {:first_name => row[0], :last_name => row[1], :password => 'password', :password_confirmation => 'password'}
+      number.sub!(/\D/, '') if number;
+      begin
+        raise 'Not enough fields' if row.length < 4
+        raise 'Phone number invalid' if row[3] !~ /\d+/
+        if ! phone_number = PhoneNumber.find_by_number(number)
+          if email =~ /@/
+            email.sub!(/\s/, '') unless email.blank?
+            user = User.find_or_create_by_email(user_hash.merge!(:email => email))
+          else
+            user = User.new(user_hash)
+            user.save!
+          end
+          phone_number = PhoneNumber.new(:number => number, :user_id => user.id)
+          phone_number.save! 
         end
-        phone_number = PhoneNumber.new(:number => number, :user_id => user.id)
-        phone_number.save! 
+        self.add_phone_number(phone_number)
+        successes = successes.next
+      rescue
+        errors << row.join(',') + ' :: ' + $!
       end
-      self.add_phone_number(phone_number)
     end
+    return {:errors => errors, :successes => successes};
   end
 
   def remove_phone_number(phone_number)
