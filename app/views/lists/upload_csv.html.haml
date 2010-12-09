@@ -1,0 +1,7 @@
+%h4= 'successes'.upcase
+%ul
+  %li= @successes.to_s + ' contacts successfully added.'
+%br
+%h4= 'errors'.upcase
+%ul
+  = render :partial => '/lists/import_error', :collection => @errors

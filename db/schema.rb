@@ -9,13 +9,30 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100616182958) do
+ActiveRecord::Schema.define(:version => 20101209114254) do
+
+  create_table "attachments", :force => true do |t|
+    t.integer "list_id"
+    t.string  "content_type"
+    t.string  "filename"
+    t.string  "thumbnail"
+    t.integer "size"
+    t.integer "width"
+    t.integer "height"
+    t.binary  "data"
+    t.integer "db_file_id"
+  end
+
+  create_table "db_files", :force => true do |t|
+    t.binary "data"
+  end
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
     t.integer  "phone_number_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_admin"
   end
 
   create_table "lists", :force => true do |t|
@@ -36,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20100616182958) do
     t.boolean  "moderated_membership"
     t.boolean  "use_welcome_message",         :default => false
     t.string   "custom_welcome_message"
-    t.integer  "admin_id"
+    t.string   "incoming_number"
   end
 
   create_table "message_states", :force => true do |t|

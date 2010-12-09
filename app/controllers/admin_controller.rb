@@ -4,23 +4,6 @@ class AdminController < ApplicationController
 
   helper 'admin'
 
-  def show_members
-    list = List.find(params[:list_id])
-    numbers = list.phone_numbers
-    #select_html = collection_select(nil, nil, list.members, :id, :name, {}, {:multiple => 1, :size => 20})
-    render :update do |page|
-      if numbers.empty?
-        page.replace_html 'member_list', '<li>No Members to display.</li>'
-      else 
-        page.replace_html 'member_list', :partial => '/admin/member', :collection => numbers, :locals => {:list_id => list.id} 
-      end
-      page.show 'show_members'
-      page.replace 'hidden_list_id', hidden_field_tag('user[list_id]', list.id, :id => 'hidden_list_id')
-      page.show 'add_contact_form'
-      page.hide 'flash_messages_container'
-    end
-  end
-
   def add_member
     error_objs = []
     ps = params[:user]
@@ -55,7 +38,9 @@ class AdminController < ApplicationController
     list = List.find(params[:list_id])
     number = PhoneNumber.find(params[:number_id])
     list.remove_phone_number(number)
-    redirect_to :action => 'show_members', :controller => 'admin', :params => {:list_id => list.id}
+    render :update do |page|
+      page.remove "member_#{number.id}"
+    end
   end
 
   def compose_message
@@ -69,20 +54,36 @@ class AdminController < ApplicationController
 
   def send_message
     @list = List.find(params[:list_id])
-    @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
-
-    MessageState.find_by_name("incoming")
-    if MessageState.find_by_name("incoming").add_message(@message)
-      #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
-      render :update do |page|
-        page.replace_html 'flash_messages_container', "Your message will be sent!"
-        page.show 'flash_messages_container'
+    return unless request.xhr? and @list
+    if params[:confirmed]
+      @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
+      MessageState.find_by_name("incoming")
+      if MessageState.find_by_name("incoming").add_message(@message)
+        #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+        render :update do |page|
+          page.replace_html 'flash_messages_container', "Your message will be sent!"
+          page.show 'flash_messages_container'
+        end
+      else
+        render :update do |page|
+          page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
+          page.show 'flash_messages_container'
+        end
       end
-    else
-      render :update do |page|
-        page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
-        page.show 'flash_messages_container'
-      end
+     else 
+       render :update do |page|
+         page.replace_html 'message_preview', 'Your message will be sent as it appears below:'
+         page << "$('message_body_textarea').value = '#{params[:message_body]}';"
+         page << "$('confirmed_send_message_button').show();"
+       end
+     end
+  end
+ 
+  def remove_send_button
+    return unless request.xhr?
+    render :update do |page|
+      page.hide 'confirmed_send_message_button'
+      page.replace_html 'message_preview', ''
     end
   end
 

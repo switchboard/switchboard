@@ -18,4 +18,31 @@ class Message < ActiveRecord::Base
     self.from == 'Web'
   end
 
+  ## returns phone number of message sender
+  def sender_number
+    if self.respond_to? :carrier
+      return self[:number]
+    else 
+      return self[:from]
+    end
+  end
+
+
+  ## save an array of 'tokens' (words) from the message that haven't been processed yet
+  def tokens=(tokens)
+    @tokens = tokens
+  end
+
+  def tokens
+    @tokens
+  end
+
+  named_scope :within_days, lambda { |within_days|
+    {:conditions => ["updated_at #{(within_days.days.ago..Time.now).to_s(:db)}"] }
+  }
+  
+  named_scope :in_state, lambda { |state_id|
+    {:conditions => ['message_state_id = ?', state_id]}
+  }
+
 end

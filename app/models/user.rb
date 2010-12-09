@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :phone_numbers
+  accepts_nested_attributes_for :phone_numbers
   has_many :sent_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'recipient_id' 
  
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
     c.validate_login_field = false
   end
 
-  validates_format_of :email, :with => /^\S+@[\w\-\.]+$/, :message => 'Invalid email address', :allow_blank => 1
+  validates_format_of :email, :with => /^\S+@[\w\-\.]+$/, :message => 'Invalid email address', :allow_blank => true 
 
   def make_admin
     self.update_attribute(:admin => 1)
@@ -21,4 +22,19 @@ class User < ActiveRecord::Base
     self.admin
   end
 
+  def full_name 
+    puts("generating full name")
+    name = ''
+    if ( ! @first_name.blank? ) 
+      name += @first_name
+    end
+
+    if ( ! @last_name.blank? )
+      ## add a space if necessary
+      name += ( name != '' ? ' ' : '')
+      name += @last_name
+    end
+    puts("name: " + name)
+    name
+  end
 end

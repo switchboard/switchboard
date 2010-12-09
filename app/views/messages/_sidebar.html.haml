@@ -1,0 +1,5 @@
+#sidebar_message_list
+  %span.red Recent Messages
+  %ul
+    = render :partial => '/messages/message', :collection => @list.messages
+  %span.red= link_to 'View All Messages', list_messages_path(@list)

@@ -12,25 +12,36 @@ module Switchboard::MessageHandlers::Outgoing
             outgoing_state = MessageState.find_by_name(output_state_name)
             outgoing_states = [ outgoing_state ]
 
-            ## should be  outgoing_states.each |state,conditions| do 
+            process_count = 0
+
+            ## TODO: change to outgoing_states.each |state,conditions| do 
             messages_to_handle.each do |message|
-              puts "handling outgoing message."
-              puts "message's to: " + message.to
-              puts "message's body: " + message.body
-              ## this is a terrible hack
-              if (message.to == 'Web') 
-                puts "WARNING: incorrect messages are being generated to Web"
-              else
-                if ( message.respond_to? :carrier) 
-                  puts "emailing message"
-                  send_email  message.to, :body => message.body, :from => message.from
-                else 
-                  puts "texting response"
-                  sender.send_sms( message.to, message.body )
+              ## messages go out slowly, so we will fork a new process for each
+              ## message.  We send them out in batches of 30 until we test what
+              ## limit is reasonable.
+              fork {
+                puts "handling outgoing message."
+                if (message.to == 'Web') 
+                  puts "WARNING: incorrect messages are being generated to Web"
+                else
+                  if ( message.respond_to? :carrier) 
+                    puts "emailing message"
+                    send_email  message.to, :body => message.body, :from => message.from
+                  else 
+                    puts "texting response"
+                    sender.send_sms( message.to, message.body )
+                  end
                 end
-              end
                 outgoing_state.messages.push(message) 
                 outgoing_state.save
+
+                process_count += 1
+               if process_count == 30:
+                  ## wait for all child processes to finish
+                  Process.waitall ## also important so there are no zombie processes
+                  process_count = 0
+                end
+              }
             end
         end
 
@@ -58,3 +69,6 @@ end
 
     end
 end
+
+
+

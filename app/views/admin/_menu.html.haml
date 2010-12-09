@@ -1,12 +1,8 @@
-%div#top_nav
-  %ul
-    %li{:class => active_nav('/lists/new')} 
-      %a{:href => '/lists/new'} Create List 
-    %li{:class => active_nav('/admin/compose')} 
-      %a{:href=> '/admin/compose'} Send a Message
-    %li{:class => active_nav('/admin/manage')} 
-      %a{:href => '/admin/manage'} Manage Lists
-    %li{:class => active_nav('/admin/members')}
-      %a{:href => '/admin/members'} Manage List Members
-    %li{:class => active_nav('/admin/responses')}
-      %a{:href => '/admin/responses'} List Responses
+#menu
+  = render :partial => '/admin/switchlist'
+  - if @list
+    #current_list
+      %h3.red= @list.name 
+      %br
+      = '[ '+ link_to('settings', edit_list_path(@list)) + ' | ' + link_to('members', list_phone_numbers_path(@list)) + ' ] '
+    = render :partial => '/messages/sidebar'

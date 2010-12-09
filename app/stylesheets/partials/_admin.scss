@@ -39,8 +39,24 @@
   }
 }
 
+.toggle {
+  span {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px;
+    margin-top: -25px;
+  }
+  &:hover {
+    span {
+      display: inline;
+    }
+  }
+}
+
 #show_member_list {
-  width: 200px;
+  width: 350px;
   padding: 5px;
   float: left;
   margin-top: 20px;
@@ -48,6 +64,7 @@
 
 #send_message_button {
   margin-top: 20px;
+  float: left;
   padding-top: 20px;
   padding-bottom: 20px;
   border: 2px solid black;
@@ -55,6 +72,22 @@
   font-family: sans-serif;
   cursor: pointer;
   width: 150px; 
+  text-align: center;
+  &:hover {
+    background-color: #99FFFF;
+  }
+}
+
+#confirmed_send_message_button {
+  float: right;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: 2px solid black;
+  font-size: 2em;
+  font-family: sans-serif;
+  cursor: pointer;
+  width: 150px;
   text-align: center;
   &:hover {
     background-color: #99FFFF;
@@ -75,3 +108,16 @@
   }
 }
   
+#character_count {
+  float: right;
+}
+
+.dinpro {
+  font-family: 'DINPro', Arial, sans-serif;
+}
+
+#message_body_preview {
+  border: 4px solid grey;
+  padding: 8px;
+  margin: 5px;
+}

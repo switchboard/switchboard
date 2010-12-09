@@ -28,3 +28,33 @@ namespace :deploy do
      run "touch #{File.join(current_path,'tmp','restart.txt')}"
    end
 end
+
+namespace :background_task_server do
+
+  task :setup, :roles => :app do
+    run "mkdir -p /usr/local/switchboard/run" 
+    run "chown #{user}:#{group} /usr/local/switchboard/tmp/run" 
+  end
+
+  # start background task server
+  task :start, :roles => :app do
+    run "#{current_path}/script/switchboard_server_control.rb start -- production" 
+  end
+
+  # stop background task server
+  task :stop, :roles => :app do
+    run "#{current_path}/script/switchboard_server_control.rb stop -- production" 
+  end
+
+  # start background task server
+  task :restart, :roles => :app do
+    # TODO: since restart won't cold_start, we could read call to status, if 
+    # it returns:
+    #    task_server.rb: no instances running
+    # we could simply issue the start command
+    run "#{current_path}/script/switchboard_server_control.rb stop -- production" 
+    run "#{current_path}/script/switchboard_server_control.rb start -- production" 
+  end
+
+end
+

@@ -1,6 +1,5 @@
 class ListsController < ApplicationController
   before_filter :require_admin
-  before_filter :get_list, :except => [:new, :create, :check_name_available] 
 
   helper 'lists', 'admin'
 
@@ -13,7 +12,7 @@ class ListsController < ApplicationController
     @list = List.create(params[:list])
     if @list.save
       flash[:message] = "Your list has been created!"
-      redirect_to :controller => 'admin', :action => 'manage', :params => {:selected_list => @list.id}
+      redirect_to :action => 'show', :params => {:list_id => @list.id}
     else
       flash[:notice] = "There was a problem creating your list. Please try another list name."
       redirect_to :action => 'new'
@@ -24,41 +23,29 @@ class ListsController < ApplicationController
   end
 
   def edit
-    if !@list.nil?
-      if request.xhr?
-        render :update do |page|
-          page.replace_html 'edit_list', :partial => 'lists/edit'
-          page.hide 'flash_messages_container'
-        end
-      end
-   end  
   end
   
   def update
-    if @list.update_attributes(params[:list])
-       render :update do |page|
-         page.replace_html "flash_messages_container", "The list has been updated!"
-         page.show "flash_messages_container"
-       end
-    else
-      render :update do |page|
-        page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@list]} 
-        page.show "flash_messages_container"    
-      end
-    end
+    @list.update_attributes(params[:list])
+    redirect_to :action => 'edit'
   end
 
-  def messages
-    @messages = Message.paginate_by_list_id(@list.id, :page => params[:page], :per_page => 10)
-    if request.xhr?
-      render :update do |page|
-        page.replace_html "message_list", :partial => 'lists/message', :collection => @messages
-        page.replace_html 'pagination', :partial => 'lists/message_pagination_links'
+  def upload_csv
+    return unless @list
+    @csv = Attachment.new(params[:members_csv])
+    if @csv.save!
+      results = @list.import_from_attachment(@csv.id)
+      @errors = results[:errors]
+      @successes = results[:successes]
+      if @errors.length == 0
+        flash[:notice] = "All #{@successes} contacts successfully added!"
+        redirect_to list_phone_numbers_url(@list) 
       end
     end
   end
 
   def check_name_available
+    return unless request.xhr?
     if params[:name] =~ /\s+/
       avail = "List name cannot contain spaces!"
     else
@@ -69,20 +56,13 @@ class ListsController < ApplicationController
     end
   end
 
+  def toggle_admin
+    return unless request.xhr?
+    number = PhoneNumber.find(params[:list_member_id])
+    @list.toggle_admin(number)
+    render :nothing => true
+  end
+
   private
-    def get_list
-      @list = List.find(params[:list_id])
-      if @list.nil?
-        flash[:notice] = "No list selected"
-        if request.xhr?
-           render :update do |page|
-             page.replace_html 'flash_messages_container', flash[:notice] 
-             page.show 'flash_messages_container'
-           end
-        else
-          redirect_to :controller => 'admin', :action => 'manage'
-        end
-      end
-    end
 
 end

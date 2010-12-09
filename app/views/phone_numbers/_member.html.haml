@@ -1,0 +1,12 @@
+- checked = @list.number_is_admin?(member) ? 1 : nil
+%li{:id => "member_#{member.id}"}
+  - if @list and @list.list_type == 'announcement'
+    %span.toggle 
+      = image_tag("spinner.gif", :id => "toggle_admin_spinner_#{member.id}", :style => 'display: none; position: absolute;')
+      %input{:type => 'checkbox', :value => 1, :checked => checked, :onchange => admin_checkbox_onchange(member)}  
+      %span Toggle Admin
+  = member.display_number_with_name
+  %span.remove_member_icon
+    %a{:href => edit_user_url(member.user)}= image_tag('icons/16/edit.png') 
+    = link_to_remove_member(member, @list.id)
+    = image_tag("spinner.gif", :id => "which_member_spinner_#{member.id}", :style => 'display: none; position: absolute;')
