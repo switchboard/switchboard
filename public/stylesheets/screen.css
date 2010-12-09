@@ -404,3 +404,8 @@ a {
 #character_count {
   float: right;
 }
+
+/* line 98, ../../app/stylesheets/partials/_admin.scss */
+.dinpro {
+  font-family: 'DINPro', Arial, sans-serif;
+}

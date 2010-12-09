@@ -1,0 +1,8 @@
+%h3 Upload Contacts (csv)
+- form_for(:members_csv, :url => "/lists/upload_csv/#{@list.id}", :html => {:multipart => true}) do |f|
+  %input{:type => 'hidden', :name => 'members_csv[list_id]', :value => @list.id}
+  %p
+    %label{:for => 'members_file_csv'} File: 
+    = f.file_field :uploaded_data
+  %p
+    = submit_tag 'Go!'

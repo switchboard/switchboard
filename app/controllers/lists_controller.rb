@@ -30,7 +30,15 @@ class ListsController < ApplicationController
     redirect_to :action => 'edit'
   end
 
+  def upload_csv
+    return unless @list
+    @csv = Attachment.new(params[:members_csv])
+    @csv.save!
+    redirect_to list_phone_numbers_url(@list) 
+  end
+
   def check_name_available
+    return unless request.xhr?
     if params[:name] =~ /\s+/
       avail = "List name cannot contain spaces!"
     else

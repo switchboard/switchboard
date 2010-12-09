@@ -9,7 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101128201653) do
+ActiveRecord::Schema.define(:version => 20101209114254) do
+
+  create_table "attachments", :force => true do |t|
+    t.integer "list_id"
+    t.string  "content_type"
+    t.string  "filename"
+    t.string  "thumbnail"
+    t.integer "size"
+    t.integer "width"
+    t.integer "height"
+    t.binary  "data"
+    t.integer "db_file_id"
+  end
+
+  create_table "db_files", :force => true do |t|
+    t.binary "data"
+  end
 
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"

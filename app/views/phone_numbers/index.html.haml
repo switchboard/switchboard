@@ -2,6 +2,8 @@
   %h3 List Membership
   %p
     #show_member_list
+      - if @list.list_type == 'announcement'
+        * checkbox indicates approved sender
       %ul#member_list
         %li
         = render :partial => 'member', :collection => @members
