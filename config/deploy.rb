@@ -1,5 +1,5 @@
 set :application, "Switchboard"
-set :repository,  "ssh://gitosis@durga.serve.com:2020/~/repositories/mmp-sms.git"
+set :repository,  "git@github.com:switchboard/switchboard.git"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
