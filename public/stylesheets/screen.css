@@ -266,36 +266,39 @@ h3 {
 
 /* line 71, ../../app/stylesheets/partials/_page.sass */
 h4 {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  color: red;
+  font-family: "DINPro", Arial, sans-serif;
+  text-transform: uppercase;
 }
 
-/* line 74, ../../app/stylesheets/partials/_page.sass */
+/* line 77, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 77, ../../app/stylesheets/partials/_page.sass */
+/* line 80, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 80, ../../app/stylesheets/partials/_page.sass */
+/* line 83, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 84, ../../app/stylesheets/partials/_page.sass */
+/* line 87, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 87, ../../app/stylesheets/partials/_page.sass */
+/* line 90, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
 
-/* line 90, ../../app/stylesheets/partials/_page.sass */
+/* line 93, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }
