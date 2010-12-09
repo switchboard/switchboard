@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     c.validate_login_field = false
   end
 
-  validates_format_of :email, :with => /^\S+@[\w\-\.]+$/, :message => 'Invalid email address', :allow_blank => 1
+  validates_format_of :email, :with => /^\S+@[\w\-\.]+$/, :message => 'Invalid email address', :allow_blank => true 
 
   def make_admin
     self.update_attribute(:admin => 1)

@@ -1,4 +1,6 @@
 %h3 Upload Contacts (csv)
+%p
+  csv files must be in the format of: "firstname,lastname,email,number"
 - form_for(:members_csv, :url => "/lists/upload_csv/#{@list.id}", :html => {:multipart => true}) do |f|
   %input{:type => 'hidden', :name => 'members_csv[list_id]', :value => @list.id}
   %p

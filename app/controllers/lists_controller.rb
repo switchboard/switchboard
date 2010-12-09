@@ -33,8 +33,10 @@ class ListsController < ApplicationController
   def upload_csv
     return unless @list
     @csv = Attachment.new(params[:members_csv])
-    @csv.save!
-    redirect_to list_phone_numbers_url(@list) 
+    if @csv.save!
+      @list.import_from_attachment(@csv.id)
+      redirect_to list_phone_numbers_url(@list) 
+    end
   end
 
   def check_name_available
