@@ -67,12 +67,12 @@ class List < ActiveRecord::Base
  
   def admins
     self.list_memberships.collect { |mem| 
-      mem.phone_number if mem.is_admin
+      mem.phone_number if mem.is_admin?
     }
   end
 
   def number_is_admin?(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin
+    self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin?
   end
  
   def toggle_admin(phone_number)
