@@ -77,9 +77,6 @@ class List < ActiveRecord::Base
         return number.is_admin
     end
   end
-
-    self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin?
-  end
  
   def toggle_admin(phone_number)
     self.number_is_admin?(phone_number) ? self.remove_admin(phone_number) : self.add_admin(phone_number)
