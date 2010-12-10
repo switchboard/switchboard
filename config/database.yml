@@ -20,5 +20,5 @@ production:
   adapter: mysql 
   database: switchboard 
   username: switchboard
-  password: mMp@l0l
+  password: switchboard
   host: localhost
