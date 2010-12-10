@@ -23,8 +23,8 @@ set :use_sudo, false
 namespace :deploy do
    task :stop do ; end
    task :restart, :roles => :app, :except => { :no_release => true } do
-      run "git submodule init"
-      run "git submodule update"
+      run "cd #{File.join(current_path)}; git submodule init"
+      run "cd #{File.join(current_path)}; git submodule update"
      #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
      run "touch #{File.join(current_path,'tmp','restart.txt')}"
    end
