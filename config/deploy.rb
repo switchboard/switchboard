@@ -39,13 +39,13 @@ namespace :switchboard_server do
   # start background server
   desc "Start the switchboard background server"
   task :start, :roles => :app do
-    run "#{current_path}/script/switchboard_server_control.rb start -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production" 
   end
 
   # stop background server
   desc "Stop the switchboard background server"
   task :stop, :roles => :app do
-    run "#{current_path}/script/switchboard_server_control.rb stop -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production" 
   end
 
   # restart the background server
@@ -55,8 +55,8 @@ namespace :switchboard_server do
     # it returns:
     #    task_server.rb: no instances running
     # we could simply issue the start command
-    run "#{current_path}/script/switchboard_server_control.rb stop -- production" 
-    run "#{current_path}/script/switchboard_server_control.rb start -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production" 
   end
 
 end
