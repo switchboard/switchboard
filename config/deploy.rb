@@ -1,5 +1,5 @@
 set :application, "Switchboard"
-set :repository,  "git@github.com:switchboard/switchboard.git"
+set :repository,  "git://github.com/switchboard/switchboard.git"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
