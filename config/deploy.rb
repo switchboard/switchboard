@@ -32,8 +32,8 @@ end
 namespace :switchboard_server do
   desc "Setup the switchboard server directory"
   task :setup, :roles => :app do
-    run "mkdir -p /usr/local/switchboard/run" 
-    run "chown #{user}:#{group} /usr/local/switchboard/tmp/run" 
+    run "mkdir -p /home/switchboard/production/run" 
+    run "chown #{user}:#{group} /home/switchboard/production/run"
   end
 
   # start background server

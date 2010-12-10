@@ -8,7 +8,7 @@
 # Main algorithm is daemon process that runs every XX seconds, wakes up and
 # looks for incoming or outgoing messages.
 
-ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'development'  
+ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'production'
 
 path = File.dirname(__FILE__) + '/../config/environment.rb'
 puts("path: " + path )

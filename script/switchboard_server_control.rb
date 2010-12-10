@@ -9,7 +9,7 @@ require 'daemons'
 
 options = {}
 
-default_pid_dir = "/usr/local/switchboard/run/switchboard_server" 
+default_pid_dir = "/home/switchboard/run/switchboard_server" 
 
 if File.exists?(default_pid_dir)
   options[:dir_mode] = :normal
