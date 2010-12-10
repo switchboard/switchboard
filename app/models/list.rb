@@ -201,7 +201,7 @@ class List < ActiveRecord::Base
         self.create_outgoing_message(phone_number, content)
       end
     else
-      if (!self.admins.empty? and self.text_admin_with_list_response)
+      if (!self.admins.empty? and self.text_admin_with_response)
         admin_msg = '[' + self[:name] + ' from '
         admin_msg +=  num.number.to_s
 
