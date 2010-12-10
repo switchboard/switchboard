@@ -32,6 +32,7 @@ module Switchboard::MessageHandlers::Outgoing
                     sender.send_sms( message.to, message.body )
                   end
                 end
+                }
                 outgoing_state.messages.push(message) 
                 outgoing_state.save
 
@@ -41,7 +42,6 @@ module Switchboard::MessageHandlers::Outgoing
                   Process.waitall ## also important so there are no zombie processes
                   process_count = 0
                 end
-              }
             end
         end
 
