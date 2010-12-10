@@ -72,6 +72,12 @@ class List < ActiveRecord::Base
   end
 
   def number_is_admin?(phone_number)
+    number = self.list_memberships.find_by_phone_number_id(phone_number.id)
+    if number != nil:
+        return number.is_admin
+    end
+  end
+
     self.list_memberships.find_by_phone_number_id(phone_number.id).is_admin?
   end
  
