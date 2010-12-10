@@ -29,7 +29,7 @@ namespace :deploy do
    end
 end
 
-namespace :background_task_server do
+namespace :switchboard_server do
 
   task :setup, :roles => :app do
     run "mkdir -p /usr/local/switchboard/run" 
