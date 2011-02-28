@@ -19,6 +19,6 @@ production:
   encoding: utf8
   adapter: mysql 
   database: switchboard 
-  username: switchboard
-  password: Philly4205
+  username: 
+  password: 
   host: localhost
