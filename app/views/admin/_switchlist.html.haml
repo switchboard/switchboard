@@ -1,8 +1,9 @@
 #switch_list 
-  CHOOSE LIST
-  %span 
-    %ul
+  %a.lists 
+  %span
+    %h3 List Options
+    %ul 
       = render :partial => '/admin/which_list', :collection => List.top_five(:remove_list_id => @list)
       - if List.more_than_five
-        %li= link_to 'view all lists'.upcase, '/admin/manage'
-      %li= link_to 'Create List'.upcase, new_list_url
+        %li.switch= link_to 'view all lists'.upcase, '/admin/manage'
+      %li.switch= link_to '&mdash; Create New List &mdash;', new_list_url

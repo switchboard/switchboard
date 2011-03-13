@@ -1,9 +1,45 @@
 = render :partial => 'layouts/head'
-= render :partial => 'layouts/page_header'
-#content_container
-  = render :partial => '/admin/buttons'
-  = render :partial => '/admin/menu'
-  #content
-    = yield
-#footer
-  = render :partial => '/layouts/footer'
+%body
+  #site-container
+    #site
+      = render :partial => 'layouts/page_header'
+      #content-container
+        = render :partial => '/admin/buttons'
+        #content
+          #new-message
+            %h3 New Message
+            %form
+              %textarea
+              = yield
+              %fieldset#message-options
+                %legend Message Options
+                %ul
+                  %li
+                    %input{:id => 'txt-msg', :type => 'checkbox'} 
+                      %label Txt Msg
+                    %input{:id => 'limit', :type => 'checkbox'} 
+                      %label.aqua Limit to 140 characters
+                  %li
+                    %input{:id => 'email', :type => 'checkbox'} 
+                      %label Email
+                  %li
+                    %input{:id => 'rss', :type => 'checkbox'} 
+                      %label RSS            
+                
+              %button{:type => 'submit', :class => 'send-image'}
+            
+          #recent-messages
+            %h3 Recent Messages
+            .view
+              %a{:href => '#'} View all recent messages
+          #dots
+      #footer
+        = render :partial => '/layouts/footer'
+      #bottom-shadow
+    #side-shadow
+      .top
+      .bottom
+      
+
+
+

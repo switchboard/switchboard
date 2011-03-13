@@ -1,8 +1,10 @@
 #buttons
   %ul
-    %li
-      %a{:href => compose_message_link} + NEW MESSAGE
-    %li
-      %a{:href => add_user_link, :class => 'middle'} + NEW USER
-    %li
-      %a{:href => dashboard_link} - DASHBOARD
+    %li.main-menu
+      %a.message{:href => compose_message_link}
+        %span + NEW MESSAGE
+    %li.main-menu
+      %a.user{:href => add_user_link}
+        %span + NEW USER
+    = render :partial => '/admin/menu'
+      

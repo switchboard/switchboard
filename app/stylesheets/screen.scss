@@ -1,27 +1,23 @@
-// fonts?!
-@font-face {
-  font-family: DINPro;
-  src: url('/fonts/DINPro-Regular.otf');
-}
-@font-face {
-  font-family: DINPro-Medium;
-  src: url('/fonts/DINPro-Medium.otf');
-}
-
 
 // This import applies a global reset to any page that imports this stylesheet.
 @import "compass/reset";
-@import "compass/utilities/lists";
+@import "compass/utilities";
+@import "compass/css3/font-face";
 
-@import "partials/nav";
 
 // Import all the default blueprint modules so that we can access their mixins.
 //@import "blueprint";
 //@import "blueprint/colors";
 
 // Combine the partials into a single screen stylesheet.
+@import "partials/base";
+@import "partials/colors";
 @import "partials/page";
-@import "partials/admin"
+@import "partials/admin";
+@import "partials/nav";
+
 //@import "partials/form";
-//@import "partials/two_col";
+
+
+
 
