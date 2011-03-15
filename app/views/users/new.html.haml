@@ -1,6 +1,7 @@
-#add_contact_form
-  %h4 Add Contact
-  = render :partial => 'user_form'
-  - if @list
-    %hr
-    = render :partial => 'upload_users_form'
+- content_for :main_box_content do
+  #add_contact_form
+    %h4 Add Contact
+    = render :partial => 'user_form'
+    - if @list
+      %hr
+      = render :partial => 'upload_users_form'

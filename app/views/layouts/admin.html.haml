@@ -7,27 +7,30 @@
         = render :partial => '/admin/buttons'
         #content
           #new-message
-            %h3 New Message
-            %form
-              %textarea
-              = yield
-              %fieldset#message-options
-                %legend Message Options
-                %ul
-                  %li
-                    %input{:id => 'txt-msg', :type => 'checkbox'} 
-                      %label Txt Msg
-                    %input{:id => 'limit', :type => 'checkbox'} 
-                      %label.aqua Limit to 140 characters
-                  %li
-                    %input{:id => 'email', :type => 'checkbox'} 
-                      %label Email
-                  %li
-                    %input{:id => 'rss', :type => 'checkbox'} 
-                      %label RSS            
-                
-              %button{:type => 'submit', :class => 'send-image'}
-            
+            - if yield :main_box_content
+              = yield :main_box_content
+            - else
+              %h3 New Message
+              %form
+                %textarea
+                = yield
+                %fieldset#message-options
+                  %legend Message Options
+                  %ul
+                    %li
+                      %input{:id => 'txt-msg', :type => 'checkbox'} 
+                        %label Txt Msg
+                      %input{:id => 'limit', :type => 'checkbox'} 
+                        %label.aqua Limit to 140 characters
+                    %li
+                      %input{:id => 'email', :type => 'checkbox'} 
+                        %label Email
+                    %li
+                      %input{:id => 'rss', :type => 'checkbox'} 
+                        %label RSS            
+                  
+                %button{:type => 'submit', :class => 'send-image'}
+ 
           #recent-messages
             %h3 Recent Messages
             .view

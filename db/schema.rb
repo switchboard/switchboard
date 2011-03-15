@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20101209114254) do
     t.integer "size"
     t.integer "width"
     t.integer "height"
-    t.binary  "data"
     t.integer "db_file_id"
   end
 

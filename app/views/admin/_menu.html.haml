@@ -1,9 +1,3 @@
 %li.main-menu
   #menu
     = render :partial => '/admin/switchlist'
-    - if @list
-      #current_list
-        %h3.red= @list.name 
-        %br
-        = '[ '+ link_to('settings', edit_list_path(@list)) + ' | ' + link_to('members', list_phone_numbers_path(@list)) + ' ] '
-      = render :partial => '/messages/sidebar'

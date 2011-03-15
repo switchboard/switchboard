@@ -1,9 +1,10 @@
-%h4 list statistics
-%p
-  = 'Contacts count: ' + @list.phone_numbers.length.to_s
-%p
-  = 'Total Messages: ' + @list.messages.length.to_s
-  %br
-  = 'Total Messages this week: ' + @list.messages.within_days(7).length.to_s
-  %br
-  = 'Total Sent Messages: ' + count_sent_messages(@list)
+- content_for :main_box_content do
+  %h4 list statistics
+  %p
+    = 'Contacts count: ' + @list.phone_numbers.length.to_s
+  %p
+    = 'Total Messages: ' + @list.messages.length.to_s
+    %br
+    = 'Total Messages this week: ' + @list.messages.within_days(7).length.to_s
+    %br
+    = 'Total Sent Messages: ' + count_sent_messages(@list)

@@ -1,24 +1,26 @@
-%h4 Create a List
+- content_for :main_box_content do
 
-- form_tag '/lists/create' do
-  %ul.create_list_options
-    %li
-      <span class='list_option'>List Name</span> (cannot contain spaces) 
-      = text_field_tag('list[name]', nil, :onblur => check_list_availability_onblur) 
-      = image_tag("spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
-      %span#availability
-    %li
-      <span class='list_option'>Long name</span> for the list (optional) 
-      = text_field_tag('list[long_name]')
-    %li
-      %span.list_option List Type
-      %ul
-        %li= radio_button_tag('list[list_type]', 'discussion') + "Discussion List: all users can send messages to the list (recommended for small lists only!)"
-        %li= radio_button_tag("list[list_type]", 'announcement', true) + "Announcement List: only list owners can send messages to the list"
-    %li
-      %span.list_option Joining Policy
-      %ul
-        %li= radio_button_tag('list[join_policy]', 'open', true) + "Open: anyone can join"
-        %li= radio_button_tag('list[join_policy]', 'closed') + "Closed: new members must be added by administrators"
-    %li
-      = submit_tag 'Create!'
+  %h4 Create a List
+  
+  - form_tag '/lists/create' do
+    %ul.create_list_options
+      %li
+        <span class='list_option'>List Name</span> (cannot contain spaces) 
+        = text_field_tag('list[name]', nil, :onblur => check_list_availability_onblur) 
+        = image_tag("spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
+        %span#availability
+      %li
+        <span class='list_option'>Long name</span> for the list (optional) 
+        = text_field_tag('list[long_name]')
+      %li
+        %span.list_option List Type
+        %ul
+          %li= radio_button_tag('list[list_type]', 'discussion') + "Discussion List: all users can send messages to the list (recommended for small lists only!)"
+          %li= radio_button_tag("list[list_type]", 'announcement', true) + "Announcement List: only list owners can send messages to the list"
+      %li
+        %span.list_option Joining Policy
+        %ul
+          %li= radio_button_tag('list[join_policy]', 'open', true) + "Open: anyone can join"
+          %li= radio_button_tag('list[join_policy]', 'closed') + "Closed: new members must be added by administrators"
+      %li
+        = submit_tag 'Create!'
