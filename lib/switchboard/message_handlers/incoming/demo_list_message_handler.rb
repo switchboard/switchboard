@@ -69,7 +69,7 @@ module Switchboard::MessageHandlers::Incoming
          num.provider_email = message.carrier 
         end
 
-        if ( message.tokens.count > 1 ) 
+        if ( message.tokens.count > 0 ) 
           first_token = message.tokens[0]
         else
           Rails.logger.warn("empty message")
