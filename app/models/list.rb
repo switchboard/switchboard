@@ -32,13 +32,13 @@ class List < ActiveRecord::Base
       email = row[2]
       number = row[3]
       user_hash = {:first_name => row[0], :last_name => row[1], :password => 'password', :password_confirmation => 'password'}
-      number.sub!(/\D/, '') if number;
+      number.gsub!(/\D/, '') if number;
       begin
         raise 'Not enough fields' if row.length < 4
         raise 'Phone number invalid' if row[3] !~ /\d+/
         if ! phone_number = PhoneNumber.find_by_number(number)
           if email =~ /@/
-            email.sub!(/\s/, '') unless email.blank?
+            email.gsub!(/\s/, '') unless email.blank?
             user = User.find_or_create_by_email(user_hash.merge!(:email => email))
           else
             user = User.new(user_hash)
