@@ -27,6 +27,14 @@ class Message < ActiveRecord::Base
     end
   end
 
+  # get the name of the sender 
+  def from_for_display
+    phone_number = PhoneNumber.find_by_number(self[:from])
+    if phone_number != nil
+      return phone_number.display_number_with_name
+    else
+      return ''
+  end
 
   ## save an array of 'tokens' (words) from the message that haven't been processed yet
   def tokens=(tokens)
