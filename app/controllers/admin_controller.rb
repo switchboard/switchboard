@@ -60,9 +60,19 @@ class AdminController < ApplicationController
       MessageState.find_by_name("incoming")
       if MessageState.find_by_name("incoming").add_message(@message)
         #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
+        flash[:notice] = "Your message was sent."
         render :update do |page|
-          page.replace_html 'flash_messages_container', "Your message will be sent!"
+          page.replace_html 'flash_messages_container', :partial => '/layouts/flash_messages' 
           page.show 'flash_messages_container'
+          page << "$j().toastmessage('showToast', {
+            text     : 'Your message was sent.',
+            sticky   : true,
+            position : 'top-right',
+            type     : 'success',
+            closeText: '',
+        });";
+
+          #page << " $j().toastmessage('showSuccessToast', \"Success Dialog which is fading away ...\");"
         end
       else
         render :update do |page|
@@ -72,8 +82,9 @@ class AdminController < ApplicationController
       end
      else 
        render :update do |page|
-         page.replace_html 'message_preview', 'Your message will be sent as it appears below:'
-         page << "$('message_body_textarea').value = '#{params[:message_body]}';"
+         page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
+         #page.replace_html 'message_preview', 'Your message will be sent as it appears below:'
+         #page << "$('message_body_textarea').value = '#{params[:message_body]}';"
          page << "$('confirmed_send_message_button').show();"
        end
      end

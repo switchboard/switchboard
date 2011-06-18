@@ -26,13 +26,8 @@ ActiveRecord::Schema.define(:version => 20101209114254) do
     t.binary "data"
   end
 
-  create_table "list_memberships", :force => true do |t|
-    t.integer  "list_id"
-    t.integer  "phone_number_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "is_admin"
-  end
+# Could not dump table "list_memberships" because of following StandardError
+#   Unknown type 'bool' for column 'is_admin'
 
   create_table "lists", :force => true do |t|
     t.string   "name"

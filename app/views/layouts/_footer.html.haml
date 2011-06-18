@@ -3,8 +3,6 @@
     %a{:href =>'#'} About Switchboard
   %li 
     %a{:href =>'#'} Help
-  %li 
-    %a{:href =>'#'} Other Secondary Functions
 - if @current_user
   #logout
     = link_to 'Logout', :action => 'destroy', :controller => 'user_sessions'
