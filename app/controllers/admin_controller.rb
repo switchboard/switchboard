@@ -52,6 +52,7 @@ class AdminController < ApplicationController
     end
   end
 
+
   def send_message
     @list = List.find(params[:list_id])
     return unless request.xhr? and @list
@@ -60,19 +61,16 @@ class AdminController < ApplicationController
       MessageState.find_by_name("incoming")
       if MessageState.find_by_name("incoming").add_message(@message)
         #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
-        flash[:notice] = "Your message was sent."
+        #flash[:notice] = "Your message was sent."
         render :update do |page|
-          page.replace_html 'flash_messages_container', :partial => '/layouts/flash_messages' 
-          page.show 'flash_messages_container'
-          page << "$j().toastmessage('showToast', {
-            text     : 'Your message was sent.',
-            sticky   : true,
-            position : 'top-right',
-            type     : 'success',
-            closeText: '',
-        });";
-
-          #page << " $j().toastmessage('showSuccessToast', \"Success Dialog which is fading away ...\");"
+          #page.replace_html 'flash_messages_container', :partial => '/layouts/flash_messages' 
+          #page.show 'flash_messages_container'
+          page << self.jsnotify("Your message was sent.", "success")
+          #page << "$('confirmed_send_message_button').hide();"
+          flash[:notice] = "Your message was sent."
+          ##page.redirect_to :controller => 'lists', :action => 'show', :id => @list.id, :flash => "foo"
+          page.replace_html 'new-message', :partial => 'lists/list_info'
+          page.replace_html 'recent-messages', :partial => 'messages/recent_messages'
         end
       else
         render :update do |page|
@@ -99,5 +97,18 @@ class AdminController < ApplicationController
   end
 
   private
-  
+   def jsnotify(msg)
+    js = <<HERE
+$j().toastmessage('showToast', {
+            text     : '#{msg}',
+            sticky   : true,
+            position : 'top-right',
+            type     : 'success',
+            closeText: '',
+        });
+HERE
+    puts js
+    return js
+  end
+ 
 end

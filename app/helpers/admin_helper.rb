@@ -1,5 +1,22 @@
 module AdminHelper
 
+
+  # types are
+  # success, notice, warning, error
+  def jsnotify(msg, type, sticky = 'true')
+    js = <<HERE
+$j().toastmessage('showToast', {
+            text     : '#{msg}',
+            sticky   : true,
+            position : 'top-right',
+            type     : '#{type}',
+            closeText: '',
+        });
+HERE
+    puts js
+    return js
+  end
+
   def select_list(action, controller)
     render :partial => '/admin/list', :collection => List.find(:all), :locals => {:action => action, :controller => controller}
     #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  

@@ -8,7 +8,6 @@
         #content
           #new-message
             #flash_messages_container
-              Messages go here.
             - if yield :main_box_content
               = yield :main_box_content
             - else
@@ -33,10 +32,14 @@
                   
                 %button{:type => 'submit', :class => 'send-image'}
  
-          #recent-messages
-            %h3 Recent Messages
-            .view
-              %a{:href => '#'} View all recent messages
+          #recent_messages
+          - if yield :recent_messages:
+            = yield :recent_mesages
+          - else
+            #recent-messages
+              %h3 Recent Messages
+              .view
+                %a{:href => '#'} View all recent messages
           #dots
       #footer
         = render :partial => '/layouts/footer'
