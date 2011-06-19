@@ -1,10 +1,7 @@
-= render :partial => 'layouts/head'
 %body
   #site-container
     #site
-      = render :partial => 'layouts/page_header'
       #content-container
-        = render :partial => '/admin/buttons'
         #content
           #new-message
             #flash_messages_container
@@ -30,23 +27,8 @@
                       %input{:id => 'rss', :type => 'checkbox'} 
                         %label RSS            
                   
+                %button{:type => 'submit', :class => 'send-image'}
  
-          #recent_messages
-          - if yield :recent_messages:
-            = yield :recent_mesages
-          - else
-            #recent-messages
-              %h3 
-                Recent Messages
-              .view
-                %a{:href => '#'} View all recent messages
-          #dots
-      #footer
-        = render :partial => '/layouts/footer'
-      #bottom-shadow
-    #side-shadow
-      .top
-      .bottom
       
 
 

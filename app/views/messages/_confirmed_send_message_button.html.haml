@@ -1,1 +1,4 @@
-#confirmed_send_message_button{:onclick => send_message_onclick(@list.id, true), :class => 'dinpro', :style => 'display: none;'} SEND
+#send-button
+  before 
+  %button{:type => 'submit', :class => 'send-image', :onclick => send_message_onclick(@list.id)}
+  after

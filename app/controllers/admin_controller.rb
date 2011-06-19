@@ -56,7 +56,8 @@ class AdminController < ApplicationController
   def send_message
     @list = List.find(params[:list_id])
     return unless request.xhr? and @list
-    if params[:confirmed]
+    confirmed = true
+    if confirmed
       @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
       MessageState.find_by_name("incoming")
       if MessageState.find_by_name("incoming").add_message(@message)
@@ -78,13 +79,11 @@ class AdminController < ApplicationController
           page.show 'flash_messages_container'
         end
       end
-     else 
-       render :update do |page|
-         page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
-         #page.replace_html 'message_preview', 'Your message will be sent as it appears below:'
-         #page << "$('message_body_textarea').value = '#{params[:message_body]}';"
-         page << "$('confirmed_send_message_button').show();"
-       end
+     #else 
+     #  render :update do |page|
+     #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
+     #    page << "$('confirmed_send_message_button').show();"
+     #  end
      end
   end
  

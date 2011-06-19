@@ -1,6 +1,4 @@
-To List: 
-%span.red= @list.name
 %p
-  #send_message_button{:onclick => send_message_onclick(@list.id), :class => 'dinpro'} PREVIEW 
-  %br
+  foo
+  %button{:type => 'submit', :class => 'send-image', :onclick => send_message_onclick(@list.id)}
   = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')

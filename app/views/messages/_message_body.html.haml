@@ -1,6 +1,8 @@
 %h3 New Message 
 %br
 #message_preview
-#compose_message_body= text_area_tag('message_body', 'type your message here', {:id => 'message_body_textarea', :size => '50x4', :onfocus => remote_function(:url => {:controller => 'admin', :action => 'remove_send_button'}), :onkeyup => "countMessageBody(this)"})
+#compose_message_body= text_area_tag('message_body', '', {:id => 'message_body_textarea', :size => '45x4', :onkeyup => "countMessageBody(this)"})
 %br
 %span#character_count
+
+

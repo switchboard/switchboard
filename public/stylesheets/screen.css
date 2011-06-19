@@ -234,8 +234,20 @@ body {
   width: 76px;
   height: 46px;
 }
+/* line 121, ../../app/stylesheets/partials/_page.sass */
+#new-message button.send-image {
+  background: url(/images/send.png) no-repeat bottom right;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  width: 76px;
+  height: 46px;
+}
 
-/* line 122, ../../app/stylesheets/partials/_page.sass */
+/* line 132, ../../app/stylesheets/partials/_page.sass */
 .view a {
   display: inline;
   float: right;
@@ -244,7 +256,7 @@ body {
   font-size: 14px;
 }
 
-/* line 127, ../../app/stylesheets/partials/_page.sass */
+/* line 137, ../../app/stylesheets/partials/_page.sass */
 #recent-messages {
   padding: 15px;
   float: left;
@@ -254,7 +266,7 @@ body {
   height: 245px;
   position: relative;
 }
-/* line 135, ../../app/stylesheets/partials/_page.sass */
+/* line 145, ../../app/stylesheets/partials/_page.sass */
 #recent-messages .view a {
   display: inline;
   float: left;
@@ -263,7 +275,7 @@ body {
   left: 15px;
 }
 
-/* line 141, ../../app/stylesheets/partials/_page.sass */
+/* line 151, ../../app/stylesheets/partials/_page.sass */
 #dots {
   background: url(/images/dot.png);
   float: left;
@@ -272,7 +284,7 @@ body {
   min-height: 130px;
 }
 
-/* line 148, ../../app/stylesheets/partials/_page.sass */
+/* line 158, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -280,7 +292,7 @@ h3 {
   font-size: 1.5em;
 }
 
-/* line 154, ../../app/stylesheets/partials/_page.sass */
+/* line 164, ../../app/stylesheets/partials/_page.sass */
 h4 {
   margin-bottom: 8px;
   color: #009ad6;
@@ -288,33 +300,33 @@ h4 {
   font-weight: bold;
 }
 
-/* line 160, ../../app/stylesheets/partials/_page.sass */
+/* line 170, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 163, ../../app/stylesheets/partials/_page.sass */
+/* line 173, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 166, ../../app/stylesheets/partials/_page.sass */
+/* line 176, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 170, ../../app/stylesheets/partials/_page.sass */
+/* line 180, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 173, ../../app/stylesheets/partials/_page.sass */
+/* line 183, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
 
-/* line 176, ../../app/stylesheets/partials/_page.sass */
+/* line 186, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }
@@ -494,14 +506,16 @@ a {
 #character_count {
   display: inline;
   float: right;
+  padding-right: 10px;
+  width: 40px;
 }
 
-/* line 119, ../../app/stylesheets/partials/_admin.sass */
+/* line 121, ../../app/stylesheets/partials/_admin.sass */
 .dinpro {
   font-family: "DINPro", Arial, sans-serif;
 }
 
-/* line 122, ../../app/stylesheets/partials/_admin.sass */
+/* line 124, ../../app/stylesheets/partials/_admin.sass */
 #message_body_preview {
   border: 4px solid grey;
   padding: 8px;

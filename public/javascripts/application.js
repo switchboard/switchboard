@@ -17,7 +17,7 @@ function countMessageBody(id) {
     charcount = textarea.value.length;
     if (charcount > 140) {
        textarea.value = textarea.value.substring(0, 140);
-    }else {
+    } else {
       var counter = $('character_count');
       counter.innerHTML = charcount+" / 140";
     }

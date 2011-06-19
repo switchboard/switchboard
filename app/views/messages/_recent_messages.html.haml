@@ -1,0 +1,4 @@
+%h3 Recent Messages
+.view
+  = render :partial => 'messages/message', :collection => @list.messages[0,4]
+  %a{:href => '#'} View all recent messages

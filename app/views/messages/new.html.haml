@@ -1,9 +1,9 @@
 - content_for :main_box_content do
 
-  To list:
-
   #message_body
     = render :partial => 'message_body'
   #message_button
-    = render :partial => 'send_message_button'
-    = render :partial => 'confirmed_send_message_button'
+    %button{:type => 'submit', :class => 'send-image', :onclick => send_message_onclick(@list.id)}
+  #waiting
+    = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')
+
