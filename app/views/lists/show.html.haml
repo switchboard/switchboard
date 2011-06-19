@@ -1,5 +1,16 @@
 - content_for :main_box_content do
-  %h4 list statistics
+  %h4 
+    = 'LIST: ' + @list.name
+
+  What do you want to do?
+
+  %p
+    = link_to "See list subscribers", list_path(@list) + "/phone_numbers"
+  %p
+    = link_to "Add a user to the list", list_path(@list) + "/users/new"
+  
+  %br   
+  %h4 LIST STATISTICS
   %p
     = 'Contacts count: ' + @list.phone_numbers.length.to_s
   %p
@@ -8,3 +19,4 @@
     = 'Total Messages this week: ' + @list.messages.within_days(7).length.to_s
     %br
     = 'Total Sent Messages: ' + count_sent_messages(@list)
+
