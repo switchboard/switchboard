@@ -17,8 +17,8 @@ HERE
     return js
   end
 
-  def select_list(action, controller)
-    render :partial => '/admin/list', :collection => List.find(:all), :locals => {:action => action, :controller => controller}
+  def select_list(list_id, action, controller)
+    render :partial => '/admin/list', :collection => List.find(:all), :locals => {:action => action, :controller => controller, :list_id => list_id}
     #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  
   end
 

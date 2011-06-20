@@ -11,6 +11,11 @@ function highlightList(id) {
   list.setAttribute("class", "active_list");
 }
 
+function getSelectedListId() {
+  var selectedList = $j("#listSelect option:selected").val()
+  return selectedList
+}
+
 function countMessageBody(id) {
     if (!$(id)) return;
     var textarea = $(id);

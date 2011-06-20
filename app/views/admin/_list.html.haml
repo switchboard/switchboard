@@ -1,4 +1,4 @@
-%option
+%option{:value => list.id, :name => list.name, :selected => @list && list.id == @list.id}
   %a{:href => list_path(list)}= list.name
   
 

@@ -35,16 +35,16 @@ class AdminController < ApplicationController
   end
 
   def remove_member
-    list = List.find(params[:list_id])
+    @list = List.find(params[:list_id])
     number = PhoneNumber.find(params[:number_id])
-    list.remove_phone_number(number)
+    @list.remove_phone_number(number)
     render :update do |page|
       page.remove "member_#{number.id}"
     end
   end
 
   def compose_message
-    list = List.find(params[:list_id])
+    @list = List.find(params[:list_id])
     render :update do |page|
       page.hide 'flash_messages_container'
       page.replace_html 'compose_message', :partial => '/admin/message_body'
