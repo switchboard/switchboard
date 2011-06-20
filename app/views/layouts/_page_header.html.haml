@@ -2,6 +2,17 @@
   %img{:src => '/images/logo.png', :alt => 'Switchboard'}
     %h1.logo SWITCHBOARD
 
+  #masthead_dynamic
+    #current_list
+    - if @list != nil
+      YOU ARE WORKING WITH LIST: 
+    - else 
+      BEGIN BY SELECTING A LIST:  
+    %select{ :id => 'listSelect', :onChange => "var id = getSelectedListId();  if (id != 0) {  window.location.href = '../../lists/' + getSelectedListId(); } " }
+      - if @list == nil
+        %option{ :name=> "Select a list" , :value => 0 } SELECT A LIST
+      = select_list("admin", "show", @list != nil ? @list.id : 0 )
+
 -##flash_messages_container
 -#  = flash_messages
 

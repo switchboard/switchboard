@@ -331,11 +331,18 @@ a {
 }
 
 /* line 1, ../../app/stylesheets/partials/_admin.sass */
+#masthead_dynamic {
+  position: absolute;
+  top: 145px;
+  left: 20px;
+}
+
+/* line 6, ../../app/stylesheets/partials/_admin.sass */
 #create_list {
   display: inline;
 }
 
-/* line 4, ../../app/stylesheets/partials/_admin.sass */
+/* line 9, ../../app/stylesheets/partials/_admin.sass */
 #select_list {
   display: inline;
   float: left;
@@ -345,7 +352,7 @@ a {
   height: auto;
   overflow: hidden;
 }
-/* line 11, ../../app/stylesheets/partials/_admin.sass */
+/* line 16, ../../app/stylesheets/partials/_admin.sass */
 #select_list h4 {
   display: inline;
   float: left;
@@ -353,76 +360,76 @@ a {
   font-size: 18px;
 }
 
-/* line 18, ../../app/stylesheets/partials/_admin.sass */
+/* line 23, ../../app/stylesheets/partials/_admin.sass */
 #selectlist {
   font-weight: bold;
   width: auto;
 }
-/* line 21, ../../app/stylesheets/partials/_admin.sass */
+/* line 26, ../../app/stylesheets/partials/_admin.sass */
 #selectlist li {
   padding: 3px;
   margin: 1px;
 }
-/* line 24, ../../app/stylesheets/partials/_admin.sass */
+/* line 29, ../../app/stylesheets/partials/_admin.sass */
 #selectlist li a {
   color: #009ad6;
 }
-/* line 26, ../../app/stylesheets/partials/_admin.sass */
+/* line 31, ../../app/stylesheets/partials/_admin.sass */
 #selectlist li a:hover {
   cursor: default;
 }
 
-/* line 29, ../../app/stylesheets/partials/_admin.sass */
+/* line 34, ../../app/stylesheets/partials/_admin.sass */
 #message-options {
   display: inline;
   float: left;
   margin-top: 20px;
   width: 100%;
 }
-/* line 33, ../../app/stylesheets/partials/_admin.sass */
+/* line 38, ../../app/stylesheets/partials/_admin.sass */
 #message-options legend {
   font-weight: bold;
   line-height: 1.6;
   font-size: 18px;
 }
-/* line 37, ../../app/stylesheets/partials/_admin.sass */
+/* line 42, ../../app/stylesheets/partials/_admin.sass */
 #message-options label {
   font-size: 14px;
 }
 
-/* line 40, ../../app/stylesheets/partials/_admin.sass */
+/* line 45, ../../app/stylesheets/partials/_admin.sass */
 .aqua {
   color: #009ad6;
 }
 
-/* line 43, ../../app/stylesheets/partials/_admin.sass */
+/* line 48, ../../app/stylesheets/partials/_admin.sass */
 .choose_list_icon {
   display: inline;
   float: right;
 }
 
-/* line 46, ../../app/stylesheets/partials/_admin.sass */
+/* line 51, ../../app/stylesheets/partials/_admin.sass */
 .remove_member_icon {
   display: inline;
   float: right;
   display: none;
 }
 
-/* line 51, ../../app/stylesheets/partials/_admin.sass */
+/* line 56, ../../app/stylesheets/partials/_admin.sass */
 #member_list li {
   padding: 3px;
 }
-/* line 53, ../../app/stylesheets/partials/_admin.sass */
+/* line 58, ../../app/stylesheets/partials/_admin.sass */
 #member_list li:hover {
   cursor: default;
   background-color: #aaaaaa;
 }
-/* line 56, ../../app/stylesheets/partials/_admin.sass */
+/* line 61, ../../app/stylesheets/partials/_admin.sass */
 #member_list li:hover .remove_member_icon {
   display: inline;
 }
 
-/* line 60, ../../app/stylesheets/partials/_admin.sass */
+/* line 65, ../../app/stylesheets/partials/_admin.sass */
 .toggle span {
   display: none;
   position: absolute;
@@ -431,12 +438,12 @@ a {
   padding: 8px;
   margin-top: -25px;
 }
-/* line 69, ../../app/stylesheets/partials/_admin.sass */
+/* line 74, ../../app/stylesheets/partials/_admin.sass */
 .toggle:hover span {
   display: inline;
 }
 
-/* line 72, ../../app/stylesheets/partials/_admin.sass */
+/* line 77, ../../app/stylesheets/partials/_admin.sass */
 #show_member_list {
   display: inline;
   float: left;
@@ -445,7 +452,7 @@ a {
   margin-top: 20px;
 }
 
-/* line 78, ../../app/stylesheets/partials/_admin.sass */
+/* line 83, ../../app/stylesheets/partials/_admin.sass */
 #send_message_button {
   display: inline;
   float: left;
@@ -459,12 +466,12 @@ a {
   width: 150px;
   text-align: center;
 }
-/* line 89, ../../app/stylesheets/partials/_admin.sass */
+/* line 94, ../../app/stylesheets/partials/_admin.sass */
 #send_message_button:hover {
   background-color: #99ffff;
 }
 
-/* line 92, ../../app/stylesheets/partials/_admin.sass */
+/* line 97, ../../app/stylesheets/partials/_admin.sass */
 #confirmed_send_message_button {
   display: inline;
   float: right;
@@ -478,30 +485,30 @@ a {
   width: 150px;
   text-align: center;
 }
-/* line 103, ../../app/stylesheets/partials/_admin.sass */
+/* line 108, ../../app/stylesheets/partials/_admin.sass */
 #confirmed_send_message_button:hover {
   background-color: #99ffff;
 }
 
-/* line 106, ../../app/stylesheets/partials/_admin.sass */
+/* line 111, ../../app/stylesheets/partials/_admin.sass */
 .config_heading {
   font-size: 1.25em;
 }
 
-/* line 109, ../../app/stylesheets/partials/_admin.sass */
+/* line 114, ../../app/stylesheets/partials/_admin.sass */
 .create_list_options {
   padding: 5px;
 }
-/* line 111, ../../app/stylesheets/partials/_admin.sass */
+/* line 116, ../../app/stylesheets/partials/_admin.sass */
 .create_list_options li {
   padding: 5px;
 }
-/* line 113, ../../app/stylesheets/partials/_admin.sass */
+/* line 118, ../../app/stylesheets/partials/_admin.sass */
 .create_list_options li .list_option {
   font-weight: bold;
 }
 
-/* line 116, ../../app/stylesheets/partials/_admin.sass */
+/* line 121, ../../app/stylesheets/partials/_admin.sass */
 #character_count {
   display: inline;
   float: right;
@@ -509,12 +516,12 @@ a {
   width: 40px;
 }
 
-/* line 121, ../../app/stylesheets/partials/_admin.sass */
+/* line 126, ../../app/stylesheets/partials/_admin.sass */
 .dinpro {
   font-family: "DINPro", Arial, sans-serif;
 }
 
-/* line 124, ../../app/stylesheets/partials/_admin.sass */
+/* line 129, ../../app/stylesheets/partials/_admin.sass */
 #message_body_preview {
   border: 4px solid grey;
   padding: 8px;
