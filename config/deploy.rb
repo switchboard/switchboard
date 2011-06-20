@@ -4,7 +4,7 @@ set :repository,  "git://github.com/switchboard/switchboard.git"
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-set :branch, "master"
+set :branch, "production"
 
 
 role :web, "69.164.216.141"                          # Your HTTP server, Apache/etc
