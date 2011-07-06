@@ -8,7 +8,9 @@
     = link_to "See list subscribers", list_path(@list) + "/phone_numbers"
   %p
     = link_to "Add a user to the list", list_path(@list) + "/users/new"
-  
+  %p
+    = link_to "Change list settings", list_path(@list) + "/edit"  
+
   %br   
   %h4 LIST STATISTICS
   %p

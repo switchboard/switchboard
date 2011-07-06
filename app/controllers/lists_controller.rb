@@ -24,6 +24,10 @@ class ListsController < ApplicationController
 
   def edit
   end
+
+  def index
+    @lists = List.find :all
+  end
   
   def update
     @list.update_attributes(params[:list])

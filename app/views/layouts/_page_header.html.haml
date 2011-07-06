@@ -5,16 +5,18 @@
   #masthead_dynamic
     #current_list
     - if @current_user != nil
+      Welcome, admin!  
       - if @list != nil
-        YOU ARE WORKING WITH LIST: 
+        You are messaging with members of 
       - else 
-        BEGIN BY SELECTING A LIST:  
+        Who do you want to message with?  
 
       %select{ :id => 'listSelect', :onChange => "var id = getSelectedListId();  if (id != 0) {  window.location.href = '../../lists/' + getSelectedListId(); } " }
         - if @list == nil
           %option{ :name=> "Select a list" , :value => 0 } SELECT A LIST
         = select_list("admin", "show", @list != nil ? @list.id : 0 )
-
+    - else
+      Please log in below.
 -##flash_messages_container
 -#  = flash_messages
 
