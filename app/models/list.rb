@@ -177,17 +177,15 @@ class List < ActiveRecord::Base
 
   def prepare_content(message, num)
     ##?TODO: add config about initial list name prefix
-     body = '[' + self[:name] + '] ' + message.tokens.join(' ')
-
-    ## add automatic signature to messages on discussion lists 
-    if ( self.all_users_can_send_messages? ) 
-      if (num.user == nil) 
-        puts "no user defined for phone number, so no signature attached"
-      end 
-      if (num.user != nil) 
-        body += "(" + num.user.full_name + ")"
-      end
+    body = ''
+    if (list.identify_sender) 
+      body = body + '[' + self[:name] + '] '
     end
+    message.tokens.join(' ')
+    if (list.identify_sender)
+      body += "(" + num.user.full_name + ")"
+    end
+
     body
   end
 

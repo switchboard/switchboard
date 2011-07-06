@@ -30,14 +30,19 @@
       %br
       %span.config_heading Response Handling
       %br
-      Send responses to all admins via:
+      Send responses to all admins:
       %ul
-        %li= f.check_box(:text_admin_with_response) + "Text"
-        %li= f.check_box(:text_admin_with_response) + "Email"
+        %li= f.check_box(:text_admin_with_response) + "Send response to admins"
   %br
   %span.config_heading Join Policy
   %ul
     %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
     %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
+  %br
+  %span.config_header Message Content
+  %ul
+    %li= f.check_box(:add_list_name_header) + "Include list name in messages (e.g. [LIST])"
+    %li= f.check_box(:identify_sender) + "Include name of sender in messages"
   %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
   = submit_tag
+
