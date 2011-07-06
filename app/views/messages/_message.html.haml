@@ -1,3 +1,4 @@
-%li
-  %span{:style => 'font-weight: bold'}= message.from + ": "
-  = message.body
+- if message != nil && message.list != nil
+  %li
+    %span{:style => 'font-weight: bold'}= message.list.name + " (" + message.from+ "): "
+    = message.body

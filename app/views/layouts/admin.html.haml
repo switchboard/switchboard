@@ -12,15 +12,15 @@
               = yield :main_box_content
             - else
               = yield
-          #recent_messages
-          - if yield :recent_messages:
-            = yield :recent_mesages
-          - else
-            #recent-messages
-              %h3 
-                RECENT MESSAGES
-              .view
-                %a{:href => '#'} VIEW ALL RECENT MESSAGES
+          #recent-messages
+            %h3 
+              RECENT MESSAGES
+            - if @list != nil
+              = render :partial => 'messages/message', :collection => @list.most_recent_messages(12)
+            - else
+              = render(:partial => 'messages/message', :collection => Message.find(:all, :limit => 12, :order => "id desc" ))
+            .view
+              %a{:href => '#'} VIEW ALL RECENT MESSAGES
           #dots
       #footer
         = render :partial => '/layouts/footer'

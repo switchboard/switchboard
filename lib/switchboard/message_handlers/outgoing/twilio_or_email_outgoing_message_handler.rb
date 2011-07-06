@@ -23,8 +23,10 @@ module Switchboard::MessageHandlers::Outgoing
               ## messages go out slowly, so we will fork a new process for each
               ## message.  We send them out in batches of 30 until we test what
               ## limit is reasonable.
-              begin
-                fork {
+
+              ## turned off forking because of mysql connection
+              #begin
+              #  fork {
                   puts "handling outgoing message."
                   if (message.to == 'Web') 
                     puts "WARNING: incorrect messages are being generated to Web"
@@ -37,7 +39,7 @@ module Switchboard::MessageHandlers::Outgoing
                       sender.send_sms( message.to, message.body )
                     end
                   end
-                }
+              #  }
                 outgoing_state.messages.push(message) 
                 outgoing_state.save
                 rescue

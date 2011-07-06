@@ -203,7 +203,7 @@ body {
   width: 393px;
   height: 400px;
   float: left;
-  overflow: hidden;
+  overflow: auto;
   border: 7px solid black;
 }
 /* line 100, ../../app/stylesheets/partials/_page.sass */

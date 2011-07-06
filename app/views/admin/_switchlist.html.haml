@@ -3,7 +3,6 @@
   %span
     %h3 List Options
     %ul 
-      = render :partial => '/admin/which_list', :collection => List.top_five(:remove_list_id => nil)
-      - if List.more_than_five
-        %li.switch= link_to 'view all lists'.upcase, '/admin/manage'
-      %li.switch= link_to '&mdash; Create New List &mdash;', new_list_url
+      / = render :partial => '/admin/which_list', :collection => List.top_five(:remove_list_id => nil)
+      %li.switch= link_to 'Manage All Lists',  '/lists'
+      %li.switch= link_to 'Create New List', new_list_url

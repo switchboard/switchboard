@@ -43,6 +43,15 @@ class AdminController < ApplicationController
     end
   end
 
+  def remove_list
+    list_id = params[:list_id]
+    list = List.find(list_id)
+    list.destroy
+    render :update do |page|
+      page.remove "list_#{list.id}"
+    end
+  end
+
   def compose_message
     @list = List.find(params[:list_id])
     render :update do |page|

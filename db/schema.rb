@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101209114254) do
+ActiveRecord::Schema.define(:version => 20110706021833) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(:version => 20101209114254) do
     t.boolean  "use_welcome_message",         :default => false
     t.string   "custom_welcome_message"
     t.string   "incoming_number"
+    t.boolean  "add_list_name_header"
+    t.boolean  "identify_sender"
   end
 
   create_table "message_states", :force => true do |t|

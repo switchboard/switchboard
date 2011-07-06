@@ -1,11 +1,14 @@
 - controller = controller.nil? ? 'admin' : controller
-.view
-  %a{:href => '#'} View All Lists
+
+Select a list above before sending a message.
+
+/.view
+/  %a{:href => '#'} View All Lists
   
-%h4 
-  To List:
-  = image_tag("spinner.gif", :id => 'which_list_spinner', :style => 'display: none')
-#selectlist
-  %select
-    = select_list(action, controller)
+/%h4 
+/  To List:
+/  = image_tag("spinner.gif", :id => 'which_list_spinner', :style => 'display: none')
+/#selectlist
+/  %select
+/    = select_list(-1, action, controller)
 
