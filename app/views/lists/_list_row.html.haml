@@ -1,5 +1,5 @@
 %li{:id => "list_#{list_row.id}"}
-  = list_row.name
+  = link_to list_row.name, list_path(list_row)
   %span.remove_member_icon
     %a{:href => edit_list_url(list_row)}= image_tag('icons/16/edit.png')
     = link_to_remove_list(list_row)
