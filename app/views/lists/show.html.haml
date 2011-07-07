@@ -4,14 +4,19 @@
 
   What do you want to do?
 
-  %p
-    = link_to "See list subscribers", list_path(@list) + "/phone_numbers"
-  %p
-    = link_to "Add a user to the list", list_path(@list) + "/users/new"
-  %p
-    = link_to "Change list settings", list_path(@list) + "/edit"  
+  #vertical_menu
+    %p
+      = link_to "See list subscribers", list_path(@list) + "/phone_numbers"
+    %p
+      = link_to "Add a user to the list", list_path(@list) + "/users/new"
+    %p
+      = link_to "Import users", list_path(@list) + "/users/upload"
+    %p
+      = link_to "Change list settings", list_path(@list) + "/edit"  
+
 
   %br   
+
   %h4 LIST STATISTICS
   %p
     = 'Contacts count: ' + @list.phone_numbers.length.to_s
