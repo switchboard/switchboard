@@ -7,7 +7,10 @@ class ListsController < ApplicationController
 
   def new
   end
-  
+ 
+  def import
+  end
+ 
   def create
     @list = List.create(params[:list])
     if @list.save
