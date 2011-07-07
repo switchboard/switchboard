@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
     list.resources :users
     list.resources :phone_numbers
     list.resources :messages
+    list.connect 'import', :controller => "users", :action => "import"
   end
   map.resources :messages
   map.resources :users
