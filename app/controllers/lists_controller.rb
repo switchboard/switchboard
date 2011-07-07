@@ -6,12 +6,15 @@ class ListsController < ApplicationController
   layout 'admin'
 
   def new
+    @title = "Create List"
   end
  
   def import
+    @title = "Import Contacts"
   end
  
   def create
+    @title = "Create List"
     @list = List.create(params[:list])
     if @list.save
       flash[:message] = "Your list has been created!"
@@ -26,6 +29,9 @@ class ListsController < ApplicationController
   end
 
   def edit
+    @title = "Configure List"
+    puts "flash is: " + flash.to_s
+    puts "flash[:notice] is: " + flash[:notice].to_s
   end
 
   def index
@@ -34,6 +40,7 @@ class ListsController < ApplicationController
   
   def update
     @list.update_attributes(params[:list])
+    flash[:success] = "Your list configuration was updated."
     redirect_to :action => 'edit'
   end
 
@@ -45,7 +52,7 @@ class ListsController < ApplicationController
       @errors = results[:errors]
       @successes = results[:successes]
       if @errors.length == 0
-        flash[:notice] = "All #{@successes} contacts successfully added!"
+        flash[:success] = "All #{@successes} contacts successfully added!"
         redirect_to list_phone_numbers_url(@list) 
       end
     end

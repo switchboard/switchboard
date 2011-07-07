@@ -39,7 +39,7 @@
     %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
     %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
   %br
-  %span.config_header Message Content
+  %span.config_heading  Message Content
   %ul
     %li= f.check_box(:add_list_name_header) + "Include list name in messages (e.g. [LIST])"
     %li= f.check_box(:identify_sender) + "Include name of sender in messages"

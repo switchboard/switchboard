@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   layout 'admin'
   
   def new
+    @title = "Add Contact"
     @user = User.new
   end
 
@@ -20,14 +21,16 @@ class UsersController < ApplicationController
       @list.add_phone_number phone_number
       reparams = {:list_id => @list.id}
     end 
-    redirect_to :action => 'new', :params => reparams
+    redirect_to list_path(@list_id)
   end
   
   def show
+    @title = "Show Contact"
     @user = User.find(params[:id]) 
   end
 
   def edit
+    @title = "Edit Contact"
     @user = User.find(params[:id])
   end
  

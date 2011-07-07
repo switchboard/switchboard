@@ -7,7 +7,16 @@ class PhoneNumbersController < ApplicationController
   end
 
   def index
-    @members = @list ? @list.phone_numbers : PhoneNumber.find(:all)
+    @title = "List Membership"
+
+    puts("in phone numbers index: list is: " + @list.name)
+    if (@list)
+      @members = @list.phone_numbers
+      puts("got numbers from list w/ id: " + @list.id.to_s)
+    else
+      @members = PhoneNumber.find(:all)
+    end
+    
   end
   
   def create

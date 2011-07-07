@@ -8,6 +8,14 @@
         #content
           #new-message
             #flash_messages_container
+            %h4 
+              = link_to "Lists", "/lists"
+              - if @list
+                | 
+                = link_to "List: " + @list.name, list_path(@list.id)
+              - if @title
+                |
+                = @title
             - if yield :main_box_content
               = yield :main_box_content
             - else

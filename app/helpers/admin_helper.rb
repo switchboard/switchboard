@@ -73,6 +73,17 @@ HERE
     end
   end
 
+  def flash_js(flash) 
+    puts "in flash_js, andflash is: " + flash.to_s
+    js = ""
+    flash.each do |key, msg| 
+      js << jsnotify(msg, key, true) 
+     # js << "$j().toastmessage('showSuccessToast', \"This is a test: #{msg}.\");"
+    end
+    puts "returning js: " + js
+    return js
+  end
+
 #  def select_list_members(memberships)
 #    collection_select(nil, nil, memberships, :id, :display_for_select, {}, {:id => 'show_members', :multiple => 1, :size => 20) 
 #  end

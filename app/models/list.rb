@@ -16,6 +16,9 @@ class List < ActiveRecord::Base
 
   def add_phone_number(phone_number)
     return if self.has_number?(phone_number)
+    return if phone_number == nil
+    return if phone_number.id == nil
+
     self.list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
       puts "has welcome message, and creating outgoing message"
