@@ -181,11 +181,13 @@ class List < ActiveRecord::Base
   def prepare_content(message, num)
     ##?TODO: add config about initial list name prefix
     body = ''
-    if (list.identify_sender) 
+
+    if (self.add_list_name_header)
       body = body + '[' + self[:name] + '] '
     end
-    message.tokens.join(' ')
-    if (list.identify_sender)
+
+    body = body + message.tokens.join(' ')
+    if (self.identify_sender && num.user != nil && ! num.user.full_name.is_blank? )
       body += "(" + num.user.full_name + ")"
     end
 

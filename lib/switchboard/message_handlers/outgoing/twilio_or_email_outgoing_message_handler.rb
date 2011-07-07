@@ -56,7 +56,7 @@ module Switchboard::MessageHandlers::Outgoing
         Process.waitall
         ActiveRecord::Base.allow_concurrency = false
       end
-
+    end
  
 def send_email(to,opts={})
   opts[:server]      ||= 'localhost'
