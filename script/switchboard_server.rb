@@ -34,11 +34,14 @@ loop do
   rescue
     puts("incoming messages -- failure")
   end 
+
+  puts ("finsihed incoming")
   begin
     outgoing.handle_messages!
   rescue
     puts("outgoing messages -- failure")
   end
+
   sleep(SLEEP_TIME)
 end
 

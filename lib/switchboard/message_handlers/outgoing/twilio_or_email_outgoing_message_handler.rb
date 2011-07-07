@@ -5,6 +5,7 @@ require 'net/smtp'
 module Switchboard::MessageHandlers::Outgoing
   class TwilioOrEmailOutgoingMessageHandler < Switchboard::MessageHandlers::OutgoingMessageHandler
     def handle_messages!()
+      puts(" ** handling outgoing messages.")
       sender = Twilio::TwilioSender.new()
       ## these should come from an array of output connectors (tuple of state & conditions)
       output_state_name = 'sent'
@@ -37,7 +38,7 @@ module Switchboard::MessageHandlers::Outgoing
                 send_email  message.to, :body => message.body, :from => message.from
               else 
                 puts "texting response"
-                sender.send_sms( message.to, message.body )
+                sender.send_sms( message.to, message.body, message.from )
               end
             end
           }

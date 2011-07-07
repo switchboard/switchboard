@@ -27,7 +27,7 @@ module Twilio
 
             d = {
                 'To' => recipient_phone_number,
-                'From' => CALLER_ID,
+                'From' => sender_phone_number,
                 'Body' => message
             }
             resp = account.request("/#{API_VERSION}/Accounts/#{ACCOUNT_SID}/SMS/Messages",
