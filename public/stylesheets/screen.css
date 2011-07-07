@@ -264,7 +264,7 @@ body {
 #recent-messages {
   padding: 15px;
   float: left;
-  overflow: hidden;
+  overflow: visible;
   border: 7px solid black;
   width: 270px;
   height: 245px;
@@ -280,6 +280,16 @@ body {
 }
 
 /* line 152, ../../app/stylesheets/partials/_page.sass */
+#recent-messages-list {
+  display: inline;
+  float: left;
+  position: absolute;
+  top: 40px;
+  height: 190px;
+  overflow: auto;
+}
+
+/* line 159, ../../app/stylesheets/partials/_page.sass */
 #dots {
   background: url(/images/dot.png);
   float: left;
@@ -288,7 +298,7 @@ body {
   min-height: 130px;
 }
 
-/* line 159, ../../app/stylesheets/partials/_page.sass */
+/* line 166, ../../app/stylesheets/partials/_page.sass */
 h3 {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -296,7 +306,7 @@ h3 {
   font-size: 1.5em;
 }
 
-/* line 165, ../../app/stylesheets/partials/_page.sass */
+/* line 172, ../../app/stylesheets/partials/_page.sass */
 h4 {
   margin-bottom: 8px;
   color: #009ad6;
@@ -304,51 +314,51 @@ h4 {
   font-weight: bold;
 }
 
-/* line 171, ../../app/stylesheets/partials/_page.sass */
+/* line 178, ../../app/stylesheets/partials/_page.sass */
 .active {
   background: white;
 }
 
-/* line 174, ../../app/stylesheets/partials/_page.sass */
+/* line 181, ../../app/stylesheets/partials/_page.sass */
 p {
   margin: 5px 10px;
 }
 
-/* line 177, ../../app/stylesheets/partials/_page.sass */
+/* line 184, ../../app/stylesheets/partials/_page.sass */
 textarea {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-/* line 181, ../../app/stylesheets/partials/_page.sass */
+/* line 188, ../../app/stylesheets/partials/_page.sass */
 .active_list {
   background: #aaaaaa;
 }
 
-/* line 184, ../../app/stylesheets/partials/_page.sass */
+/* line 191, ../../app/stylesheets/partials/_page.sass */
 a {
   text-decoration: none;
 }
-/* line 186, ../../app/stylesheets/partials/_page.sass */
+/* line 193, ../../app/stylesheets/partials/_page.sass */
 a:hover {
   background-color: #eeeeee;
 }
 
-/* line 189, ../../app/stylesheets/partials/_page.sass */
+/* line 196, ../../app/stylesheets/partials/_page.sass */
 #vertical_menu {
   width: 200px;
 }
-/* line 191, ../../app/stylesheets/partials/_page.sass */
+/* line 198, ../../app/stylesheets/partials/_page.sass */
 #vertical_menu a {
   text-decoration: none;
   width: 200px;
 }
-/* line 193, ../../app/stylesheets/partials/_page.sass */
+/* line 200, ../../app/stylesheets/partials/_page.sass */
 #vertical_menu a:hover {
   background-color: #eeeeee;
 }
 
-/* line 197, ../../app/stylesheets/partials/_page.sass */
+/* line 204, ../../app/stylesheets/partials/_page.sass */
 .red {
   color: red;
 }

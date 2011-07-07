@@ -16,6 +16,9 @@ class List < ActiveRecord::Base
 
   def add_phone_number(phone_number)
     return if self.has_number?(phone_number)
+    return if phone_number == nil
+    return if phone_number.id == nil
+
     self.list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
       puts "has welcome message, and creating outgoing message"
@@ -136,7 +139,14 @@ class List < ActiveRecord::Base
     else 
       raise "list & subscriber settings make sending message impossible for num: " + num.number
     end
-
+  
+    if self.incoming_number
+      puts("sending message to list with incoming number: " + self.incoming_number )
+      message.from = self.incoming_number 
+    else
+      puts("no incoming number")
+    end
+      
     message.body = body
 
     message_state = MessageState.find_by_name("outgoing")
@@ -178,11 +188,13 @@ class List < ActiveRecord::Base
   def prepare_content(message, num)
     ##?TODO: add config about initial list name prefix
     body = ''
-    if (list.identify_sender) 
+
+    if (self.add_list_name_header)
       body = body + '[' + self[:name] + '] '
     end
-    message.tokens.join(' ')
-    if (list.identify_sender)
+
+    body = body + message.tokens.join(' ')
+    if (self.identify_sender && num.user != nil && ! num.user.full_name.is_blank? )
       body += "(" + num.user.full_name + ")"
     end
 

@@ -12,8 +12,8 @@ class UserSessionsController < ApplicationController
     if params[:user_session][:login] == 'admin'
       @user_session = UserSession.new(params[:user_session])
       if @user_session.save
-        flash[:notice] = "Login successful!"
-        redirect_to :controller => 'admin', :action => 'manage' 
+        flash[:notice] = "You are logged in!  Get started by selecting a list." 
+        redirect_to :controller => 'lists', :notify => "Login successful!"
       else
         render :action => :new
       end

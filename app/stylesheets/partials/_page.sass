@@ -138,7 +138,7 @@ body
 #recent-messages
   padding: 15px
   float: left
-  overflow: hidden
+  overflow: visible
   border: 7px solid black
   width: 270px
   height: 245px
@@ -148,7 +148,14 @@ body
     position: absolute
     bottom: 15px
     left: 15px
-  
+ 
+#recent-messages-list
+  +float-left
+  position: absolute
+  top: 40px
+  height: 190px
+  overflow: auto
+
 #dots
   background: url(/images/dot.png)
   float: left
