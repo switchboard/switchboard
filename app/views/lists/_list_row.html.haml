@@ -1,0 +1,7 @@
+%li{:id => "list_#{list_row.id}"}
+  = list_row.name
+  %span.remove_member_icon
+    %a{:href => edit_list_url(list_row)}= image_tag('icons/16/edit.png')
+    = link_to_remove_list(list_row)
+    = image_tag("spinner.gif", :id => "which_member_spinner_#{list_row.id}", :style => 'display: none; position: absolute;')
+
