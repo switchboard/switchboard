@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       @list.add_phone_number phone_number
       reparams = {:list_id => @list.id}
     end 
-    redirect_to list_path(@list_id)
+    redirect_to list_path(@list)
   end
   
   def show
