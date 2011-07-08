@@ -8,27 +8,29 @@ module Switchboard::MessageHandlers::Outgoing
       puts(" ** handling outgoing messages.")
       sender = Twilio::TwilioSender.new()
       ## these should come from an array of output connectors (tuple of state & conditions)
-      output_state_name = 'sent'
+      sent_state_name = 'sent'
       outgoing_error_state_name = 'error_outgoing'
 
       output_state_conditions = {}
-      outgoing_state = MessageState.find_by_name(output_state_name)
+      sent_state = MessageState.find_by_name(sent_state_name)
       error_state = MessageState.find_by_name(outgoing_error_state_name)
 
-      outgoing_states = [ outgoing_state ]
+      ##outgoing_states = [ outgoing_state ]
+
+      ## NOTE: in generic model, change to outgoing_states.each |state,conditions| do 
 
       process_count = 0
 
       ActiveRecord::Base.allow_concurrency = true
-      ## TODO: change to outgoing_states.each |state,conditions| do 
-      messages_to_handle.each do |message|
+      messages_to_handle.each do |msg|
         ## messages go out slowly, so we will fork a new process for each
         ## message.  We send them out in batches of 30 until we test what
         ## limit is reasonable.
 
         ## turned off forking because of mysql connection
-        begin
-          fork {
+        threads = []
+        threads << Thread.new(msg) { |message| 
+          begin
             puts "handling outgoing message."
             if (message.to == 'Web') 
               puts "WARNING: incorrect messages are being generated to Web"
@@ -45,20 +47,27 @@ module Switchboard::MessageHandlers::Outgoing
                 end
               end
             end
-          }
-          outgoing_state.messages.push(message) 
-          outgoing_state.save
-        rescue
-          error_state.messages.push(message)
-          error_state.save                  
-        end
-        process_count += 1
-        if process_count == 30:
+            message.message_state = sent_state 
+            message.save
+          rescue StandardException => e
+            puts("outgoing messages -- failure")
+            puts("error was: " + e.inspect )
+            puts("error backtrace: " + e.backtrace.inspect )
+            puts("error was: " + e.inspect )
+            puts("e: " + e.to_s )
+
+            error_state.messages.push(message)
+            error_state.save                  
+          end
+        }
+        threads.each { |aThread| aThread.join }
+        #process_count += 1
+        #if process_count == 30:
           ## wait for all child processes to finish
-          Process.waitall ## also important so there are no zombie processes
-          process_count = 0
-        end
-        Process.waitall
+        #  Process.waitall ## also important so there are no zombie processes
+        #  process_count = 0
+        #end
+        #Process.waitall
         ActiveRecord::Base.allow_concurrency = false
       end
     end
