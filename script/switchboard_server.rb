@@ -31,15 +31,21 @@ outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOrEmailOutgoingMessageH
 loop do
   begin
     incoming.handle_messages!
-  rescue
-    puts("incoming messages -- failure")
+  rescue StandardError => e
+    puts("incoming messages -- failure.")
+    puts("error was: " + e.inspect )
+    puts("caller was: " + callin.in)
+    puts("e: " + e.to_s )
   end 
 
   puts ("finsihed incoming")
   begin
     outgoing.handle_messages!
-  rescue
+  rescue StandardError => e
     puts("outgoing messages -- failure")
+    puts("error was: " + e.inspect )
+    puts("caller was: " + callin.in)
+    puts("e: " + e.to_s )
   end
 
   sleep(SLEEP_TIME)

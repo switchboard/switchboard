@@ -37,8 +37,12 @@ module Switchboard::MessageHandlers::Outgoing
                 puts "emailing message"
                 send_email  message.to, :body => message.body, :from => message.from
               else 
-                puts "texting response"
-                sender.send_sms( message.to, message.body, message.from )
+                if (message.from == nil || message.from == '') 
+                  #TODO: system wide settings 
+                  sender.send_sms( message.to, message.body)
+                else
+                  sender.send_sms( message.to, message.body, message.from)
+                end
               end
             end
           }
