@@ -34,6 +34,8 @@ loop do
   rescue StandardError => e
     puts("incoming messages -- failure.")
     puts("error was: " + e.inspect )
+    puts("error backtrace: " + e.backtrace.inspect )
+    puts("error was: " + e.inspect )
     puts("caller was: " + callin.in)
     puts("e: " + e.to_s )
   end 
@@ -43,6 +45,8 @@ loop do
     outgoing.handle_messages!
   rescue StandardError => e
     puts("outgoing messages -- failure")
+    puts("error was: " + e.inspect )
+    puts("error backtrace: " + e.backtrace.inspect )
     puts("error was: " + e.inspect )
     puts("caller was: " + callin.in)
     puts("e: " + e.to_s )
