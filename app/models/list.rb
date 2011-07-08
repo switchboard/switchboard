@@ -194,8 +194,8 @@ class List < ActiveRecord::Base
     end
 
     body = body + message.tokens.join(' ')
-    if (self.identify_sender && num.user != nil && ! num.user.full_name.is_blank? )
-      body += "(" + num.user.full_name + ")"
+    if (self.identify_sender && num.user != nil && ! num.user.full_name != ''  )
+      body += " (" + message.from_for_display + ")"
     end
 
     body

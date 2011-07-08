@@ -10,12 +10,17 @@ class PhoneNumber < ActiveRecord::Base
   end
 
   def display_number_with_name
+    text = "" 
     if self.user and !self.user.first_name.nil?
-      display_name = " (#{self.user.first_name})"
-    else
-      display_name = ""
+      text = "#{self.user.first_name}"
     end
-    self.number + display_name 
+    
+    if text == ''
+      text = self.number
+    else
+      text = text + ": " + self.number
+    end
+    text
   end
 
   def can_receive_email?
