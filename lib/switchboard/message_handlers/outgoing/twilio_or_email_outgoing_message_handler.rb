@@ -21,7 +21,6 @@ module Switchboard::MessageHandlers::Outgoing
 
       process_count = 0
 
-      ActiveRecord::Base.allow_concurrency = true
       messages_to_handle.each do |msg|
         ## messages go out slowly, so we will fork a new process for each
         ## message.  We send them out in batches of 30 until we test what
@@ -61,14 +60,6 @@ module Switchboard::MessageHandlers::Outgoing
           end
         }
         threads.each { |aThread| aThread.join }
-        #process_count += 1
-        #if process_count == 30:
-          ## wait for all child processes to finish
-        #  Process.waitall ## also important so there are no zombie processes
-        #  process_count = 0
-        #end
-        #Process.waitall
-        ActiveRecord::Base.allow_concurrency = false
       end
     end
  

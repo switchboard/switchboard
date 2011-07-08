@@ -101,8 +101,13 @@ module Switchboard::MessageHandlers::Incoming
 
            handled_state.messages.push(message)
            handled_state.save
-        rescue
+        rescue StandardError => e
           puts("exception while processing message")
+          puts("error was: " + e.inspect )
+          puts("error backtrace: " + e.backtrace.inspect )
+          puts("error was: " + e.inspect )
+          puts("e: " + e.to_s )
+
           Rails.logger.warn("exception while processing message")
           error_state.messages.push(message)
           error_state.save
