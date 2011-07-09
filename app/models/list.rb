@@ -107,11 +107,11 @@ class List < ActiveRecord::Base
   end
 
   def most_recent_messages( count )
-    return self.messages.find( :all, :order => "created_at DESC", :limit => count )
+    return self.messages.find( :all, :conditions => ["message_state_id = 3"], :limit => count )
   end
 
   def most_recent_message_from_user(user)
-    self.messages.find( :all, :conditions => { :sender_id => user.id }, :order => "created_at DESC", :limit => 1 )
+    self.messages.find( :all, :conditions => { :sender_id => user.id },  :limit => 1 )
   end
 
   def create_email_message(num)
@@ -148,7 +148,7 @@ class List < ActiveRecord::Base
     end
       
     message.body = body
-
+    message.list = self
     message_state = MessageState.find_by_name("outgoing")
     message_state.messages.push(message)
     message_state.save!

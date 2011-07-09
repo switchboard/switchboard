@@ -1,3 +1,6 @@
-%h4 Messages 
+%h3 Recent Messages 
 %ul#message_list
-  = render :partial => 'message', :collection => @list.messages
+  - if @list 
+    = render :partial => 'message', :collection => @list.messages
+  - else
+    = render :partial => 'message', :collection => Message.find(:all)
