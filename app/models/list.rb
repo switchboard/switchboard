@@ -148,7 +148,7 @@ class List < ActiveRecord::Base
     end
       
     message.body = body
-
+    message.list = self
     message_state = MessageState.find_by_name("outgoing")
     message_state.messages.push(message)
     message_state.save!

@@ -6,6 +6,8 @@
 
   #vertical_menu
     %p
+      = link_to "Send a message", list_path(@list) + "/messages/new"
+    %p
       = link_to "See list subscribers", list_path(@list) + "/phone_numbers"
     %p
       = link_to "Add a user to the list", list_path(@list) + "/users/new"
