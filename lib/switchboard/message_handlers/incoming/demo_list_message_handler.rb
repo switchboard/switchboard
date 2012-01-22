@@ -64,8 +64,8 @@ module Switchboard::MessageHandlers::Incoming
           end 
 
           number_string = message.sender_number
+          number_string.sub("+1", "")
           puts "Message is from number: " + number_string
-
           num = PhoneNumber.find_or_create_by_number( number_string ) 
           num.save
 
