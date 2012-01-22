@@ -231,7 +231,7 @@ class List < ActiveRecord::Base
     end
   end
 
-  def handle_join_message(message,  tokens, num)
+  def handle_join_message(message, num)
     if self.has_number?(num)
       self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
     else

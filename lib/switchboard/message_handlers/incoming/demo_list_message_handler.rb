@@ -86,8 +86,7 @@ module Switchboard::MessageHandlers::Incoming
           end
         
           if ( first_token =~ /^join$/i )  ## join action
-             list.handle_join_message(message, tokens, num)
-             next 
+             list.handle_join_message(message, num)
           elsif ( first_token =~ /^leave$/i or first_token =~ /^quit$/i )  ## quit action
             ##?TODO: move to list model 
             Rails.logger.info("Received list quit message")
