@@ -10,9 +10,6 @@
         = image_tag("spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
         %span#availability
       %li
-        <span class='list_option'>Long name</span> for the list (optional) 
-        = text_field_tag('list[long_name]')
-      %li
         %span.list_option List Type
         %ul
           %li= radio_button_tag('list[list_type]', 'discussion') + "Discussion List: all users can send messages to the list (recommended for small lists only!)"

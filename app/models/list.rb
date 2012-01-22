@@ -268,7 +268,7 @@ class List < ActiveRecord::Base
   protected
 
     def default_welcome_message
-      "Welcome to the '#{self.name}' list! To unsbuscribe, text '....'. To receive help, text '....'" 
+      "Welcome to the '#{self.name}' list. You can unsubcribe at any time by texting 'leave' to this number."
     end
 
 end
