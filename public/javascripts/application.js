@@ -20,11 +20,11 @@ function countMessageBody(id) {
     if (!$(id)) return;
     var textarea = $(id);
     charcount = textarea.value.length;
-    if (charcount > 140) {
+    if (charcount > 145) {
        textarea.value = textarea.value.substring(0, 140);
     } else {
       var counter = $('character_count');
-      counter.innerHTML = charcount+" / 140";
+      counter.innerHTML = charcount+" / 145";
     }
 }
 

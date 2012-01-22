@@ -90,7 +90,7 @@ module Switchboard::MessageHandlers::Incoming
           elsif ( first_token =~ /^leave$/i or first_token =~ /^quit$/i )  ## quit action
             ##?TODO: move to list model 
             Rails.logger.info("Received list quit message")
-            list.create_outgoing_message( num, "You have been removed from the " + list_name + " list, as you requested." )
+            list.create_outgoing_message( num, "You have been removed from the " + list.name + " list, as you requested." )
             list.remove_phone_number(num)
             list.save
            else ## send action (send a message to a list)

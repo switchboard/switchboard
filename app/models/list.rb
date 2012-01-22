@@ -268,7 +268,10 @@ class List < ActiveRecord::Base
   protected
 
     def default_welcome_message
-      "Welcome to the '#{self.name}' list. You can unsubcribe at any time by texting 'leave' to this number."
+      msg = "Welcome to the '#{self.name}' list.  Unsubcribe by texting 'leave' to this number." 
+      if self.incoming_number.blank?
+        msg = msg + " Respond by texting #{self.name} + your message."
+      end
     end
 
 end
