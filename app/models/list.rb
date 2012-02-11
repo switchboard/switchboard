@@ -15,9 +15,10 @@ class List < ActiveRecord::Base
   ## for now: take objects
 
   def add_phone_number(phone_number)
-    return if self.has_number?(phone_number)
-    return if phone_number == nil
-    return if phone_number.id == nil
+    if (self.has_number?(phone_number) or phone_number == nil or phone_number.id == nil)
+      puts("phone_number is ill formed in add_phone_number")
+      return
+    end
 
     self.list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
@@ -26,6 +27,7 @@ class List < ActiveRecord::Base
       create_outgoing_message( phone_number, welcome_message )
     end 
   end
+
 
   def import_from_attachment(attachment_id)
     return unless csv = self.attachments.find(attachment_id)
@@ -231,24 +233,26 @@ class List < ActiveRecord::Base
     end
   end
 
-  def handle_join_message(message, num)
+  def handle_join_message(message, num) 
+    puts(" ** Handling join message.\n")
     if self.has_number?(num)
       self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
     else
       if (self.open_membership)
+    	puts(" ** List is open, adding user.")
         message.list = self
         if (num.user == nil)
-          puts "adding user for num: " + num.number
+          puts " ** Creating user for num: " + num.number
           num.user = User.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
-          num.save
-          num.user.save
+          num.save!
+          num.user.save!
         end
-
         self.add_phone_number(num)
 
         message.sender = num.user
         message.save
         self.save 
+        self.create_outgoing_message(num, self.welcome_message )
       else ## not list.open_membership
         self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
       end
@@ -275,3 +279,4 @@ class List < ActiveRecord::Base
     end
 
 end
+
