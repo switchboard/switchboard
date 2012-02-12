@@ -29,6 +29,14 @@ outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOrEmailOutgoingMessageH
 
 
 loop do
+  d = DaemonStatus.find(:all, :order => "updated_at desc", :limit => 1)
+  if (d == nil) 
+    d = DaemonStatus.create(:active => true)
+  end
+  d.updated_at_will_change!
+  d.active = true 
+  d.save
+
   begin
     incoming.handle_messages!
   rescue StandardError => e

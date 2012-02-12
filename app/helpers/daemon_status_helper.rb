@@ -1,0 +1,2 @@
+module DaemonStatusHelper
+end
