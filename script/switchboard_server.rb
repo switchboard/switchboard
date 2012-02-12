@@ -29,7 +29,7 @@ outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOrEmailOutgoingMessageH
 
 
 loop do
-  d = DaemonStatus.find(:all, :order => "updated_at desc", :limit => 1)
+  d = DaemonStatus.find(:first, :order => "updated_at desc", :limit => 1)
   if (d == nil) 
     d = DaemonStatus.create(:active => true)
   end
