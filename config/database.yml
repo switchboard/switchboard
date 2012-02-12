@@ -14,10 +14,11 @@ test:
   database: db/test.sqlite3
   pool: 5
   timeout: 5000
-                                                                                               production:
+
+production:
   encoding: utf8
   adapter: mysql
   database: switchboard
   username: switchboard
-  password: Philly4205
+  password: xxx
   host: localhost
