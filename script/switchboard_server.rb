@@ -29,14 +29,9 @@ outgoing = Switchboard::MessageHandlers::Outgoing::TwilioOrEmailOutgoingMessageH
 
 
 loop do
-  d = DaemonStatus.find(:first, :order => "updated_at desc", :limit => 1)
-  if (d == nil) 
-    d = DaemonStatus.create(:active => true)
-  end
-  d.updated_at_will_change!
-  d.active = true 
-  d.save
-
+  puts("\nMessage processing has started.")
+  incoming_success = true
+  outgoing_success = true
   begin
     incoming.handle_messages!
   rescue StandardError => e
@@ -44,11 +39,12 @@ loop do
     puts("error was: " + e.inspect )
     puts("error backtrace: " + e.backtrace.inspect )
     puts("error was: " + e.inspect )
-    puts("caller was: " + callin.in)
     puts("e: " + e.to_s )
+    incoming_sucess = false
   end 
 
-  puts ("finsihed incoming")
+  puts (" ** Processed incoming messages.")
+  
   begin
     outgoing.handle_messages!
   rescue StandardError => e
@@ -58,8 +54,22 @@ loop do
     puts("error was: " + e.inspect )
     puts("caller was: " + callin.in)
     puts("e: " + e.to_s )
+    outgoing_success =false
   end
 
+  puts (" ** Processed outgoing messages.")
+  
+  if (incoming_success and outgoing_success) 
+    puts(" ** Updating daemon status timestamp.")
+    ## update timestamp in daemonstatus table
+    d = DaemonStatus.find(:first, :order => "updated_at desc", :limit => 1)
+    if (d == nil) 
+      d = DaemonStatus.create(:active => true)
+    end
+    d.updated_at_will_change!
+    d.active = true 
+    d.save
+  end
   sleep(SLEEP_TIME)
 end
 
