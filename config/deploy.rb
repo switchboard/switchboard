@@ -17,10 +17,18 @@ set :user, "switchboard"
 set :deploy_to, "/home/switchboard/production"
 set :use_sudo, false
 
+after 'deploy:update', 'switchboard:config'
+
+namespace :switchboard do
+  desc "Copy config from ~"
+  task :config, :roles => :app do
+    run "cp /home/switchboard/database.yml /home/switchboard/production/current/config"
+  end
+end
+
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
-
 namespace :deploy do
    task :stop do ; end
    task :restart, :roles => :app, :except => { :no_release => true } do
