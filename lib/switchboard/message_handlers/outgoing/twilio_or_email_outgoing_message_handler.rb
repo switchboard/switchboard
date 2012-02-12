@@ -27,8 +27,8 @@ module Switchboard::MessageHandlers::Outgoing
         ## limit is reasonable.
 
         ## turned off forking because of mysql connection
-        threads = []
-        threads << Thread.new(msg) { |message| 
+        #threads = []
+        #threads << Thread.new(msg) { |message| 
           begin
             puts "handling outgoing message."
             if (message.to == 'Web') 
@@ -40,8 +40,10 @@ module Switchboard::MessageHandlers::Outgoing
               else 
                 if (message.from == nil || message.from == '') 
                   #TODO: system wide settings 
+                  puts("sending from sender: system wide sender")
                   sender.send_sms( message.to, message.body)
                 else
+                  puts("sending from sender: " + message.from )
                   sender.send_sms( message.to, message.body, message.from)
                 end
               end
@@ -58,8 +60,8 @@ module Switchboard::MessageHandlers::Outgoing
             error_state.messages.push(message)
             error_state.save                  
           end
-        }
-        threads.each { |aThread| aThread.join }
+        #}
+        #threads.each { |aThread| aThread.join }
       end
     end
  
