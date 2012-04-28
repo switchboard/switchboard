@@ -126,6 +126,11 @@ ActiveRecord::Schema.define(:version => 20120428165628) do
     t.datetime "updated_at"
   end
 
+  create_table "survey_states", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "surveys", :force => true do |t|
     t.integer  "list_id"
     t.string   "name"
