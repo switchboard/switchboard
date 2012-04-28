@@ -19,10 +19,10 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "haml"
-  config.gem "compass", :version => ">= 0.10.1"
-  config.gem "authlogic"
-  config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+  config.gem "haml", :version => "3.0.18"
+  config.gem "compass", :version => "0.10.5"
+  config.gem "authlogic", :version => "2.1.6"
+ # config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
 #  config.gem "authlogic", :version => '~> 2.1.6'
 #  config.gem 'will_paginate', :version => '~> 2.3.16', :source => 'http://gemcutter.org'
 
