@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(:version => 20120428165628) do
   end
 
   create_table "survey_questions", :force => true do |t|
+    t.integer  "question_type"
+    t.integer  "survey_id"
     t.string   "name"
     t.string   "question_text"
     t.datetime "created_at"
