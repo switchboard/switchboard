@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212204217) do
+ActiveRecord::Schema.define(:version => 20120428165628) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -115,6 +115,15 @@ ActiveRecord::Schema.define(:version => 20120212204217) do
 
   create_table "queues", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "surveys", :force => true do |t|
+    t.integer  "list_id"
+    t.string   "name"
+    t.text     "description"
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

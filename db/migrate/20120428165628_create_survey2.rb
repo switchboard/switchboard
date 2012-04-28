@@ -1,4 +1,4 @@
-class CreateSurveys < ActiveRecord::Migration
+class CreateSurvey2 < ActiveRecord::Migration
   def self.up
     create_table :surveys do |t|
       t.integer :list_id
