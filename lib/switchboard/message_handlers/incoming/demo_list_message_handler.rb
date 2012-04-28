@@ -18,7 +18,7 @@ module Switchboard::MessageHandlers::Incoming
 
     def determine_list ( message )
         list = nil
-	puts("determining list.")
+      	puts("determining list.")
         puts("message.to: " + message.to)
         if ( List.find_by_incoming_number(message.to) != nil)
           ## Non-keyword list (assigned phone number)
@@ -65,8 +65,12 @@ module Switchboard::MessageHandlers::Incoming
 
           survey_state = SurveyState.find(:all, :conditions => { :status => true, :phone_number_id => 1 } ).first
 
-          if ( survey_state != nil ) 
-            puts("handle survey state here!")
+          if ( survey_state != nil )
+            puts("handle survey response.")
+            survey_state.handle_message(num, message.body)
+            handled_state.messages.push(message)
+            handled_state.save
+            next
           end
 
           list = determine_list(message) 
