@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428173208) do
+ActiveRecord::Schema.define(:version => 20120428175505) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -119,6 +119,15 @@ ActiveRecord::Schema.define(:version => 20120428173208) do
     t.datetime "updated_at"
   end
 
+  create_table "survey_answers", :force => true do |t|
+    t.integer  "survey_question_id"
+    t.string   "response_text"
+    t.integer  "phone_number_id"
+    t.integer  "survey_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "survey_questions", :force => true do |t|
     t.integer  "question_type"
     t.integer  "survey_id"
@@ -129,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20120428173208) do
   end
 
   create_table "survey_states", :force => true do |t|
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "phone_number_id"
