@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "haml", :version => "3.0.18"
   config.gem "compass", :version => "0.10.5"
   config.gem "authlogic", :version => "2.1.6"
+  config.gem "twilio-ruby"
  # config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
 #  config.gem "authlogic", :version => '~> 2.1.6'
 #  config.gem 'will_paginate', :version => '~> 2.3.16', :source => 'http://gemcutter.org'
