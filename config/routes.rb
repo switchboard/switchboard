@@ -49,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
     list.resources :messages
     list.connect 'import', :controller => "users", :action => "import"
   end
+  map.connect '/messages/twilio/create', :controller => 'messages/twilio', :action => 'create'
   map.resources :messages
   map.resources :users
   map.connect ':controller/:action/:id'
