@@ -2,8 +2,8 @@ class CreateSurveyQuestions < ActiveRecord::Migration
   def self.up
     create_table :survey_questions do |t|
 
-      t.int         :question_type
-      t.int         :survey_id
+      t.integer     :question_type
+      t.integer     :survey_id
       t.string      :name
       t.string      :question_text 
       t.timestamps
