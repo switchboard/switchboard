@@ -56,6 +56,16 @@ HERE
     link_to_remote_with_icon('remove.png', {:onclick => onclick})
   end
 
+  def link_to_remove_survey(survey)
+    onclick = remote_function(
+      :url => {:controller => 'admin', :action => 'remove_list'},
+      :with => "'survey_id=#{survey.id}'",
+      :loading => show_spinner("which_member_spinner_#{survey.id}"),
+      :complete => hide_spinner("which_member_spinner_#{survey.id}")
+    )
+    link_to_remote_with_icon('remove.png', {:onclick => onclick})
+  end
+
   def send_message_onclick(list_id, confirmed=nil)
     confirmed = confirmed  ? "+'&confirmed=1'" : ''
     remote_function(

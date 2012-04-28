@@ -1,0 +1,9 @@
+%h4 survey statistics
+%p
+  = 'Contacts count: ' + @survey.phone_numbers.length.to_s
+%p
+  = 'Total Messages: ' + @survey.messages.length.to_s
+  %br
+  = 'Total Messages this week: ' + @survey.messages.within_days(7).length.to_s
+  %br
+  = 'Total Sent Messages: ' + count_sent_messages(@survey)

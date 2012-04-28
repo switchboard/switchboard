@@ -1,0 +1,10 @@
+#show_members
+  %h4 Select a survey below: 
+  %p
+    #show_member_survey
+      / - if @survey.survey_type == 'announcement'
+      /  * checkbox indicates approved sender
+      %ul#member_survey
+        %li
+        = render :partial => 'survey_row', :collection => @surveys
+

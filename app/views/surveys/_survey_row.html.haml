@@ -1,0 +1,7 @@
+%li{:id => "survey_#{survey_row.id}"}
+  = link_to survey_row.name, survey_path(survey_row)
+  %span.remove_member_icon
+    %a{:href => edit_survey_url(survey_row)}= image_tag('icons/16/edit.png')
+    = link_to_remove_survey(survey_row)
+    = image_tag("spinner.gif", :id => "which_member_spinner_#{survey_row.id}", :style => 'display: none; position: absolute;')
+

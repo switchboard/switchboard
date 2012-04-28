@@ -1,0 +1,48 @@
+%h3 Survey Configuration
+%br
+%br
+- form_for(@survey) do |f|
+  %span.config_heading Welcome Message
+  %ul
+    %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + " Use welcome message"
+    %li 
+      = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '20x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@survey)})
+      %br
+      %span#character_count
+  %span.config_heading Incoming Phone Number
+  %br
+  Accept messages to this survey from only this phone number (keep blank to use default number)
+  %ul
+    %li= f.text_field(:incoming_number)
+  / %span.config_heading Sending Preferences
+  / %ul
+  /   %li= f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
+  /   %li= f.check_box(:allow_commercial_gateway) + "Allow commercial gateway ($0.03/msg)"
+  /   - if @survey.allow_email_gateway
+  /    %li= f.check_box(:prefer_email) + "Prefer email over commercial gateway"
+  %br
+  %span.config_heading Survey Type
+  %ul
+    %li= f.radio_button(:survey_type, 'discussion', {:onclick => "$('survey_admin').hide();"}) + "Discussion (anyone can send)"	
+    %li= f.radio_button(:survey_type, 'announcement', {:onclick => "$('survey_admin').show();"}) + "Announcement (admins can send)"
+  - if @survey.survey_type == 'announcement'
+    #announcement_survey_options
+      %br
+      %span.config_heading Response Handling
+      %br
+      Send responses to all admins:
+      %ul
+        %li= f.check_box(:text_admin_with_response) + "Send response to admins"
+  %br
+  %span.config_heading Join Policy
+  %ul
+    %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
+    %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
+  %br
+  %span.config_heading  Message Content
+  %ul
+    %li= f.check_box(:add_survey_name_header) + "Include survey name in messages (e.g. [LIST])"
+    %li= f.check_box(:identify_sender) + "Include name of sender in messages"
+  %input{:type => 'hidden', :name => 'survey_id', :value => @survey.id}
+  = submit_tag
+
