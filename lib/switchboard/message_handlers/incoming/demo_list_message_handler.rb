@@ -55,7 +55,20 @@ module Switchboard::MessageHandlers::Incoming
         begin
           puts ("Handling incoming messages -- individual message")
           message.tokens = message.body.split(/ /)
-          
+
+          number_string = message.sender_number
+          number_string.sub!("+1", "")
+          puts "Message is from number: " + number_string
+      
+          num = PhoneNumber.find_or_create_by_number( number_string ) 
+          num.save
+
+          survey_state = SurveyState.find(:all, :conditions => { :status => true, :phone_number_id => 1 } ).first
+
+          if ( survey_state != nil ) 
+            puts("handle survey state here!")
+          end
+
           list = determine_list(message) 
           if ( list == nil ) 
             puts("couldn't determine list")
@@ -64,13 +77,6 @@ module Switchboard::MessageHandlers::Incoming
             error_state.save
             next
           end 
-
-          number_string = message.sender_number
-          number_string.sub!("+1", "")
-          puts "Message is from number: " + number_string
-
-          num = PhoneNumber.find_or_create_by_number( number_string ) 
-          num.save
 
           ##?REVIEW: handle this more elegantly 
           ##If the message comes via email, save the carrier address.
