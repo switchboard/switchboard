@@ -4,6 +4,6 @@ class AddPositionToSurveyQuestions < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :survey_states, :position
+    remove_column :survey_questions, :position
   end
 end
