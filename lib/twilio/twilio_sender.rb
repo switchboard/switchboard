@@ -9,10 +9,6 @@ require 'twilio-ruby'
 ## josh -- 4/22/2010
 
 module Twilio
-	# put your own credentials here
-    account_sid = 'AC8320a2e64a184dd450a41a8533020e81'
-    auth_token = '??'
-
 
     # Twilio REST API version
     API_VERSION = '2008-08-01'
@@ -38,12 +34,10 @@ module Twilio
         puts("caller id is: " + sender_phone_number)
         puts("recipient id is: " + recipient_phone_number)
         puts("message is: " + message)
-        account_sid = 'AC81adcdb46ea4cf1591c5a38b7a8880b2'
-        auth_token = 'ff3078a5e4500295215eddddd636f64c'
 
             # Create a Twilio REST account object using your Twilio account ID and token
         # set up a client to talk to the Twilio REST API
-	    @client = Twilio::REST::Client.new account_sid, auth_token
+	    @client = Twilio::REST::Client.new ACCOUNT_SID, ACCOUNT_TOKEN
 
     	@client.account.sms.messages.create(
     	  :from => sender_phone_number,
