@@ -10,16 +10,16 @@ require 'twilio-ruby'
 
 module Twilio
 	# put your own credentials here
-    account_sid = 'AC81adcdb46ea4cf1591c5a38b7a8880b2'
-    auth_token = 'ff3078a5e4500295215eddddd636f64c'
+    account_sid = 'AC8320a2e64a184dd450a41a8533020e81'
+    auth_token = '??'
 
 
     # Twilio REST API version
     API_VERSION = '2008-08-01'
 
     # Twilio AccountSid and AuthToken
-    ACCOUNT_SID = 'AC81adcdb46ea4cf1591c5a38b7a8880b2'
-    ACCOUNT_TOKEN = 'ff3078a5e4500295215eddddd636f64c'
+    ACCOUNT_SID = 'AC8320a2e64a184dd450a41a8533020e81'
+    ACCOUNT_TOKEN = '42dac91b4dba8a556f7049bf022809e2'
 
     # Sender phone number needs to be a number previously validated with Twilio
     CALLER_ID = "+12674158777"
