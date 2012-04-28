@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110706021833) do
+ActiveRecord::Schema.define(:version => 20120212204217) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -20,6 +20,12 @@ ActiveRecord::Schema.define(:version => 20110706021833) do
     t.integer "width"
     t.integer "height"
     t.integer "db_file_id"
+  end
+
+  create_table "daemon_statuses", :force => true do |t|
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "db_files", :force => true do |t|
