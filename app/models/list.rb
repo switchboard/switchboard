@@ -157,7 +157,10 @@ class List < ActiveRecord::Base
   end
 
   def name=(value)
-    self[:name] = value.upcase!
+    upcaseValue = value.upcase
+    if self[:name] != upcaseValue
+      self[:name] = upcaseValue
+    end
   end
 
   ### these methods make editing lists easier

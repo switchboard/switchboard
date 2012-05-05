@@ -2,4 +2,4 @@ log/
 tmp/
 *.sqlite3
 *.swp
-
+db/schema.rb
