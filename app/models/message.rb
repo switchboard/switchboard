@@ -47,11 +47,11 @@ class Message < ActiveRecord::Base
     @tokens
   end
 
-  named_scope :within_days, lambda { |within_days|
+  scope :within_days, lambda { |within_days|
     {:conditions => ["updated_at #{(within_days.days.ago..Time.now).to_s(:db)}"] }
   }
   
-  named_scope :in_state, lambda { |state_id|
+  scope :in_state, lambda { |state_id|
     {:conditions => ['message_state_id = ?', state_id]}
   }
 

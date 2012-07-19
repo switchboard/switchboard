@@ -7,6 +7,7 @@ class ListsController < ApplicationController
 
   def new
     @title = "Create List"
+    @mylist = List.new
   end
  
   def import
@@ -35,6 +36,7 @@ class ListsController < ApplicationController
   end
 
   def index
+    puts("in lists index")
     @lists = List.find :all
   end
   
@@ -65,9 +67,10 @@ class ListsController < ApplicationController
     else
       avail = List.find_by_name(params[:name]) ? "Not Available." : "Available!"
     end
-    render :update do |page|
-      page.replace_html "availability", avail
-    end
+    #render :update do |page|
+    #  page.replace_html "availability", avail
+    #end
+    render :js => "alert('hi')"
   end
 
   def toggle_admin

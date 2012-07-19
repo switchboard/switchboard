@@ -10,6 +10,8 @@ class List < ActiveRecord::Base
 
   has_many :attachments
 
+  attr_accessible :name, :list_type, :join_policy
+
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
   ## for now: take objects
@@ -78,7 +80,7 @@ class List < ActiveRecord::Base
 
   def number_is_admin?(phone_number)
     number = self.list_memberships.find_by_phone_number_id(phone_number.id)
-    if number != nil:
+    if number != nil
         return number.is_admin
     end
   end

@@ -101,6 +101,21 @@ class AdminController < ApplicationController
     end
   end
 
+  def check_list_availability
+    list_name = params[:name].upcase
+    avail = false
+    if params[:name] =~ /\s+/
+      msg = "List name cannot contain spaces."
+    else
+      avail = List.find_by_name(list_name) ? false : true
+      msg = avail ? "That list name is available." : "That name is not available -- try another."
+    end
+    #render :update do |page|
+    #  page.replace_html "availability", avail
+    #end
+    render :json => { message: msg, available: avail }
+  end
+
   private
    def jsnotify(msg)
     js = <<HERE
@@ -115,5 +130,6 @@ HERE
     puts js
     return js
   end
- 
+
+    
 end

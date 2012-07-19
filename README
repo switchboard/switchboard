@@ -1,8 +1,0 @@
-Switchboard is a Ruby on Rails application that manages text messaging communications for political and community organizers.
-
-Switchboard is designed to be easy to use, to manage text messaging announcement and discussion lists,
-and use a variety of messaging gateways.  
-
-Switchboard has been developed by the Media Mobilizing Project (http://mediamobilizingproject.org/about).
-
-The application is currently running with Rails 1.3.14 and RubyGems 1.3.7.
