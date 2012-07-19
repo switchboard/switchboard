@@ -1,0 +1,112 @@
+#buttons
+  height: 67px
+  width: 811px
+  ul
+    li.main-menu
+      display: inline
+      float: left
+      a 
+        float: left
+        height: 67px
+        span
+          display: none
+        &.message
+          width: 297px
+          background: url('/images/newmessage.png') no-repeat
+          &:hover
+            background: url('/images/newmessage-mo.png') no-repeat
+        &.user
+          width: 262px
+          background: $gray33 url('/images/newuser.png') no-repeat 
+          &:hover
+            background: $mint-green url('/images/newuser-mo.png') no-repeat 
+      
+#menu
+  float: right
+  display: block
+  width: 252px
+  a.lists
+    background: $aqua url('/images/lists.png') no-repeat
+    font-size: 1.3em
+    letter-spacing: 1px
+    margin: 0
+    padding: 0
+    text-align: center
+    width: 252px
+    float: left
+    &:hover
+      background: $light-blue url('/images/lists-mo.png') no-repeat
+  #list_name 
+    margin: 10px 0 0 0  
+  #switch_list 
+    font-family: "Quattrocento Sans", "DINPRO", Arial, sans-serif
+    color: white
+    background: $white
+    float: right
+    width: 252px
+    position: absolute
+    &:hover
+      span
+        display: block
+    span 
+      display: none
+      z-index: 100
+      position: relative
+      margin-top: 20px
+      margin-left: 0
+      width: 252px
+      h3
+        background: $orange
+        color: white
+        width: 252px
+        text-align: center
+        font-weight: bold
+        font-size: 1.3em
+        padding: 6px 0 4px
+        float: left
+        margin: 0
+      li
+        a
+          color: $black
+          background: $white
+          border-bottom: 1px solid $black
+          border-left: 1px solid $black
+          text-align: center
+          width: 251px
+          height: auto
+          padding: 6px 0 4px
+          &:hover
+            color: $red
+            background-color: #ccc
+        &:first-child a
+          border-top: 8px solid $black
+        &:last-child a
+          border-bottom: 8px solid $black
+          
+  #current_list
+    background-color: white
+    border: 1px solid black
+    padding: 5px
+
+
+#sidebar_message_list
+  margin-top: 20px
+  border: 3px solid black
+  width: 90%
+  margin-left: -10px
+  padding: 10px
+  height: 225px
+  background-color: white
+  
+  
+  ul 
+    height: 150px
+    overflow: hidden
+    margin: 10px 0 15px 0
+    li 
+      margin-top: 5px
+
+  p.next 
+    text-align: center
+  
+
