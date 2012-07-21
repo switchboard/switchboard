@@ -1,7 +1,7 @@
 %h3 List Configuration
 %br
 %br
-- form_for(@list) do |f|
+= form_for(@list) do |f|
   %span.config_heading Welcome Message
   %ul
     %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + " Use welcome message"
