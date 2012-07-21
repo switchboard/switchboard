@@ -14,7 +14,7 @@ class PhoneNumbersController < ApplicationController
       @members = @list.phone_numbers
       puts("got numbers from list w/ id: " + @list.id.to_s)
     else
-      @members = PhoneNumber.find(:all)
+      @members = PhoneNumber.scoped
     end
     
   end
