@@ -16,7 +16,7 @@
               - if @title
                 |
                 = @title
-            - if yield :main_box_content
+            - if content_for?(:main_box_content)
               = yield :main_box_content
             - else
               = yield
