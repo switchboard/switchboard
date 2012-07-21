@@ -37,7 +37,7 @@ class ListsController < ApplicationController
 
   def index
     puts("in lists index")
-    @lists = List.find :all
+    @lists = List.scoped
   end
   
   def update
