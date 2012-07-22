@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524190351) do
+ActiveRecord::Schema.define(:version => 20120721170332) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -41,8 +41,12 @@ ActiveRecord::Schema.define(:version => 20120524190351) do
     t.datetime "updated_at",    :null => false
   end
 
-# Could not dump table "list_memberships" because of following StandardError
-#   Unknown type 'bool' for column 'is_admin'
+  create_table "list_memberships", :force => true do |t|
+    t.integer  "list_id"
+    t.integer  "phone_number_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "lists", :force => true do |t|
     t.string   "name"

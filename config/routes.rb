@@ -4,7 +4,7 @@ Switchboard::Application.routes.draw do
   resources :service_phone_numbers
 
   resource :user_sessions
-  match '/' => 'user_sessions#new'
+  root to: 'lists#index'
   match 'login' => "user_sessions#new", :as => :login
   match 'logout' => "user_sessions#destroy", :as => :logout
 

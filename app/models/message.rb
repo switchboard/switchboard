@@ -48,11 +48,19 @@ class Message < ActiveRecord::Base
   end
 
   scope :within_days, lambda { |within_days|
-    {:conditions => ["updated_at #{(within_days.days.ago..Time.now).to_s(:db)}"] }
+    where("updated_at #{(within_days.days.ago..Time.now).to_s(:db)}")
   }
-  
+
   scope :in_state, lambda { |state_id|
-    {:conditions => ['message_state_id = ?', state_id]}
+    where(message_state_id: state_id)
+  }
+
+  scope :most_recent, lambda { |count|
+    in_state(3).limit(count)
+  }
+
+  scope :single_most_recent_from_user, lambda { |user_id|
+    where(sender_id: user_id).first
   }
 
 end

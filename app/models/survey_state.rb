@@ -14,7 +14,7 @@ class SurveyState < ActiveRecord::Base
     puts("ask next survey question: ")
 
     next_q_idx = self.survey_question.position + 1
-    next_q = SurveyQuestion.find(:all, :conditions => { :position => next_q_idx } ).first
+    next_q = SurveyQuestion.where(position: next_q_idx).first
     if (next_q != nil) 
       self.survey.list.create_outgoing_message(num, next_q.question_text)
       self.survey_question = next_q

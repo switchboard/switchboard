@@ -105,19 +105,6 @@ class List < ActiveRecord::Base
     return numbers
   end
 
-
-  def most_recent_message
-    return ( self.messages.count > 0 ? self.messages[0] : nil )
-  end
-
-  def most_recent_messages( count )
-    return self.messages.find( :all, :conditions => ["message_state_id = 3"], :limit => count )
-  end
-
-  def most_recent_message_from_user(user)
-    self.messages.find( :all, :conditions => { :sender_id => user.id },  :limit => 1 )
-  end
-
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
@@ -266,12 +253,17 @@ class List < ActiveRecord::Base
 
   def self.top_five(options)
     # how do we determine the top five lists? get random five for now!
-    conditions = options[:remove_list_id] ? ['id NOT IN (?)', options[:remove_list_id]] : []
-    List.find(:all, :limit => 5, :conditions => conditions )
+    topfive = List.limit(5)
+
+    if options[:remove_list_id]
+      topfive.where('id NOT IN (?)', options[:remove_list_id])
+    end
+
+    topfive
   end
 
   def self.more_than_five
-    List.find(:all).size > 5
+    List.count > 5
   end
 
   protected
