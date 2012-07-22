@@ -19,7 +19,7 @@ class ListsController < ApplicationController
     @list = List.create(params[:list])
     if @list.save
       flash[:message] = "Your list has been created!"
-      redirect_to :action => 'show', :params => {:list_id => @list.id}
+      redirect_to list_url(@list)
     else
       flash[:notice] = "There was a problem creating your list. Please try another list name."
       redirect_to :action => 'new'
@@ -37,7 +37,7 @@ class ListsController < ApplicationController
 
   def index
     puts("in lists index")
-    @lists = List.find :all
+    @lists = List.scoped
   end
   
   def update

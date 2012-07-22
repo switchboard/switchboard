@@ -3,4 +3,4 @@
   - if @list 
     = render :partial => 'message', :collection => @list.messages
   - else
-    = render :partial => 'message', :collection => Message.find(:all)
+    = render :partial => 'message', :collection => Message.all

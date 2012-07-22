@@ -36,7 +36,7 @@ class SurveysController < ApplicationController
   end
 
   def index
-    @surveys = Survey.find :all
+    @surveys = Survey.scoped
   end
   
   def update
