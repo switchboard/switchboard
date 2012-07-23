@@ -46,7 +46,7 @@ HERE
       #:complete => hide_spinner("which_member_spinner_#{member.id}")
     #)
     #link_to_remote_with_icon('remove.png', {:onclick => onclick})
-    link_to image_tag('remove.png'), url_for({:controller => 'admin', :action => 'remove_member'}), :list_id=> list_id, _number_id => member.id , :remote => true
+    link_to image_tag('remove.png'), url_for({:controller => 'admin', :action => 'remove_member'}), :list_id=> list_id, :number_id => member.id , :remote => true
   end
 
   def link_to_remove_list(list)

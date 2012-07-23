@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base
 
   has_many :phone_numbers
-  accepts_nested_attributes_for :phone_numbers
   has_many :sent_messages, :class_name => 'Message', :foreign_key => 'sender_id'
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'recipient_id' 
- 
+
+  accepts_nested_attributes_for :phone_numbers
+  attr_accessible :first_name, :last_name, :email
+
   acts_as_authentic do |c|
     #c.validate_password_field = false  <--- this breaks the creation of seed data
     c.ignore_blank_passwords = true
