@@ -4,8 +4,10 @@
 = form_for(@list) do |f|
   %span.config_heading Welcome Message
   %ul
-    %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + " Use welcome message"
-    %li 
+    %li
+      = f.check_box(:use_welcome_message)
+      Use welcome message
+    %li
       = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '20x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@list)})
       %br
       %span#character_count
@@ -23,7 +25,7 @@
   %br
   %span.config_heading List Type
   %ul
-    %li= f.radio_button(:list_type, 'discussion', {:onclick => "$('list_admin').hide();"}) + "Discussion (anyone can send)"	
+    %li= f.radio_button(:list_type, 'discussion', {:onclick => "$('list_admin').hide();"}) + "Discussion (anyone can send)"
     %li= f.radio_button(:list_type, 'announcement', {:onclick => "$('list_admin').show();"}) + "Announcement (admins can send)"
   - if @list.list_type == 'announcement'
     #announcement_list_options
