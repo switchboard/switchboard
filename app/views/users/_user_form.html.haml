@@ -17,7 +17,7 @@
   Phone Numbers
   - if @user.phone_numbers.empty?
     = text_field_tag 'user[phone_number]'
-  - f.fields_for :phone_numbers do |phone_number_attributes|
+  = f.fields_for :phone_numbers do |phone_number_attributes|
     = phone_number_attributes.text_field :number
   %br
   = f.submit 'Save'
