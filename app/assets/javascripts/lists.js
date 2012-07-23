@@ -1,9 +1,10 @@
 $(function() {
   // check availability of list name
   $("#list_name").change(function() {
-    $.ajax({url: '/admin/check_list_availability',
+    $.ajax({
+      url: '/admin/check_list_availability',
       data: 'name=' + this.value,
-      "success": switchboard.check_list_name_ok
+      success: check_list_name_ok
       });
   });
 
@@ -11,11 +12,26 @@ $(function() {
   $('#list_use_welcome_message').change(function() {
     $('#welcome_message').toggle();
   });
+
+  // count message chars
+  $('#welcome_message').keyup(function() {
+    countMessageBody(this);
+  });
+
 });
 
-switchboard = {};
+var countMessageBody = function(textarea) {
 
-switchboard.check_list_name_ok = function(data, status, jqxhr) {
+  charcount = textarea.value.length;
+
+  if (charcount > 140) {
+    textarea.value = textarea.value.substring(0, 140);
+  } else {
+    $('#character_count').text(charcount + " / 140");
+  }
+};
+
+var check_list_name_ok = function(data, status, jqxhr) {
   console.log("received list name availability response");
   console.log("data: %o", data);
 
