@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require lists
+//= require selects
 //= require_tree .
