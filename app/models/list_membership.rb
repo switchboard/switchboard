@@ -4,4 +4,6 @@ class ListMembership < ActiveRecord::Base
   belongs_to :phone_number
   belongs_to :list
 
+  attr_accessible :phone_number_id
+
 end

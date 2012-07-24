@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120721170332) do
+ActiveRecord::Schema.define(:version => 20120723121053) do
 
   create_table "attachments", :force => true do |t|
     t.integer "list_id"
@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(:version => 20120721170332) do
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
     t.integer  "phone_number_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "is_admin",        :default => false
   end
 
   create_table "lists", :force => true do |t|

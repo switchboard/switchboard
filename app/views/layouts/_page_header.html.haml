@@ -1,6 +1,6 @@
 #masthead
-  %img{:src => '/images/logo.png', :alt => 'Switchboard'}
-    %h1.logo SWITCHBOARD
+  = image_tag 'logo.png'
+  %h1.logo SWITCHBOARD
 
   #masthead_dynamic
     #current_list
@@ -11,7 +11,7 @@
       - else 
         Who do you want to message with?  
 
-      %select{ :id => 'listSelect', :onChange => "var id = getSelectedListId();  if (id != 0) {  window.location.href = '../../lists/' + getSelectedListId(); } " }
+      %select#listSelect
         - if @list == nil
           %option{ :name=> "Select a list" , :value => 0 } SELECT A LIST
         = select_list("admin", "show", @list != nil ? @list.id : 0 )

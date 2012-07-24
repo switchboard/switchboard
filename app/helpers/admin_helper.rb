@@ -46,11 +46,11 @@ HERE
       #:complete => hide_spinner("which_member_spinner_#{member.id}")
     #)
     #link_to_remote_with_icon('remove.png', {:onclick => onclick})
-    link_to image_tag('remove.png'), url_for({:controller => 'admin', :action => 'remove_member'}), :list_id=> list_id, _number_id => member.id , :remote => true
+    link_to image_tag('icons/16/remove.png'), url_for({:controller => 'admin', :action => 'remove_member'}), :list_id=> list_id, :number_id => member.id , :remote => true
   end
 
   def link_to_remove_list(list)
-    link_to image_tag('remove.png'), list, :method => :delete, :remote => true
+    link_to image_tag('icons/16/remove.png'), list, :method => :delete, :remote => true
 #url_for({:controller => 'lists', :action => 'delete'}), :remote => true
 
 #    onclick = remote_function(
@@ -69,7 +69,7 @@ HERE
       :loading => show_spinner("which_member_spinner_#{survey.id}"),
       :complete => hide_spinner("which_member_spinner_#{survey.id}")
     )
-    link_to_remote_with_icon('remove.png', {:onclick => onclick})
+    link_to_remote_with_icon('icons/16/remove.png', {:onclick => onclick})
   end
 
   def send_message_onclick(list_id, confirmed=nil)

@@ -22,7 +22,7 @@ class List < ActiveRecord::Base
       return
     end
 
-    self.list_memberships.create! :phone_number_id => phone_number.id
+    list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
       puts "has welcome message, and creating outgoing message"
       welcome_message = self.custom_welcome_message
@@ -65,23 +65,24 @@ class List < ActiveRecord::Base
 
   def remove_phone_number(phone_number)
     return unless self.has_number?(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).destroy
+    list_memberships.find_by_phone_number_id(phone_number.id).destroy
   end
 
   def has_number?(phone_number)
-    self.list_memberships.exists?(:phone_number_id => phone_number.id)
+    list_memberships.exists?(:phone_number_id => phone_number.id)
   end
  
   def admins
-    self.list_memberships.collect { |mem| 
+    list_memberships.collect { |mem| 
       mem.phone_number if mem.is_admin?
     }
   end
 
   def number_is_admin?(phone_number)
-    number = self.list_memberships.find_by_phone_number_id(phone_number.id)
+    number = list_memberships.find_by_phone_number_id(phone_number.id)
+
     if number != nil
-        return number.is_admin
+      number.is_admin?
     end
   end
  
@@ -90,16 +91,16 @@ class List < ActiveRecord::Base
   end
 
   def remove_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => nil)
+    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => false)
   end
 
   def add_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => 1)
+    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => true)
   end
 
   def phone_numbers
     numbers =  []
-    self.list_memberships.each do |mem|
+    list_memberships.each do |mem|
       numbers << mem.phone_number
     end
     return numbers
