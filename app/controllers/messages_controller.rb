@@ -20,7 +20,6 @@ class MessagesController < ApplicationController
 
   def send_message
     @list = List.find(params[:list_id])
-    return unless request.xhr? and @list
     confirmed = true
     if confirmed
       @message = WebMessage.new(:from => 'Web', :body => params[:message_body])
