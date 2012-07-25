@@ -20,17 +20,6 @@ $(function() {
 
 });
 
-var countMessageBody = function(textarea) {
-
-  charcount = textarea.value.length;
-
-  if (charcount > 140) {
-    textarea.value = textarea.value.substring(0, 140);
-  } else {
-    $('#character_count').text(charcount + " / 140");
-  }
-};
-
 var check_list_name_ok = function(data, status, jqxhr) {
   console.log("received list name availability response");
   console.log("data: %o", data);
