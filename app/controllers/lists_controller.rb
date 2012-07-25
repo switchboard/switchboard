@@ -76,8 +76,11 @@ class ListsController < ApplicationController
   def toggle_admin
     return unless request.xhr?
     number = PhoneNumber.find(params[:list_member_id])
-    @list.toggle_admin(number)
-    render :nothing => true
+
+    respond_to do |format|
+      @list.toggle_admin!(number)
+      format.js { head :ok }
+    end
   end
 
   private
