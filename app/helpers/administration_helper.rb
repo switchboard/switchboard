@@ -1,4 +1,4 @@
-module AdminHelper
+module AdministrationHelper
 
 
   # types are

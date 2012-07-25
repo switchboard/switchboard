@@ -1,8 +1,8 @@
-class AdminController < ApplicationController
+class AdministrationController < ApplicationController
 
   before_filter :require_admin
 
-  helper 'admin'
+  helper 'administration'
 
   def add_member
     error_objs = []
