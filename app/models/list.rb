@@ -11,6 +11,8 @@ class List < ActiveRecord::Base
   has_many :attachments
 
   attr_accessible :name, :list_type, :join_policy
+  attr_accessible :use_welcome_message, :welcome_message, :incoming_number
+  attr_accessible  :text_admin_with_response, :add_list_name_header, :identify_sender
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
