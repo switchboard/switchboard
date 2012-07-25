@@ -17,7 +17,7 @@ Switchboard::Application.routes.draw do
   end
 
   resources :messages
-  match 'send_message' => 'messages#send_message', via: :post
+  match 'send_message/:list_id' => 'messages#send_message', via: :post, as: 'send_message'
   resources :users
 
   #match '/:controller(/:action(/:id))'
