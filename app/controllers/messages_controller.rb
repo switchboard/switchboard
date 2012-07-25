@@ -28,20 +28,22 @@ class MessagesController < ApplicationController
       @message.list = @list
       @message.save!
 
-      if MessageState.find_by_name("incoming").add_message(@message)
-        respond_to do |format|
-          format.js { render json: "Message sent".to_json }
+      respond_to do |format|
+        format.html do
+          if MessageState.find_by_name("incoming").add_message(@message)
+            flash[:notice] = "Message sent"
+          else
+            flash[:alert] = "Error sending message"
+          end
         end
-      else
-        respond_to do |format|
-          format.js { render json: "Sending failed".to_json }
-        end
+
+        redirect_to list_url(@list)
       end
-     #else
-     #  render :update do |page|
-     #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
-     #    page << "$('confirmed_send_message_button').show();"
-     #  end
+    #else
+    #  render :update do |page|
+    #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
+    #    page << "$('confirmed_send_message_button').show();"
+    #  end
     end
   end
  
