@@ -62,37 +62,6 @@ class AdministrationController < ApplicationController
   end
 
 
-  def send_message
-    @list = List.find(params[:list_id])
-    return unless request.xhr? and @list
-    confirmed = true
-    if confirmed
-      @message = WebMessage.create(:to => params[:list_id], :from => 'Web', :body => params[:message_body], :list => @list)
-      MessageState.find_by_name("incoming")
-      if MessageState.find_by_name("incoming").add_message(@message)
-        #redirect_to :action => 'compose_message', :controller => 'admin', :params => {:list_id => params[:list_id]} 
-        #flash[:notice] = "Your message was sent."
-        render :update do |page|
-          flash[:notice] = "Your message was sent."
-          page.redirect_to list_path(@list) 
-          #page << self.jsnotify("Your message was sent.", "success")
-          #page.replace_html 'new-message', :partial => 'lists/list_info'
-          #page.replace_html 'recent-messages', :partial => 'messages/recent_messages'
-        end
-      else
-        render :update do |page|
-          page.replace_html 'flash_messages_container', :partial => '/layouts/flash_errors', :locals => {:objects => [@message]} 
-          page.show 'flash_messages_container'
-        end
-      end
-     #else 
-     #  render :update do |page|
-     #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
-     #    page << "$('confirmed_send_message_button').show();"
-     #  end
-     end
-  end
- 
   def remove_send_button
     return unless request.xhr?
     render :update do |page|

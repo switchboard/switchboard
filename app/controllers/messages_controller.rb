@@ -18,6 +18,34 @@ class MessagesController < ApplicationController
     queue_message if @message
   end
 
+  def send_message
+    @list = List.find(params[:list_id])
+    return unless request.xhr? and @list
+    confirmed = true
+    if confirmed
+      @message = WebMessage.new(:from => 'Web', :body => params[:message_body])
+      @message.to = @list.id
+      @message.list = @list
+      @message.save!
+
+      if MessageState.find_by_name("incoming").add_message(@message)
+        respond_to do |format|
+          format.js { render json: "Message sent".to_json }
+        end
+      else
+        respond_to do |format|
+          format.js { render json: "Sending failed".to_json }
+        end
+      end
+     #else
+     #  render :update do |page|
+     #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
+     #    page << "$('confirmed_send_message_button').show();"
+     #  end
+    end
+  end
+ 
+
   protected
 
   def queue_message
