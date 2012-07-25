@@ -83,21 +83,19 @@ class List < ActiveRecord::Base
   def number_is_admin?(phone_number)
     number = list_memberships.find_by_phone_number_id(phone_number.id)
 
-    if number != nil
-      number.is_admin?
-    end
+    number.is_admin? if number
   end
  
-  def toggle_admin(phone_number)
-    self.number_is_admin?(phone_number) ? self.remove_admin(phone_number) : self.add_admin(phone_number)
+  def toggle_admin!(phone_number)
+    number_is_admin?(phone_number) ? remove_admin!(phone_number) : add_admin!(phone_number)
   end
 
-  def remove_admin(phone_number)
-    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => false)
+  def remove_admin!(phone_number)
+    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!({ is_admin: false }, as: :admin)
   end
 
-  def add_admin(phone_number)
-    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => true)
+  def add_admin!(phone_number)
+    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!({ is_admin: true }, as: :admin)
   end
 
   def phone_numbers
