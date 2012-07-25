@@ -15,4 +15,5 @@
 //= require shared
 //= require lists
 //= require selects
+//= require messages
 //= require_tree .
