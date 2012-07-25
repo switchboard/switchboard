@@ -1,9 +1,9 @@
 #show_members
   %p
-  
+
     #show_member_list
       - if @list.list_type == 'announcement'
         * checkbox indicates approved sender
-      %ul#member_list
+      %ul#member_list{data: { list_id: @list.id } }
         %li
-        = render :partial => 'member', :collection => @members
+          = render :partial => 'member', :collection => @members

@@ -14,4 +14,5 @@
 //= require jquery_ujs
 //= require lists
 //= require selects
+//= require phone_numbers
 //= require_tree .
