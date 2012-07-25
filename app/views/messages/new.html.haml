@@ -3,7 +3,7 @@
   #message_body
     = render :partial => 'message_body'
   #message_button
-    %button{:type => 'submit', :class => 'send-image', :onclick => send_message_onclick(@list.id)}
+    = image_submit_tag('send.png', id: 'send-button', 'data-list_id' => @list.id)
   #waiting
     = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')
 
