@@ -19,6 +19,9 @@ Switchboard::Application.routes.draw do
 
   resources :messages
   resources :users
+
+  resources :list_memberships, only: [ :destroy ]
+
   match '/:controller(/:action(/:id))'
 
   # The priority is based upon order of creation:

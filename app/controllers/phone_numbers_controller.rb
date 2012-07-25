@@ -9,9 +9,9 @@ class PhoneNumbersController < ApplicationController
   def index
     @title = "List Membership"
 
-    @members =
+    @memberships =
       if @list.present?
-        @list.phone_numbers
+        @list.list_memberships
       else
         PhoneNumber.scoped
       end
