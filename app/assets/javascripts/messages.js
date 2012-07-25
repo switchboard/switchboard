@@ -17,9 +17,12 @@ $(function() {
 
     $spinner.show();
 
-    $.post('/admin/send_message', data).
-      always(function() {
-        $('#send_message_spinner').hide();
-      });
+    $.post('/send_message', data).
+    success(function(response) {
+      alert(response);
+    }).
+    always(function() {
+      $('#send_message_spinner').hide();
+    });
   });
 });
