@@ -1,5 +1,9 @@
 = render :partial => 'layouts/head'
 %body
+  - if notice || flash[:notice]
+    %div{:class => "alert", :style => 'display:none'}
+      = notice
+      %div{:class => "toast-item-close"}
   #site-container
     #site
       = render :partial => 'layouts/page_header'
@@ -7,8 +11,8 @@
         = render :partial => '/admin/buttons'
         #content
           #new-message
-            %p.flash#notice
-              = notice
+            //%p.flash#notice
+            //  = notice
             %p.flash#alert
               = alert
             %h4 
