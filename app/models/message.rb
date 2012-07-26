@@ -7,6 +7,8 @@ class Message < ActiveRecord::Base
   belongs_to :list  
   belongs_to :message_state
 
+  attr_accessible :from, :body
+
   def from_email_gateway?
     if (self.from =~ /@/)
       return true
