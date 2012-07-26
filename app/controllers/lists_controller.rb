@@ -42,7 +42,7 @@ class ListsController < ApplicationController
   
   def update
     @list.update_attributes(params[:list])
-    flash[:success] = "Your list configuration was updated."
+    flash[:notice] = "Your list configuration was updated."
     redirect_to :action => 'edit'
   end
 
@@ -54,7 +54,7 @@ class ListsController < ApplicationController
       @errors = results[:errors]
       @successes = results[:successes]
       if @errors.length == 0
-        flash[:success] = "All #{@successes} contacts successfully added!"
+        flash[:notice] = "All #{@successes} contacts successfully added!"
         redirect_to list_phone_numbers_url(@list) 
       end
     end
