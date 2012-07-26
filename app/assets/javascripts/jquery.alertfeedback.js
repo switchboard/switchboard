@@ -11,14 +11,19 @@ sb.close_alert = function() {
 
 $(function () {
   var alert = $('.alert');
-  if (alert.length > 0) {
-    alert.show().animate({height: alert.outerHeight()}, 200);
+  sb.flash_element(alert);
+  var notice = $('.notice');
+  sb.flash_element(notice);
+});
+
+sb.flash_element = function(element) {
+  if (element.length > 0) {
+    element.show().animate({height: element.outerHeight()}, 200);
 
     window.setTimeout(function() {
-      alert.slideUp();
+      element.slideUp();
     }, 5000);
   }
 
-  $('.toast-item-close').live('click', sb.close_alert);
-});
-
+  element.find('.toast-item-close').live('click', function(){element.slideUp();});  
+}

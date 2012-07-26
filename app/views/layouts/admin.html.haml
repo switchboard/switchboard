@@ -1,8 +1,12 @@
 = render :partial => 'layouts/head'
 %body
   - if notice || flash[:notice]
-    %div{:class => "alert", :style => 'display:none'}
+    %div{:class => "notice", :style => 'display:none'}
       = notice
+      %div{:class => "toast-item-close"}
+  - if alert || flash[:alert]
+    %div{:class => "alert", :style => 'display:none'}
+      = alert
       %div{:class => "toast-item-close"}
   #site-container
     #site
@@ -11,10 +15,6 @@
         = render :partial => '/admin/buttons'
         #content
           #new-message
-            //%p.flash#notice
-            //  = notice
-            %p.flash#alert
-              = alert
             %h4 
               = link_to "Lists", "/lists"
               - if @list

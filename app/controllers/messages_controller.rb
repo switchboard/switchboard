@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
         flash[:notice] = "Message sent."
         redirect_to list_url(@list)
       else
-        flash[:alert] = "Error sending message."
+        flash[:alert] = "Could not send message: " + @message.errors.full_messages[0]
         render 'new'
       end
 
