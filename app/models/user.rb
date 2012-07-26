@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :received_messages, :class_name => 'Message', :foreign_key => 'recipient_id' 
 
   accepts_nested_attributes_for :phone_numbers
+  validates_associated  :phone_numbers
+
   attr_accessible :first_name, :last_name, :email
   attr_accessible :phone_numbers_attributes
 

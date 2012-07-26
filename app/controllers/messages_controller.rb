@@ -25,19 +25,15 @@ class MessagesController < ApplicationController
       @message = WebMessage.new(:from => 'Web', :body => params[:message_body])
       @message.to = @list.id
       @message.list = @list
-      @message.save!
-
-      respond_to do |format|
-        format.html do
-          if MessageState.find_by_name("incoming").add_message(@message)
-            flash[:notice] = "Message sent"
-          else
-            flash[:alert] = "Error sending message"
-          end
-        end
-
+      if ( @message.save ) 
+        MessageState.find_by_name("incoming").add_message(@message)
+        flash[:notice] = "Message sent."
         redirect_to list_url(@list)
+      else
+        flash[:alert] = "Error sending message."
+        render 'new'
       end
+
     #else
     #  render :update do |page|
     #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
