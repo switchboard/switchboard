@@ -5,5 +5,6 @@ class ListMembership < ActiveRecord::Base
   belongs_to :list
 
   attr_accessible :phone_number_id
+  attr_accessible :is_admin, as: :admin
 
 end

@@ -41,4 +41,4 @@ var check_list_name_ok = function(data, status, jqxhr) {
   } else {
     $("#new_list_submit").attr("disabled", true);
   }
-}
+};

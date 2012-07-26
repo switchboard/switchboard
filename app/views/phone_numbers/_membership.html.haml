@@ -1,0 +1,12 @@
+%li{data: { membership_id: membership.id } }
+  - number = membership.phone_number
+  - if @list.list_type == 'announcement'
+    %span.toggle 
+      = image_tag("spinner.gif", class: 'toggle_admin_spinner', id: "spinner_#{membership.id}")
+      %input.admin-checkbox{:type => 'checkbox', :value => 1, :checked => @list.number_is_admin?(number)}
+      %span Toggle Admin
+  = number.display_number_with_name
+  %span.remove_member_icon
+    %a{:href => edit_user_url(number.user)}= image_tag('icons/16/edit.png') 
+    = link_to image_tag('icons/16/remove.png'), list_membership_url(membership), method: :delete, remote: true, class: 'delete_membership'
+    = image_tag("spinner.gif", :id => "which_member_spinner_#{membership.id}", :style => 'display: none; position: absolute;')

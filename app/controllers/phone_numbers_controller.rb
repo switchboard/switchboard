@@ -1,7 +1,7 @@
 class PhoneNumbersController < ApplicationController
   before_filter :require_admin
   layout 'admin'
-  
+
   def new
     @user = User.new
   end
@@ -9,20 +9,18 @@ class PhoneNumbersController < ApplicationController
   def index
     @title = "List Membership"
 
-    puts("in phone numbers index: list is: " + @list.name)
-    if (@list)
-      @members = @list.phone_numbers
-      puts("got numbers from list w/ id: " + @list.id.to_s)
-    else
-      @members = PhoneNumber.scoped
-    end
-    
+    @memberships =
+      if @list.present?
+        @list.list_memberships
+      else
+        PhoneNumber.scoped
+      end
   end
-  
+
   def create
     # not used yet
   end
-  
+
   def show
     @user = @current_user
   end
@@ -30,7 +28,7 @@ class PhoneNumbersController < ApplicationController
   def edit
     @user = @current_user
   end
-  
+
   def update
     @user = @current_user # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])

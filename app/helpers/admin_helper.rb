@@ -18,9 +18,7 @@ HERE
   end
 
   def select_list(list_id, action, controller)
-    # XXX correct?
     render :partial => '/admin/list', :collection => List.all, :locals => {:action => action, :controller => controller, :list_id => list_id}
-    #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  
   end
 
   def list_class(list_id)

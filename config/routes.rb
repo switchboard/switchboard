@@ -14,10 +14,14 @@ Switchboard::Application.routes.draw do
     resources :phone_numbers
     resources :messages
     match 'import' => 'users#import'
+    match 'toggle_admin' => 'lists#toggle_admin', via: :post
   end
 
   resources :messages
   resources :users
+
+  resources :list_memberships, only: [ :destroy ]
+
   match '/:controller(/:action(/:id))'
 
   # The priority is based upon order of creation:
@@ -69,7 +73,6 @@ Switchboard::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'user_sessions#new'
 
   # See how all your routes lay out with "rake routes"
 
