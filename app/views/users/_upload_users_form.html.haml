@@ -4,7 +4,7 @@
   %br
   %center "firstname,lastname,email,number"
 %br
-- form_for(:members_csv, :url => "/lists/upload_csv/#{@list.id}", :html => {:multipart => true}) do |f|
+= form_for(:members_csv, :url => "/lists/upload_csv/#{@list.id}", :html => {:multipart => true}) do |f|
   %input{:type => 'hidden', :name => 'members_csv[list_id]', :value => @list.id}
   %p
     %label{:for => 'members_file_csv'} File: 
