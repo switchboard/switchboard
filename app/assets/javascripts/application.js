@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require shared
 //= require lists
 //= require selects
+//= require messages
 //= require_tree .

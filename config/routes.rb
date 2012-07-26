@@ -17,8 +17,10 @@ Switchboard::Application.routes.draw do
   end
 
   resources :messages
+  match 'send_message/:list_id' => 'messages#send_message', via: :post, as: 'send_message'
   resources :users
-  match '/:controller(/:action(/:id))'
+
+  #match '/:controller(/:action(/:id))'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
