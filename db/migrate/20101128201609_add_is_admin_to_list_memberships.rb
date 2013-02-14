@@ -1,6 +1,6 @@
 class AddIsAdminToListMemberships < ActiveRecord::Migration
   def self.up
-    add_column :list_memberships, :is_admin, :bool
+    add_column :list_memberships, :is_admin, :boolean
   end
 
   def self.down
