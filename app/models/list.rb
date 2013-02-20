@@ -84,7 +84,10 @@ class List < ActiveRecord::Base
     number = list_memberships.find_by_phone_number_id(phone_number.id)
 
     if number != nil
-      number.is_admin?
+      is_admin = number.is_admin?
+      is_admin
+    else
+      raise ArgumentError("phone number is not a member of list")
     end
   end
  
@@ -93,11 +96,15 @@ class List < ActiveRecord::Base
   end
 
   def remove_admin(phone_number)
-    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => false)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.is_admin = false
+    membership.save
   end
 
   def add_admin(phone_number)
-    list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => true)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.is_admin = true
+    membership.save
   end
 
   def phone_numbers
@@ -111,7 +118,7 @@ class List < ActiveRecord::Base
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
-    message.from = self.name + "@mmptext.info"
+    message.from = self.name + '@mmptext.info'
     return message
   end
 
