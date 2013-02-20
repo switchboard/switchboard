@@ -5,19 +5,29 @@
     %b= @list.name
     = hidden_field_tag('list_id', @list.id)
   %br
-  First Name
-  = f.text_field :first_name
   %br
-  Last Name
-  = f.text_field :last_name
+  .field{:style => "height: 10px"} 
+  .field
+    .leftalign
+      First Name
+    .rightalign
+      = f.text_field :first_name, :size => 15
   %br
-  Email
-  = f.text_field :email
+  .field
+    .leftalign
+      Last Name
+    .rightalign
+      = f.text_field :last_name, :size => 15
   %br
-  Phone Numbers
-  - if @user.phone_numbers.empty?
-    = text_field_tag 'user[phone_number]'
-  = f.fields_for :phone_numbers do |phone_number_attributes|
-    = phone_number_attributes.text_field :number
+  .field
+    .leftalign
+      Phone Number
+    .rightalign
+      - if @user.phone_numbers.empty?
+        = text_field_tag 'user[phone_number]'
+      = f.fields_for :phone_numbers do |phone_number_attributes|
+        = phone_number_attributes.text_field :number
   %br
-  = f.submit 'Save'
+  %p
+  .field
+    = f.submit 'Save'
