@@ -1,0 +1,197 @@
+body
+  text-align: center
+  background: $gray28
+  
+#site-container
+  font-family: 'Quattrocento Sans', DINPro, Arial, sans-serif
+  margin: 20px auto
+  max-width: 100%
+  overflow: visible
+  position: relative
+  width: 865px
+  
+#site
+  width: 811px
+  display: inline
+  float: left
+  margin-bottom: 20px
+  padding-bottom: 12px
+
+#bottom-shadow
+  background: $gray33 image-url('bg-btm-left-triangle.png') no-repeat
+  height: 54px
+  
+#side-shadow
+  display: inline
+  float: left
+  .top
+    background: $black image-url('bg-top-rt-triangle.png') no-repeat
+    width: 54px
+    min-height: 733px
+    margin-top: 19px
+  .bottom
+    width: 54px
+    height: 54px
+    background: $gray33 image-url('bg-btm-rt-triangle.png') no-repeat
+
+#masthead
+  width: 811px
+
+.logo
+  display: none
+
+#content-container
+  font-family: 'Quattrocento Sans', DINPro, Arial, sans-serif
+  //text-transform: uppercase
+  margin: 0 auto
+  text-align: left
+  height: 553px
+  background: $white image-url('dots-vertical.png') repeat-y 0 17px
+
+#footer
+  width: 811px
+  background: $black image-url('dots-footer.jpg') no-repeat 8px 4px
+  height: 28px
+  text-transform: uppercase
+  font-size: 14px
+  font-family: 'Quattrocento Sans', DINPro
+  ul
+    float: right
+    margin-right: 6px
+    li
+      +inline-list
+  a
+    +hover-link
+    +float-left
+    margin: 5px 8px 0 
+    color: $red
+    
+
+#logout
+  float: right
+
+#content
+  +clearfix
+  margin: 0 5px
+  padding: 20px 15px
+  background: $white
+  h3
+    color: $orange
+    font-size: 18px
+    font-weight: bold
+    float: left
+    width: 100%
+
+#new-message
+  margin-right: 20px
+  padding: 15px
+  width: 393px
+  height: 400px
+  float: left
+  overflow: auto
+  border: 7px solid black
+  form
+    height: 375px
+    width: 393px
+    position: relative
+    textarea
+      margin-top: 8px
+      padding: 6px
+      width: 379px
+      height: 200px
+      border: 1px solid $gray33
+      float: left
+    button.send-image
+      background: image-url('send.png') no-repeat bottom right
+      border: none
+      cursor: pointer
+      overflow: hidden
+      position: absolute
+      right: 0
+      bottom: 0
+      width: 76px
+      height: 46px
+  button.send-image
+    background: image-url('send.png') no-repeat bottom right
+    border: none
+    cursor: pointer
+    overflow: hidden
+    position: relative
+    right: 0
+    bottom: 0
+    width: 76px
+    height: 46px
+      
+.view a
+  +float-right
+  font-weight: bold
+  color: $aqua
+  font-size: 14px
+#recent-messages
+  padding: 15px
+  float: left
+  overflow: visible
+  border: 7px solid black
+  width: 270px
+  height: 245px
+  position: relative
+  .view a
+    +float-left
+    position: absolute
+    bottom: 15px
+    left: 15px
+ 
+#recent-messages-list
+  +float-left
+  position: absolute
+  top: 40px
+  height: 190px
+  overflow: auto
+
+#dots
+  background: image-url("dot.png")
+  float: left
+  width: 307px
+  margin-top: 25px
+  min-height: 130px
+
+h3
+  margin-top: 5px
+  margin-bottom: 5px
+  display: inline
+  font-size: 1.5em
+
+h4
+  margin-bottom: 8px
+  color: $aqua
+  font-family: "Quattrocento Sans", "DINPro", Arial, sans-serif
+  font-weight: bold
+  
+.active
+  background: #fff
+
+p
+  margin: 5px 10px
+
+textarea
+  margin-top: 10px
+  margin-bottom: 10px
+
+.active_list
+  background: #aaa
+
+a
+  text-decoration: none
+  &:hover
+    background-color: #eee
+
+#vertical_menu
+  width: 200px
+  a
+    text-decoration: none
+    &:hover
+      background-color: #eee
+    width: 200px   
+
+.red
+  color: red

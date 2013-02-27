@@ -1,6 +1,7 @@
 module ListMembershipHelper
 
   def admin_checkbox_onchange(list_member)
+=begin
     onchange = remote_function(
       :url => {:controller => 'lists', :action => 'toggle_admin'},
       :with => "'list_member_id=#{list_member.id}&list_id=#{@list.id}'",
@@ -9,5 +10,6 @@ module ListMembershipHelper
       #:after => "highlightList('list_id_#{list_id}')" # this is a javascript function
     ) 
   end
-
+=end
+      end
 end

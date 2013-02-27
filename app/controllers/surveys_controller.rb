@@ -1,7 +1,7 @@
 class SurveysController < ApplicationController
   before_filter :require_admin
 
-  helper 'surveys', 'admin'
+  helper 'surveys', 'administration'
 
   layout 'admin'
 
@@ -36,12 +36,12 @@ class SurveysController < ApplicationController
   end
 
   def index
-    @surveys = Survey.find :all
+    @surveys = Survey.scoped
   end
   
   def update
     @survey.update_attributes(params[:survey])
-    flash[:success] = "Your survey configuration was updated."
+    flash[:notice] = "Your survey configuration was updated."
     redirect_to :action => 'edit'
   end
 
@@ -53,7 +53,7 @@ class SurveysController < ApplicationController
       @errors = results[:errors]
       @successes = results[:successes]
       if @errors.length == 0
-        flash[:success] = "All #{@successes} contacts successfully added!"
+        flash[:notice] = "All #{@successes} contacts successfully added!"
         redirect_to survey_phone_numbers_url(@survey) 
       end
     end

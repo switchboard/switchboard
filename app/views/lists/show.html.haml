@@ -29,5 +29,5 @@
     %br
     = 'Total Messages this week: ' + @list.messages.within_days(7).length.to_s
     %br
-    = 'Total Sent Messages: ' + count_sent_messages(@list)
+    = 'Total Sent Messages: ' + @list.messages.in_state(4).length.to_s 
 
