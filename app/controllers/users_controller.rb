@@ -12,7 +12,10 @@ class UsersController < ApplicationController
   end
 
   def create
-    phone_number = PhoneNumber.find_or_create_by_number(:number => params[:user].delete('phone_number'))
+    input_number_string = params[:user].delete('phone_number')
+
+    number_string = input_number_string.gsub(/\D/, '')
+    phone_number = PhoneNumber.find_or_create_by_number(:number => number_string)
 
     @user = User.new(params[:user])
 
