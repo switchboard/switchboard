@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @gateway.name %>
+</p>
+
+<p>
+  <b>Cost per text:</b>
+  <%= @gateway.cost_per_text %>
+</p>
+
+
+<%= link_to 'Edit', edit_gateway_path(@gateway) %> |
+<%= link_to 'Back', gateways_path %>

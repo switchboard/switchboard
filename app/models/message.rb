@@ -7,6 +7,8 @@ class Message < ActiveRecord::Base
   belongs_to :list  
   belongs_to :message_state
 
+  attr_accessible :from, :body
+
   def from_email_gateway?
     if (self.from =~ /@/)
       return true
@@ -47,12 +49,20 @@ class Message < ActiveRecord::Base
     @tokens
   end
 
-  named_scope :within_days, lambda { |within_days|
-    {:conditions => ["updated_at #{(within_days.days.ago..Time.now).to_s(:db)}"] }
+  scope :within_days, lambda { |within_days|
+    where("updated_at #{(within_days.days.ago..Time.now).to_s(:db)}")
   }
-  
-  named_scope :in_state, lambda { |state_id|
-    {:conditions => ['message_state_id = ?', state_id]}
+
+  scope :in_state, lambda { |state_id|
+    where(message_state_id: state_id)
+  }
+
+  scope :most_recent, lambda { |count|
+    in_state(3).limit(count)
+  }
+
+  scope :single_most_recent_from_user, lambda { |user_id|
+    where(sender_id: user_id).first
   }
 
 end

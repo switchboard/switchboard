@@ -1,14 +1,29 @@
+:javascript
+  alert("javascript yo")
+  // Append the function to the "document ready" chain
+  jQuery(function($) {
+    // when the #search field changes
+    $("#name").change(function() {
+      // make a POST call and replace the content
+      $.post("/lists/check_name_available", function(data) {
+        $("#availability").html(data);
+      });
+    });
+  })
+
 - content_for :main_box_content do
 
-  %h4 Create a List
-  
-  - form_tag '/lists/create' do
+  %h4 Create a new List
+ 
+  = form_for(@mylist) do |l| 
     %ul.create_list_options
       %li
         <span class='list_option'>List Name</span> (cannot contain spaces) 
-        = text_field_tag('list[name]', nil, :onblur => check_list_availability_onblur) 
-        = image_tag("spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
-        %span#availability
+        = l.text_field :name
+
+        = image_tag("/images/spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
+        #availability
+          %br 
       %li
         %span.list_option List Type
         %ul
@@ -20,4 +35,4 @@
           %li= radio_button_tag('list[join_policy]', 'open', true) + "Open: anyone can join"
           %li= radio_button_tag('list[join_policy]', 'closed') + "Closed: new members must be added by administrators"
       %li
-        = submit_tag 'Create!'
+        = submit_tag 'Create!', :id => "new_list_submit"

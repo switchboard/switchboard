@@ -1,12 +1,13 @@
 class ListsController < ApplicationController
   before_filter :require_admin
 
-  helper 'lists', 'admin'
+  helper 'lists', 'administration'
 
   layout 'admin'
 
   def new
     @title = "Create List"
+    @mylist = List.new
   end
  
   def import
@@ -18,7 +19,7 @@ class ListsController < ApplicationController
     @list = List.create(params[:list])
     if @list.save
       flash[:message] = "Your list has been created!"
-      redirect_to :action => 'show', :params => {:list_id => @list.id}
+      redirect_to list_url(@list)
     else
       flash[:notice] = "There was a problem creating your list. Please try another list name."
       redirect_to :action => 'new'
@@ -35,12 +36,13 @@ class ListsController < ApplicationController
   end
 
   def index
-    @lists = List.find :all
+    puts("in lists index")
+    @lists = List.scoped
   end
   
   def update
     @list.update_attributes(params[:list])
-    flash[:success] = "Your list configuration was updated."
+    flash[:notice] = "Your list configuration was updated."
     redirect_to :action => 'edit'
   end
 
@@ -52,7 +54,7 @@ class ListsController < ApplicationController
       @errors = results[:errors]
       @successes = results[:successes]
       if @errors.length == 0
-        flash[:success] = "All #{@successes} contacts successfully added!"
+        flash[:notice] = "All #{@successes} contacts successfully added!"
         redirect_to list_phone_numbers_url(@list) 
       end
     end
@@ -65,9 +67,10 @@ class ListsController < ApplicationController
     else
       avail = List.find_by_name(params[:name]) ? "Not Available." : "Available!"
     end
-    render :update do |page|
-      page.replace_html "availability", avail
-    end
+    #render :update do |page|
+    #  page.replace_html "availability", avail
+    #end
+    render :js => "alert('hi')"
   end
 
   def toggle_admin

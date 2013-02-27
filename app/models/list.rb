@@ -10,6 +10,10 @@ class List < ActiveRecord::Base
 
   has_many :attachments
 
+  attr_accessible :name, :list_type, :join_policy
+  attr_accessible :use_welcome_message, :welcome_message, :incoming_number
+  attr_accessible  :text_admin_with_response, :add_list_name_header, :identify_sender
+
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
   ## for now: take objects
@@ -20,7 +24,7 @@ class List < ActiveRecord::Base
       return
     end
 
-    self.list_memberships.create! :phone_number_id => phone_number.id
+    list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
       puts "has welcome message, and creating outgoing message"
       welcome_message = self.custom_welcome_message
@@ -63,23 +67,27 @@ class List < ActiveRecord::Base
 
   def remove_phone_number(phone_number)
     return unless self.has_number?(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).destroy
+    list_memberships.find_by_phone_number_id(phone_number.id).destroy
   end
 
   def has_number?(phone_number)
-    self.list_memberships.exists?(:phone_number_id => phone_number.id)
+    list_memberships.exists?(:phone_number_id => phone_number.id)
   end
  
   def admins
-    self.list_memberships.collect { |mem| 
+    list_memberships.collect { |mem| 
       mem.phone_number if mem.is_admin?
     }
   end
 
   def number_is_admin?(phone_number)
-    number = self.list_memberships.find_by_phone_number_id(phone_number.id)
-    if number != nil:
-        return number.is_admin
+    number = list_memberships.find_by_phone_number_id(phone_number.id)
+
+    if number != nil
+      is_admin = number.is_admin?
+      is_admin
+    else
+      raise ArgumentError("phone number is not a member of list")
     end
   end
  
@@ -88,38 +96,29 @@ class List < ActiveRecord::Base
   end
 
   def remove_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => nil)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.is_admin = false
+    membership.save
   end
 
   def add_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => 1)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.is_admin = true
+    membership.save
   end
 
   def phone_numbers
     numbers =  []
-    self.list_memberships.each do |mem|
+    list_memberships.each do |mem|
       numbers << mem.phone_number
     end
     return numbers
   end
 
-
-  def most_recent_message
-    return ( self.messages.count > 0 ? self.messages[0] : nil )
-  end
-
-  def most_recent_messages( count )
-    return self.messages.find( :all, :conditions => ["message_state_id = 3"], :limit => count )
-  end
-
-  def most_recent_message_from_user(user)
-    self.messages.find( :all, :conditions => { :sender_id => user.id },  :limit => 1 )
-  end
-
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
-    message.from = self.name + "@mmptext.info"
+    message.from = self.name + '@mmptext.info'
     return message
   end
 
@@ -264,12 +263,17 @@ class List < ActiveRecord::Base
 
   def self.top_five(options)
     # how do we determine the top five lists? get random five for now!
-    conditions = options[:remove_list_id] ? ['id NOT IN (?)', options[:remove_list_id]] : []
-    List.find(:all, :limit => 5, :conditions => conditions )
+    topfive = List.limit(5)
+
+    if options[:remove_list_id]
+      topfive.where('id NOT IN (?)', options[:remove_list_id])
+    end
+
+    topfive
   end
 
   def self.more_than_five
-    List.find(:all).size > 5
+    List.count > 5
   end
 
   protected

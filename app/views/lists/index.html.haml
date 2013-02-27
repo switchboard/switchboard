@@ -1,5 +1,5 @@
 #show_members
-  %h4 Select a list below: 
+  %h4 Select a list below:
   %p
     #show_member_list
       / - if @list.list_type == 'announcement'
@@ -7,4 +7,3 @@
       %ul#member_list
         %li
         = render :partial => 'list_row', :collection => @lists
-

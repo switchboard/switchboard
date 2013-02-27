@@ -1,0 +1,25 @@
+<%= form_for(@gateway) do |f| %>
+  <% if @gateway.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gateway.errors.count, "error") %> prohibited this gateway from being saved:</h2>
+
+      <ul>
+      <% @gateway.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :cost_per_text %><br />
+    <%= f.text_field :cost_per_text %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

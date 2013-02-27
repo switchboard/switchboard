@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :password, :password_confirmation
 
   helper_method :current_user_session, :current_user
 
@@ -26,7 +24,7 @@ class ApplicationController < ActionController::Base
     def require_admin
       unless (current_user and current_user.is_admin?)
         flash[:notice] = "You are not authorized to view that page."
-        redirect_to new_user_session_url
+        redirect_to new_user_sessions_url
       end
     end
 

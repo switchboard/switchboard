@@ -5,8 +5,15 @@
 #   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
-user = User.find_or_create_by_login(:login => 'admin', :password => 'admin!', :password_confirmation => 'admin!', :email => 'foo@bar.com', :admin => 1)
-user.save!
+
+admin = User.create! do |u|
+  u.login = 'admin'
+  u.password = 'admin!'
+  u.password_confirmation = 'admin!'
+  u.email = 'admin@changeme.com'
+  u.admin = 1
+end
+admin.save! 
 
 # create initial message states
 MessageState.find_or_create_by_name('outgoing');

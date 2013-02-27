@@ -3,6 +3,8 @@ class PhoneNumber < ActiveRecord::Base
   has_many :lists, :through => :list_memberships
   belongs_to :user
 
+  attr_accessible :number
+
   validates_format_of :number, :with => /^\d{10}$/, :message => "Phone number must contain 10 digits with no extra characters"
 
   def add_to_list(list)
