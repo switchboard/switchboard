@@ -14,6 +14,7 @@ Switchboard::Application.routes.draw do
     resources :phone_numbers
     resources :messages
     match 'import' => 'users#import'
+    match 'toggle_admin' => "lists#toggle_admin"
   end
 
   resources :messages

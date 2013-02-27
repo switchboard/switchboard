@@ -1,9 +1,8 @@
 = render :partial => 'layouts/head'
 %body
-  - if notice || flash[:notice]
-    %div{:class => "notice", :style => 'display:none'}
-      = notice
-      %div{:class => "toast-item-close"}
+  %div{:class => "notice", :style => 'display:none; height: auto; overflow:auto;'}
+    = notice
+    %div{:class => "toast-item-close"}
   - if alert || flash[:alert]
     %div{:class => "alert", :style => 'display:none'}
       = alert
