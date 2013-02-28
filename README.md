@@ -11,9 +11,9 @@ the web application to process incoming and outgoing messages.
 
 Run:
   
-    script/switchboard_server_control.rb 
+    script/switchboard_server_control 
 
 To run in development mode, run:
 
-    script/switchboard_server.rb development
+    script/switchboard_server development
 
