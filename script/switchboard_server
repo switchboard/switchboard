@@ -7,7 +7,7 @@
 
 ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'production'
 
-path = File.dirname(__FILE__) + '/../config/environment.rb'
+path = "./config/environment.rb"
 puts("path: " + path )
 require path
 #if RAILS_ENV == "development" or RAILS_ENV == "test": 
