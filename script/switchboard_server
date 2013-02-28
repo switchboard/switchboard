@@ -61,7 +61,8 @@ loop do
     ## update timestamp in daemonstatus table
     d = DaemonStatus.find(:first, :order => "updated_at desc", :limit => 1)
     if (d == nil) 
-      d = DaemonStatus.create(:active => true)
+      d = DaemonStatus.create()
+      d.active = true
     end
     d.updated_at_will_change!
     d.active = true 
