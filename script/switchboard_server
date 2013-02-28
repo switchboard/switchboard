@@ -1,6 +1,3 @@
-# i'm currently running this as
-# script/console < script/test/scriptname.rb
-# script/task_server.rb
 #!/usr/bin/env ruby
 #
 # Switchboard Background Task Server
