@@ -31,6 +31,12 @@ group :development do
   gem 'sextant'
 end
 
+group :test do
+  gem 'shoulda'
+  gem 'factory_girl_rails'
+  gem 'mocha'
+end
+
 group :autotest do
   gem 'autotest-standalone'
   gem 'autotest-rails-pure'
