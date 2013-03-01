@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
 
   acts_as_authentic do |c|
     #c.validate_password_field = false  <--- this breaks the creation of seed data
+    c.merge_validates_length_of_password_field_options( {
+      if: :is_admin?
+    })
     c.ignore_blank_passwords = true
     c.validate_email_field = false
     c.validate_login_field = false

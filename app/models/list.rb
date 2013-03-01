@@ -19,7 +19,7 @@ class List < ActiveRecord::Base
   ## for now: take objects
 
   def add_phone_number(phone_number)
-    if (self.has_number?(phone_number) or phone_number == nil or phone_number.id == nil)
+    if has_number?(phone_number) || ! phone_number.try(:id)
       puts("phone_number is ill formed in add_phone_number")
       return
     end
@@ -71,7 +71,7 @@ class List < ActiveRecord::Base
   end
 
   def has_number?(phone_number)
-    list_memberships.exists?(:phone_number_id => phone_number.id)
+    phone_number.try(:id) && list_memberships.exists?(phone_number_id: phone_number.id)
   end
  
   def admins
