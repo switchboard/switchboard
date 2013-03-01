@@ -1,0 +1,9 @@
+admin:
+  first_name: Admin
+  last_name: User
+  email: admin@example.com
+  crypted_password:
+  password_salt:
+  persistence_token:
+  login: admin
+  admin: true

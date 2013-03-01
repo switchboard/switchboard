@@ -6,31 +6,27 @@ class UsersController < ApplicationController
   def new
     @title = "Add Contact"
     @user = User.new
+    @user.phone_numbers.build
   end
 
   def index
   end
 
   def create
-    input_number_string = params[:user].delete('phone_number')
-
-    number_string = input_number_string.gsub(/\D/, '')
-    phone_number = PhoneNumber.find_or_create_by_number(:number => number_string)
-
     @user = User.new(params[:user])
 
-    @user.password = 'inactive'
-    @user.password_confirmation = 'inactive'
-
-    @user.phone_numbers << phone_number
-
-    @user.save!
-
-    if @list
-      @list.add_phone_number phone_number
-      redirect_to list_path(@list)
+    if @user.save
+      if @list
+        @list.add_phone_number(@user.phone_numbers.first)
+        redirect_path = list_path(@list)
+      else
+        redirect_path = lists_path
+      end
+      redirect_to redirect_path, notice: "The user #{@user.full_name} was added."
     else
-      redirect_to lists_path
+      logger.info @user.errors.inspect
+      flash[:error] = 'There was a problem saving that user.'
+      render :new
     end
   end
 
@@ -51,8 +47,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
-      flash[:notice] = "User updated!"
+      redirect_to edit_user_path(@user), notice: 'User updated!'
+    else
+      flash[:error] = 'There was a problem saving that user.'
+      render action: :edit
     end
-    render :action => :edit
   end
 end

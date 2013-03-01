@@ -11,6 +11,10 @@ class PhoneNumber < ActiveRecord::Base
     self.list_memberships.create! :list => list
   end
 
+  def number=(str)
+    write_attribute(:number, str.try(:gsub, /[^0-9]/, ''))
+  end
+
   def display_number_with_name
     text = "" 
     if self.user and !self.user.first_name.nil?
