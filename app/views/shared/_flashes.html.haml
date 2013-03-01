@@ -1,0 +1,4 @@
+- flash.keys.each do |key|
+  .flash{ class: "alert alert-#{key}" }
+    %p= flash[key].html_safe
+  

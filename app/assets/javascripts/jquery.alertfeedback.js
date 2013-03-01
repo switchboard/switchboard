@@ -10,23 +10,19 @@ sb.close_alert = function() {
 }
 
 $(function () {
-  var alert = $('.alert');
+  var alert = $('.alert, .notice:contains(text)');
   sb.flash_element(alert);
-  var notice = $('.notice:contains(text)');
-  sb.flash_element(notice);
 });
 
 sb.flash_element = function(element) {
   if (element.length > 0) {
-    //element.show().animate({height: element.outerHeight()}, 200);
     element.slideDown();
     window.setTimeout(function() {
       element.slideUp();
-      element.clear();
+      element.remove();
     }, 5000);
+    element.on('click', function(e) {$(e.target).slideUp(); })
   }
-
-  element.find('.toast-item-close').live('click', function(){element.slideUp();});  
 }
 
 sb.showNoticeText = function(text) {

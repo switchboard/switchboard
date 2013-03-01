@@ -1,12 +1,6 @@
 = render :partial => 'layouts/head'
 %body
-  %div{:class => "notice", :style => 'display:none; height: auto; overflow:auto;'}
-    = notice
-    %div{:class => "toast-item-close"}
-  - if alert || flash[:alert]
-    %div{:class => "alert", :style => 'display:none'}
-      = alert
-      %div{:class => "toast-item-close"}
+  = render 'shared/flashes'
   #site-container
     #site
       = render :partial => 'layouts/page_header'
