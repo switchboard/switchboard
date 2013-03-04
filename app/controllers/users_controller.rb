@@ -40,10 +40,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def import
-
-  end
-
   def update
     @user = User.find(params[:id]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])

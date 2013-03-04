@@ -13,7 +13,10 @@ Switchboard::Application.routes.draw do
     resources :users
     resources :phone_numbers
     resources :messages
-    match 'import' => 'users#import'
+    member do
+      get '/import' => 'lists#import'
+      put '/upload_csv' => 'lists#upload_csv'
+    end
     match 'toggle_admin' => "lists#toggle_admin"
   end
 

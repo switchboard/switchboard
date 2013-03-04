@@ -1,5 +1,5 @@
 one:
-  name: My List
+  name: MyList
   long_name: My Very Important List
   allow_email_gateway: true
   allow_commercial_gateway: true
@@ -17,7 +17,7 @@ one:
   add_list_name_header: false
   identify_sender: false
 two:
-  name: My Second List
+  name: MySecondList
   long_name: My Very Important List
   allow_email_gateway: true
   allow_commercial_gateway: true

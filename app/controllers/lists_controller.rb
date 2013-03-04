@@ -39,23 +39,25 @@ class ListsController < ApplicationController
     puts("in lists index")
     @lists = List.scoped
   end
-  
+
   def update
     @list.update_attributes(params[:list])
-    flash[:notice] = "Your list configuration was updated."
-    redirect_to :action => 'edit'
+    redirect_to edit_list_path(@list), notice: 'Your list configuration was updated.'
+  end
+
+  def import
   end
 
   def upload_csv
-    return unless @list
-    @csv = Attachment.new(params[:members_csv])
-    if @csv.save!
-      results = @list.import_from_attachment(@csv.id)
+    if @list.update_attributes(params[:list])
+      results = @list.import_from_attachment
       @errors = results[:errors]
-      @successes = results[:successes]
-      if @errors.length == 0
+      @success_count = results[:success_count]
+      if @errors.empty?
         flash[:notice] = "All #{@successes} contacts successfully added!"
-        redirect_to list_phone_numbers_url(@list) 
+        redirect_to list_phone_numbers_path(@list)
+      else
+        render :import
       end
     end
   end
