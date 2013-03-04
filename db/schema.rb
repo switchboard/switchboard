@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524190351) do
-
-  create_table "attachments", :force => true do |t|
-    t.integer "list_id"
-    t.string  "content_type"
-    t.string  "filename"
-    t.string  "thumbnail"
-    t.integer "size"
-    t.integer "width"
-    t.integer "height"
-    t.integer "db_file_id"
-  end
+ActiveRecord::Schema.define(:version => 20130304140735) do
 
   create_table "daemon_statuses", :force => true do |t|
     t.boolean  "active"
@@ -70,6 +59,10 @@ ActiveRecord::Schema.define(:version => 20120524190351) do
     t.string   "incoming_number"
     t.boolean  "add_list_name_header"
     t.boolean  "identify_sender"
+    t.string   "csv_file_file_name"
+    t.string   "csv_file_content_type"
+    t.integer  "csv_file_file_size"
+    t.datetime "csv_file_updated_at"
   end
 
   create_table "message_states", :force => true do |t|
