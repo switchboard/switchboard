@@ -9,16 +9,32 @@ class Message < ActiveRecord::Base
 
   attr_accessible :from, :body
 
+  ## save an array of 'tokens' (words) from the message that haven't been processed yet
+  attr_accessor :tokens
+
+  def self.within_days(days)
+    where("updated_at #{(days.days.ago..Time.now).to_s(:db)}")
+  end
+
+  def self.in_state(state_id)
+    where(message_state_id: state_id)
+  end
+
+  def self.most_recent(count)
+    in_state(3).limit(count)
+  end
+
+  def self.single_most_recent_from_user(user_id)
+    where(sender_id: user_id).first
+  end
+
+
   def from_email_gateway?
-    if (self.from =~ /@/)
-      return true
-    else
-      return false
-    end
+    from =~ /@/
   end
 
   def from_web?
-    self.from == 'Web'
+    from == 'Web'
   end
 
   ## returns phone number of message sender
@@ -32,37 +48,7 @@ class Message < ActiveRecord::Base
 
   # get the name of the sender 
   def from_for_display
-    phone_number = PhoneNumber.find_by_number(self[:from])
-    if phone_number != nil
-      return phone_number.display_number_with_name
-    else
-      return ''
-    end
+    PhoneNumber.find_by_number(from).try(:name_and_number)
   end
-
-  ## save an array of 'tokens' (words) from the message that haven't been processed yet
-  def tokens=(tokens)
-    @tokens = tokens
-  end
-
-  def tokens
-    @tokens
-  end
-
-  scope :within_days, lambda { |within_days|
-    where("updated_at #{(within_days.days.ago..Time.now).to_s(:db)}")
-  }
-
-  scope :in_state, lambda { |state_id|
-    where(message_state_id: state_id)
-  }
-
-  scope :most_recent, lambda { |count|
-    in_state(3).limit(count)
-  }
-
-  scope :single_most_recent_from_user, lambda { |user_id|
-    where(sender_id: user_id).first
-  }
 
 end
