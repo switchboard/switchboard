@@ -1,0 +1,21 @@
+@import 'partials/colors';
+
+table.default {
+  width: 100%;
+  td {
+    padding: 3px 4px;
+    color: $grayDarker;
+  }
+}
+
+table.linked {
+  a.clk {
+    color: $grayDarker;
+  }
+  tr:hover {
+    td {
+      cursor: pointer;
+      background-color: $grayLightest;
+    }
+  }
+}

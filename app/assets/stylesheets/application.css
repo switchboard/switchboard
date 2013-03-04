@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require screen
+ *= require_tree ./components
  *= require jquery.toastmessage
 */

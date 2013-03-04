@@ -15,4 +15,11 @@ class ActiveSupport::TestCase
     @controller.stubs(:current_user).returns(user ? users(user) : nil)
   end
 
+  def assert_links_to(href, content=nil,message=nil)
+    assert_tag tag: 'a', content: content, attributes: { href: href }
+  end
+
+  def assert_does_not_link_to(href, content=nil,message=nil)
+    assert_tag tag: 'a', content: content, attributes: { href: href }, count: 0
+  end
 end

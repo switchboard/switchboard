@@ -83,9 +83,8 @@ class List < ActiveRecord::Base
   def number_is_admin?(phone_number)
     number = list_memberships.find_by_phone_number_id(phone_number.id)
 
-    if number != nil
-      is_admin = number.is_admin?
-      is_admin
+    if number
+      number.is_admin?
     else
       raise ArgumentError("phone number is not a member of list")
     end
@@ -97,35 +96,34 @@ class List < ActiveRecord::Base
 
   def remove_admin(phone_number)
     membership = list_memberships.find_by_phone_number_id(phone_number.id)
-    membership.is_admin = false
-    membership.save
+    membership.update_column(:is_admin, false)
   end
 
   def add_admin(phone_number)
     membership = list_memberships.find_by_phone_number_id(phone_number.id)
-    membership.is_admin = true
-    membership.save
+    membership.update_column(:is_admin, true)
   end
 
-  def phone_numbers
-    numbers =  []
-    list_memberships.each do |mem|
-      numbers << mem.phone_number
-    end
-    return numbers
-  end
+  # This seems redundant, since list#phone_numbers is already an AR relation
+  # def phone_numbers
+  #   numbers =  []
+  #   list_memberships.each do |mem|
+  #     numbers << mem.phone_number
+  #   end
+  #   return numbers
+  # end
 
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
     message.from = self.name + '@mmptext.info'
-    return message
+    message
   end
 
   def create_twilio_message(num)
     message = TwilioMessage.new
     message.to = num.number
-    return message
+    message
   end
 
   def create_outgoing_message(num, body)
@@ -168,7 +166,7 @@ class List < ActiveRecord::Base
   end
   
   def welcome_message=(message)
-    self.update_attribute('custom_welcome_message', message)
+    self.update_column('custom_welcome_message', message)
   end
 
   def list_type
@@ -176,7 +174,7 @@ class List < ActiveRecord::Base
   end
 
   def list_type=(type)
-    self.update_attribute('all_users_can_send_messages', (type == 'discussion'))
+    self.update_column('all_users_can_send_messages', (type == 'discussion'))
   end
 
   def join_policy
@@ -184,7 +182,7 @@ class List < ActiveRecord::Base
   end
 
   def join_policy=(policy)
-    self.update_attribute("open_membership", (policy == 'open'))
+    self.update_column("open_membership", (policy == 'open'))
   end
   ### /these methods make editing lists easier
 
