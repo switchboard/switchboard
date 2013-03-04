@@ -7,3 +7,12 @@ admin:
   persistence_token:
   login: admin
   admin: true
+one:
+  first_name: One
+  last_name: User
+two:
+  first_name: Two
+  last_name: User
+three:
+  first_name: Three
+  last_name: User

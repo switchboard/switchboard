@@ -1,0 +1,22 @@
+@import 'partials/colors';
+
+nav.pagination {
+  margin: 1em 0;
+  span.page a, 
+  span.page.current {
+    padding: 3px 6px;
+    border: 1px solid $grayLighter;
+    text-align: center;
+    display: inline-block;
+    margin-left: .2em;
+  }
+  a {
+    color: $textLink;
+  }
+  span.page.current {
+    border: 1px transparent;
+  }
+  .first, .last {
+    display: none;
+  }
+}
