@@ -28,7 +28,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
         assert_select "td a", text: users(:one).full_name 
         assert_select "td a", text: users(:three).full_name, count: 0
 
-        assert_links_to edit_user_path(users(:one))
+        assert_links_to edit_list_user_path(@list, users(:one))
       end      
     end
   end

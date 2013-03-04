@@ -47,7 +47,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id]) # makes our views "cleaner" and more consistent
     if @user.update_attributes(params[:user])
-      redirect_to edit_user_path(@user), notice: 'User updated!'
+      redirect_path = @list ? list_phone_numbers_path(@list) : lists_path
+      redirect_to redirect_path, notice: 'User information updated.'
     else
       flash[:error] = 'There was a problem saving that user.'
       render action: :edit
