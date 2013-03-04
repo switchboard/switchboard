@@ -1,3 +1,5 @@
+require 'csv'
+
 class List < ActiveRecord::Base
 
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
@@ -8,11 +10,12 @@ class List < ActiveRecord::Base
 
   has_many :messages, :order => "created_at DESC"
 
-  has_many :attachments
-
   attr_accessible :name, :list_type, :join_policy
   attr_accessible :use_welcome_message, :welcome_message, :incoming_number
-  attr_accessible  :text_admin_with_response, :add_list_name_header, :identify_sender
+  attr_accessible :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
+
+  has_attached_file :csv_file
+  
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
@@ -32,37 +35,34 @@ class List < ActiveRecord::Base
     end 
   end
 
-
-  def import_from_attachment(attachment_id)
-    return unless csv = self.attachments.find(attachment_id)
+  def import_from_attachment
+    raise 'CSV File was not uploaded' unless csv_file
     errors = []
-    successes = 0
-    FasterCSV.parse(DbFile.find(csv.db_file_id).data) do |row|
-      email = row[2]
-      number = row[3]
-      user_hash = {:first_name => row[0], :last_name => row[1], :password => 'password', :password_confirmation => 'password'}
-      number.gsub!(/\D/, '') if number;
+    success_count = 0
+
+    CSV.foreach(csv_file.path) do |row|
       begin
         raise 'Not enough fields' if row.length < 4
-        raise 'Phone number invalid' if row[3] !~ /\d+/
-        if ! phone_number = PhoneNumber.find_by_number(number)
+        first_name, last_name, email = row[0..2]
+        number = row[3].try(:gsub, /\D/, '')
+
+        unless phone_number = PhoneNumber.find_by_number(number)
           if email =~ /@/
-            email.gsub!(/\s/, '') unless email.blank?
-            user = User.find_or_create_by_email(user_hash.merge!(:email => email))
+            email.gsub!(/\s/, '')
+            user = User.find_or_create_by_email(first_name: first_name, last_name: last_name, email: email)
           else
-            user = User.new(user_hash)
-            user.save!
+            user = User.create!(first_name: first_name, last_name: last_name)
           end
-          phone_number = PhoneNumber.new(:number => number, :user_id => user.id)
-          phone_number.save! 
+          phone_number = user.phone_numbers.create!(number: number)
         end
-        self.add_phone_number(phone_number)
-        successes = successes.next
-      rescue
-        errors << row.join(',') + ' :: ' + $!
+        add_phone_number(phone_number)
+        success_count += 1
+      rescue => exception
+        errors << row.join(' ') + ': ' + exception.message
       end
     end
-    return {:errors => errors, :successes => successes};
+
+    {errors: errors, success_count: success_count}
   end
 
   def remove_phone_number(phone_number)

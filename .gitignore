@@ -1,5 +1,6 @@
 log/
 tmp/
+public/system
 *.sqlite3
 *.swp
 

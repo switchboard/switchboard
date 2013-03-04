@@ -12,6 +12,18 @@ $halfMargin: 12px;
 $formColumn: 136px;
 
 
+.error_block {
+  h3 {
+    color: $errorText;
+  }
+  h4 {
+    margin-top: 1em;
+    color: $grayDark;
+  }
+  padding: 10px;
+  background: $errorBackground;
+}
+
 form {
   span.error {
     color: $errorText;
@@ -19,6 +31,7 @@ form {
 }
 
 .form-horizontal, .form-vertical {
+  margin-top: 1em;
   div.input {
     padding: .5em 0 .5em 0;
   }
@@ -59,6 +72,7 @@ form {
     font-size: 12px!important;
     color: $grayLight;
   }
+
   label:first-child {
     font-weight: bold;
     font-size: 14px;
