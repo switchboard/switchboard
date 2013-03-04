@@ -22,7 +22,7 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     should 'add user to list' do
-      @list = lists(:test)
+      @list = lists(:one)
       List.any_instance.expects(:add_phone_number)
       @user = FactoryGirl.build(:user)
       post :create, list_id: @list.id, user: @user.attributes.slice(*User.accessible_attributes).merge({phone_numbers_attributes: {'0' => {'number' => '1231231234'}} })

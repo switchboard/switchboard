@@ -8,7 +8,6 @@ gem 'thin'
 gem 'haml-rails'
 gem 'twilio-ruby'
 
-gem 'simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,6 +25,8 @@ end
 gem 'jquery-rails'
 gem 'authlogic'
 gem 'dynamic_form'
+gem 'simple_form'
+gem 'kaminari'
 
 group :development do
   gem 'sextant'

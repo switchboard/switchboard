@@ -1,0 +1,13 @@
+%tr{id: "member_#{phone_number.id}"}
+  - if @list.try(:list_type) == 'announcement'
+    %td.toggle
+      = image_tag("spinner.gif", class: "spinner", id: "toggle_admin_spinner_#{phone_number.id}", style: 'position: absolute;')
+      %input.adminToggle{type: 'checkbox', list_id: @list.id, value: phone_number.id, checked: @list.number_is_admin?(phone_number) }
+      %span Toggle Admin
+  %td.name= link_to phone_number.user.try(:full_name), edit_user_path(phone_number.user), class: 'clk'
+  %td.num= number_to_phone(phone_number.number)
+  - if @list
+    %td.del
+      %span.remove_member_icon
+        = link_to_remove_member(phone_number, @list.id)
+        = image_tag("spinner.gif", :id => "which_member_spinner_#{phone_number.id}", :style => 'display: none; position: absolute;')

@@ -7,18 +7,15 @@ class PhoneNumbersController < ApplicationController
   end
 
   def index
-    @title = "List Membership"
-
-    puts("in phone numbers index: list is: " + @list.name)
-    if (@list)
-      @members = @list.phone_numbers
-      puts("got numbers from list w/ id: " + @list.id.to_s)
+    @title = 'List Membership'
+    if @list
+      @phone_numbers = @list.phone_numbers
     else
-      @members = PhoneNumber.scoped
+      @phone_numbers = PhoneNumber
     end
-    
+    @phone_numbers = @phone_numbers.order('updated_at desc').page(params[:page]).per(14)
   end
-  
+
   def create
     # not used yet
   end

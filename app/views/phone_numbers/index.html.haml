@@ -1,9 +1,8 @@
 #show_members
-  %p
-  
-    #show_member_list
-      - if @list.list_type == 'announcement'
-        * checkbox indicates approved sender
-      %ul#member_list
-        %li
-        = render :partial => 'member', :collection => @members
+  #show_member_list
+    - if @list.try(:list_type) == 'announcement'
+      %p * checkbox indicates approved sender
+    %table#member_list.default.linked
+      %tbody
+        = render @phone_numbers
+    = paginate @phone_numbers

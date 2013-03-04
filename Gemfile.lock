@@ -82,6 +82,9 @@ GEM
     json (1.7.3)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -178,6 +181,7 @@ DEPENDENCIES
   factory_girl_rails
   haml-rails
   jquery-rails
+  kaminari
   mocha
   rails (= 3.2.3)
   sass-rails (~> 3.2.3)
