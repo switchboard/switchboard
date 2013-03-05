@@ -1,4 +1,4 @@
-class AdministrationController < ApplicationController
+class AdminController < ApplicationController
 
   before_filter :require_admin
 
@@ -36,20 +36,13 @@ class AdministrationController < ApplicationController
 
   def remove_member
     @list = List.find(params[:list_id])
-    number = PhoneNumber.find(params[:number_id])
-    @list.remove_phone_number(number)
-    render :update do |page|
-      page.remove "member_#{number.id}"
-    end
+    @number = PhoneNumber.find(params[:number_id])
+    @list.remove_phone_number(@number)
   end
 
   def remove_list
-    list_id = params[:list_id]
-    list = List.find(list_id)
-    list.destroy
-    render :update do |page|
-      page.remove "list_#{list.id}"
-    end
+    @list = List.find(params[:list_id])
+    @list.destroy
   end
 
   def compose_message
