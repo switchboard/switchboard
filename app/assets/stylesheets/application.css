@@ -11,6 +11,5 @@
  *= require_self
  *= require screen
  *= require_tree ./components
- *= require_tree ./views
  *= require jquery.toastmessage
 */
