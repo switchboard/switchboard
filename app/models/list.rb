@@ -75,9 +75,7 @@ class List < ActiveRecord::Base
   end
  
   def admins
-    list_memberships.collect { |mem| 
-      mem.phone_number if mem.is_admin?
-    }
+    self.list_memberships.select{ |mem| mem.is_admin? }.collect{ |admin| admin.phone_number }
   end
 
   def number_is_admin?(phone_number)
@@ -226,7 +224,7 @@ class List < ActiveRecord::Base
         end
 
         admin_msg += '] '
-        admin_msg += tokens.join(' ')
+        admin_msg += message.tokens.join(' ')
         self.admins.each do |admin|
           self.create_outgoing_message(admin, admin_msg )
         end
