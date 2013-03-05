@@ -166,15 +166,15 @@ class List < ActiveRecord::Base
   end
   
   def welcome_message=(message)
-    self.update_column('custom_welcome_message', message)
+    write_attribute(:custom_welcome_message, message)
   end
 
   def list_type
-    self.all_users_can_send_messages ? 'discussion' : 'announcement'
+    all_users_can_send_messages ? 'discussion' : 'announcement'
   end
 
   def list_type=(type)
-    self.update_column('all_users_can_send_messages', (type == 'discussion'))
+    self.all_users_can_send_messages = (type == 'discussion')
   end
 
   def join_policy
@@ -182,8 +182,9 @@ class List < ActiveRecord::Base
   end
 
   def join_policy=(policy)
-    self.update_column("open_membership", (policy == 'open'))
+    self.open_membership = (policy == 'open')
   end
+
   ### /these methods make editing lists easier
 
 
