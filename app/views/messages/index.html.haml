@@ -1,6 +1,6 @@
 %h3 Recent Messages 
 %ul#message_list
   - if @list 
-    = render :partial => 'message', :collection => @list.messages
+    = render :partial => 'message', :collection => @list.most_recent_messages(40)
   - else
-    = render :partial => 'message', :collection => Message.all
+    = render :partial => 'message', :collection => Message.find_by_message_state_id(3, :order => "created_at DESC")
