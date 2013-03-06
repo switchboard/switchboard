@@ -251,7 +251,6 @@ class List < ActiveRecord::Base
         message.sender = num.user
         message.save
         self.save 
-        self.create_outgoing_message(num, self.welcome_message )
       else ## not list.open_membership
         self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
       end
