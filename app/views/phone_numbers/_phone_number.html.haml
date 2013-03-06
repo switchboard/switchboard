@@ -1,5 +1,5 @@
 %tr{id: "member_#{phone_number.id}"}
-  - if @list.try(:list_type) == 'announcement'
+  - if @list.try(:all_users_can_send_messages) == false
     %td.toggle
       = image_tag("spinner.gif", class: "spinner", id: "toggle_admin_spinner_#{phone_number.id}", style: 'position: absolute;')
       %input.adminToggle{type: 'checkbox', list_id: @list.id, value: phone_number.id, checked: @list.number_is_admin?(phone_number) }

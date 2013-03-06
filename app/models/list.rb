@@ -10,12 +10,13 @@ class List < ActiveRecord::Base
 
   has_many :messages, :order => "created_at DESC"
 
-  attr_accessible :name, :list_type, :join_policy
+  attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
   attr_accessible :use_welcome_message, :welcome_message, :incoming_number
   attr_accessible :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
 
   has_attached_file :csv_file
-  
+
+  validates_format_of :incoming_number, with: /^\d{10}$/, message: "Incoming number must contain 10 digits", allow_blank: true
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
@@ -152,39 +153,16 @@ class List < ActiveRecord::Base
   end
 
   def name=(value)
-    upcaseValue = value.upcase
-    if self[:name] != upcaseValue
-      self[:name] = upcaseValue
-    end
+    self[:name] = value.upcase
   end
 
-  ### these methods make editing lists easier
+  def incoming_number=(str)
+    write_attribute(:incoming_number, str.try(:gsub, /[^0-9]/, ''))
+  end
+
   def welcome_message
     self.custom_welcome_message || self.default_welcome_message
   end
-  
-  def welcome_message=(message)
-    write_attribute(:custom_welcome_message, message)
-  end
-
-  def list_type
-    all_users_can_send_messages ? 'discussion' : 'announcement'
-  end
-
-  def list_type=(type)
-    self.all_users_can_send_messages = (type == 'discussion')
-  end
-
-  def join_policy
-    self.open_membership ? 'open' : 'closed'
-  end
-
-  def join_policy=(policy)
-    self.open_membership = (policy == 'open')
-  end
-
-  ### /these methods make editing lists easier
-
 
   def prepare_content(message, num)
     ##?TODO: add config about initial list name prefix

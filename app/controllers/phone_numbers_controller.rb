@@ -13,7 +13,7 @@ class PhoneNumbersController < ApplicationController
     else
       @phone_numbers = PhoneNumber
     end
-    @phone_numbers = @phone_numbers.order('updated_at desc').page(params[:page]).per(14)
+    @phone_numbers = @phone_numbers.order('updated_at desc').page(params[:page]).per(13)
   end
 
   def create

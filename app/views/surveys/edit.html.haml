@@ -6,7 +6,7 @@
   %ul
     %li= f.check_box(:use_welcome_message, {:onchange => "$('welcome_message').toggle();"}) + " Use welcome message"
     %li 
-      = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '20x5', :onkeyup => "countMessageBody(this)", :style => display_welcome_message(@survey)})
+      = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '20x5', class: 'count_characters', :style => display_welcome_message(@survey)})
       %br
       %span#character_count
   %span.config_heading Incoming Phone Number

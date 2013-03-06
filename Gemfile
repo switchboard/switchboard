@@ -14,6 +14,7 @@ gem 'twilio-ruby'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-filter'
   gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -23,6 +24,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'spine-rails'
 gem 'authlogic'
 gem 'dynamic_form'
 gem 'simple_form'
