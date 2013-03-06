@@ -1,9 +1,3 @@
-var sb;
-
-if (sb == null) {
-  sb =  {}
-}
-
 sb.close_alert = function() {
   var alert = $('.alert');
   alert.slideUp();

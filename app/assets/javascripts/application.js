@@ -16,4 +16,5 @@
 //= require lists
 //= require selects
 //= require messages
-//= require_tree .
+
+//= require jquery.alertfeedback

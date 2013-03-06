@@ -37,29 +37,12 @@ HERE
     ) 
   end
 
-  #TODO: replace with unobtrusive javascript 
   def link_to_remove_member(member, list_id)
-    #onclick = remote_function(
-    #  :url => {:controller => 'admin', :action => 'remove_member'},
-    #  :with => "'list_id=#{list_id}&number_id=#{member.id}'",
-      #:loading => show_spinner("which_member_spinner_#{member.id}"),
-      #:complete => hide_spinner("which_member_spinner_#{member.id}")
-    #)
-    #link_to_remote_with_icon('remove.png', {:onclick => onclick})
-    link_to image_tag('icons/16/remove.png'), url_for({:controller => 'admin', :action => 'remove_member'}), :list_id=> list_id, :number_id => member.id , :remote => true
+    link_to image_tag('icons/16/remove.png'), url_for({controller: 'admin', action: 'remove_member', list_id: list_id, number_id: member.id}), remote: true, method: :delete
   end
 
   def link_to_remove_list(list)
-    link_to image_tag('icons/16/remove.png'), list, :method => :delete, :remote => true
-#url_for({:controller => 'lists', :action => 'delete'}), :remote => true
-
-#    onclick = remote_function(
-#      :url => {:controller => 'admin', :action => 'remove_list'},
-#      :with => "'list_id=#{list.id}'",
-#      :loading => show_spinner("which_member_spinner_#{list.id}"),
-#      :complete => hide_spinner("which_member_spinner_#{list.id}")
-#    )
-#    link_to_remote_with_icon('remove.png', {:onclick => onclick})
+    link_to image_tag('icons/16/remove.png'), url_for({controller: 'admin', action: 'remove_list', list_id: list.id}), remote: true, method: :delete, confirm: "Are you sure you want to delete the list #{list.name}?"
   end
 
   def link_to_remove_survey(survey)
