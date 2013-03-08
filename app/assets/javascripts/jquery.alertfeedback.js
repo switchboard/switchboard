@@ -1,14 +1,14 @@
-sb.close_alert = function() {
+Switchboard.close_alert = function() {
   var alert = $('.alert');
   alert.slideUp();
 }
 
 $(function () {
   var alert = $('.alert, .notice:contains(text)');
-  sb.flash_element(alert);
+  Switchboard.flash_element(alert);
 });
 
-sb.flash_element = function(element) {
+Switchboard.flash_element = function(element) {
   if (element.length > 0) {
     element.slideDown();
     window.setTimeout(function() {
@@ -19,7 +19,7 @@ sb.flash_element = function(element) {
   }
 }
 
-sb.showNoticeText = function(text) {
+Switchboard.showNoticeText = function(text) {
     var notice = $('.notice').text(text);
-    sb.flash_element(notice);
+    Switchboard.flash_element(notice);
 }

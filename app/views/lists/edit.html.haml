@@ -1,51 +1,36 @@
-%h3 List Configuration
-%br
-%br
-= form_for(@list) do |f|
-  %span.config_heading Welcome Message
-  %ul
-    %li
-      = f.check_box(:use_welcome_message)
-      Use welcome message
-    %li
-      = f.text_area(:welcome_message, {:id => 'welcome_message', :size => '20x5', :style => display_welcome_message(@list)})
-      %br
-      %span#character_count
-  %span.config_heading Incoming Phone Number
-  %br
-  Accept messages to this list from only this phone number (keep blank to use default number)
-  %ul
-    %li= f.text_field(:incoming_number)
+%h2 List Configuration
+
+= custom_form_for(@list, html: {class: 'form-vertical'}) do |f|
+  %h3 Welcome Message
+  = f.input :use_welcome_message, label: 'Use welcome message'
+  #welcome_message_wrap
+    = f.input :custom_welcome_message, as: :text, label: 'List welcome message', input_html: {class: 'count_characters'}
+    %span#character_count
+
+  %h3 Incoming Phone Number
+  = f.input :incoming_number, hint: 'Accept messages to this list from only this phone number (keep blank to use default number).'
+
   / %span.config_heading Sending Preferences
   / %ul
   /   %li= f.check_box(:allow_email_gateway) + "Allow sending via email (free and slower)"
   /   %li= f.check_box(:allow_commercial_gateway) + "Allow commercial gateway ($0.03/msg)"
   /   - if @list.allow_email_gateway
   /    %li= f.check_box(:prefer_email) + "Prefer email over commercial gateway"
-  %br
-  %span.config_heading List Type
-  %ul
-    / TODO check if no further action needed (i.e. showing div)
-    %li= f.radio_button(:list_type, 'discussion') + "Discussion (anyone can send)"
-    %li= f.radio_button(:list_type, 'announcement') + "Announcement (admins can send)"
-  - if @list.list_type == 'announcement'
-    #announcement_list_options
-      %br
-      %span.config_heading Response Handling
-      %br
-      Send responses to all admins:
-      %ul
-        %li= f.check_box(:text_admin_with_response) + "Send response to admins"
-  %br
-  %span.config_heading Join Policy
-  %ul
-    %li= f.radio_button(:join_policy, 'open') + "Open (anyone can join)"
-    %li= f.radio_button(:join_policy, 'closed') + "Closed (admins must add)"
-  %br
-  %span.config_heading  Message Content
-  %ul
-    %li= f.check_box(:add_list_name_header) + "Include list name in messages (e.g. [LIST])"
-    %li= f.check_box(:identify_sender) + "Include name of sender in messages"
-  %input{:type => 'hidden', :name => 'list_id', :value => @list.id}
-  = submit_tag
 
+  %h3 List Type
+  = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]  
+
+  %h3 Response handling
+  = f.input :text_admin_with_response, label: 'Send response to all admins'
+
+  %h3 Join Policy
+  = f.input :open_membership, as: :radio_buttons, label: false, collection: [['Open (anyone can join)', true], ['Closed (admins must add members)', false]]
+
+  %h3 Message Content
+  = f.input :add_list_name_header, label: 'Include list name in messages (e.g. [LIST])'
+  = f.input :identify_sender, label: 'Include name of sender in messages'
+
+  = f.button :submit, label: 'Save changes'
+
+:coffeescript
+  $ -> new Switchboard.ListController()

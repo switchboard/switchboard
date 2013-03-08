@@ -1,38 +1,18 @@
-:javascript
-  alert("javascript yo")
-  // Append the function to the "document ready" chain
-  jQuery(function($) {
-    // when the #search field changes
-    $("#name").change(function() {
-      // make a POST call and replace the content
-      $.post("/lists/check_name_available", function(data) {
-        $("#availability").html(data);
-      });
-    });
-  })
-
 - content_for :main_box_content do
+  %h2 Create a new List
 
-  %h4 Create a new List
- 
-  = form_for(@mylist) do |l| 
-    %ul.create_list_options
-      %li
-        <span class='list_option'>List Name</span> (cannot contain spaces) 
-        = l.text_field :name
+  = custom_form_for(@new_list, html: {class: 'form-vertical'}) do |f|
+    = f.input :name, label: 'List name (cannot contain spaces)', required: true, input_html: {autocomplete: 'off' }
+    = image_tag('spinner.gif', :id => 'list_name_spinner', :style => 'display: none')
+    #availability
 
-        = image_tag("/images/spinner.gif", :id => 'list_name_spinner', :style => 'display: none')
-        #availability
-          %br 
-      %li
-        %span.list_option List Type
-        %ul
-          %li= radio_button_tag('list[list_type]', 'discussion') + "Discussion List: all users can send messages to the list (recommended for small lists only!)"
-          %li= radio_button_tag("list[list_type]", 'announcement', true) + "Announcement List: only list owners can send messages to the list"
-      %li
-        %span.list_option Joining Policy
-        %ul
-          %li= radio_button_tag('list[join_policy]', 'open', true) + "Open: anyone can join"
-          %li= radio_button_tag('list[join_policy]', 'closed') + "Closed: new members must be added by administrators"
-      %li
-        = submit_tag 'Create!', :id => "new_list_submit"
+    %h3 List Type
+    = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]  
+
+    %h3 Join Policy
+    = f.input :open_membership, as: :radio_buttons, label: false, collection: [['Open (anyone can join)', true], ['Closed (admins must add members)', false]]
+
+    = f.button :submit, label: 'Create lists'
+
+  :coffeescript
+    $ -> new Switchboard.ListController()

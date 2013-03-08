@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require spine
 //= require shared
 //= require lists
 //= require selects
-//= require messages
+//= require_tree ./controllers/
 
 //= require jquery.alertfeedback
