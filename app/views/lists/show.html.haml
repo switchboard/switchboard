@@ -23,11 +23,11 @@
 
   %h4 LIST STATISTICS
   %p
-    = 'Contacts count: ' + @list.phone_numbers.length.to_s
-  %p
-    = 'Total Messages: ' + @list.messages.length.to_s
+    Contacts count: #{@list.phone_numbers.size}
     %br
-    = 'Total Messages this week: ' + @list.messages.within_days(7).length.to_s
+    Total messages: #{@list.messages.size}
     %br
-    = 'Total Sent Messages: ' + @list.messages.in_state(4).length.to_s 
+    Total messages this week: #{@list.messages.within_days(7).size}
+    %br
+    Total sent messages: #{@list.messages.in_state(4).size}
 
