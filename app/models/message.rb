@@ -13,7 +13,7 @@ class Message < ActiveRecord::Base
   attr_accessor :tokens
 
   def self.within_days(num_days)
-    where('updated_at > ?', num_days.ago)
+    where('updated_at > ?', num_days.days.ago)
   end
 
   def self.in_state(state_id)
