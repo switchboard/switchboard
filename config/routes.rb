@@ -17,6 +17,9 @@ Switchboard::Application.routes.draw do
       get '/import' => 'lists#import'
       put '/upload_csv' => 'lists#upload_csv'
     end
+    collection do
+      get '/check_name_available' => 'lists#check_name_available'
+    end
     match 'toggle_admin' => "lists#toggle_admin"
   end
 

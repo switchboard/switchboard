@@ -12,8 +12,8 @@ class Message < ActiveRecord::Base
   ## save an array of 'tokens' (words) from the message that haven't been processed yet
   attr_accessor :tokens
 
-  def self.within_days(days)
-    where("updated_at #{(days.days.ago..Time.now).to_s(:db)}")
+  def self.within_days(num_days)
+    where('updated_at > ?', num_days.days.ago)
   end
 
   def self.in_state(state_id)

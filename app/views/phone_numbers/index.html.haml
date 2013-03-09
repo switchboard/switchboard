@@ -1,6 +1,6 @@
 #show_members
   #show_member_list
-    - if @list.try(:list_type) == 'announcement'
+    - if @list.try(:all_users_can_send_messages) == false
       %p * checkbox indicates approved sender
     %table#member_list.default.linked
       %tbody

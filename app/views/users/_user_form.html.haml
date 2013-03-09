@@ -4,8 +4,8 @@
     Add to List:
     %strong= @list.name
     = hidden_field_tag('list_id', @list.id)
-  = f.input :first_name
-  = f.input :last_name
+  = f.input :first_name, input_html: {autocomplete: 'off'}
+  = f.input :last_name, input_html: {autocomplete: 'off'}
   = f.fields_for :phone_numbers do |sf|
-    = sf.input :number, label: 'Phone number', required: @user.phone_numbers.length == 1
+    = sf.input :number, label: 'Phone number', required: @user.phone_numbers.length == 1, input_html: {autocomplete: 'off'}
   = f.button :submit, label: 'Save contact'

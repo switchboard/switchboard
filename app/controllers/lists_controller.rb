@@ -5,25 +5,25 @@ class ListsController < ApplicationController
 
   layout 'admin'
 
+
   def new
     @title = "Create List"
-    @mylist = List.new
+    @new_list = List.new
   end
- 
-  def import
-    @title = "Import Contacts"
-  end
- 
+
   def create
     @title = "Create List"
-    @list = List.create(params[:list])
-    if @list.save
-      flash[:message] = "Your list has been created!"
-      redirect_to list_url(@list)
+    @new_list = List.create(params[:list])
+    if @new_list.save
+      redirect_to list_url(@new_list), notice: 'Your list has been created!'
     else
-      flash[:notice] = "There was a problem creating your list. Please try another list name."
-      redirect_to :action => 'new'
+      flash.now[:notice] = "There was a problem creating your list."
+      render :new
     end
+  end
+
+  def import
+    @title = "Import Contacts"
   end
   
   def show
@@ -31,18 +31,18 @@ class ListsController < ApplicationController
 
   def edit
     @title = "Configure List"
-    puts "flash is: " + flash.to_s
-    puts "flash[:notice] is: " + flash[:notice].to_s
   end
 
   def index
-    puts("in lists index")
     @lists = List.scoped
   end
 
   def update
-    @list.update_attributes(params[:list])
-    redirect_to edit_list_path(@list), notice: 'Your list configuration was updated.'
+    if @list.update_attributes(params[:list])
+      redirect_to list_path(@list), notice: 'Your list configuration was updated.'
+    else
+      render :edit
+    end
   end
 
   def import
@@ -65,14 +65,11 @@ class ListsController < ApplicationController
   def check_name_available
     return unless request.xhr?
     if params[:name] =~ /\s+/
-      avail = "List name cannot contain spaces!"
+      avail_message = "List name cannot contain spaces!"
     else
-      avail = List.find_by_name(params[:name]) ? "Not Available." : "Available!"
+      avail_message = List.find_by_name(params[:name].upcase) ? "Not Available." : "Available!"
     end
-    #render :update do |page|
-    #  page.replace_html "availability", avail
-    #end
-    render :js => "alert('hi')"
+    render text: avail_message
   end
 
   def toggle_admin
