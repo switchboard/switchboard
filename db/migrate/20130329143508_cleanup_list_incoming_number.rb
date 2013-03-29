@@ -5,6 +5,8 @@ class CleanupListIncomingNumber < ActiveRecord::Migration
 
   def up
     List.find_each do |list|
+      next unless list.number.present?
+
       number = list.incoming_number.try(:gsub, /[^0-9]/, '')
       if number[0] == '1' && number.length == 11
         number = number[1..10]
