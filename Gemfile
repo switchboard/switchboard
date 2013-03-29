@@ -6,6 +6,7 @@ gem 'mysql2'
 gem 'thin'
 gem 'haml-rails'
 gem 'twilio-ruby'
+gem 'coffee-filter'
 
 
 # Gems used only for assets and not required
@@ -13,7 +14,6 @@ gem 'twilio-ruby'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'coffee-filter'
   gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
