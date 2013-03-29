@@ -20,7 +20,8 @@ module Switchboard::MessageHandlers::Incoming
         list = nil
       	puts("determining list.")
         puts("message.to: " + message.to)
-        to_number = message.to.try(:gsub, /[^0-9]/, '')
+        to_number = message.to.to_s.gsub(/[^0-9]/, '')
+        to_number = to_number[-10..-1] || to_number
         if list = List.find_by_incoming_number(to_number)
           ## Non-keyword list (assigned phone number)
         elsif message.respond_to? :carrier
