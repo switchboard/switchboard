@@ -112,6 +112,10 @@ class List < ActiveRecord::Base
   #   return numbers
   # end
 
+  def most_recent_messages(count)
+    messages.where(message_state_id: MessageState.find_by_name('sent').id).limit(count)
+  end
+
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
