@@ -29,6 +29,7 @@ gem 'dynamic_form'
 gem 'simple_form'
 gem 'kaminari'
 gem 'paperclip'
+gem 'airbrake'
 
 group :development do
   gem 'sextant'

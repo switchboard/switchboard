@@ -28,6 +28,10 @@ GEM
     activesupport (3.2.12)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    airbrake (3.1.9)
+      activesupport
+      builder
+      json
     arel (3.0.2)
     authlogic (3.1.0)
       activerecord (>= 3.0.7)
@@ -204,6 +208,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   authlogic
   autotest-fsevent
   autotest-growl
