@@ -7,9 +7,9 @@
 
 ENV['RAILS_ENV'] = ARGV.first || ENV['RAILS_ENV'] || 'production'
 
-path = "./config/environment.rb"
-puts("path: " + path )
-require path
+require ENV["RAILS_ENV_PATH"] || './config/environment.rb'
+
+
 #if RAILS_ENV == "development" or RAILS_ENV == "test": 
 SLEEP_TIME = 10
 #else

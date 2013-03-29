@@ -20,6 +20,9 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     # run "cd #{current_path} && bundle exec rake asset:packager:build_all RAILS_ENV=production"
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+
+    run "cd #{current_path} && bundle exec #{current_path}/script/daemon restart switchboard_server"
+
     run "curl -s http://switchboard.whatcould.com > /dev/null 2>&1"
   end
 
