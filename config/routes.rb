@@ -28,7 +28,10 @@ Switchboard::Application.routes.draw do
   resources :users
   resources :phone_numbers, only: [:index]
 
-  get '/messages/twilio/create' => 'messages/twilio#create'
+  namespace :messages do
+    post '/twilio/create' => 'twilio#create'
+    post '/email/create' => 'email#create'
+  end
 
   # non-resourceful controllers: Admin, daemon status
   # This is a legacy wild controller route that's not recommended for RESTful applications.
