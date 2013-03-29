@@ -20,14 +20,14 @@ module Switchboard::MessageHandlers::Incoming
         list = nil
       	puts("determining list.")
         puts("message.to: " + message.to)
-        if ( List.find_by_incoming_number(message.to) != nil)
+        to_number = message.to.try(:gsub, /[^0-9]/, '')
+        if list = List.find_by_incoming_number(to_number)
           ## Non-keyword list (assigned phone number)
-          list = List.find_by_incoming_number(message.to)
-        elsif ( message.respond_to? :carrier )
+        elsif message.respond_to? :carrier
           ## Email message for a list
           list_name = message.default_list 
           list = List.find_by_name(message.default_list)
-        elsif ( message.from_web? )
+        elsif message.from_web?
           ## Web message
           list = List.find_by_id(message.to)
         else
@@ -35,10 +35,9 @@ module Switchboard::MessageHandlers::Incoming
           list_name = message.tokens.shift
           list_name.upcase!
           list = List.find_by_name(list_name)
-         
         end
 
-        return list
+        list
     end
 
     ## Main method for handling incoming messages.

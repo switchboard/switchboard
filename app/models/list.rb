@@ -2,9 +2,6 @@ require 'csv'
 
 class List < ActiveRecord::Base
 
-  validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
-  validates_uniqueness_of :name
-  validates_format_of :incoming_number, :with => /^\d{10}$/, :message => "Phone number must contain 10 digits with no extra characters", :allow_blank => true
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
 
@@ -16,7 +13,11 @@ class List < ActiveRecord::Base
 
   has_attached_file :csv_file
 
-  validates_format_of :incoming_number, with: /^\d{10}$/, message: "Incoming number must contain 10 digits", allow_blank: true
+
+  validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
+  validates_uniqueness_of :name
+  validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
+
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
