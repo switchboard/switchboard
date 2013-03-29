@@ -13,6 +13,8 @@ class Messages::TwilioControllerTest < ActionController::TestCase
 
       twilio_message = assigns(:message)
       assert twilio_message.body == message_params['Body']
+      assert twilio_message.from == message_params['From']
+      assert twilio_message.to == message_params['To']
       assert twilio_message.message_state == message_states(:incoming)
     end
   end

@@ -1,14 +1,9 @@
 class TwilioMessage < Message
 
+  attr_accessible :body, :from, :to, as: :system
+
   def self.create_from_params(params)
-    msg = {}
-    msg[:body] = params['Body']
-    msg[:from] = params['From']
-    msg[:to] = params['To']
-    ### these need attributes
-    #msg[:sms_sid] = params['SmsSid']
-    #msg[:account_sid] = params['AccountSid']
-    TwilioMessage.create!(msg)
+    TwilioMessage.create!({body: params['Body'], from: params['From'], to: params['To']}, as: :system)
   end
 
 end

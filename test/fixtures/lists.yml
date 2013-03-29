@@ -4,7 +4,7 @@ one:
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_phone_number: true
+  incoming_number: '2155551000'
   use_incoming_keyword: true
   email_admin_with_response: true
   text_admin_with_response: false
@@ -22,7 +22,7 @@ two:
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_phone_number: true
+  incoming_number: '2155551001'
   use_incoming_keyword: true
   email_admin_with_response: true
   text_admin_with_response: false
