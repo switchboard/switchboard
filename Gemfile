@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-
-gem 'sqlite3'
+gem 'mysql2'
 gem 'thin'
 gem 'haml-rails'
 gem 'twilio-ruby'
@@ -33,6 +32,8 @@ gem 'paperclip'
 
 group :development do
   gem 'sextant'
+  gem "capistrano"
+  gem "capistrano-ext"
 end
 
 group :test do
