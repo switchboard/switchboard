@@ -63,7 +63,7 @@ module Switchboard::MessageHandlers::Incoming
           num = PhoneNumber.find_or_create_by_number( number_string ) 
           num.save
 
-          survey_state = SurveyState.find(:all, :conditions => { :status => true, :phone_number_id => 1 } ).first
+          survey_state = SurveyState.where(active: true, phone_number_id: 1).first
 
           if ( survey_state != nil )
             puts("handle survey response.")
