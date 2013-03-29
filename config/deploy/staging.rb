@@ -1,3 +1,5 @@
+set :repository,  "git://github.com/whatcould/switchboard.git"
+set :branch, 'deploy'
 
 server "switchboard.whatcould.com", :web, :app, :db, primary: true
 
@@ -8,8 +10,6 @@ set :deploy_to, "/srv/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
-set :scm, :git
-set :branch, 'deploy'
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
