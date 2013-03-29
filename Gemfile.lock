@@ -141,6 +141,8 @@ GEM
       activesupport (= 3.2.12)
       bundler (~> 1.0)
       railties (= 3.2.12)
+    rails_config (0.3.2)
+      activesupport (>= 3.0)
     railties (3.2.12)
       actionpack (= 3.2.12)
       activesupport (= 3.2.12)
@@ -221,6 +223,7 @@ DEPENDENCIES
   mysql2
   paperclip
   rails (= 3.2.12)
+  rails_config
   sass-rails (~> 3.2.3)
   sextant
   shoulda
