@@ -3,6 +3,7 @@ tmp/
 public/system
 *.sqlite3
 *.swp
+config/database.yml
 
 # Might be good to check this in at some point.
 .rbenv-version
