@@ -1,10 +1,12 @@
 - content_for :main_box_content do
 
-  What do you want to do?
+
+  %p What do you want to do?
+  
   #vertical_menu
     %p= link_to 'Send a message', new_list_message_path(@list)
-    %p= link_to 'See list subscribers', list_phone_numbers_path(@list)
-    %p= link_to 'Add a user to the list', new_list_user_path(@list)
+    %p= link_to 'Show subscribers', list_phone_numbers_path(@list)
+    %p= link_to 'Add a user', new_list_user_path(@list)
     %p= link_to 'Import users', import_list_path(@list)
     %p= link_to 'Change list settings', edit_list_path(@list)
     %p= link_to 'Manage surveys', "/surveys"
@@ -14,11 +16,15 @@
 
   %h4 LIST STATISTICS
   %p
-    Contacts count: #{@list.phone_numbers.size}
+
+  %p
+    Incoming number: #{format_phone(@list.incoming_number)}
+    %br
+    Contacts: #{@list.phone_numbers.size}
     %br
     Total messages: #{@list.messages.size}
     %br
-    Total messages this week: #{@list.messages.within_days(7).size}
+    Messages this week: #{@list.messages.within_days(7).size}
     %br
-    Total sent messages: #{@list.messages.in_state(4).size}
+    Sent messages: #{@list.messages.in_state(4).size}
 
