@@ -3,16 +3,14 @@
   = render 'shared/flashes'
   #site-container
     #site
-      = render :partial => 'layouts/page_header'
+      = render 'layouts/page_header'
       #content-container
-        = render :partial => '/admin/buttons'
+        = render 'admin/buttons'
         #content
           #new-message
-            %h4 
-              = link_to "Lists", "/lists"
+            %h4.breadcrumb
               - if @list
-                | 
-                = link_to "List: " + @list.name, list_path(@list.id)
+                = link_to "List: #{@list.name}", list_path(@list.id)
               - if @title
                 |
                 = @title

@@ -41,10 +41,6 @@ HERE
     link_to image_tag('icons/16/remove.png'), url_for({controller: 'admin', action: 'remove_member', list_id: list_id, number_id: member.id}), remote: true, method: :delete
   end
 
-  def link_to_remove_list(list)
-    link_to image_tag('icons/16/remove.png'), url_for({controller: 'admin', action: 'remove_list', list_id: list.id}), remote: true, method: :delete, confirm: "Are you sure you want to delete the list #{list.name}?"
-  end
-
   def link_to_remove_survey(survey)
     onclick = remote_function(
       :url => {:controller => 'admin', :action => 'remove_list'},

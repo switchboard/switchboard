@@ -1,8 +1,0 @@
-#switch_list 
-  %a.lists 
-  %span
-    %h3 List Options
-    %ul 
-      / = render :partial => '/admin/which_list', :collection => List.top_five(:remove_list_id => nil)
-      %li.switch= link_to 'See All Lists',  '/lists'
-      %li.switch= link_to 'Create New List', new_list_url

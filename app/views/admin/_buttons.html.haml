@@ -1,10 +1,16 @@
 #buttons
-  %ul
-    %li.main-menu
+  %ul.main-menu
+    %li
       %a.message{:href => compose_message_link}
         %span + NEW MESSAGE
-    %li.main-menu
+    %li
       %a.user{:href => add_user_link}
         %span + NEW USER
-    = render :partial => '/admin/menu'
+    %li
+      #menu
+        #switch_list
+          = link_to '', lists_path, class: 'lists'
+          %span
+            %ul
+              %li.switch= link_to 'Create New List', new_list_url
       

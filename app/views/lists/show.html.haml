@@ -1,8 +1,6 @@
 - content_for :main_box_content do
-  %h4 LIST #{@list.name}
 
   What do you want to do?
-
   #vertical_menu
     %p= link_to 'Send a message', new_list_message_path(@list)
     %p= link_to 'See list subscribers', list_phone_numbers_path(@list)
