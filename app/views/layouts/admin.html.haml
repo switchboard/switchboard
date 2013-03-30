@@ -19,11 +19,10 @@
             - else
               = yield
           #recent-messages
-            %h3 
-              RECENT MESSAGES
+            %h3 RECENT MESSAGES
             #recent-messages-list
-              %ul
-                - if @list != nil
+              %ul.messages
+                - if @list
                   = render partial: 'messages/message', collection: @list.messages.most_recent(12)
                 - else
                   = render partial: 'messages/message', collection: Message.most_recent(30).order('id DESC')

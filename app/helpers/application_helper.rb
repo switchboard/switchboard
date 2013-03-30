@@ -24,6 +24,14 @@ module ApplicationHelper
     "$('%s').hide();" % id
   end
 
+  def format_phone(num)
+    num = num.to_s.gsub(/^\+1/,'').gsub(/[^0-9]/, '')
+    if num.length == 10
+      num = "#{num[0..2]}.#{num[3..5]}.#{num[6..9]}"
+    end
+    num
+  end
+
   def prettify_ajax_errors(objects=[])
     html = '<ul class="flash_notice">'
     objects.each do |obj|

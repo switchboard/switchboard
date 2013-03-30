@@ -1,0 +1,17 @@
+@import 'partials/colors';
+
+ul.messages {
+  margin-left: 10px;
+  li {
+    text-indent: -10px;
+    margin-bottom: .3em;
+  }
+  .list {
+    font-size: .9em;
+    color: $gray;
+  }
+  .from {
+    font-size: .9em;
+    color: $grayLight;
+  }
+}

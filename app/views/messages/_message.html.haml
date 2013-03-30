@@ -1,4 +1,7 @@
-- if message != nil && message.list != nil
-  %li
-    %span{:style => 'font-weight: bold'}= message.list.name + " (" + message.from+ "): "
+- if message && message.list
+  %li[message]
+    - unless defined? show_list
+      %span.list= message.list.name
+      = ' '
+    %span.from [#{format_phone message.from}]
     = message.body
