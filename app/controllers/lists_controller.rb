@@ -1,10 +1,6 @@
 class ListsController < ApplicationController
   before_filter :require_admin
-
-  helper 'lists', 'administration'
-
   layout 'admin'
-
 
   def new
     @title = "Create List"

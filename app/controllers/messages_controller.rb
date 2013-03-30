@@ -1,8 +1,6 @@
 class MessagesController < ApplicationController
   before_filter :require_admin, :only => [:new, :index]
 
-  helper 'administration'
-
   skip_before_filter :verify_authenticity_token
 #  before_filter :authenticate, :only => [:create]
   layout 'admin'

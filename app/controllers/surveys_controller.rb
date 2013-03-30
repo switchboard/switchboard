@@ -1,8 +1,5 @@
 class SurveysController < ApplicationController
   before_filter :require_admin
-
-  helper 'surveys', 'administration'
-
   layout 'admin'
 
   def new
