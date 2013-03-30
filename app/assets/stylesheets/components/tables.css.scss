@@ -2,9 +2,17 @@
 
 table.default {
   width: 100%;
+  thead {
+    th {
+      color: $grayLight;
+    }
+  }
   td {
     padding: 3px 4px;
     color: $grayDarker;
+  }
+  td.num, th.num {
+    text-align: right;
   }
 }
 

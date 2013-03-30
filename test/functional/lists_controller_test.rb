@@ -7,6 +7,24 @@ class ListsControllerTest < ActionController::TestCase
     @list = lists(:one)
   end
 
+  context 'lists#index' do
+    should 'show list of lists' do
+      get :index
+      assert_template 'index'
+      assert_links_to list_path(lists(:one))
+    end
+  end
+
+  context 'lists#show' do
+    should 'link to various list actions' do
+      get :show, list_id: @list.id
+      assert_template 'show'
+      assert_links_to new_list_message_path(@list)
+      assert_links_to list_phone_numbers_path(@list)
+      assert_links_to edit_list_path(@list)
+    end
+  end
+
   context 'lists#edit' do
     should 'render form for editing list' do
       get :edit, list_id: @list.id
@@ -42,6 +60,14 @@ class ListsControllerTest < ActionController::TestCase
     end
   end
 
+  context 'lists#destroy' do
+    should 'delete list and redirect' do
+      delete :destroy, id: @list.id
+      assert_redirected_to lists_path
+      assert List.find_by_id(@list.id) == nil
+    end
+  end
+
   # Would rather be testing this via integration test, leaving this bare-bones
   context 'lists#create' do
     should 'create a new list' do
@@ -60,8 +86,6 @@ class ListsControllerTest < ActionController::TestCase
       assert_template 'new'
     end
   end
-
-
 
 
   context 'lists#import' do

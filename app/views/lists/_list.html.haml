@@ -1,0 +1,5 @@
+%tr{id: "list_#{list.id}"}
+  %td.name
+    = link_to list.name, list, class: 'clk'
+  %td.num= list.phone_numbers.size
+  %td.num= list.messages.size

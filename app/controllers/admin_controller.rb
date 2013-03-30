@@ -40,11 +40,6 @@ class AdminController < ApplicationController
     @list.remove_phone_number(@number)
   end
 
-  def remove_list
-    @list = List.find(params[:list_id])
-    @list.destroy
-  end
-
   def compose_message
     @list = List.find(params[:list_id])
     render :update do |page|

@@ -25,7 +25,7 @@ class ListsController < ApplicationController
   def import
     @title = "Import Contacts"
   end
-  
+
   def show
   end
 
@@ -35,6 +35,12 @@ class ListsController < ApplicationController
 
   def index
     @lists = List.scoped
+  end
+
+
+  def destroy
+    @list.destroy
+    redirect_to lists_path, notice: "The list #{@list.name} was deleted."
   end
 
   def update

@@ -4,6 +4,10 @@
     #show_member_list
       / - if @list.list_type == 'announcement'
       /  * checkbox indicates approved sender
-      %ul#member_list
-        %li
-        = render :partial => 'list_row', :collection => @lists
+      %table#list_list.default.linked
+        %thead
+          %th
+          %th.num Contacts
+          %th.num Messages
+        %tbody
+          = render @lists
