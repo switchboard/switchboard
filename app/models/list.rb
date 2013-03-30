@@ -104,17 +104,8 @@ class List < ActiveRecord::Base
     membership.update_column(:is_admin, true)
   end
 
-  # This seems redundant, since list#phone_numbers is already an AR relation
-  # def phone_numbers
-  #   numbers =  []
-  #   list_memberships.each do |mem|
-  #     numbers << mem.phone_number
-  #   end
-  #   return numbers
-  # end
-
   def most_recent_messages(count)
-    messages.where(message_state_id: MessageState.find_by_name('sent').id).limit(count)
+    messages.where(message_state_id: MessageState.find_by_name('handled').id).limit(count)
   end
 
   def create_email_message(num)
