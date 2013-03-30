@@ -1,13 +1,13 @@
 %head
   %meta{"http-equiv"=>"Content-Type", :content=>"application/xhtml+xml;charset=utf-8"}
   = stylesheet_link_tag 'application'
+  = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Geo&v1', media: 'screen'
+  = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700', media: 'screen'
+  = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Michroma&v1', media: 'screen'
+  = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1', media: 'screen'
+
   /[if lt IE 8]
     = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
 
   = javascript_include_tag 'application'
   = csrf_meta_tag 
-
-  / = javascript_tag "$j(document).ready(function() { #{ flash_js(flash) } } ); "
-
-/ $j().toastmessage('showSuccessToast', \"This is a test.\");"
-
