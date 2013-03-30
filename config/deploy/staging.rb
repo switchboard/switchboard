@@ -1,5 +1,5 @@
-set :repository,  "git://github.com/whatcould/switchboard.git"
-set :branch, 'deploy'
+set :repository,  "git://github.com/switchboard/switchboard.git"
+set :branch, 'develop'
 
 server "switchboard.whatcould.com", :web, :app, :db, primary: true
 
