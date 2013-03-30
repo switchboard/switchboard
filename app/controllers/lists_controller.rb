@@ -30,7 +30,7 @@ class ListsController < ApplicationController
   end
 
   def index
-    @lists = List.scoped
+    @lists = List.order(:name)
   end
 
 

@@ -14,6 +14,6 @@
       %select#listSelect
         - if @list == nil
           %option{ :name=> "Select a list" , :value => 0 } SELECT A LIST
-        = select_list("admin", "show", @list != nil ? @list.id : 0 )
+        = select_list("admin", "show", @list ? @list.id : 0 )
     - else
       Please log in below.
