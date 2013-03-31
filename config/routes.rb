@@ -10,7 +10,7 @@ Switchboard::Application.routes.draw do
 
   resource :accounts
   resources :lists do
-    resources :users
+    resources :contacts
     resources :phone_numbers
     resources :messages
     member do
@@ -25,7 +25,7 @@ Switchboard::Application.routes.draw do
 
   resources :messages
   match 'send_message/:list_id' => 'messages#send_message', via: :post, as: 'send_message'
-  resources :users
+  resources :contacts
   resources :phone_numbers, only: [:index]
 
   namespace :messages do

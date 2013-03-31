@@ -3,7 +3,7 @@ class PhoneNumbersController < ApplicationController
   layout 'admin'
   
   def new
-    @user = User.new
+    @contact = Contact.new
   end
 
   def index
@@ -21,16 +21,16 @@ class PhoneNumbersController < ApplicationController
   end
   
   def show
-    @user = @current_user
+    @contact = @current_user
   end
 
   def edit
-    @user = @current_user
+    @contact = @current_user
   end
   
   def update
-    @user = @current_user # makes our views "cleaner" and more consistent
-    if @user.update_attributes(params[:user])
+    @contact = @current_user # makes our views "cleaner" and more consistent
+    if @contact.update_attributes(params[:contact])
       flash[:notice] = "Account updated!"
       redirect_to account_url
     else

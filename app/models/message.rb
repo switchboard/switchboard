@@ -1,9 +1,9 @@
 class Message < ActiveRecord::Base
 
-  ## messages can be associated with the user they have been sent to or recieved from
+  ## messages can be associated with the contact they have been sent to or recieved from
   ## see http://www.spacevatican.org/2008/5/6/creating-multiple-associations-with-the-same-table
-  belongs_to  :sender, :class_name => 'User' 
-  belongs_to  :recipient, :class_name => 'User'
+  belongs_to  :sender, :class_name => 'Contact' 
+  belongs_to  :recipient, :class_name => 'Contact'
   belongs_to :list  
   belongs_to :message_state
 
@@ -24,8 +24,8 @@ class Message < ActiveRecord::Base
     in_state(3).limit(count)
   end
 
-  def self.single_most_recent_from_user(user_id)
-    where(sender_id: user_id).first
+  def self.single_most_recent_from_contact(contact_id)
+    where(sender_id: contact_id).first
   end
 
 

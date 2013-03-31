@@ -1,7 +1,7 @@
 class PhoneNumber < ActiveRecord::Base
   has_many :list_memberships
   has_many :lists, :through => :list_memberships
-  belongs_to :user
+  belongs_to :contact
 
   attr_accessible :number
 
@@ -16,8 +16,8 @@ class PhoneNumber < ActiveRecord::Base
   end
 
   def name_and_number
-    if user && user.first_name.present?
-      "#{user.first_name}: #{number}"
+    if contact && contact.first_name.present?
+      "#{contact.first_name}: #{number}"
     else
       number
     end

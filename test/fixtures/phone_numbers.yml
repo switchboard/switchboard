@@ -1,9 +1,9 @@
 one:
   number: '1234560001'
-  user: one
+  contact: one
 two:
   number: '1234560002'
-  user: two
+  contact: two
 three:
   number: '1234560003'
-  user: three
+  contact: three

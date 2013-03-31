@@ -51,11 +51,11 @@ class List < ActiveRecord::Base
         unless phone_number = PhoneNumber.find_by_number(number)
           if email =~ /@/
             email.gsub!(/\s/, '')
-            user = User.find_or_create_by_email(first_name: first_name, last_name: last_name, email: email)
+            contact = Contact.find_or_create_by_email(first_name: first_name, last_name: last_name, email: email)
           else
-            user = User.create!(first_name: first_name, last_name: last_name)
+            contact = Contact.create!(first_name: first_name, last_name: last_name)
           end
-          phone_number = user.phone_numbers.create!(number: number)
+          phone_number = contact.phone_numbers.create!(number: number)
         end
         add_phone_number(phone_number)
         success_count += 1
@@ -169,7 +169,7 @@ class List < ActiveRecord::Base
     end
 
     body = body + message.tokens.join(' ')
-    if (self.identify_sender && num.user != nil && ! num.user.full_name != ''  )
+    if (self.identify_sender && num.contact != nil && ! num.contact.full_name != ''  )
       body += " (" + message.from_for_display + ")"
     end
 
@@ -178,7 +178,7 @@ class List < ActiveRecord::Base
 
   def handle_send_action(message, num)
     message.list = self 
-    message.sender = num.user
+    message.sender = num.contact
     message.save
     if (message.from_web? or self.all_users_can_send_messages? or self.number_is_admin?(num))
       content = self.prepare_content(message, num)
@@ -193,8 +193,8 @@ class List < ActiveRecord::Base
         admin_msg = '[' + self[:name] + ' from '
         admin_msg +=  num.number.to_s
 
-        if ( num.user != nil and (! num.user.first_name.blank?) )
-          admin_msg += "/ " + num.user.first_name.to_s + " " + num.user.last_name.to_s
+        if ( num.contact != nil and (! num.contact.first_name.blank?) )
+          admin_msg += "/ " + num.contact.first_name.to_s + " " + num.contact.last_name.to_s
         end
 
         admin_msg += '] '
@@ -212,17 +212,17 @@ class List < ActiveRecord::Base
       self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
     else
       if (self.open_membership)
-    	puts(" ** List is open, adding user.")
+    	puts(" ** List is open, adding contact.")
         message.list = self
-        if (num.user == nil)
-          puts " ** Creating user for num: " + num.number
-          num.user = User.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
+        if !num.contact
+          puts " ** Creating contact for num: " + num.number
+          num.contact = Contact.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
           num.save!
-          num.user.save!
+          num.contact.save!
         end
         self.add_phone_number(num)
 
-        message.sender = num.user
+        message.sender = num.contact
         message.save
         self.save 
       else ## not list.open_membership

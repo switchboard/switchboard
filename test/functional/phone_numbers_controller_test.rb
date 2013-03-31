@@ -11,10 +11,10 @@ class PhoneNumbersControllerTest < ActionController::TestCase
       should "show list of all phone numbers in all lists" do
         get :index
         assert_template 'index'
-        assert_select "td a", text: users(:one).full_name 
-        assert_select "td a", text: users(:three).full_name 
+        assert_select "td a", text: contacts(:one).full_name 
+        assert_select "td a", text: contacts(:three).full_name 
 
-        assert_links_to edit_user_path(users(:one))
+        assert_links_to edit_contact_path(contacts(:one))
       end
       
     end
@@ -25,10 +25,10 @@ class PhoneNumbersControllerTest < ActionController::TestCase
       should "show list of phone numbers, only those belonging to list" do
         get :index, list_id: @list.id
         assert_template 'index'
-        assert_select "td a", text: users(:one).full_name 
-        assert_select "td a", text: users(:three).full_name, count: 0
+        assert_select "td a", text: contacts(:one).full_name 
+        assert_select "td a", text: contacts(:three).full_name, count: 0
 
-        assert_links_to edit_list_user_path(@list, users(:one))
+        assert_links_to edit_list_contact_path(@list, contacts(:one))
       end      
     end
   end

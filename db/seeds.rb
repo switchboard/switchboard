@@ -6,7 +6,7 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
 
-admin = User.create! do |u|
+admin = Contact.create! do |u|
   u.login = 'admin'
   u.password = 'admin!'
   u.password_confirmation = 'admin!'

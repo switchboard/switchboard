@@ -12,8 +12,8 @@ module ApplicationHelper
     @list ? new_list_message_path(@list) : '/admin/compose'
   end
 
-  def add_user_link
-    @list ? new_list_user_path(@list) : new_user_path
+  def add_contact_link
+    @list ? new_list_contact_path(@list) : new_contact_path
   end
 
   def show_spinner(id)

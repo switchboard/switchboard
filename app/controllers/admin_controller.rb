@@ -6,18 +6,18 @@ class AdminController < ApplicationController
 
   def add_member
     error_objs = []
-    ps = params[:user]
+    ps = params[:contact]
     number = ps.delete('phone')
     ps[:password] = 'user!'
     ps[:password_confirmation] = 'user!'
     @list = List.find(ps.delete('list_id'))
     @phone = PhoneNumber.find_by_number(number) if !number.empty?
-    if @phone.nil? or @phone.user.nil?
-      @user = User.new(ps)
-      if @user.save
-        @phone = PhoneNumber.create(:number => number, :user => @user)
+    if @phone.nil? or @phone.contact.nil?
+      @contact = Contact.new(ps)
+      if @contact.save
+        @phone = PhoneNumber.create(:number => number, :contact => @contact)
       else
-        error_objs << @user
+        error_objs << @contact
       end
     end
     if error_objs.empty? and @phone.save
