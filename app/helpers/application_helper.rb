@@ -4,6 +4,10 @@ module ApplicationHelper
     return "active" if link.match(/^#{Regexp.escape(request.path)}$/i)
   end
 
+  def page_title(str)
+    @title = @page_title = str
+  end
+
   def dashboard_link
     @list ? list_path(@list) : '/admin/manage'
   end

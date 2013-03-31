@@ -1,8 +1,3 @@
 %ul
-  %li 
-    %a{:href =>'#'} About Switchboard
-  %li 
-    %a{:href =>'#'} Help
-- if @current_user
-  #logout
-    = link_to 'Logout', :action => 'destroy', :controller => 'user_sessions'
+- if current_user
+  #logout= link_to 'Sign out', signout_path

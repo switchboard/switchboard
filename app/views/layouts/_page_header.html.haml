@@ -1,19 +1,7 @@
 #masthead
-  = image_tag 'logo.png'
-  %h1.logo SWITCHBOARD
+  %h1.logo= link_to 'Switchboard', '/'
 
   #masthead_dynamic
     #current_list
-    - if @current_user != nil
-      Welcome, admin!  
-      - if @list != nil
-        You are messaging with members of 
-      - else 
-        Who do you want to message with?  
-
-      %select#listSelect
-        - if @list == nil
-          %option{ :name=> "Select a list" , :value => 0 } SELECT A LIST
-        = select_list("admin", "show", @list ? @list.id : 0 )
-    - else
-      Please log in below.
+    - if current_user
+      Welcome, #{current_user.name}!  

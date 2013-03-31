@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_user
   layout 'admin'
 
   def new

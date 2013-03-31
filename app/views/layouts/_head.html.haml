@@ -1,5 +1,5 @@
 %head
-  %meta{"http-equiv"=>"Content-Type", :content=>"application/xhtml+xml;charset=utf-8"}
+  %meta{"http-equiv"=>"Content-Type", content: "application/xhtml+xml;charset=utf-8"}
   = stylesheet_link_tag 'application'
   = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Geo&v1', media: 'screen'
   = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700', media: 'screen'
@@ -11,3 +11,4 @@
 
   = javascript_include_tag 'application'
   = csrf_meta_tag 
+  %title= (@page_title ? "#{@page_title} | " : '')  + 'Switchboard'

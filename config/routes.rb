@@ -1,14 +1,16 @@
 Switchboard::Application.routes.draw do
   resources :gateways
-
   resources :service_phone_numbers
 
-  resource :user_sessions
+  get  '/signin' => 'sessions#new',    as: :signin
+  post '/signin' => 'sessions#create', as: :signin
+  get '/signout' => 'sessions#destroy', as: :signout
 
-  match 'login' => "user_sessions#new", :as => :login
-  match 'logout' => "user_sessions#destroy", :as => :logout
+  get '/auth/:provider/callback' => 'providers#create'
+  get '/auth/failure' => 'providers#failure'
+  resources :password_resets, except: [:show, :destroy]
 
-  resource :accounts
+
   resources :lists do
     resources :contacts
     resources :phone_numbers

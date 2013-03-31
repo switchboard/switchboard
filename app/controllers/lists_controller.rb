@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_user
   layout 'admin'
 
   def new
@@ -16,10 +16,6 @@ class ListsController < ApplicationController
       flash.now[:notice] = "There was a problem creating your list."
       render :new
     end
-  end
-
-  def import
-    @title = "Import Contacts"
   end
 
   def show
@@ -48,7 +44,9 @@ class ListsController < ApplicationController
   end
 
   def import
+    @title = "Import Contacts"
   end
+
 
   def upload_csv
     if @list.update_attributes(params[:list])

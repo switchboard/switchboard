@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_user
   layout 'admin'
 
   def new
@@ -29,13 +29,7 @@ class ContactsController < ApplicationController
     end
   end
 
-  def show
-    @title = "Show Contact"
-    @contact = Contact.find(params[:id])
-  end
-
   def edit
-    @title = "Edit Contact"
     @contact = Contact.find(params[:id])
   end
 

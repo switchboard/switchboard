@@ -11,8 +11,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def login_as(user)
-    activate_authlogic
-    @controller.stubs(:current_user).returns(user ? users(user) : nil)
+    @request.cookies[:auth_token] = (user ? users(user).auth_token : nil)
   end
 
   def assert_links_to(href, content=nil,message=nil)

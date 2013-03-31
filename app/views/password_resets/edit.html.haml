@@ -1,0 +1,11 @@
+- page_title 'Update your password'
+
+#password_reset
+  %h1 Update your password
+  .section
+    .form_note
+      %p Forget your password? Enter a new password below to reset it.
+    = custom_form_for @user, url: password_reset_path(params[:id]) do |f|
+      = f.input :password, label: 'Password', required: true, input_html: {autofocus: true}, hint: 'At least 6 characters', wrapper_html: {class: 'col1'}
+      = f.input :password_confirmation, label: 'Confirm your password', required: true, wrapper_html: {class: 'col2'}
+      = f.button :submit, 'Update password', class: "primary", disable_with: 'Wait...'

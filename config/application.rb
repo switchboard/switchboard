@@ -20,6 +20,7 @@ module Switchboard
 
     config.autoload_paths += [
       config.root.join('lib'),
+      config.root.join('lib/validators'),
       config.root.join('lib/switchboard')
     ]
 

@@ -36,10 +36,17 @@ body
 
 #masthead
   width: 811px
-
-.logo
-  display: none
-
+  background: image-url('logo.png') 0 0 no-repeat
+  height: 171px
+.logo a
+  display: block
+  overflow: hidden
+  width: 811px
+  height: 0
+  padding-top: 140px
+  &:hover
+    background-color: transparent!important
+  
 #content-container
   font-family: 'Quattrocento Sans', DINPro, Arial, sans-serif
   //text-transform: uppercase

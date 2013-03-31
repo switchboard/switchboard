@@ -31,6 +31,13 @@ gem 'kaminari'
 gem 'paperclip'
 gem 'airbrake'
 
+# Authorization
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+gem 'bcrypt-ruby'
+
+
 group :development do
   gem 'sextant'
   gem "capistrano"

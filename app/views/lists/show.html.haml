@@ -1,13 +1,14 @@
-- content_for :main_box_content do
+- page_title @list.name
 
+- content_for :main_box_content do
 
   %p What do you want to do?
   
   #vertical_menu
     %p= link_to 'Send a message', new_list_message_path(@list)
     %p= link_to 'Show subscribers', list_phone_numbers_path(@list)
-    %p= link_to 'Add a user', new_list_user_path(@list)
-    %p= link_to 'Import users', import_list_path(@list)
+    %p= link_to 'Add a contact', new_list_contact_path(@list)
+    %p= link_to 'Import contacts', import_list_path(@list)
     %p= link_to 'Change list settings', edit_list_path(@list)
     %p= link_to 'Manage surveys', "/surveys"
     %p= link_to 'Delete list', list_path(@list), method: :delete, confirm: "Are you sure you want to permanently delete the list #{@list.name}?"
