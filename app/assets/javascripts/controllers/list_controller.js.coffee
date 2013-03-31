@@ -3,6 +3,7 @@ class Switchboard.ListController extends Spine.Controller
 
   events:
     'change #list_use_welcome_message': 'check_welcome_message'
+    'keyup #list_name': 'capitalize_list_name'
     'change #list_name': 'check_list_name'
 
   constructor: ->
@@ -17,6 +18,12 @@ class Switchboard.ListController extends Spine.Controller
       else
         $welcome_div.hide()
 
+  capitalize_list_name: (e) ->
+    $name = $(e.target)
+    name = $name.val().replace(' ', '').toUpperCase()
+    if name != $name.val()
+      $name.val(name)
+      $name.trigger('change')
   check_list_name: (e) ->
     list_name = $(e.target).val()
     if(list_name.length > 0)

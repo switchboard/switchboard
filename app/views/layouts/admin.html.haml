@@ -12,7 +12,8 @@
               - if @list
                 = link_to "List: #{@list.name}", list_path(@list.id)
               - if @title
-                |
+                - if @list
+                  |
                 = @title
             - if content_for?(:main_box_content)
               = yield :main_box_content

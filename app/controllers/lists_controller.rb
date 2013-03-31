@@ -69,7 +69,7 @@ class ListsController < ApplicationController
     if params[:name] =~ /\s+/
       avail_message = "List name cannot contain spaces!"
     else
-      avail_message = List.find_by_name(params[:name].upcase) ? "Not Available." : "Available!"
+      avail_message = List.find_by_name(params[:name].upcase) ? "That name is already being used." : ''
     end
     render text: avail_message
   end

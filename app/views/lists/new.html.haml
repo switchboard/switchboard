@@ -1,5 +1,4 @@
 - content_for :main_box_content do
-  %h2 Create a new List
 
   = custom_form_for(@new_list, html: {class: 'form-vertical'}) do |f|
     = f.input :name, label: 'List name (cannot contain spaces)', required: true, input_html: {autocomplete: 'off' }
