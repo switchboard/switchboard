@@ -5,5 +5,5 @@ two:
   list: one
   phone_number: two
 three:
-  list: two
-  phone_number: one
+  list: org_two_list
+  phone_number: three

@@ -1,15 +1,15 @@
 - page_title 'Lists'
 
 #show_members
-  %h4 Select a list below:
+  %p Lists for #{current_organization.name}:
   %p
-    #show_member_list
-      / - if @list.list_type == 'announcement'
-      /  * checkbox indicates approved sender
-      %table#list_list.default.linked
-        %thead
-          %th
-          %th.num Contacts
-          %th.num Messages
-        %tbody
-          = render @lists
+  #show_member_list
+    / - if @list.list_type == 'announcement'
+    /  * checkbox indicates approved sender
+    %table#list_list.default.linked
+      %thead
+        %th
+        %th.num Contacts
+        %th.num Messages
+      %tbody
+        = render @lists

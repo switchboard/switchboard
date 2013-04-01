@@ -1,0 +1,28 @@
+%h1= @organization.name
+
+%h2 Organization users
+
+%table#user_list.default
+  %tbody
+    = render partial: 'organizations/user', collection: @users
+= paginate @users
+
+
+%h2 Invite a user
+
+= custom_form_for(:invitation, url: invite_organization_path(@organization), html: {class: 'form-vertical general_form'}) do |f|
+  = f.input :email, label: 'Email to invite', required: true
+  = f.button :submit, 'Invite user'
+
+- if current_user.accessible_organizations.size > 1
+
+  %h2 Switch organization
+  
+  %p You're a member of multiple organizations. Switch organizations to access other lists.
+  %ul.organizations
+    - current_user.accessible_organizations.order(:name).each do |org|
+      %li
+        - if current_organization == org
+          = "#{org.name} [current]"
+        - else
+          = link_to "#{org.name} &rarr;".html_safe, switch_organization_path(org)

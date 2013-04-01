@@ -2,7 +2,6 @@ require 'test_helper'
 
 class PasswordResetsControllerTest < ActionController::TestCase
 
-        
   context "requesting a new password" do
     should "render new template" do
       get :new
@@ -21,7 +20,7 @@ class PasswordResetsControllerTest < ActionController::TestCase
       assert !ActionMailer::Base.deliveries.empty?
     end
   end
-  
+
   context "resetting password" do
     should "show password form" do
       @user = users(:admin_two)

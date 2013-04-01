@@ -8,6 +8,7 @@ class Messages::TwilioControllerTest < ActionController::TestCase
         post :create, message_params
       end
     end
+
     should 'set params on new message and queue it' do
       post :create, message_params
 
@@ -16,6 +17,11 @@ class Messages::TwilioControllerTest < ActionController::TestCase
       assert twilio_message.from == message_params['From']
       assert twilio_message.to == message_params['To']
       assert twilio_message.message_state == message_states(:incoming)
+    end
+
+    should 'not render a layout' do
+      post :create, message_params
+      assert response.body == 'OK'
     end
   end
 

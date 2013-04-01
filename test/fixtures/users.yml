@@ -4,9 +4,13 @@ admin:
   password_digest: $2a$10$h9.1Kz705.59UZUVs.vXp.PyrhnCw16JJkXBv267IxqT49xy3iKgW # testtest
   auth_token: admin
   superuser: true
+  organizations: one
+  default_organization: one
 admin_two:
   name: "John Admin"
   email: admin2@example.com
   password_digest: $2a$10$h9.1Kz705.59UZUVs.vXp.PyrhnCw16JJkXBv267IxqT49xy3iKgW # testtest
   auth_token: admin_two
   superuser: true
+  organizations: one, two
+  default_organization: two

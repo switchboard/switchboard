@@ -20,6 +20,10 @@ class Message < ActiveRecord::Base
     where(message_state_id: state_id)
   end
 
+  def self.handled
+    in_state(MessageState.find_by_name('handled').id)
+  end
+
   def self.most_recent(count)
     in_state(3).limit(count)
   end

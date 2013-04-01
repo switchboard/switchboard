@@ -1,0 +1,15 @@
+- page_title 'My Profile'
+
+%h1 My Profile
+= custom_form_for @user, url: edit_profile_path, html: { class: 'form-vertical user_edit'} do |f|
+  
+  = f.input :name, required: true
+  = f.input :email, required: true
+
+  %h3 Change your password
+  %p Leave fields blank to keep current password
+  = f.input :password, required: false
+  = f.input :password_confirmation, required: false, label: 'Password Confirmation', hint: 'Enter it again to confirm.'
+
+  = f.button :submit, 'Save my changes'
+  

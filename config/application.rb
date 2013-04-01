@@ -66,5 +66,10 @@ module Switchboard
     config.assets.version = '1.0'
  
     config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
+
+    config.generators do |g|
+      g.assets false
+      g.helper false
+    end
   end
 end

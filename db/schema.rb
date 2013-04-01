@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331150707) do
+ActiveRecord::Schema.define(:version => 20130401135422) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -52,6 +52,14 @@ ActiveRecord::Schema.define(:version => 20130331150707) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "invitations", :force => true do |t|
+    t.string   "email"
+    t.string   "token"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
     t.integer  "phone_number_id"
@@ -85,7 +93,10 @@ ActiveRecord::Schema.define(:version => 20130331150707) do
     t.string   "csv_file_content_type"
     t.integer  "csv_file_file_size"
     t.datetime "csv_file_updated_at"
+    t.integer  "organization_id"
   end
+
+  add_index "lists", ["organization_id"], :name => "index_lists_on_organization_id"
 
   create_table "message_states", :force => true do |t|
     t.string   "name"
@@ -107,6 +118,19 @@ ActiveRecord::Schema.define(:version => 20130331150707) do
     t.integer  "sender_id"
     t.integer  "recipient_id"
   end
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "organizations_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "organization_id"
+  end
+
+  add_index "organizations_users", ["user_id"], :name => "index_organizations_users_on_user_id"
 
   create_table "phone_message_boxes", :force => true do |t|
     t.string   "name"
@@ -201,8 +225,9 @@ ActiveRecord::Schema.define(:version => 20130331150707) do
     t.datetime "password_reset_sent_at"
     t.string   "auth_token"
     t.boolean  "superuser"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.integer  "default_organization_id"
   end
 
 end

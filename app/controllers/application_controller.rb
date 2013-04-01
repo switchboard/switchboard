@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :get_list
 
+  helper_method :current_user, :signed_in?, :current_organization
 
-  helper_method :current_user, :signed_in?
   # This is shared between auth & providers controller
   def sign_in(user, opts = {})
     if opts[:permanent]
@@ -33,7 +33,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-
   protected
 
   def current_user
@@ -59,10 +58,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_organization
+    @current_organization ||= begin
+      if current_user
+        current_user.default_organization
+      else
+        nil
+      end
+    end
+  end
+
   private
 
   def get_list
-    @list = List.find_by_id(params[:list_id] || params[:id])
+    return nil unless current_organization && (params[:list_id] || params[:id])
+    @list = current_organization.lists.find_by_id(params[:list_id] || params[:id])
   end
 
 end

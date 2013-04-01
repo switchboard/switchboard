@@ -1,10 +1,10 @@
 #buttons
   %ul.main-menu
     %li
-      %a.message{:href => compose_message_link}
+      %a.message{href: @list ? new_list_message_path(@list) : "javascript:alert('Select a list before composing a message.')"}
         %span + NEW MESSAGE
     %li
-      %a.user{:href => add_contact_link}
+      %a.user{href: @list ? new_list_contact_path(@list) : "javascript:alert('Select a list before adding a contact.')"}
         %span + NEW USER
     %li
       #menu

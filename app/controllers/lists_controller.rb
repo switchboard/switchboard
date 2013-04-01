@@ -1,15 +1,13 @@
-class ListsController < ApplicationController
-  before_filter :require_user
-  layout 'admin'
+class ListsController < AdminController
 
   def new
     @title = "Create List"
-    @new_list = List.new
+    @new_list = current_organization.lists.build
   end
 
   def create
     @title = "Create List"
-    @new_list = List.create(params[:list])
+    @new_list = current_organization.lists.build(params[:list])
     if @new_list.save
       redirect_to list_url(@new_list), notice: 'Your list has been created!'
     else
@@ -26,7 +24,7 @@ class ListsController < ApplicationController
   end
 
   def index
-    @lists = List.order(:name)
+    @lists = current_organization.lists.order(:name)
   end
 
 
@@ -46,7 +44,6 @@ class ListsController < ApplicationController
   def import
     @title = "Import Contacts"
   end
-
 
   def upload_csv
     if @list.update_attributes(params[:list])

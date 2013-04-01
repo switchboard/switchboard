@@ -4,4 +4,7 @@
   #masthead_dynamic
     #current_list
     - if current_user
-      Welcome, #{current_user.name}!  
+      Hi,
+      = link_to current_user.name, edit_profile_path
+      = ' | '
+      = link_to current_organization.name, current_organization

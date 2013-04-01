@@ -10,6 +10,11 @@ Switchboard::Application.routes.draw do
   get '/auth/failure' => 'providers#failure'
   resources :password_resets, except: [:show, :destroy]
 
+  get '/profile'      => 'profiles#show'
+  get '/profile/edit' => 'profiles#edit',   as: :edit_profile
+  put '/profile/edit' => 'profiles#update', as: :edit_profile
+  get  '/register/invite/:invitation_token' => 'registration#new_invited',    as: :registration_invited
+  post '/register/:invitation_token' => 'registration#create', as: :registration
 
   resources :lists do
     resources :contacts
@@ -29,6 +34,13 @@ Switchboard::Application.routes.draw do
   match 'send_message/:list_id' => 'messages#send_message', via: :post, as: 'send_message'
   resources :contacts
   resources :phone_numbers, only: [:index]
+
+  resources :organizations, only: [:show, :create, :edit] do
+    member do
+      post '/invite' => 'organizations#invite'
+      get '/switch' => 'organizations#switch'
+    end
+  end
 
   namespace :messages do
     post '/twilio/create' => 'twilio#create'

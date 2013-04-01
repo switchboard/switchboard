@@ -37,8 +37,8 @@ HERE
     ) 
   end
 
-  def link_to_remove_member(member, list_id)
-    link_to image_tag('icons/16/remove.png'), url_for({controller: 'admin', action: 'remove_member', list_id: list_id, number_id: member.id}), remote: true, method: :delete
+  def link_to_remove_member(phone_number, list_id)
+    link_to image_tag('icons/16/remove.png'), list_phone_number_path(list_id: list_id, id: phone_number.id), remote: true, method: :delete
   end
 
   def link_to_remove_survey(survey)
@@ -66,17 +66,6 @@ HERE
       @list = List.find(params[:selected_list])
       render :partial => 'lists/edit'
     end
-  end
-
-  def flash_js(flash) 
-    puts "in flash_js, andflash is: " + flash.to_s
-    js = ""
-    flash.each do |key, msg| 
-      js << jsnotify(msg, key, true) 
-     # js << "$j().toastmessage('showSuccessToast', \"This is a test: #{msg}.\");"
-    end
-    puts "returning js: " + js
-    return js
   end
 
 #  def select_list_members(memberships)

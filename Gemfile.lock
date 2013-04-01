@@ -33,9 +33,6 @@ GEM
       builder
       json
     arel (3.0.2)
-    authlogic (3.1.0)
-      activerecord (>= 3.0.7)
-      activerecord (>= 3.0.7)
     autotest-fsevent (0.2.8)
       sys-uname
     autotest-growl (0.2.16)
@@ -232,7 +229,6 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
-  authlogic
   autotest-fsevent
   autotest-growl
   autotest-rails-pure

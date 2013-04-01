@@ -24,7 +24,6 @@ end
 
 gem 'jquery-rails'
 gem 'spine-rails'
-gem 'authlogic'
 gem 'dynamic_form'
 gem 'simple_form'
 gem 'kaminari'

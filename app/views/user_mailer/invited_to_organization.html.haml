@@ -1,0 +1,5 @@
+%p Hi! You've been invited to sign up a Switchboard account with #{@organization.name}.
+
+%p
+  Click this link to sign up:
+  = link_to registration_invited_url(@invitation.token), registration_invited_url(@invitation.token)

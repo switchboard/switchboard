@@ -1,6 +1,4 @@
-class SurveysController < ApplicationController
-  before_filter :require_user
-  layout 'admin'
+class SurveysController < AdminController
 
   def new
     @title = "Create Survey"

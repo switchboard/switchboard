@@ -5,15 +5,11 @@ module ApplicationHelper
   end
 
   def page_title(str)
-    @title = @page_title = str
+    @page_title = str
   end
 
   def dashboard_link
     @list ? list_path(@list) : '/admin/manage'
-  end
-
-  def compose_message_link
-    @list ? new_list_message_path(@list) : '/admin/compose'
   end
 
   def add_contact_link

@@ -1,0 +1,12 @@
+%h1 Sign up for Switchboard
+%p You were invited to join #{@invitation.organization.name} on Switchboard.
+= custom_form_for @user, url: registration_path(@invitation.token), html: { class: 'form-vertical user_edit general_form'} do |f|
+  = f.input :name, required: true
+  = f.input :email
+
+  %h3 Set your password
+  = f.input :password, required: true
+  = f.input :password_confirmation, required: true, label: 'Password Confirmation', hint: 'Enter it again to confirm.'
+
+  = f.button :submit, 'Create my account'
+  

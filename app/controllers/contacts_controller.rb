@@ -1,6 +1,4 @@
-class ContactsController < ApplicationController
-  before_filter :require_user
-  layout 'admin'
+class ContactsController < AdminController
 
   def new
     @title = "Add Contact"

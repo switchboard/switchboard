@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :current_password
 
   has_many :authorizations, dependent: :destroy
+  has_and_belongs_to_many :organizations, after_add: :assure_default_organization
+  belongs_to :default_organization, class_name: 'Organization'
 
   attr_accessor :current_password
 
@@ -30,6 +32,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def accessible_organizations
+    superuser? ? Organization.scoped : organizations
+  end
+
   def send_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
@@ -42,10 +48,11 @@ class User < ActiveRecord::Base
     update_attribute(:auth_token, self.auth_token)
   end
 
-  def generate_token(column)
-    begin
-      self[column] = SecureRandom.urlsafe_base64(32)
-    end while User.exists?(column => self[column])
+  private
+  
+  def assure_default_organization(added_org)
+    if ! default_organization
+      update_column(:default_organization_id, added_org.id)
+    end
   end
-
 end

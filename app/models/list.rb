@@ -5,7 +5,8 @@ class List < ActiveRecord::Base
   has_many :list_memberships
   has_many :phone_numbers, :through => :list_memberships
 
-  has_many :messages, :order => "created_at DESC"
+  has_many :messages, order: 'created_at DESC'
+  belongs_to :organization
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
   attr_accessible :use_welcome_message, :welcome_message, :incoming_number
@@ -15,9 +16,9 @@ class List < ActiveRecord::Base
 
 
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
+  validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
-
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?

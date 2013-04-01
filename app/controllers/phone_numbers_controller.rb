@@ -1,17 +1,16 @@
-class PhoneNumbersController < ApplicationController
-  before_filter :require_user
-  layout 'admin'
+class PhoneNumbersController < AdminController
   
   def new
     @contact = Contact.new
   end
 
   def index
-    @title = 'List Membership'
     if @list
+      @title = 'List Membership'
       @phone_numbers = @list.phone_numbers
     else
-      @phone_numbers = PhoneNumber
+      @title = "Members for all your organization's lists"
+      @phone_numbers = PhoneNumber.joins(:lists => :organization).where('organizations.id' => current_organization.id)
     end
     @phone_numbers = @phone_numbers.order('updated_at desc').page(params[:page]).per(13)
   end
@@ -27,7 +26,12 @@ class PhoneNumbersController < ApplicationController
   def edit
     @contact = @current_user
   end
-  
+
+  def destroy
+    @number = PhoneNumber.find(params[:id])
+    @list.remove_phone_number(@number)
+  end
+
   def update
     @contact = @current_user # makes our views "cleaner" and more consistent
     if @contact.update_attributes(params[:contact])
