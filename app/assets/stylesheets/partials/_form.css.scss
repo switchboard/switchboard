@@ -49,6 +49,8 @@ form {
     margin: 1em 0 .5em;
     font-size: 16px!important;
     color: $grayDark!important;
+    float: none!important;
+    display: block;
   }
 
   .input.string input,
