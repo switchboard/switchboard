@@ -30,6 +30,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/config/settings-production.yml #{release_path}/config/settings/production.yml"
     run "ln -nfs #{shared_path}/config/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
+    run "ln -nfs #{shared_path}/config/aaa_staging_settings.rb #{release_path}/config/initializers/aaa_staging_settings.rb"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
   
