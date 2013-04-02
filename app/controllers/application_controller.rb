@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :get_list
 
   helper_method :current_user, :signed_in?, :current_organization
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   # This is shared between auth & providers controller
   def sign_in(user, opts = {})
@@ -68,11 +69,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def render_404
+    respond_to do |type| 
+      type.html { render file: Rails.public_path + '/404', formats: [:html], status: 404, layout: false } 
+      type.all  { render nothing: true, status: 404 } 
+    end
+    true  # so we can return "render_404"
+  end
+
   private
 
   def get_list
-    return nil unless current_organization && (params[:list_id] || params[:id])
-    @list = current_organization.lists.find_by_id(params[:list_id] || params[:id])
+    return nil unless current_organization && params[:list_id]
+    @list = current_organization.lists.find_by_id(params[:list_id])
   end
 
 end

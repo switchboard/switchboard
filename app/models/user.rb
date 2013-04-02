@@ -8,13 +8,13 @@ class User < ActiveRecord::Base
   attr_accessor :current_password
 
   validates :name, presence: true
-  validates :email, presence: true, confirmation: true, email_format: true, uniqueness: { message: "There was a problem creating an account with that email address; maybe you already have an account?"}
+  validates :email, presence: true, email_format: true, uniqueness: { message: "There was a problem creating an account with that email address; maybe you already have an account?"}
 
   validates :password, {
-    :presence => true,
-    :confirmation => true,
-    :length => {:minimum => 6, :allow_blank => false},
-    :if => Proc.new { |u| u.new_record? || u.current_password.present? || u.password_reset_token.present? }
+    presence: true,
+    confirmation: true,
+    length: {minimum: 6, allow_blank: false},
+    if: Proc.new { |u| u.new_record? || u.current_password.present? || u.password_reset_token.present? }
   }
 
   has_secure_password

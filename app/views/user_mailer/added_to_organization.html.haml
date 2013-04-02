@@ -1,0 +1,11 @@
+%p Hi! You've been added to a new organization on Switchboard: #{@organization.name}.
+
+%p Now you'll be able to access lists and messages under #{@organization.name}.
+
+%p
+  Click this link to switch to this organization:
+  = link_to switch_organization_url(@organization), switch_organization_url(@organization)
+
+%p You can always switch between your organizations by clicking the organization link in the top right.
+
+%p -- Switchboard

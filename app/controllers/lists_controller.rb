@@ -1,5 +1,7 @@
 class ListsController < AdminController
+  skip_before_filter :get_list
 
+  # Have to use @new_list because @list is used for routes in admin layout
   def new
     @title = "Create List"
     @new_list = current_organization.lists.build
@@ -17,9 +19,11 @@ class ListsController < AdminController
   end
 
   def show
+    @list = current_organization.lists.find(params[:id])
   end
 
   def edit
+    @list = current_organization.lists.find(params[:id])
     @title = "Configure List"
   end
 
@@ -29,11 +33,13 @@ class ListsController < AdminController
 
 
   def destroy
+    @list = current_organization.lists.find(params[:id])
     @list.destroy
     redirect_to lists_path, notice: "The list #{@list.name} was deleted."
   end
 
   def update
+    @list = current_organization.lists.find(params[:id])
     if @list.update_attributes(params[:list])
       redirect_to list_path(@list), notice: 'Your list configuration was updated.'
     else
@@ -42,10 +48,12 @@ class ListsController < AdminController
   end
 
   def import
+    @list = current_organization.lists.find(params[:id])
     @title = "Import Contacts"
   end
 
   def upload_csv
+    @list = current_organization.lists.find(params[:id])
     if @list.update_attributes(params[:list])
       results = @list.import_from_attachment
       @errors = results[:errors]

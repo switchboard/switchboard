@@ -18,6 +18,6 @@ class ActiveSupport::TestCase
   end
 
   def assert_does_not_link_to(href, content=nil,message=nil)
-    assert_tag tag: 'a', content: content, attributes: { href: href }, count: 0
+    assert_no_tag tag: 'a', content: content, attributes: { href: href }
   end
 end
