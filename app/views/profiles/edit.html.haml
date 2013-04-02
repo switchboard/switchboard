@@ -1,7 +1,7 @@
 - page_title 'My Profile'
 
 %h1 My Profile
-= custom_form_for @user, url: edit_profile_path, html: { class: 'form-vertical user_edit'} do |f|
+= custom_form_for @user, url: edit_profile_path, html: { class: 'form-vertical user_edit general_form'} do |f|
   
   = f.input :name, required: true
   = f.input :email, required: true
