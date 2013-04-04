@@ -121,6 +121,8 @@ module Switchboard::MessageHandlers::Incoming
           puts("e: " + e.to_s )
 
           Rails.logger.warn("exception while processing message")
+          Rails.logger.warn("error was: " + e.inspect )
+          Rails.logger.warn("error backtrace: " + e.backtrace.inspect )
           error_state.messages.push(message)
           error_state.save
         end
