@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   attr_accessible :name
-  has_many :lists, dependent: :destroy
+  has_many :lists, dependent: :destroy, order: :name
   has_many :messages, through: :lists, order: 'created_at DESC'
   has_many :invitations
   has_and_belongs_to_many :users

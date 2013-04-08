@@ -1,0 +1,56 @@
+@import "compass/utilities";
+
+ul#main_menu {
+  /* Thanks, Paul. */
+  * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  
+  @include clearfix;
+  $menuBackground: #353535;
+  $menuHeight: 34px;
+  background: $menuBackground;
+  height: $menuHeight;
+  font-size: 17px;
+  li {
+    display: inline;
+  }
+  li a, li span {
+    color: #fff;
+    float: left;
+    padding: 9px 10px 0;
+    height: $menuHeight;
+    &:hover {
+      background-color: #ff6525!important;
+    }
+  }
+  li.lists {
+    > a,
+    > span {
+      font-weight: bold;
+      background-color: #01acde;
+      padding-left: 12px;
+      padding-right: 12px;
+      border-right: 2px solid #fff;
+      &:hover {
+        background-color: #bde5f1!important;
+        color: $menuBackground;
+      }
+    }
+    ul {
+      background: $menuBackground!important;
+      display: none;
+      position: absolute;
+      margin-top: $menuHeight;
+      a {
+        clear: left;
+        width: 100%;
+        &:hover {
+          background-color: #bde5f1!important;
+          color: $menuBackground;
+        }
+      }
+    }
+    &:hover ul {
+      display: block;
+    }
+  }
+}

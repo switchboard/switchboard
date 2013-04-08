@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :get_list
 
-  helper_method :current_user, :signed_in?, :current_organization
+  helper_method :current_user, :signed_in?, :current_organization, :current_list
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   # This is shared between auth & providers controller
@@ -75,6 +75,10 @@ class ApplicationController < ActionController::Base
       type.all  { render nothing: true, status: 404 } 
     end
     true  # so we can return "render_404"
+  end
+
+  def current_list
+    @list
   end
 
   private

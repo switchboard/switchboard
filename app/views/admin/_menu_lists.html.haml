@@ -1,0 +1,13 @@
+%ul#main_menu
+  %li.lists
+    - if current_list
+      = link_to current_list.name, current_list
+    - else
+      %span Select a list
+    %ul
+      - current_organization.lists.each do |list|
+        %li= link_to list.name, list
+  - if current_list
+    %li= menu_item 'Settings', edit_list_path(@list), (controller_name == 'lists' && controller.action_name == 'edit')
+    %li= menu_item 'Members', list_phone_numbers_path(@list), (controller_name == 'phone_numbers')
+    %li= menu_item 'Messages', list_messages_path(@list), controller_name == 'messages'

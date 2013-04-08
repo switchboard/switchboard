@@ -8,6 +8,14 @@ module ApplicationHelper
     @page_title = str
   end
 
+  def menu_item(link_text, url, current_if = false)
+    capture_haml do
+      haml_tag(:li, :<, class: current_if ? 'current' : nil) do
+        haml_concat link_to(link_text, url)
+      end
+    end
+  end
+
   def dashboard_link
     @list ? list_path(@list) : '/admin/manage'
   end
