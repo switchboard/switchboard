@@ -18,9 +18,10 @@ ul#main_menu {
     float: left;
     padding: 9px 10px 0;
     height: $menuHeight;
-    &:hover {
-      background-color: #ff6525!important;
-    }
+  }
+  li.current a,
+  li a:hover {
+    background-color: #ff6525!important;
   }
   li.lists {
     > a,
