@@ -10,10 +10,10 @@ Alongside the web application, there is a daemon that must be run alongside
 the web application to process incoming and outgoing messages.
 
 Run:
-  
-    script/switchboard_server_control 
 
-To run in development mode, run:
+    bundle exec script/daemon start switchboard_server
 
-    script/switchboard_server development
+To run in development mode, not daemonized, run:
+
+    RAILS_ENV=development bundle exec script/daemon run switchboard_server
 
