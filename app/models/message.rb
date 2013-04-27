@@ -50,9 +50,4 @@ class Message < ActiveRecord::Base
     end
   end
 
-  # get the name of the sender 
-  def from_for_display
-    PhoneNumber.find_by_number(from).try(:name_and_number)
-  end
-
 end

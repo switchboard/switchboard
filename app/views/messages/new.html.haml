@@ -1,10 +1,10 @@
 - content_for :main_box_content do
 
-  = form_tag send_message_url @list do
+  = custom_form_for(@message, url:  send_message_path(list_id: @list.id)) do |f|
     #message_body
-      = render :partial => 'message_body'
+      %h3 NEW MESSAGE
+      = f.input :body, as: :text, label: false, input_html: { id: 'message_body_textarea', size: '45x4', class: 'count_characters', 'data-meta-length' => @list.calculate_meta_length(PhoneNumber.new) }
+      / Using blank phone number; web messages currently have no 'from' number
+      %span#character_count{title: 'Length available after message prefix/suffix are added'}
     #message_button
       = image_submit_tag('send.png')
-    #waiting
-      = image_tag("horizontal_spinner.gif", :id => 'send_message_spinner', :style => 'display: none')
-

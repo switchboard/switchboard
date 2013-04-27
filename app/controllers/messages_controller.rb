@@ -1,9 +1,10 @@
 class MessagesController < ApplicationController
-  before_filter :require_user, :only => [:new, :index]
+  before_filter :require_user, :only => [:new, :index, :send_message]
   skip_before_filter :verify_authenticity_token
   layout 'admin'
 
   def new
+    @message = WebMessage.new
   end
 
   def index
@@ -18,7 +19,7 @@ class MessagesController < ApplicationController
     @list = List.find(params[:list_id])
     confirmed = true
     if confirmed
-      @message = WebMessage.new(:from => 'Web', :body => params[:message_body])
+      @message = WebMessage.new(:from => 'Web', :body => params[:body])
       @message.to = @list.id
       @message.list = @list
       if ( @message.save ) 

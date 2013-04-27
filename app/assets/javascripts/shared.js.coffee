@@ -3,11 +3,14 @@ window.Switchboard = {
     check_list_availability: '/lists/check_name_available'
 
   countMessageBody: (textarea) ->
+    max = 160
+    metadata_length = $(textarea).data('meta-length')
+    max = max - metadata_length if metadata_length
     charcount = textarea.value.length;
-    if (charcount > 140)
-      textarea.value = textarea.value.substring(0, 140)
+    if (charcount > max)
+      textarea.value = textarea.value.substring(0, max)
     else
-      $('#character_count').text("#{charcount} / 140")
+      $('#character_count').text("#{charcount} / #{max}")
 
 }
 
