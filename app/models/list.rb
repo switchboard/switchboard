@@ -149,8 +149,8 @@ class List < ActiveRecord::Base
     message_state.save!
   end
 
-  def name=(value)
-    self[:name] = value.upcase
+  def name=(str)
+    self[:name] = str.upcase
   end
 
   def incoming_number=(str)
@@ -158,51 +158,47 @@ class List < ActiveRecord::Base
   end
 
   def welcome_message
-    self.custom_welcome_message || self.default_welcome_message
+    custom_welcome_message || default_welcome_message
   end
 
-  def prepare_content(message, num)
-    ##?TODO: add config about initial list name prefix
+  def prepare_content(message, from_number)
     body = ''
+    body = "[#{name}] " if add_list_name_header?
 
-    if (self.add_list_name_header)
-      body = body + '[' + self[:name] + '] '
-    end
+    # Tokens are generated in message handler;
+    # (just an array of words, possibly minus keywords)
+    body << message.tokens.join(' ')
 
-    body = body + message.tokens.join(' ')
-    if (self.identify_sender && num.contact != nil && ! num.contact.full_name != ''  )
-      body += " (" + message.from_for_display + ")"
+    if identify_sender? && from_number.contact && from_number.contact.full_name.present?
+      body << " (#{message.from_for_display})"
     end
 
     body
   end
 
-  def handle_send_action(message, num)
-    message.list = self 
-    message.sender = num.contact
+  def handle_send_action(message, from_number)
+    message.list = self
+    message.sender = from_number.contact
     message.save
-    if (message.from_web? or self.all_users_can_send_messages? or self.number_is_admin?(num))
-      content = self.prepare_content(message, num)
+    if message.from_web? || all_users_can_send_messages? || number_is_admin?(from_number)
+      content = prepare_content(message, from_number)
       logger.info("sending message: " + content + ", to: " + self[:name])
-      self.phone_numbers.each do |phone_number|
-        content = prepare_content(message, num)
-        logger.debug("sending message: " + content + ", to: " + phone_number.number )
-        self.create_outgoing_message(phone_number, content)
+      phone_numbers.each do |phone_number|
+        content = prepare_content(message, from_number)
+        logger.debug("sending message: #{content}, to: #{phone_number.number}")
+        create_outgoing_message(phone_number, content)
       end
-    else
-      if (!self.admins.empty? and self.text_admin_with_response)
-        admin_msg = '[' + self[:name] + ' from '
-        admin_msg +=  num.number.to_s
 
-        if ( num.contact != nil and (! num.contact.first_name.blank?) )
-          admin_msg += "/ " + num.contact.first_name.to_s + " " + num.contact.last_name.to_s
-        end
+    elsif admins.any? && text_admin_with_response?
+      admin_msg = "[#{name}] from #{from_number.number}"
 
-        admin_msg += '] '
-        admin_msg += message.tokens.join(' ')
-        self.admins.each do |admin|
-          self.create_outgoing_message(admin, admin_msg )
-        end
+      if from_number.contact && from_number.contact.first_name.present?
+        admin_msg << "/ #{from_number.contact.first_name} #{from_number.contact.last_name}"
+      end
+
+      admin_msg << '] ' << message.tokens.join(' ')
+      admins.each do |admin|
+        create_outgoing_message(admin, admin_msg)
       end
     end
   end
