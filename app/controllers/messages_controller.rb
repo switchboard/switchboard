@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
   def send_message
     confirmed = true
     if confirmed
-      @message = WebMessage.new(:from => 'Web', :body => params[:body])
+      @message = WebMessage.new(:from => 'Web', :body => params[:web_message][:body])
       @message.to = @list.id
       @message.list = @list
       if ( @message.save ) 
