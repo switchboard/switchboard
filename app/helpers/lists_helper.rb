@@ -14,8 +14,7 @@ module ListsHelper
   #end
 
   def count_sent_messages(list)
-    sent_state = MessageState.find_by_name('sent')
-    list.messages.in_state(sent_state.id).length.to_s
+    list.messages.sent.size
   end
 
 end

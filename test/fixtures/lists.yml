@@ -1,12 +1,12 @@
 one:
-  name: MyList
+  name: MYLIST
   organization: one
   long_name: My Very Important List
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
   incoming_number: '2155551000'
-  use_incoming_keyword: true
+  use_incoming_keyword: false
   email_admin_with_response: true
   text_admin_with_response: false
   save_response_in_interface: true
@@ -18,7 +18,7 @@ one:
   add_list_name_header: false
   identify_sender: false
 two:
-  name: MySecondList
+  name: MYSECONDLIST
   organization: one
   long_name: My Very Important List
   allow_email_gateway: true
@@ -37,13 +37,13 @@ two:
   add_list_name_header: false
   identify_sender: false
 org_two_list:
-  name: OrganizationTwoList
+  name: ORGANIZATIONTWOLIST
   organization: two
   long_name: My Very Important List
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_number: '2155551001'
+  incoming_number: '2155551002'
   use_incoming_keyword: true
   email_admin_with_response: true
   text_admin_with_response: false

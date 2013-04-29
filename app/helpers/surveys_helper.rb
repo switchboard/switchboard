@@ -14,8 +14,7 @@ module SurveysHelper
   end
 
   def count_sent_messages(survey)
-    sent_state = MessageState.find_by_name('sent')
-    survey.messages.in_state(sent_state.id).to_s
+    survey.messages.sent.size
   end
 
 end

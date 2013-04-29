@@ -19,10 +19,10 @@ class MessagesController < ApplicationController
     confirmed = true
     if confirmed
       @message = WebMessage.new(:from => 'Web', :body => params[:web_message][:body])
-      @message.to = @list.id
+      # Not setting 'to' to list_id
+      # @message.to = @list.id
       @message.list = @list
       if ( @message.save ) 
-        MessageState.find_by_name("incoming").add_message(@message)
         flash[:notice] = "Message sent."
         redirect_to list_url(@list)
       else
@@ -42,8 +42,11 @@ class MessagesController < ApplicationController
   protected
 
   def queue_message
-    incoming = MessageState.find_or_create_by_name("incoming")
-    incoming.messages << @message
+    ## This is no longer necessary; messages are by default incoming
+    ## Leaving this because we may want to add processing job here
+
+    # incoming = MessageState.find_or_create_by_name("incoming")
+    # incoming.messages << @message
   end
 
   def authenticate

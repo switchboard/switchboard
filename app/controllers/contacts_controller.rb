@@ -22,8 +22,8 @@ class ContactsController < AdminController
 
     if @success
       if @list
-        @list.add_phone_number(@contact.phone_numbers.first)
-        redirect_path = list_phone_numbers_path(@list)
+        @list.list_memberships.create!(:phone_number_id => @contact.phone_numbers.first.id)
+        redirect_path = list_path(@list)
       else
         redirect_path = lists_path
       end
@@ -39,7 +39,7 @@ class ContactsController < AdminController
   end
 
   def update
-    @contact = Contact.find(params[:id]) # makes our views "cleaner" and more consistent
+    @contact = Contact.find(params[:id])
     if @contact.update_attributes(params[:contact])
       redirect_path = @list ? list_phone_numbers_path(@list) : lists_path
       redirect_to redirect_path, notice: 'Contact information updated.'

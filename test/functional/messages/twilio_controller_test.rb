@@ -16,7 +16,7 @@ class Messages::TwilioControllerTest < ActionController::TestCase
       assert twilio_message.body == message_params['Body']
       assert twilio_message.from == message_params['From']
       assert twilio_message.to == message_params['To']
-      assert twilio_message.message_state == message_states(:incoming)
+      assert twilio_message.incoming?
     end
 
     should 'not render a layout' do

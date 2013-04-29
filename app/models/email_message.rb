@@ -12,19 +12,18 @@ class EmailMessage < Message
   end
 
   def default_list
-    breakpoint
     tokens = self.to.split(/@/)
-    return tokens[0]
+    tokens[0]
   end
 
   def number
     tokens = self.from.split(/@/)
-    return tokens[0]
+    tokens[0]
   end
 
   def carrier
     tokens = self.from.split(/@/)
-    return tokens[1]
+    tokens[1]
   end
 
 end

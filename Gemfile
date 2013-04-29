@@ -26,6 +26,8 @@ gem 'simple_form'
 gem 'kaminari'
 gem 'paperclip'
 gem 'airbrake'
+gem 'resque'
+gem 'aasm'
 
 # Authorization
 gem 'omniauth'

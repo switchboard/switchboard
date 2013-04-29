@@ -19,23 +19,6 @@ class List < ActiveRecord::Base
   validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 
-  ##
-  ## TODO: decide if these receive objects or strings or are flexible?
-  ## for now: take objects
-
-  def add_phone_number(phone_number)
-    if has_number?(phone_number) || ! phone_number.try(:id)
-      Rails.logger.info("phone_number is ill formed in add_phone_number")
-      return
-    end
-
-    list_memberships.create! :phone_number_id => phone_number.id
-    if(self.use_welcome_message?)
-      Rails.logger.info("has welcome message, and creating outgoing message")
-      welcome_message = self.custom_welcome_message
-      create_outgoing_message( phone_number, welcome_message )
-    end
-  end
 
   def import_from_attachment
     raise 'CSV File was not uploaded' unless csv_file
@@ -57,7 +40,8 @@ class List < ActiveRecord::Base
           end
           phone_number = contact.phone_numbers.create!(number: number)
         end
-        add_phone_number(phone_number)
+        list_memberships.create!(phone_number_id: phone_number.id)
+
         success_count += 1
       rescue => exception
         errors << row.join(' ') + ': ' + exception.message
@@ -73,7 +57,7 @@ class List < ActiveRecord::Base
   end
 
   def has_number?(phone_number)
-    phone_number.try(:id) && list_memberships.exists?(phone_number_id: phone_number.id)
+    list_memberships.where(phone_number_id: phone_number.id).exists?
   end
 
   def admins
@@ -105,7 +89,7 @@ class List < ActiveRecord::Base
   end
 
   def most_recent_messages(count)
-    messages.where(message_state_id: MessageState.find_by_name('handled').id).limit(count)
+    messages.sent.limit(count)
   end
 
   def create_email_message(num)
@@ -122,9 +106,8 @@ class List < ActiveRecord::Base
   end
 
   def create_outgoing_message(num, body)
-    # once there are other external gateways, or not all phone numbers support the commercial gateway
-    # this gets more complicated
-
+    # once there are other external gateways, or not all phone numbers
+    # support the commercial gateway, this gets more complicated
     if ( num.can_receive_email? and self.allow_email_gateway? and
       ( (! self.allow_commercial_gateway?) or self.prefer_email ))
       message = create_email_message(num)
@@ -135,7 +118,6 @@ class List < ActiveRecord::Base
     end
 
     if self.incoming_number
-      Rails.logger.debug("sending message to list with incoming number: #{self.incoming_number}")
       message.from = self.incoming_number
     else
       Rails.logger.debug("no incoming number")
@@ -206,13 +188,13 @@ class List < ActiveRecord::Base
     messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
   end
 
-  def handle_send_action(message, from_number)
-    message.list = self
-    message.sender = from_number.contact
+  def handle_send_action(message)
+    # Not sure why we're doing this here
+    message.sender = message.from_phone_number.contact
     message.save
-    if message.from_web? || all_users_can_send_messages? || number_is_admin?(from_number)
+
+    if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
       message_split = prepare_content(message, from_number)
-      Rails.logger.info("Sending message: " + message_split.collect{|m| "'#{m}' [#{m.length}]"}.join(' / ') + ", to list: #{name}")
       phone_numbers.each do |phone_number|
         message_split.each do |body|
           create_outgoing_message(phone_number, body)
@@ -220,10 +202,10 @@ class List < ActiveRecord::Base
       end
 
     elsif admins.any? && text_admin_with_response?
-      admin_msg = "[#{name}] from #{from_number.number}"
+      admin_msg = "[#{name}] from #{message.from_phone_number.number}"
 
-      if from_number.contact && from_number.contact.first_name.present?
-        admin_msg << "/ #{from_number.contact.first_name} #{from_number.contact.last_name}"
+      if message.sender && message.sender.first_name.present?
+        admin_msg << "/ #{message.sender.full_name}"
       end
 
       admin_msg << '] ' << message.tokens.join(' ')
@@ -233,44 +215,30 @@ class List < ActiveRecord::Base
     end
   end
 
-  def handle_join_message(message, num)
-    Rails.logger.info(" ** Handling join message.\n")
-    if self.has_number?(num)
-      self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
-    else
-      if self.open_membership
-    	Rails.logger.info(" ** List is open, adding contact.")
-        message.list = self
-        if !num.contact
-          Rails.logger.info " ** Creating contact for num: " + num.number
-          num.contact = Contact.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
-          num.save!
-          num.contact.save!
-        end
-        self.add_phone_number(num)
+  def handle_join_message(message)
+    # Handle re-subscribing
+    if has_number?(message.from_phone_number)
+      create_outgoing_message(message.from_phone_number, "It seems like you are trying to join the list #{name}, but you are already a member.")
+    elsif open_membership?
 
-        message.sender = num.contact
-        message.save
-        self.save
-      else ## not list.open_membership
-        self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
+      # Not sure why we do this here necessarily
+      if ! message.from_phone_number.contact
+        contact = Contact.create()
+        contact.phone_numbers << message.from_phone_number
       end
+
+      list_memberships.create!(phone_number_id: message.phone_number.id)
+
+      # Not sure why we do this here, either.
+      message.sender = list.from_phone_number.contact
+      message.save
+    else
+      create_outgoing_message(message.from_phone_number, "Sorry, this list is configured as a private list; only the administrator can add new members.")
     end
   end
 
-  def self.top_five(options)
-    # how do we determine the top five lists? get random five for now!
-    topfive = List.limit(5)
-
-    if options[:remove_list_id]
-      topfive.where('id NOT IN (?)', options[:remove_list_id])
-    end
-
-    topfive
-  end
-
-  def self.more_than_five
-    List.count > 5
+  def send_welcome_message(phone_number)
+    create_outgoing_message( phone_number, welcome_message ) if use_welcome_message?
   end
 
   protected

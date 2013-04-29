@@ -4,29 +4,32 @@ class ListTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
   context 'importing a CSV file' do
+    setup do
+      ListMembership.any_instance.stubs(:send_welcome_message).returns(true)
+    end
+
     should 'handle rows with errors' do
 
       @list = lists(:one)
-      List.any_instance.stubs(:add_phone_number).returns(true)
+      assert_difference('@list.list_memberships.size', 3) do
+        @list.csv_file = fixture_file_upload('file_uploads/contact_csv_import_one_error.csv')
+        @list.save!
+        result = @list.import_from_attachment
+        assert result[:errors].length == 1
+      end
 
-      @list.csv_file = fixture_file_upload('file_uploads/contact_csv_import_one_error.csv')
-      @list.save!
-      result = @list.import_from_attachment
-
-      assert result[:errors].length == 1
     end
 
     should 'handle a successful CSV file' do
       @list = lists(:one)
-      List.any_instance.expects(:add_phone_number).times(4).returns(true)
 
-      @list.csv_file = fixture_file_upload('file_uploads/contact_csv_import_valid.csv')
-      @list.save!
-
-      result = @list.import_from_attachment
-
-      assert result[:errors].length == 0
-      assert result[:success_count] == 4
+      assert_difference('@list.list_memberships.size', 4) do
+        @list.csv_file = fixture_file_upload('file_uploads/contact_csv_import_valid.csv')
+        @list.save!
+        result = @list.import_from_attachment
+        assert result[:errors].length == 0
+        assert result[:success_count] == 4
+      end
 
       added_contact = Contact.find_by_email('pam@example.com')
       assert added_contact

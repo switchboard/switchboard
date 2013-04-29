@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Switchboard::Application.routes.draw do
   root to: 'pages#show', template: 'home'
 
@@ -57,5 +59,9 @@ Switchboard::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id))(.:format)'
- 
+
+  mount Resque::Server.new, at: "/resque"
+  # root :to => 'user_sessions#new'
+  root to: 'lists#index'
+
 end

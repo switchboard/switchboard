@@ -54,7 +54,6 @@ module Switchboard::MessageHandlers::Incoming
       messages_to_handle.each do |message|
         begin
           puts ("Handling incoming messages -- individual message")
-          message.tokens = message.body.split(/ /)
 
           number_string = message.sender_number
           number_string.sub!("+1", "")

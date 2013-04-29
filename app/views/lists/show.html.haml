@@ -24,5 +24,5 @@
     %br
     Messages this week: #{@list.messages.within_days(7).size}
     %br
-    Sent messages: #{@list.messages.in_state(4).size}
-
+    Sent messages: #{@list.messages.sent.size}
+    / TODO these numbers are not right now, or don't mean what they seem.
