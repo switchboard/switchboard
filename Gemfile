@@ -46,6 +46,8 @@ group :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'mocha', require: 'mocha/setup'
+  gem 'mocha'
+  gem 'resque_unit'
 end
 
 group :autotest do

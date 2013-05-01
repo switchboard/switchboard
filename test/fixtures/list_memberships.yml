@@ -1,6 +1,7 @@
 one_admin:
   list: one
   phone_number: one
+  is_admin: true
 one_two:
   list: one
   phone_number: two

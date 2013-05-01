@@ -31,6 +31,7 @@ class Message < ActiveRecord::Base
       transitions from: :processing, to: :handled
     end
 
+    # TODO we're never marking messages as 'sent'.
     event :queue_to_send do
       transitions from: :processing, to: :in_send_queue
     end
@@ -91,7 +92,8 @@ class Message < ActiveRecord::Base
         mark_handled!
       else
         # Need to decide where we're handling message state;
-        # handle_send_action is only action that returns true/false
+        # handle_send_action is only action that returns true/false        
+
         if list.handle_send_action(self)
           queue_to_send!
         else

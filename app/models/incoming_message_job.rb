@@ -4,7 +4,7 @@ class IncomingMessageJob
   def self.perform(message_id)
     message = Message.incoming.find(message_id)
     message.mark_processing!
-    
+
     ## Disabling this temporarily
     # survey_state = SurveyState.where(active: true, phone_number_id: 1).first
     # 
@@ -16,6 +16,7 @@ class IncomingMessageJob
     #   next
     # end
 
-    message.process
+    # TODO reconsider this flow; aasm is complicated.
+    message.process unless message.aasm_state == 'failure'
   end
 end
