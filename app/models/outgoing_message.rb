@@ -1,9 +1,9 @@
 class OutgoingMessage
   @queue = :outgoing
 
-  def self.perform(list_id, to, from, message_body, message_id)
+  def self.perform(list_id, to, from, message_body, message_id = nil)
     if to.include?('@')
-      send_email(to, body: message_body, from: message.from)
+      send_email(to, body: message_body, from: from)
       # Not counting emails in list counts
       Message.increment_outgoing_count(message_id) if message_id
     else
