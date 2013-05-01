@@ -8,7 +8,8 @@ class ListMembership < ActiveRecord::Base
 
   validates :phone_number_id, uniqueness: {scope: :list_id}
   after_create :send_welcome_message
-  
+
+  scope :admin, where(is_admin: true)
   
   def send_welcome_message
     list.send_welcome_message(phone_number)

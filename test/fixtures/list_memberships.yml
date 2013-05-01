@@ -1,8 +1,18 @@
-one:
+one_admin:
   list: one
   phone_number: one
-two:
+one_two:
   list: one
+  phone_number: two
+one_four:
+  list: one
+  phone_number: four
+two_admin:
+  list: two
+  phone_number: one
+  is_admin: true
+two_two:
+  list: two
   phone_number: two
 three:
   list: org_two_list

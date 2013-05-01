@@ -117,8 +117,8 @@ ActiveRecord::Schema.define(:version => 20130429012710) do
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.string   "aasm_state"
-    t.integer  "outgoing_count"
     t.integer  "from_phone_number_id"
+    t.integer  "outgoing_total"
   end
 
   add_index "messages", ["aasm_state"], :name => "index_messages_on_aasm_state"

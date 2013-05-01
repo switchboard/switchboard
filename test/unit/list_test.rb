@@ -64,4 +64,109 @@ class ListTest < ActiveSupport::TestCase
     assert @content.length == 1
     assert @content[0] == "[#{@list.name}] #{@message.body}"
   end
+
+  # handle_join_message
+  # handle_leave_message
+  context 'sending a message' do
+    context 'when message can be sent to list' do
+      setup do
+        @list = lists(:one)
+        @message = FactoryGirl.create(:message, list: @list)
+      end
+
+      should 'set outgoing total on message' do
+        @list.handle_send_action(@message)
+        @message.reload
+        assert @message.outgoing_total == @list.list_memberships.size
+      end
+
+      should 'send an outgoing message for each' do
+        @list.expects(:create_outgoing_message).times(@list.list_memberships.size)
+        success = @list.handle_send_action(@message)
+        assert success
+      end
+
+    end
+
+    context 'when message should go to admin' do
+      setup do
+        @list = lists(:two)
+        @phone = list_memberships(:two_two).phone_number # not an admin
+        @admin_phone = list_memberships(:two_admin).phone_number
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+
+      should "send admin the response, with a message that includes the sender's number" do
+        @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@phone.number)))
+        success = @list.handle_send_action(@message)
+        assert success
+      end
+    end
+
+    context 'when message can not go to list or to admin' do
+      setup do
+        @list = lists(:two)
+        @list.update_column(:text_admin_with_response, false)
+        @phone = list_memberships(:two_two).phone_number # not an admin
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+
+      should 'return false' do
+        @list.expects(:create_outgoing_message).never
+        success = @list.handle_send_action(@message)
+        assert ! success
+      end
+    end
+  end
+
+  context 'handling join message' do
+    setup do
+      @list = lists(:one)
+    end
+
+    context 'when number is already a member' do
+      setup do
+        @phone = @list.list_memberships.first.phone_number
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+
+      should 'create outgoing message saying user is already a member' do
+        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/already/))
+        @list.handle_join_message(@message)
+      end
+    end
+
+    context 'with a closed list' do
+      setup do
+        @list.update_column(:open_membership, false)
+        @phone = FactoryGirl.create(:phone_number)
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+
+      should 'create outgoing message saying list is private' do
+        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/private/))
+        @list.handle_join_message(@message)
+      end
+    end
+
+    context 'with new member' do
+      setup do
+        @list.update_column(:open_membership, true)
+        @phone = FactoryGirl.create(:phone_number)
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+
+      should 'subscribe member to list' do
+        @list.expects(:create_outgoing_message).never
+        List.any_instance.expects(:send_welcome_message).returns(true)
+
+        assert_difference('@list.list_memberships.count', 1) do
+          @list.handle_join_message(@message)
+        end
+      end
+    end
+
+
+  end
+
 end

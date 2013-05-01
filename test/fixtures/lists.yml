@@ -7,10 +7,10 @@ one:
   prefer_email: true
   incoming_number: '2155551000'
   use_incoming_keyword: false
-  email_admin_with_response: true
-  text_admin_with_response: false
+  email_admin_with_response: false
+  text_admin_with_response: true
   save_response_in_interface: true
-  all_users_can_send_messages: false
+  all_users_can_send_messages: true
   open_membership: false
   moderated_membership: true
   use_welcome_message: true
@@ -20,14 +20,14 @@ one:
 two:
   name: MYSECONDLIST
   organization: one
-  long_name: My Very Important List
+  long_name: "Closed list, only admins can send"
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
   incoming_number: '2155551001'
   use_incoming_keyword: true
   email_admin_with_response: true
-  text_admin_with_response: false
+  text_admin_with_response: true
   save_response_in_interface: true
   all_users_can_send_messages: false
   open_membership: false

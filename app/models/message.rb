@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
   attr_accessible :from, :body
 
   aasm do
-    state :incoming, initial: true, after_enter: :enqueue_incoming
+    state :incoming, initial: true
     state :processing
     state :in_send_queue
     state :handled
@@ -34,9 +34,15 @@ class Message < ActiveRecord::Base
     event :queue_to_send do
       transitions from: :processing, to: :in_send_queue
     end
+
+    event :mark_failure do
+      transitions to: :failure
+    end
+
   end
 
   before_create :set_from_number, :set_list
+  after_create :enqueue_incoming
 
   def self.within_days(num_days)
     where('updated_at > ?', num_days.days.ago)
@@ -84,8 +90,15 @@ class Message < ActiveRecord::Base
         list.handle_leave_message(self)
         mark_handled!
       else
-        list.handle_send_action(self)
-        queue_to_send!
+        # Need to decide where we're handling message state;
+        # handle_send_action is only action that returns true/false
+        if list.handle_send_action(self)
+          queue_to_send!
+        else
+          # Message can't be sent to list or to admins;
+          # should this throw an exception?
+          mark_failure!
+        end
       end
 
     rescue => e
@@ -95,14 +108,28 @@ class Message < ActiveRecord::Base
       puts "e: " + e.to_s
       Airbrake.notify(e)
 
-      update_column(:aasm_state, 'failure')
+      mark_failure!
     end
+  end
+
+  def increment_outgoing_count
+    $redis.incr "msg_out_#{id}"
+  end
+
+  def self.increment_outgoing_count(message_id)
+    $redis.incr "msg_out_#{message_id}"
+  end
+
+  def outgoing_count
+    $redis.get "msg_out_#{id}"
   end
 
   private
 
+  # Would rather have this in an aasm state, but after_enter
+  # on :incoming happens before the object has an id
   def enqueue_incoming
-    Resque.enqueue(IncomingMessageJob, self.id)
+    Resque.enqueue(IncomingMessageJob, id)
   end
 
   # TODO would be nice to throw different errors based on what was missing
