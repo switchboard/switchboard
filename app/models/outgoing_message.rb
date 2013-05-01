@@ -7,7 +7,7 @@ class OutgoingMessage
       # Not counting emails in list counts
       Message.increment_outgoing_count(message_id) if message_id
     else
-      Twilio::TwilioSender.send_sms(to, message_body, from)
+      TwilioSender.send_sms(to, message_body, from)
       List.increment_outgoing_count(list_id)
       Message.increment_outgoing_count(message_id) if message_id
     end

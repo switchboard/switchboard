@@ -25,12 +25,12 @@ class OutgoingMessageTest < ActiveSupport::TestCase
     end
 
     should 'send an sms with TwilioSender' do
-      Twilio::TwilioSender.expects(:send_sms).with(@to, @body, @from)
+      TwilioSender.expects(:send_sms).with(@to, @body, @from)
       OutgoingMessage.perform(@list_id, @to, @from, @body)
     end
 
     should 'increment list outgoing count but not message count' do
-      Twilio::TwilioSender.stubs(:send_sms)
+      TwilioSender.stubs(:send_sms)
       List.expects(:increment_outgoing_count).with(@list_id)
       Message.expects(:increment_outgoing_count).never
 
@@ -39,7 +39,7 @@ class OutgoingMessageTest < ActiveSupport::TestCase
 
     should 'increment message outgoing count when passed a message id' do
       @message_id = '555'
-      Twilio::TwilioSender.stubs(:send_sms)
+      TwilioSender.stubs(:send_sms)
       List.expects(:increment_outgoing_count).with(@list_id)
       Message.expects(:increment_outgoing_count).with(@message_id)
 
