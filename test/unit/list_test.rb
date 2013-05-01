@@ -65,9 +65,49 @@ class ListTest < ActiveSupport::TestCase
     assert @content[0] == "[#{@list.name}] #{@message.body}"
   end
 
-  # handle_join_message
-  # handle_leave_message
+  #  def create_outgoing_message(phone_number, body, message_id = nil)
+
   context 'sending a message' do
+
+    # TODO this seems speculative ATM as there's no UI
+    # to set phone.provider_email
+    context 'when list allows email' do
+      setup do
+        @list = lists(:two) # allows & prefers email
+        @body = 'This is a new message'
+        @message_id = 123
+      end
+
+      should 'enqueue email if phone has provider email' do
+        @phone = FactoryGirl.build(:phone_number, provider_email: 'example.com')
+        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, "#{@phone.number}@#{@phone.provider_email}", instance_of(String), @body, @message_id)
+        @list.create_outgoing_message(@phone, @body, @message_id)
+      end
+
+      should 'enqueue sms if phone does not have provider email' do
+        @phone = FactoryGirl.build(:phone_number)
+
+        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, @phone.number, instance_of(String), @body, @message_id)
+        @list.create_outgoing_message(@phone, @body, @message_id)
+      end
+    end
+
+    context 'when list does not receive email' do
+      setup do
+        @list = lists(:one)
+        @body = 'A new message'
+      end
+
+      should 'enqueue sms' do
+        @phone = FactoryGirl.build(:phone_number)
+
+        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, @phone.number, instance_of(String), @body, @message_id)
+        @list.create_outgoing_message(@phone, @body, @message_id)
+      end
+    end
+  end
+
+  context 'handling sent message' do
     context 'when message can be sent to list' do
       setup do
         @list = lists(:one)

@@ -2,7 +2,7 @@ one:
   name: MYLIST
   organization: one
   long_name: My Very Important List
-  allow_email_gateway: true
+  allow_email_gateway: false
   allow_commercial_gateway: true
   prefer_email: true
   incoming_number: '2155551000'
