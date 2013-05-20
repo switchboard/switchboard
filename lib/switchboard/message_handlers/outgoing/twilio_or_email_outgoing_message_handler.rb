@@ -41,10 +41,10 @@ module Switchboard::MessageHandlers::Outgoing
               if (message.from == nil || message.from == '') 
                 #TODO: system wide settings 
                 puts("sending from sender: system wide sender")
-                sender.send_sms( message.to, message.body)
+                send_split_message(sender, message.to, message.body)
               else
                 puts("sending from sender: " + message.from )
-                sender.send_sms( message.to, message.body, message.from)
+                send_split_message( sender, message.to, message.body, message.from)
               end
             end
           end
@@ -63,7 +63,28 @@ module Switchboard::MessageHandlers::Outgoing
         #threads.each { |aThread| aThread.join }
       end
     end
- 
+
+    def send_split_message(sender, to, body, from = nil)
+      if body.length <= 160
+        sender.send_sms(message.to, message.body, from)
+      else
+        chunks = split_message_by_160(body)
+        chunks.each do |chunk|
+          sender.send_sms(message.to, chunk, from)
+        end
+      end
+    end
+
+    def split_message_by_160(str)
+      messages = []
+      while(str.length > 0)
+        last_space_pos = str[0..159].rindex(' ')
+        messages << str[0..last_space_pos].strip
+        str = str[(last_space_pos + 1)..999].strip
+      end
+      messages
+    end
+
     def send_email(to,opts={})
       opts[:server]      ||= 'localhost'
       opts[:from]        ||= ''
