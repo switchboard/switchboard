@@ -66,11 +66,11 @@ module Switchboard::MessageHandlers::Outgoing
 
     def send_split_message(sender, to, body, from = nil)
       if body.length <= 160
-        sender.send_sms(message.to, message.body, from)
+        sender.send_sms(to, body, from)
       else
         chunks = split_message_by_160(body)
         chunks.each do |chunk|
-          sender.send_sms(message.to, chunk, from)
+          sender.send_sms(to, chunk, from)
         end
       end
     end
