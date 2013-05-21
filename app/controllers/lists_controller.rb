@@ -79,6 +79,7 @@ class ListsController < AdminController
 
   def toggle_admin
     return unless request.xhr?
+    @list = current_organization.lists.find(params[:list_id])
     number = PhoneNumber.find(params[:list_member_id])
     @list.toggle_admin(number)
     render :nothing => true
