@@ -6,7 +6,7 @@ class RegistrationController < ApplicationController
     if ! @invitation
       redirect_to signin_path, alert: 'That invitation cannot be found; did you already sign up? Check your link again, or request a new invitation.' and return 
     elsif current_user
-      redirect_to root_path, notice: "You're already signed-in to Switchboard!"
+      redirect_to lists_path, notice: "You're already signed-in to Switchboard!"
     end
     @user = @invitation.organization.users.build(email: @invitation.email)
   end
