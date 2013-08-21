@@ -1,4 +1,6 @@
 Switchboard::Application.routes.draw do
+  root to: 'pages#show', template: 'home'
+
   resources :gateways
   resources :service_phone_numbers
 
@@ -47,12 +49,13 @@ Switchboard::Application.routes.draw do
     post '/email/create' => 'email#create'
   end
 
+  %w[about].each do |page|
+    get "/#{page}" => 'pages#show', template: page
+  end
+
   # non-resourceful controllers: Admin, daemon status
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   match ':controller(/:action(/:id))(.:format)'
  
-  # root :to => 'user_sessions#new'
-  root to: 'lists#index'
-
 end

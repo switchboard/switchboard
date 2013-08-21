@@ -1,0 +1,15 @@
+= render :partial => 'layouts/head'
+%body
+  #site-container
+    #site
+      = render :partial => 'layouts/page_header'
+      #content-container
+        #content
+          = yield
+      #footer
+        = render :partial => '/layouts/footer'
+      #bottom-shadow
+    #side-shadow
+      .top
+      .bottom
+      

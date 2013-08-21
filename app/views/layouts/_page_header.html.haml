@@ -8,3 +8,5 @@
       = link_to current_user.name, edit_profile_path
       = ' | '
       = link_to current_organization.name, current_organization
+    - else
+      = link_to 'Sign in', signin_path
