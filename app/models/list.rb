@@ -87,7 +87,7 @@ class List < ActiveRecord::Base
     if number
       number.is_admin?
     else
-      raise ArgumentError("phone number is not a member of list")
+      raise 'phone number is not a member of list'
     end
   end
  

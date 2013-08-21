@@ -60,7 +60,7 @@ module Twilio
     #@raises [NotImplementedError] Method given is not implemented
     def request(path, method=nil, vars={})
       if !path || path.length < 1
-          raise ArgumentError, 'Invalid path parameter'
+          raise 'Invalid path parameter'
         end
         if method && !['GET', 'POST', 'DELETE', 'PUT'].include?(method)
           raise NotImplementedError, 'HTTP %s not implemented' % method
@@ -188,7 +188,7 @@ module Twilio
         if !self.class.attributes.nil? && self.class.attributes.include?(k)
           send(k.to_s+"=",v)
         else
-          raise ArgumentError, "Attribute Not Supported"
+          raise "Attribute Not Supported"
         end
       end
     end
@@ -222,7 +222,7 @@ module Twilio
       elsif @body and @children == []
         b.__send__(self.class.to_s.split(/::/)[-1], @body, attrs)
       else
-        raise ArgumentError, "Cannot have children and a body at the same time"
+        raise "Cannot have children and a body at the same time"
       end
     end
     
@@ -239,7 +239,7 @@ module Twilio
         @children << verb
         @children[-1]
       else
-        raise ArgumentError, "Verb Not Supported"
+        raise "Verb Not Supported"
       end    
     end
     
