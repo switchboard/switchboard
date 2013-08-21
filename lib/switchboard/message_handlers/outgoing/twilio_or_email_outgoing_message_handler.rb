@@ -76,13 +76,14 @@ module Switchboard::MessageHandlers::Outgoing
     end
 
     def split_message_by_160(str)
+      # 153 = 159 - 6 characters for message count:  ' (1/2)'
       messages = []
       while(str.length > 0)
-        last_space_pos = str[0..159].rindex(' ')
+        last_space_pos = str[0..153].rindex(' ')
         messages << str[0..last_space_pos].strip
         str = str[(last_space_pos + 1)..999].strip
       end
-      messages
+      messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
     end
 
     def send_email(to,opts={})
