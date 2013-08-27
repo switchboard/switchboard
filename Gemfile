@@ -16,10 +16,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '3.11.8.3'  # see https://github.com/cowboyd/therubyracer/issues/215
-  gem 'therubyracer', :platform => :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
 
