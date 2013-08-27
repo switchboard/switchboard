@@ -8,8 +8,6 @@ config/settings/production.yml
 config/settings/development.yml
 
 bin/
-# Might be good to check this in at some point.
-.rbenv-version
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
