@@ -1,12 +1,9 @@
-@import url(http://fonts.googleapis.com/css?family=Geo&v1);
-@import url(http://fonts.googleapis.com/css?family=Quattrocento+Sans&v1);
-@import url(http://fonts.googleapis.com/css?family=Michroma&v1);
-@import url(http://fonts.googleapis.com/css?family=Droid+Sans+Mono&v1);
 
 // This import applies a global reset to any page that imports this stylesheet.
 @import "compass/reset";
 @import "compass/utilities";
 @import "compass/css3/font-face";
+@import "compass/css3/border-radius";
 
 
 // Import all the default blueprint modules so that we can access their mixins.
@@ -20,8 +17,8 @@
 @import "partials/admin";
 @import "partials/nav";
 @import "partials/notify";
-
-//@import "partials/form";
+@import "partials/jquery_alert";
+@import "partials/form";
 
 
 

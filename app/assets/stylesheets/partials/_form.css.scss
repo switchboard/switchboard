@@ -1,0 +1,308 @@
+@import "_colors";
+
+// Only apply the blueprint form styles to forms with
+// a class of "bp". This makes it easier to style
+// forms from scratch if you need to.
+
+//form.bp { @include blueprint-form; }
+
+
+$mainMargin: 24px;
+$halfMargin: 12px;
+$formColumn: 136px;
+
+
+.error_block {
+  h3 {
+    color: $errorText;
+  }
+  h4 {
+    margin-top: 1em;
+    color: $grayDark;
+  }
+  padding: 10px;
+  background: $errorBackground;
+}
+
+form {
+  span.error {
+    color: $errorText;
+  }
+}
+
+.form-horizontal, .form-vertical {
+  margin-top: 1em;
+
+  div.input {
+    padding: .5em 0 .5em 0;
+  }
+  span.hint {
+    color: $textFade;
+    margin-left: 10px;
+  }
+  span.error {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  h3 {
+    margin: 1em 0 .5em;
+    font-size: 16px!important;
+    color: $grayDark!important;
+  }
+
+  .input.string input,
+  .input.autocomplete input,
+  .input.password input,
+  .input.email input,
+  .input.decimal input,
+  .input.integer input,
+  .input.number input,
+	.input textarea {
+	   @include border-radius(2px);
+	   border: 1px solid #dfdfdf;
+	   border-bottom: 1px solid #e9e9e9;
+	   border-top: 1px solid #b4b4b4;
+	   background: #fff image-url('input_bg.png') 0 0 repeat-x;
+	   padding: 7px 6px!important;
+	   font-size: 14px!important;
+	   color: $grayDark;
+  }
+  .input textarea {
+//    This is overriding some stuff in #new-message form textarea, which we'll remove eventually
+    height: 6em!important;
+   border: 1px solid #dfdfdf!important;
+   border-bottom: 1px solid #e9e9e9!important;
+   border-top: 1px solid #b4b4b4!important;
+
+  }
+  
+  .input.field_with_errors input,
+  .input.field_with_errors textarea {
+    background: #fee;
+    border: 1px solid #dfcfcf;
+  }
+
+  .input.file input {
+    background: none;
+    border: none;
+    font-size: 12px!important;
+    color: $grayLight;
+  }
+
+  label:first-child {
+    font-weight: bold;
+    font-size: 14px;
+    color: $grayDark;
+    abbr { display: none; }
+  }
+
+  input::-webkit-input-placeholder {
+      color:    $grayLight;
+  }
+  input:-moz-placeholder {
+      color:    $grayLight!important;
+  }
+
+  #character_count {
+    display: block;
+    width: 100%!important;
+    float: none;
+    clear: both;
+    text-align: right;
+    color: $textFade;
+    font-size: 14px;
+  }
+
+}
+
+.form-vertical {
+  label:first-child {
+    display: block;
+    line-height: 24px;
+  }
+
+  span.hint {
+    display: block;
+    margin-left: 0;
+  }
+
+  span.error {
+    display: block;
+  }
+
+  label.radio, label.boolean {
+    display: block;
+    display: inline-block;
+    width: auto;
+    padding-left: 1em;
+    white-space: nowrap;
+    font-weight: normal!important;
+    font-size: 15px!important;
+  }
+
+  textarea.count_characters {
+    margin-bottom: 5px!important;
+  }
+
+	.input.combined_row {
+		@include clearfix;
+		span.error {
+			display: block;
+		}
+		.input {
+			padding: 0;
+			float: left;
+      margin-left: $halfMargin;
+      &:first-child {
+        margin-left: 0;
+      }
+		}
+	}
+
+  input::-webkit-input-placeholder {
+      color:    $grayLight;
+  }
+  input:-moz-placeholder {
+      color:    $grayLight;
+  }
+}
+
+.form-horizontal {
+  margin-top: 1em!important;
+  .input.radio_buttons {
+    label.radio {
+      padding-top: 8px;
+      display: inline-block;
+      width: auto;
+      padding-right: 1em;
+      white-space: nowrap;
+      input {
+        margin-right: .5em;
+      }
+    }
+  }
+
+  span.error {
+    display: block;
+    margin-left: $formColumn;
+    padding-left: $mainMargin;
+  }
+
+  .input.select select,
+	.input.date select.date {
+		margin-top: 8px;
+  }
+  
+  .input.readonly strong  {
+    display: block;
+    margin-top: 8px;
+  }
+
+  label:first-child {
+		float: left;
+    width: $formColumn;
+    padding-top: 12px;
+    padding-left: 10px;
+		margin-right: $mainMargin;
+    text-align: right;
+  }
+
+	.input.combined_row {
+		@include clearfix;
+		span.error {
+			display: block;
+		}
+		.input {
+			padding: 0;
+			float: left;
+
+			label:first-child {
+				display: none;
+			}
+		}
+	}
+}
+
+
+
+form.general_form {
+  $formField: 376px;
+  .input.string,
+  .input.password,
+  .input.email,
+  .input.autocomplete,
+  .input.text {
+    input {
+      width: $formField;
+    }
+  }
+  .input {
+    @include clearfix;
+  }
+	textarea {
+		width: $formField;
+		height: 10em;
+	}
+  span.error {
+    display: block;
+    margin-left: $formColumn;
+    padding-left: $mainMargin;
+  }
+	.input.integer input,
+	.input.decimal input {
+		width: $formColumn;
+	}
+
+
+  .input .booleans {
+    float: left;
+    .input.boolean {
+      margin-top: 4px;
+    }
+  }
+	.input.text .hint {
+		display: block;
+		margin-left: $formColumn + $mainMargin;
+	}
+
+}
+
+/* Webshims manual validation */
+
+.validity-alert .va-box {
+	color: $gray;
+	border: 1px solid #777;
+}
+
+.validity-alert .va-arrow {
+	border-bottom: 7px solid #777;
+}
+
+
+/* Would like to target forms by size in a specific container (eg in this box they have these dimensions)
+   but for now will target specific forms. */
+   
+#add_contact_form form.form-horizontal {
+  $formColumn: 100px;
+  $formField: 220px;
+  label:first-child {
+    width: $formColumn;
+  }
+  .input.string input,
+  .input.autocomplete input,
+  .input.password input,
+  .input.email input,
+  .input.decimal input,
+  .input.integer input,
+  .input.number input,
+	.input textarea {
+    width: $formField;
+  }
+
+  span.error {
+    display: block;
+    margin-left: $formColumn + 10px;
+  }
+}
+

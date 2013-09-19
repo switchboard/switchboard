@@ -1,12 +1,12 @@
-class Messages::EmailController < MessagesController 
+class Messages::EmailController < MessagesController
 
-    def create 
+    def create
       @message = EmailMessage.create_from_params(params)
       super
     end
 
     def view
-      @messages = EmailMessage.find(:all)
+      @messages = EmailMessage.scoped
     end
 
 end

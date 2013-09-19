@@ -1,3 +1,5 @@
+require 'csv'
+
 class List < ActiveRecord::Base
 
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
@@ -8,21 +10,25 @@ class List < ActiveRecord::Base
 
   has_many :messages, :order => "created_at DESC"
 
-  has_many :attachments
+  attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
+  attr_accessible :use_welcome_message, :welcome_message, :incoming_number
+  attr_accessible :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
 
-  attr_accessible :name, :list_type, :join_policy
+  has_attached_file :csv_file
+
+  validates_format_of :incoming_number, with: /^\d{10}$/, message: "Incoming number must contain 10 digits", allow_blank: true
 
   ## 
   ## TODO: decide if these receive objects or strings or are flexible?
   ## for now: take objects
 
   def add_phone_number(phone_number)
-    if (self.has_number?(phone_number) or phone_number == nil or phone_number.id == nil)
+    if has_number?(phone_number) || ! phone_number.try(:id)
       puts("phone_number is ill formed in add_phone_number")
       return
     end
 
-    self.list_memberships.create! :phone_number_id => phone_number.id
+    list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
       puts "has welcome message, and creating outgoing message"
       welcome_message = self.custom_welcome_message
@@ -30,58 +36,56 @@ class List < ActiveRecord::Base
     end 
   end
 
-
-  def import_from_attachment(attachment_id)
-    return unless csv = self.attachments.find(attachment_id)
+  def import_from_attachment
+    raise 'CSV File was not uploaded' unless csv_file
     errors = []
-    successes = 0
-    FasterCSV.parse(DbFile.find(csv.db_file_id).data) do |row|
-      email = row[2]
-      number = row[3]
-      user_hash = {:first_name => row[0], :last_name => row[1], :password => 'password', :password_confirmation => 'password'}
-      number.gsub!(/\D/, '') if number;
+    success_count = 0
+
+    CSV.foreach(csv_file.path) do |row|
       begin
         raise 'Not enough fields' if row.length < 4
-        raise 'Phone number invalid' if row[3] !~ /\d+/
-        if ! phone_number = PhoneNumber.find_by_number(number)
+        first_name, last_name, email = row[0..2]
+        number = row[3].try(:gsub, /\D/, '')
+
+        unless phone_number = PhoneNumber.find_by_number(number)
           if email =~ /@/
-            email.gsub!(/\s/, '') unless email.blank?
-            user = User.find_or_create_by_email(user_hash.merge!(:email => email))
+            email.gsub!(/\s/, '')
+            user = User.find_or_create_by_email(first_name: first_name, last_name: last_name, email: email)
           else
-            user = User.new(user_hash)
-            user.save!
+            user = User.create!(first_name: first_name, last_name: last_name)
           end
-          phone_number = PhoneNumber.new(:number => number, :user_id => user.id)
-          phone_number.save! 
+          phone_number = user.phone_numbers.create!(number: number)
         end
-        self.add_phone_number(phone_number)
-        successes = successes.next
-      rescue
-        errors << row.join(',') + ' :: ' + $!
+        add_phone_number(phone_number)
+        success_count += 1
+      rescue => exception
+        errors << row.join(' ') + ': ' + exception.message
       end
     end
-    return {:errors => errors, :successes => successes};
+
+    {errors: errors, success_count: success_count}
   end
 
   def remove_phone_number(phone_number)
     return unless self.has_number?(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).destroy
+    list_memberships.find_by_phone_number_id(phone_number.id).destroy
   end
 
   def has_number?(phone_number)
-    self.list_memberships.exists?(:phone_number_id => phone_number.id)
+    phone_number.try(:id) && list_memberships.exists?(phone_number_id: phone_number.id)
   end
  
   def admins
-    self.list_memberships.collect { |mem| 
-      mem.phone_number if mem.is_admin?
-    }
+    self.list_memberships.select{ |mem| mem.is_admin? }.collect{ |admin| admin.phone_number }
   end
 
   def number_is_admin?(phone_number)
-    number = self.list_memberships.find_by_phone_number_id(phone_number.id)
-    if number != nil
-        return number.is_admin
+    number = list_memberships.find_by_phone_number_id(phone_number.id)
+
+    if number
+      number.is_admin?
+    else
+      raise ArgumentError("phone number is not a member of list")
     end
   end
  
@@ -90,45 +94,39 @@ class List < ActiveRecord::Base
   end
 
   def remove_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => nil)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.update_column(:is_admin, false)
   end
 
   def add_admin(phone_number)
-    self.list_memberships.find_by_phone_number_id(phone_number.id).update_attributes!(:is_admin => 1)
+    membership = list_memberships.find_by_phone_number_id(phone_number.id)
+    membership.update_column(:is_admin, true)
   end
 
-  def phone_numbers
-    numbers =  []
-    self.list_memberships.each do |mem|
-      numbers << mem.phone_number
-    end
-    return numbers
-  end
+  # This seems redundant, since list#phone_numbers is already an AR relation
+  # def phone_numbers
+  #   numbers =  []
+  #   list_memberships.each do |mem|
+  #     numbers << mem.phone_number
+  #   end
+  #   return numbers
+  # end
 
-
-  def most_recent_message
-    return ( self.messages.count > 0 ? self.messages[0] : nil )
-  end
-
-  def most_recent_messages( count )
-    return self.messages.find( :all, :conditions => ["message_state_id = 3"], :limit => count )
-  end
-
-  def most_recent_message_from_user(user)
-    self.messages.find( :all, :conditions => { :sender_id => user.id },  :limit => 1 )
+  def most_recent_messages(count)
+    messages.where(message_state_id: MessageState.find_by_name('sent').id).limit(count)
   end
 
   def create_email_message(num)
     message = EmailMessage.new
     message.to = num.number + "@" + num.provider_email
-    message.from = self.name + "@mmptext.info"
-    return message
+    message.from = self.name + '@mmptext.info'
+    message
   end
 
   def create_twilio_message(num)
     message = TwilioMessage.new
     message.to = num.number
-    return message
+    message
   end
 
   def create_outgoing_message(num, body)
@@ -159,38 +157,16 @@ class List < ActiveRecord::Base
   end
 
   def name=(value)
-    upcaseValue = value.upcase
-    if self[:name] != upcaseValue
-      self[:name] = upcaseValue
-    end
+    self[:name] = value.upcase
   end
 
-  ### these methods make editing lists easier
+  def incoming_number=(str)
+    write_attribute(:incoming_number, str.try(:gsub, /[^0-9]/, ''))
+  end
+
   def welcome_message
     self.custom_welcome_message || self.default_welcome_message
   end
-  
-  def welcome_message=(message)
-    self.update_attribute('custom_welcome_message', message)
-  end
-
-  def list_type
-    self.all_users_can_send_messages ? 'discussion' : 'announcement'
-  end
-
-  def list_type=(type)
-    self.update_attribute('all_users_can_send_messages', (type == 'discussion'))
-  end
-
-  def join_policy
-    self.open_membership ? 'open' : 'closed'
-  end
-
-  def join_policy=(policy)
-    self.update_attribute("open_membership", (policy == 'open'))
-  end
-  ### /these methods make editing lists easier
-
 
   def prepare_content(message, num)
     ##?TODO: add config about initial list name prefix
@@ -241,7 +217,7 @@ class List < ActiveRecord::Base
         end
 
         admin_msg += '] '
-        admin_msg += tokens.join(' ')
+        admin_msg += message.tokens.join(' ')
         self.admins.each do |admin|
           self.create_outgoing_message(admin, admin_msg )
         end
@@ -268,7 +244,6 @@ class List < ActiveRecord::Base
         message.sender = num.user
         message.save
         self.save 
-        self.create_outgoing_message(num, self.welcome_message )
       else ## not list.open_membership
         self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
       end
@@ -277,12 +252,17 @@ class List < ActiveRecord::Base
 
   def self.top_five(options)
     # how do we determine the top five lists? get random five for now!
-    conditions = options[:remove_list_id] ? ['id NOT IN (?)', options[:remove_list_id]] : []
-    List.find(:all, :limit => 5, :conditions => conditions )
+    topfive = List.limit(5)
+
+    if options[:remove_list_id]
+      topfive.where('id NOT IN (?)', options[:remove_list_id])
+    end
+
+    topfive
   end
 
   def self.more_than_five
-    List.find(:all).size > 5
+    List.count > 5
   end
 
   protected

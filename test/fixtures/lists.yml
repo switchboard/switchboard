@@ -1,0 +1,36 @@
+one:
+  name: MyList
+  long_name: My Very Important List
+  allow_email_gateway: true
+  allow_commercial_gateway: true
+  prefer_email: true
+  incoming_phone_number: true
+  use_incoming_keyword: true
+  email_admin_with_response: true
+  text_admin_with_response: false
+  save_response_in_interface: true
+  all_users_can_send_messages: false
+  open_membership: false
+  moderated_membership: true
+  use_welcome_message: true
+  custom_welcome_message:
+  add_list_name_header: false
+  identify_sender: false
+two:
+  name: MySecondList
+  long_name: My Very Important List
+  allow_email_gateway: true
+  allow_commercial_gateway: true
+  prefer_email: true
+  incoming_phone_number: true
+  use_incoming_keyword: true
+  email_admin_with_response: true
+  text_admin_with_response: false
+  save_response_in_interface: true
+  all_users_can_send_messages: false
+  open_membership: false
+  moderated_membership: true
+  use_welcome_message: true
+  custom_welcome_message:
+  add_list_name_header: false
+  identify_sender: false

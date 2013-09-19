@@ -4,7 +4,18 @@
   left: 20px
 
 #create_list
-  display: inline 
+  display: inline
+
+.rightalign
+  right: 60px
+  padding-right: 60px
+  +float-right
+
+.leftalign
+  +float-left
+
+.field
+  clear: both
 
 #select_list
   +float-left
@@ -19,17 +30,17 @@
     font-size: 18px
     font-weight: bold
 
- 
-#selectlist 
+
+#selectlist
   font-weight: bold
   width: auto
-  li  
-    padding: 3px 
+  li
+    padding: 3px
     margin: 1px
-    a 
+    a
       color: $aqua
-      &:hover  
-        cursor: default  
+      &:hover
+        cursor: default
 
 #message-options
   +float-left
@@ -41,93 +52,78 @@
     font-size: 18px
   label
     font-size: 14px
-  
+
 .aqua
   color: $aqua
 
-.choose_list_icon  
+.choose_list_icon
   +float-right
- 
-.remove_member_icon  
-  +float-right
-  display: none 
- 
-#member_list  
-  li  
-    padding: 3px 
-    &:hover  
-      cursor: default 
-      background-color: #aaa  
-      .remove_member_icon  
-        display: inline 
-       
-.toggle  
-  span  
-    display: none 
-    position: absolute 
-    background-color: white 
-    border: 1px solid black 
-    padding: 8px 
-    margin-top: -25px 
-   
-  &:hover  
-    span  
-      display: inline 
-     
-#show_member_list  
+
+#send_message_button
   +float-left
-  width: 350px 
-  padding: 5px 
-  margin-top: 20px 
- 
-#send_message_button  
-  +float-left
-  margin-top: 20px 
-  padding-top: 20px 
-  padding-bottom: 20px 
-  border: 2px solid black 
-  font-size: 2em 
-  font-family: sans-serif 
-  cursor: pointer 
-  width: 150px  
-  text-align: center 
-  &:hover  
-    background-color: #99FFFF 
-   
-#confirmed_send_message_button  
+  margin-top: 20px
+  padding-top: 20px
+  padding-bottom: 20px
+  border: 2px solid black
+  font-size: 2em
+  font-family: sans-serif
+  cursor: pointer
+  width: 150px
+  text-align: center
+  &:hover
+    background-color: #99FFFF
+
+#confirmed_send_message_button
   +float-right
-  margin-top: 20px 
-  padding-top: 20px 
-  padding-bottom: 20px 
-  border: 2px solid black 
-  font-size: 2em 
-  font-family: sans-serif 
-  cursor: pointer 
-  width: 150px 
-  text-align: center 
-  &:hover  
-    background-color: #99FFFF 
-   
-.config_heading  
-  font-size: 1.25em 
- 
-.create_list_options  
-  padding: 5px 
-  li  
-    padding: 5px 
-    .list_option  
-      font-weight: bold 
-      
-#character_count  
+  margin-top: 20px
+  padding-top: 20px
+  padding-bottom: 20px
+  border: 2px solid black
+  font-size: 2em
+  font-family: sans-serif
+  cursor: pointer
+  width: 150px
+  text-align: center
+  &:hover
+    background-color: #99FFFF
+
+.config_heading
+  font-size: 1.25em
+
+.create_list_options
+  padding: 5px
+  li
+    padding: 5px
+    .list_option
+      font-weight: bold
+
+#character_count
   +float-right
   padding-right: 10px
-  width: 40px
- 
-.dinpro  
-  font-family: 'DINPro', Arial, sans-serif 
- 
-#message_body_preview  
-  border: 4px solid grey 
-  padding: 8px 
-  margin: 5px 
- 
+  text-align: right
+  width: 6em
+
+.dinpro
+  font-family: 'DINPro', Arial, sans-serif
+
+#availability
+  min-height: 1.5em
+  color: $textFade
+
+#message_body_preview
+  border: 4px solid grey
+  padding: 8px
+  margin: 5px
+
+.flash
+  margin: 0 auto
+  //width: 792px
+
+  &#notice
+    background-color: $lime-green
+  &#alert
+    background-color: $red
+
+pre, code
+  font-family: 'DejaVu Sans Mono', Monaco, Consolas, monospace
+  font-size: 13px
