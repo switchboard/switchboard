@@ -204,8 +204,18 @@ class List < ActiveRecord::Base
     if (self.identify_sender && num.user != nil && ! num.user.full_name != ''  )
       body += " (" + message.from_for_display + ")"
     end
+    messages = split_message_by_160(body)
+    mesages
+  end
 
-    body
+  def split_message_by_160(str)
+    messages = []     
+    while(str.length > 0)
+      last_space_pos = str[0..159].rindex(' ')
+      messages << str[0..last_space_pos].strip
+      str = str[(last_space_pos + 1)..999].strip
+    end
+    messages
   end
 
   def handle_send_action(message, num)
@@ -216,9 +226,10 @@ class List < ActiveRecord::Base
       content = self.prepare_content(message, num)
       logger.info("sending message: " + content + ", to: " + self[:name])
       self.phone_numbers.each do |phone_number|
-        content = prepare_content(message, num)
-        logger.debug("sending message: " + content + ", to: " + phone_number.number )
-        self.create_outgoing_message(phone_number, content)
+        logger.debug("sending message to: " + phone_number.number )
+        content.each do |body| 
+          self.create_outgoing_message(phone_number, body)
+        end
       end
     else
       if (!self.admins.empty? and self.text_admin_with_response)
