@@ -180,11 +180,27 @@ class List < ActiveRecord::Base
       body << " (#{from_number.name_and_number})"
     end
 
-    body
+    content = [body]
+    if (body.length > 159) 
+        content = split_by_160(body)
+    end
+
+    content
   end
   
   def add_sender_identity?(from_number)
     identify_sender? && from_number.contact && from_number.contact.full_name.present?
+  end
+
+  def split_message_by_160(str)
+    # 153 = 159 - 6 characters for message count:  ' (1/2)'
+    messages = []
+    while(str.length > 0)
+      last_space_pos = str[0..153].rindex(' ')
+      messages << str[0..last_space_pos].strip
+      str = str[(last_space_pos + 1)..999].strip
+    end
+    messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
   end
 
   def handle_send_action(message, from_number)
@@ -195,9 +211,10 @@ class List < ActiveRecord::Base
       content = prepare_content(message, from_number)
       logger.info("sending message: " + content + ", to: " + self[:name])
       phone_numbers.each do |phone_number|
-        content = prepare_content(message, from_number)
         logger.debug("sending message: #{content}, to: #{phone_number.number}")
-        create_outgoing_message(phone_number, content)
+        content.each do |body|
+            create_outgoing_message(phone_number, body)
+        end
       end
 
     elsif admins.any? && text_admin_with_response?
