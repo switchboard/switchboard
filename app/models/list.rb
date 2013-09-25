@@ -20,7 +20,7 @@ class List < ActiveRecord::Base
   validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 
-  ## 
+  ##
   ## TODO: decide if these receive objects or strings or are flexible?
   ## for now: take objects
 
@@ -35,7 +35,7 @@ class List < ActiveRecord::Base
       puts "has welcome message, and creating outgoing message"
       welcome_message = self.custom_welcome_message
       create_outgoing_message( phone_number, welcome_message )
-    end 
+    end
   end
 
   def import_from_attachment
@@ -76,7 +76,7 @@ class List < ActiveRecord::Base
   def has_number?(phone_number)
     phone_number.try(:id) && list_memberships.exists?(phone_number_id: phone_number.id)
   end
- 
+
   def admins
     self.list_memberships.select{ |mem| mem.is_admin? }.collect{ |admin| admin.phone_number }
   end
@@ -90,7 +90,7 @@ class List < ActiveRecord::Base
       raise 'phone number is not a member of list'
     end
   end
- 
+
   def toggle_admin(phone_number)
     self.number_is_admin?(phone_number) ? self.remove_admin(phone_number) : self.add_admin(phone_number)
   end
@@ -124,24 +124,24 @@ class List < ActiveRecord::Base
 
   def create_outgoing_message(num, body)
     # once there are other external gateways, or not all phone numbers support the commercial gateway
-    # this gets more complicated 
+    # this gets more complicated
 
     if ( num.can_receive_email? and self.allow_email_gateway? and
       ( (! self.allow_commercial_gateway?) or self.prefer_email ))
       message = create_email_message(num)
     elsif (self.allow_commercial_gateway? and num.can_receive_gateway?)
       message = create_twilio_message(num)
-    else 
+    else
       raise "list & subscriber settings make sending message impossible for num: " + num.number
     end
-  
+
     if self.incoming_number
       puts("sending message to list with incoming number: " + self.incoming_number )
-      message.from = self.incoming_number 
+      message.from = self.incoming_number
     else
       puts("no incoming number")
     end
-      
+
     message.body = body
     message.list = self
     message_state = MessageState.find_by_name("outgoing")
@@ -181,25 +181,29 @@ class List < ActiveRecord::Base
     end
 
     content = [body]
-    if (body.length > 159) 
-        content = split_by_160(body)
+    if (body.length > 159)
+      content = split_message_by_160(body)
     end
 
     content
   end
-  
+
   def add_sender_identity?(from_number)
     identify_sender? && from_number.contact && from_number.contact.full_name.present?
   end
 
   def split_message_by_160(str)
-    # 153 = 159 - 6 characters for message count:  ' (1/2)'
+    # 159 - 6 characters for message count:  ' (1/2)'
+    max_length = 159 - 6
     messages = []
-    while(str.length > 0)
-      last_space_pos = str[0..153].rindex(' ')
+    while(str.length > max_length)
+      last_space_pos = str[0..max_length].rindex(' ') || max_length - 1
+      split_at = last_space_pos
       messages << str[0..last_space_pos].strip
-      str = str[(last_space_pos + 1)..999].strip
+      str = str[(last_space_pos + 1)..-1]
+      str = str ? str.strip : ''
     end
+    messages << str unless str.length == 0
     messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
   end
 
@@ -231,7 +235,7 @@ class List < ActiveRecord::Base
     end
   end
 
-  def handle_join_message(message, num) 
+  def handle_join_message(message, num)
     puts(" ** Handling join message.\n")
     if self.has_number?(num)
       self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
@@ -249,7 +253,7 @@ class List < ActiveRecord::Base
 
         message.sender = num.contact
         message.save
-        self.save 
+        self.save
       else ## not list.open_membership
         self.create_outgoing_message( num, "I'm sorry, but this list is configured as a private list and only the administrator can add new members.")
       end
@@ -274,7 +278,7 @@ class List < ActiveRecord::Base
   protected
 
     def default_welcome_message
-      msg = "Welcome to the '#{self.name}' list.  Unsubcribe by texting 'leave' to this number." 
+      msg = "Welcome to the '#{self.name}' list.  Unsubcribe by texting 'leave' to this number."
       if self.incoming_number.blank?
         msg = msg + " Respond by texting #{self.name} + your message."
       end
