@@ -213,9 +213,8 @@ class List < ActiveRecord::Base
     message.save
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(from_number)
       content = prepare_content(message, from_number)
-      logger.info("sending message: " + content + ", to: " + self[:name])
+      logger.debug("sending message: " + content.join(' / ') + ", to: " + self[:name])
       phone_numbers.each do |phone_number|
-        logger.debug("sending message: #{content}, to: #{phone_number.number}")
         content.each do |body|
             create_outgoing_message(phone_number, body)
         end
