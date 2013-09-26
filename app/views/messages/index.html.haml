@@ -1,6 +1,9 @@
-%h3 Recent Messages 
-%ul#message_list.messages
-  - if @list 
+- if @list
+  = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button peg_top'
+  %h3 Recent Messages
+  %ul#message_list.messages
     = render partial: 'messages/message', collection: @list.most_recent_messages(40), locals: {show_list: false}
-  - else
-    = render partial: 'messages/message', collection: Message.find_by_message_state_id(3, order: 'created_at DESC')
+- else
+  %h3 Recent Messages
+  %ul#message_list.messages
+  = render partial: 'messages/message', collection: Message.find_by_message_state_id(3, order: 'created_at DESC')

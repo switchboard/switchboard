@@ -11,6 +11,13 @@ a.button {
   &:hover {
     background-color: darken($blueButton, 15%);
   }
+
+  &.peg_top {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px 10px 0 0;
+  }
 }
 
 ul.actions {

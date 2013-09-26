@@ -58,7 +58,6 @@ class ListTest < ActiveSupport::TestCase
     @phone_number = FactoryGirl.build(:phone_number)
 
     @content = @list.prepare_content(@message, @phone_number)
-    puts @content.inspect
     assert @content.length == 1
     assert @content[0] == "[#{@list.name}] #{@message.body}"
   end

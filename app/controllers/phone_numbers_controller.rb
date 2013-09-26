@@ -1,5 +1,5 @@
 class PhoneNumbersController < AdminController
-  
+
   def new
     @contact = Contact.new
   end
@@ -18,7 +18,7 @@ class PhoneNumbersController < AdminController
   def create
     # not used yet
   end
-  
+
   def show
     @contact = @current_user
   end

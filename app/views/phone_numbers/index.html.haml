@@ -1,4 +1,7 @@
 #show_members
+  - if @list
+    = link_to '<b>+</b> Add member'.html_safe, new_list_contact_path(@list), class: 'button peg_top'
+
   #show_member_list
     - if @list.try(:all_users_can_send_messages) == false
       %p * checkbox indicates approved sender

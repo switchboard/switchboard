@@ -9,19 +9,26 @@ class ContactsController < AdminController
   def index
   end
 
+  # Not ideal, but works until we combine Contact and PhoneNumber
   def create
-    @contact = Contact.new(params[:contact])
+    @number = params[:contact][:phone_numbers_attributes]['0'][:number].try(:gsub, /[^0-9]/, '')
+    if @phone_number = PhoneNumber.find_by_number(@number)
+      @contact = @phone_number.contact
+      @success = @contact.update_attributes(params[:contact].slice(:first_name, :last_name))
+    else
+      @contact = Contact.new(params[:contact].slice(:first_name, :last_name))
+      @success = @contact.save && @contact.phone_numbers.create(number: @number)
+    end
 
-    if @contact.save
+    if @success
       if @list
         @list.add_phone_number(@contact.phone_numbers.first)
-        redirect_path = list_path(@list)
+        redirect_path = list_phone_numbers_path(@list)
       else
         redirect_path = lists_path
       end
       redirect_to redirect_path, notice: "The contact #{@contact.full_name} was added."
     else
-      logger.info @contact.errors.inspect
       flash[:error] = 'There was a problem saving that contact.'
       render :new
     end
