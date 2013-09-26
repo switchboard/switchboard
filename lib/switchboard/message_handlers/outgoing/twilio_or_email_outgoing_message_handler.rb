@@ -5,7 +5,6 @@ require 'net/smtp'
 module Switchboard::MessageHandlers::Outgoing
   class TwilioOrEmailOutgoingMessageHandler < Switchboard::MessageHandlers::OutgoingMessageHandler
     def handle_messages!()
-      Rails.logger.info(" ** handling outgoing messages.")
       sender = Twilio::TwilioSender.new()
       ## these should come from an array of output connectors (tuple of state & conditions)
       sent_state_name = 'sent'
