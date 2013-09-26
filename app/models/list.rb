@@ -212,11 +212,11 @@ class List < ActiveRecord::Base
     message.sender = from_number.contact
     message.save
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(from_number)
-      content = prepare_content(message, from_number)
-      logger.debug("sending message: " + content.join(' / ') + ", to: " + self[:name])
+      message_split = prepare_content(message, from_number)
+      Rails.logger.info("sending message: " + message_split.join(' / ') + ", to: " + self[:name])
       phone_numbers.each do |phone_number|
-        content.each do |body|
-            create_outgoing_message(phone_number, body)
+        message_split.each do |body|
+          create_outgoing_message(phone_number, body)
         end
       end
 
