@@ -1,11 +1,10 @@
 require 'csv'
 
 class List < ActiveRecord::Base
+  has_many :list_memberships, dependent: :destroy
+  has_many :phone_numbers, through: :list_memberships
 
-  has_many :list_memberships
-  has_many :phone_numbers, :through => :list_memberships
-
-  has_many :messages, order: 'created_at DESC'
+  has_many :messages, dependent: :destroy, order: 'created_at DESC'
   belongs_to :organization
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
