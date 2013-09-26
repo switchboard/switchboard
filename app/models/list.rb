@@ -181,7 +181,7 @@ class List < ActiveRecord::Base
     end
 
     content = [body]
-    if (body.length > 159)
+    if (body.length > 160)
       content = split_message_by_160(body)
     end
 
@@ -193,8 +193,8 @@ class List < ActiveRecord::Base
   end
 
   def split_message_by_160(str)
-    # 159 - 6 characters for message count:  ' (1/2)'
-    max_length = 159 - 6
+    # 160 - 6 characters for message count:  ' (1/2)'
+    max_length = 160 - 6
     messages = []
     while(str.length > max_length)
       last_space_pos = str[0..max_length].rindex(' ') || max_length - 1
