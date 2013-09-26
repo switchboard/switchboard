@@ -32,7 +32,7 @@ class List < ActiveRecord::Base
 
     list_memberships.create! :phone_number_id => phone_number.id
     if(self.use_welcome_message?)
-      puts "has welcome message, and creating outgoing message"
+      Rails.logger.info("has welcome message, and creating outgoing message")
       welcome_message = self.custom_welcome_message
       create_outgoing_message( phone_number, welcome_message )
     end
@@ -213,7 +213,7 @@ class List < ActiveRecord::Base
     message.save
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(from_number)
       message_split = prepare_content(message, from_number)
-      Rails.logger.info("sending message: " + message_split.join(' / ') + ", to: " + self[:name])
+      Rails.logger.info("Sending message: " + message_split.collect{|m| "'#{m}' [#{m.length}]"}.join(' / ') + ", to list: #{name}")
       phone_numbers.each do |phone_number|
         message_split.each do |body|
           create_outgoing_message(phone_number, body)
@@ -243,7 +243,7 @@ class List < ActiveRecord::Base
     	Rails.logger.info(" ** List is open, adding contact.")
         message.list = self
         if !num.contact
-          puts " ** Creating contact for num: " + num.number
+          Rails.logger.info " ** Creating contact for num: " + num.number
           num.contact = Contact.create(:password => 'abcdef981', :password_confirmation => 'abcdef981')
           num.save!
           num.contact.save!

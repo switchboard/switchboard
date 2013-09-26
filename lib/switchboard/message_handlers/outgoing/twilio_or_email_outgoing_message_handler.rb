@@ -29,21 +29,21 @@ module Switchboard::MessageHandlers::Outgoing
         #threads = []
         #threads << Thread.new(msg) { |message|
         begin
-          Rails.logger.info "handling outgoing message."
+          Rails.logger.info("handling outgoing message.")
           if (message.to == 'Web')
-            Rails.logger.info "WARNING: incorrect messages are being generated to Web"
+            Rails.logger.info("WARNING: incorrect messages are being generated to Web")
           else
             if ( message.respond_to? :carrier)
-              Rails.logger.info "emailing message"
-              send_email  message.to, :body => message.body, :from => message.from
+              Rails.logger.debug("emailing message")
+              send_email(message.to, body: message.body, from: message.from)
             else
               if (message.from == nil || message.from == '')
                 #TODO: system wide settings
-                Rails.logger.info("sending from sender: system wide sender")
+                Rails.logger.debug("sending from sender: system wide sender")
                 send_message(sender, message.to, message.body)
               else
-                Rails.logger.info("sending from sender: " + message.from )
-                send_message( sender, message.to, message.body, message.from)
+                Rails.logger.debug("Sending from: #{message.from} to #{message.to}" )
+                send_message(sender, message.to, message.body, message.from)
               end
             end
           end
