@@ -12,17 +12,17 @@ module Twilio
     CALLER_ID = "+12153466997"
 
     class TwilioSender
-        def send_sms( recipient_phone_number, message, sender_phone_number=CALLER_ID) 
+        def send_sms( recipient_phone_number, message, sender_phone_number=CALLER_ID)
 
         if ! sender_phone_number.start_with?("+1")
             sender_phone_number = "+1" + sender_phone_number
-        end      
-        if ! recipient_phone_number.start_with?("+1")
-            recipient_phone_number = "+1" +  recipient_phone_number 
         end
-        puts("caller id is: " + sender_phone_number)
-        puts("recipient id is: " + recipient_phone_number)
-        puts("message is: " + message)
+        if ! recipient_phone_number.start_with?("+1")
+            recipient_phone_number = "+1" +  recipient_phone_number
+        end
+        Rails.logger.debug"Sender is: " + sender_phone_number)
+        Rails.logger.debug"Recipient id is: " + recipient_phone_number)
+        Rails.logger.debug"Message: " + message)
 
             # Create a Twilio REST account object using your Twilio account ID and token
         # set up a client to talk to the Twilio REST API
