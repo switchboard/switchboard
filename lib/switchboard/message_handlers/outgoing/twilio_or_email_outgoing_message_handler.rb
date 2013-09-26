@@ -41,10 +41,10 @@ module Switchboard::MessageHandlers::Outgoing
               if (message.from == nil || message.from == '')
                 #TODO: system wide settings
                 Rails.logger.info("sending from sender: system wide sender")
-                send_split_message(sender, message.to, message.body)
+                send_message(sender, message.to, message.body)
               else
                 Rails.logger.info("sending from sender: " + message.from )
-                send_split_message( sender, message.to, message.body, message.from)
+                send_message( sender, message.to, message.body, message.from)
               end
             end
           end
