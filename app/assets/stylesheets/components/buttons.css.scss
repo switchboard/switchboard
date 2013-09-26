@@ -1,0 +1,22 @@
+@import "partials/_colors";
+@import "compass/css3/transition";
+
+a.button {
+  background-color: $blueButton;
+  display: inline-block;
+  padding: .3em .5em;
+  color: #fff!important;
+  @include transition(background-color 0.1s ease);
+
+  &:hover {
+    background-color: darken($blueButton, 15%);
+  }
+}
+
+ul.actions {
+  margin: 2em 0 2em 1.5em;
+  li {
+    list-style-type: disc;
+    margin-bottom: .5em;
+  }
+}

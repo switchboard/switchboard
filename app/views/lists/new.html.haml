@@ -1,12 +1,12 @@
 - content_for :main_box_content do
 
   = custom_form_for(@new_list, html: {class: 'form-vertical'}) do |f|
-    = f.input :name, label: 'List name (cannot contain spaces)', required: true, input_html: {autocomplete: 'off' }
+    = f.input :name, label: 'List name (cannot contain spaces)', required: true, input_html: {autocomplete: 'off', autofocus: true }
     = image_tag('spinner.gif', :id => 'list_name_spinner', :style => 'display: none')
     #availability
 
     %h3 List Type
-    = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]  
+    = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]
 
     %h3 Join Policy
     = f.input :open_membership, as: :radio_buttons, label: false, collection: [['Open (anyone can join)', true], ['Closed (admins must add members)', false]]

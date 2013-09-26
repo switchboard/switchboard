@@ -1,9 +1,10 @@
 @import "compass/utilities";
+@import "partials/_colors";
 
 ul#main_menu {
   /* Thanks, Paul. */
   * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
-  
+
   @include clearfix;
   $menuBackground: #353535;
   $menuHeight: 34px;
@@ -21,18 +22,18 @@ ul#main_menu {
   }
   li.current a,
   li a:hover {
-    background-color: #ff6525!important;
+    background-color: $orangeButton!important;
   }
   li.lists {
     > a,
     > span {
       font-weight: bold;
-      background-color: #01acde;
+      background-color: $blueButton;
       padding-left: 12px;
       padding-right: 12px;
       border-right: 2px solid #fff;
       &:hover {
-        background-color: #bde5f1!important;
+        background-color: $blueButtonHighlight!important;
         color: $menuBackground;
       }
     }

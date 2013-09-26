@@ -1,15 +1,17 @@
 - page_title 'Lists'
 
-#show_members
-  %p Lists for #{current_organization.name}:
-  %p
-  #show_member_list
-    / - if @list.list_type == 'announcement'
-    /  * checkbox indicates approved sender
-    %table#list_list.default.linked
-      %thead
-        %th
-        %th.num Contacts
-        %th.num Messages
-      %tbody
-        = render @lists
+%h1 Lists for #{current_organization.name}
+
+#show_member_list
+  / - if @list.list_type == 'announcement'
+  /  * checkbox indicates approved sender
+  %table#list_list.default.linked
+    %thead
+      %th
+      %th.num Contacts
+      %th.num Messages
+    %tbody
+      = render @lists
+
+%br
+%p= link_to '<b>+</b> Add new list'.html_safe, new_list_path, class: 'button'

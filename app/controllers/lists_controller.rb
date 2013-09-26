@@ -3,7 +3,7 @@ class ListsController < AdminController
 
   # Have to use @new_list because @list is used for routes in admin layout
   def new
-    @title = "Create List"
+    @title = "Create List for #{current_organization.name}"
     @new_list = current_organization.lists.build
   end
 
