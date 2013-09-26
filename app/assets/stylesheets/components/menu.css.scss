@@ -42,6 +42,7 @@ ul#main_menu {
       display: none;
       position: absolute;
       margin-top: $menuHeight;
+      z-index: 100;
       a {
         clear: left;
         width: 100%;
