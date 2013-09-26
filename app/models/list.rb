@@ -161,11 +161,11 @@ class List < ActiveRecord::Base
     custom_welcome_message || default_welcome_message
   end
 
-  # Calculate length
+  # Calculate length; ideally would be dry-ed up
   def calculate_meta_length(from_number)
     meta_length = 0
-    meta_length += "[#{name}]".length if add_list_name_header?
-    meta_length += " (#{from_number.name_and_number})".length  if add_sender_identity?(from_number)
+    meta_length += "[#{name}] ".length if add_list_name_header?
+    meta_length += " (#{from_number.name_and_number})".length if add_sender_identity?(from_number)
     meta_length
   end
 
