@@ -26,7 +26,7 @@ class List < ActiveRecord::Base
 
   def add_phone_number(phone_number)
     if has_number?(phone_number) || ! phone_number.try(:id)
-      puts("phone_number is ill formed in add_phone_number")
+      Rails.logger.info("phone_number is ill formed in add_phone_number")
       return
     end
 
@@ -136,10 +136,10 @@ class List < ActiveRecord::Base
     end
 
     if self.incoming_number
-      puts("sending message to list with incoming number: " + self.incoming_number )
+      Rails.logger.debug("sending message to list with incoming number: #{self.incoming_number}")
       message.from = self.incoming_number
     else
-      puts("no incoming number")
+      Rails.logger.debug("no incoming number")
     end
 
     message.body = body
@@ -235,12 +235,12 @@ class List < ActiveRecord::Base
   end
 
   def handle_join_message(message, num)
-    puts(" ** Handling join message.\n")
+    Rails.logger.info(" ** Handling join message.\n")
     if self.has_number?(num)
       self.create_outgoing_message( num, "It seems like you are trying to join the list '" + self[:name] + "', but you are already a member.")
     else
-      if (self.open_membership)
-    	puts(" ** List is open, adding contact.")
+      if self.open_membership
+    	Rails.logger.info(" ** List is open, adding contact.")
         message.list = self
         if !num.contact
           puts " ** Creating contact for num: " + num.number

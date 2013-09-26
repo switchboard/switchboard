@@ -5,7 +5,7 @@ require 'net/smtp'
 module Switchboard::MessageHandlers::Outgoing
   class TwilioOrEmailOutgoingMessageHandler < Switchboard::MessageHandlers::OutgoingMessageHandler
     def handle_messages!()
-      puts(" ** handling outgoing messages.")
+      Rails.logger.info(" ** handling outgoing messages.")
       sender = Twilio::TwilioSender.new()
       ## these should come from an array of output connectors (tuple of state & conditions)
       sent_state_name = 'sent'
@@ -30,20 +30,20 @@ module Switchboard::MessageHandlers::Outgoing
         #threads = []
         #threads << Thread.new(msg) { |message|
         begin
-          puts "handling outgoing message."
+          Rails.logger.info "handling outgoing message."
           if (message.to == 'Web')
-            puts "WARNING: incorrect messages are being generated to Web"
+            Rails.logger.info "WARNING: incorrect messages are being generated to Web"
           else
             if ( message.respond_to? :carrier)
-              puts "emailing message"
+              Rails.logger.info "emailing message"
               send_email  message.to, :body => message.body, :from => message.from
             else
               if (message.from == nil || message.from == '')
                 #TODO: system wide settings
-                puts("sending from sender: system wide sender")
+                Rails.logger.info("sending from sender: system wide sender")
                 send_split_message(sender, message.to, message.body)
               else
-                puts("sending from sender: " + message.from )
+                Rails.logger.info("sending from sender: " + message.from )
                 send_split_message( sender, message.to, message.body, message.from)
               end
             end
@@ -51,11 +51,11 @@ module Switchboard::MessageHandlers::Outgoing
           message.message_state = sent_state
           message.save
         rescue Exception => e
-          puts("outgoing messages -- failure")
-          puts("error was: " + e.inspect )
-          puts("error backtrace: " + e.backtrace.inspect )
-          puts("error was: " + e.inspect )
-          puts("e: " + e.to_s )
+          Rails.logger.info("outgoing messages -- failure")
+          Rails.logger.info("error was: " + e.inspect )
+          Rails.logger.info("error backtrace: " + e.backtrace.inspect )
+          Rails.logger.info("error was: " + e.inspect )
+          Rails.logger.info("e: " + e.to_s )
           error_state.messages.push(message)
           error_state.save
         end
@@ -69,7 +69,7 @@ module Switchboard::MessageHandlers::Outgoing
     end
 
     def split_message_by_160(str)
-      # 153 = 159 - 6 characters for message count:  ' (1/2)'
+      # 153 = 160 - 6 characters for message count:  ' (1/2)'
       messages = []
       while(str.length > 0)
         last_space_pos = str[0..153].rindex(' ')
