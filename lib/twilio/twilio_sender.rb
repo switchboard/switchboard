@@ -20,9 +20,9 @@ module Twilio
         if ! recipient_phone_number.start_with?("+1")
             recipient_phone_number = "+1" +  recipient_phone_number
         end
-        Rails.logger.debug"Sender is: " + sender_phone_number)
-        Rails.logger.debug"Recipient id is: " + recipient_phone_number)
-        Rails.logger.debug"Message: " + message)
+        Rails.logger.debug("Sender is: " + sender_phone_number)
+        Rails.logger.debug("Recipient id is: " + recipient_phone_number)
+        Rails.logger.debug("Message: " + message)
 
             # Create a Twilio REST account object using your Twilio account ID and token
         # set up a client to talk to the Twilio REST API
