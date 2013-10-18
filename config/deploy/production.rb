@@ -7,7 +7,8 @@ role :db,  "69.164.216.141", :primary => true # This is where Rails migrations w
 
 set :user, "switchboard"
 
-set :deploy_to, "/home/switchboard/production"
+# set :deploy_to, "/home/switchboard/production"
+set :deploy_to, '/srv/switchboard'
 set :use_sudo, false
 
 # If you are using Passenger mod_rails uncomment this:
@@ -27,31 +28,31 @@ end
 namespace :switchboard_server do
   desc "Setup the switchboard server directory"
   task :setup, :roles => :app do
-    run "mkdir -p /home/switchboard/production/run" 
+    run "mkdir -p /home/switchboard/production/run"
     run "chown #{user}:#{user} /home/switchboard/production/run"
   end
 
   # start background server
   desc "Start the switchboard background server"
   task :start, :roles => :app do
-    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production"
   end
 
   # stop background server
   desc "Stop the switchboard background server"
   task :stop, :roles => :app do
-    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production" 
+    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production"
   end
 
   # restart the background server
   desc "Restart the switchboard background server"
   task :restart, :roles => :app do
-    # TODO: since restart won't cold_start, we could read call to status, if 
+    # TODO: since restart won't cold_start, we could read call to status, if
     # it returns:
     #    task_server.rb: no instances running
     # we could simply issue the start command
-    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production" 
-    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production" 
+#    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production"
+#    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production"
   end
 
 end
