@@ -7,6 +7,6 @@ require './config/boot'
 require 'airbrake/capistrano'
 
 set :application, "switchboard"
-set :repository,  "git://github.com/whatcould/switchboard.git"
+set :repository,  "git://github.com/switchboard/switchboard.git"
 set :scm, :git
-set :branch, "deploy"
+set :branch, "master"

@@ -11,49 +11,24 @@ set :user, "switchboard"
 set :deploy_to, '/srv/switchboard'
 set :use_sudo, false
 
-# If you are using Passenger mod_rails uncomment this:
-# if you're still using the script/reapear helper you will need
-# these http://github.com/rails/irs_process_scripts
 
 namespace :deploy do
-   task :stop do ; end
-   task :restart, :roles => :app, :except => { :no_release => true } do
-      run "cd #{File.join(current_path)}; git submodule init"
-      run "cd #{File.join(current_path)}; git submodule update"
-     #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-     run "touch #{File.join(current_path,'tmp','restart.txt')}"
-   end
-end
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
 
-namespace :switchboard_server do
-  desc "Setup the switchboard server directory"
-  task :setup, :roles => :app do
-    run "mkdir -p /home/switchboard/production/run"
-    run "chown #{user}:#{user} /home/switchboard/production/run"
+    run "cd #{current_path} && bundle exec #{current_path}/script/daemon restart switchboard_server"
+
+    run "curl -s http://switchboard.mediamobilizing.org > /dev/null 2>&1"
   end
 
-  # start background server
-  desc "Start the switchboard background server"
-  task :start, :roles => :app do
-    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production"
+  task :symlink_config, roles: :app do
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/settings-production.yml #{release_path}/config/settings/production.yml"
+    run "ln -nfs #{shared_path}/config/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
+   run "ln -nfs #{shared_path}/config/aaa_production_settings.rb #{release_path}/config/initializers/aaa_production_settings.rb"
   end
-
-  # stop background server
-  desc "Stop the switchboard background server"
-  task :stop, :roles => :app do
-    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production"
-  end
-
-  # restart the background server
-  desc "Restart the switchboard background server"
-  task :restart, :roles => :app do
-    # TODO: since restart won't cold_start, we could read call to status, if
-    # it returns:
-    #    task_server.rb: no instances running
-    # we could simply issue the start command
-#    run "ruby #{current_path}/script/switchboard_server_control.rb stop -- production"
-#    run "ruby #{current_path}/script/switchboard_server_control.rb start -- production"
-  end
+  after "deploy:finalize_update", "deploy:symlink_config"
 
 end
-
