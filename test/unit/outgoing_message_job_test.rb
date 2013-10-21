@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class OutgoingMessageTest < ActiveSupport::TestCase
+class OutgoingMessageJobTest < ActiveSupport::TestCase
   context "with an email address as 'to'" do
     setup do
       @list_id = 123
@@ -10,8 +10,8 @@ class OutgoingMessageTest < ActiveSupport::TestCase
     end
 
     should 'send an email' do
-      OutgoingMessage.expects(:send_email).with(@to, {body: @body, from: @from})
-      OutgoingMessage.perform(@list_id, @to, @from, @body)
+      OutgoingMessageJob.expects(:send_email).with(@to, {body: @body, from: @from})
+      OutgoingMessageJob.perform(@list_id, @to, @from, @body)
     end
 
   end
@@ -26,7 +26,7 @@ class OutgoingMessageTest < ActiveSupport::TestCase
 
     should 'send an sms with TwilioSender' do
       TwilioSender.expects(:send_sms).with(@to, @body, @from)
-      OutgoingMessage.perform(@list_id, @to, @from, @body)
+      OutgoingMessageJob.perform(@list_id, @to, @from, @body)
     end
 
     should 'increment list outgoing count but not message count' do
@@ -34,7 +34,7 @@ class OutgoingMessageTest < ActiveSupport::TestCase
       List.expects(:increment_outgoing_count).with(@list_id)
       Message.expects(:increment_outgoing_count).never
 
-      OutgoingMessage.perform(@list_id, @to, @from, @body)
+      OutgoingMessageJob.perform(@list_id, @to, @from, @body)
     end
 
     should 'increment message outgoing count when passed a message id' do
@@ -43,7 +43,7 @@ class OutgoingMessageTest < ActiveSupport::TestCase
       List.expects(:increment_outgoing_count).with(@list_id)
       Message.expects(:increment_outgoing_count).with(@message_id)
 
-      OutgoingMessage.perform(@list_id, @to, @from, @body, @message_id)
+      OutgoingMessageJob.perform(@list_id, @to, @from, @body, @message_id)
     end
 
   end

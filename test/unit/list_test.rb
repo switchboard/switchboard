@@ -41,11 +41,9 @@ class ListTest < ActiveSupport::TestCase
     @list = FactoryGirl.build(:list, add_list_name_header: true)
     @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.')
 
-    # This happens in message handler at the moment
-    @message.tokens = @message.body.split(/ /)
     @phone_number = FactoryGirl.build(:phone_number)
 
-    @content = @list.prepare_content(@message, @phone_number)
+    @content = @list.prepare_content(@message)
 
     assert @content.length == 3
     assert @content[0] == "[#{@list.name}] Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim (1/3)"
@@ -56,11 +54,9 @@ class ListTest < ActiveSupport::TestCase
     @list = FactoryGirl.build(:list, add_list_name_header: true)
     @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam')
 
-    # This happens in message handler at the moment
-    @message.tokens = @message.body.split(/ /)
     @phone_number = FactoryGirl.build(:phone_number)
 
-    @content = @list.prepare_content(@message, @phone_number)
+    @content = @list.prepare_content(@message)
     assert @content.length == 1
     assert @content[0] == "[#{@list.name}] #{@message.body}"
   end
@@ -80,14 +76,14 @@ class ListTest < ActiveSupport::TestCase
 
       should 'enqueue email if phone has provider email' do
         @phone = FactoryGirl.build(:phone_number, provider_email: 'example.com')
-        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, "#{@phone.number}@#{@phone.provider_email}", instance_of(String), @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, "#{@phone.number}@#{@phone.provider_email}", instance_of(String), @body, @message_id)
         @list.create_outgoing_message(@phone, @body, @message_id)
       end
 
       should 'enqueue sms if phone does not have provider email' do
         @phone = FactoryGirl.build(:phone_number)
 
-        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, @phone.number, instance_of(String), @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message_id)
         @list.create_outgoing_message(@phone, @body, @message_id)
       end
     end
@@ -101,7 +97,7 @@ class ListTest < ActiveSupport::TestCase
       should 'enqueue sms' do
         @phone = FactoryGirl.build(:phone_number)
 
-        Resque.expects(:enqueue).with(OutgoingMessage, @list.id, @phone.number, instance_of(String), @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message_id)
         @list.create_outgoing_message(@phone, @body, @message_id)
       end
     end

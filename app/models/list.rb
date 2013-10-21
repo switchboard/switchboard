@@ -4,16 +4,12 @@ class List < ActiveRecord::Base
   has_many :list_memberships, dependent: :destroy
   has_many :phone_numbers, through: :list_memberships
 
-<<<<<<< HEAD
-  has_many :messages, dependent: :destroy, order: 'created_at DESC'
-=======
   has_many :list_memberships, dependent: :destroy
   has_many :phone_numbers, through: :list_memberships
   has_many :admin_phone_numbers, through: :list_memberships, source: :phone_number,
            conditions: ['list_memberships.is_admin = ?', true]
 
   has_many :messages, order: 'created_at DESC'
->>>>>>> Various refactoring for message delivery
   belongs_to :organization
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
@@ -28,8 +24,6 @@ class List < ActiveRecord::Base
   validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 
-<<<<<<< HEAD
-=======
   def name=(str)
     self[:name] = str.upcase
   end
@@ -37,7 +31,6 @@ class List < ActiveRecord::Base
   def incoming_number=(str)
     write_attribute(:incoming_number, str.try(:gsub, /[^0-9]/, ''))
   end
->>>>>>> Various refactoring for message delivery
 
   def import_from_attachment
     raise 'CSV File was not uploaded' unless csv_file
@@ -78,25 +71,9 @@ class List < ActiveRecord::Base
   def has_number?(phone_number)
     list_memberships.where(phone_number_id: phone_number.id).exists?
   end
-<<<<<<< HEAD
-
-  def admins
-    self.list_memberships.select{ |mem| mem.is_admin? }.collect{ |admin| admin.phone_number }
-  end
-
-  def number_is_admin?(phone_number)
-    number = list_memberships.find_by_phone_number_id(phone_number.id)
-
-    if number
-      number.is_admin?
-    else
-      raise 'phone number is not a member of list'
-    end
-=======
 
   def number_is_admin?(phone_number)
     list_memberships.admin.where(phone_number_id: phone_number.id).exists?
->>>>>>> Various refactoring for message delivery
   end
 
   def toggle_admin(phone_number)
@@ -131,7 +108,7 @@ class List < ActiveRecord::Base
       raise "List & subscriber settings make sending message impossible for number #{phone_number.number} "
     end
 
-    Resque.enqueue(OutgoingMessage, id, to, from, body, message_id)
+    Resque.enqueue(OutgoingMessageJob, id, to, from, body, message_id)
   end
 
   def increment_outgoing_count
@@ -200,25 +177,15 @@ class List < ActiveRecord::Base
     # Not sure why we're doing this here
     message.sender = message.from_phone_number.contact
     message.save
-<<<<<<< HEAD
-=======
 
     # TODO it appears that even non list-members can send messages to lists?
     # Not sure if that's a bug or a feature
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
-      content = prepare_content(message)
->>>>>>> Various refactoring for message delivery
-
-    if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
-      message_split = prepare_content(message, from_number)
+      message_split = prepare_content(message)
       phone_numbers.each do |phone_number|
-<<<<<<< HEAD
         message_split.each do |body|
-          create_outgoing_message(phone_number, body)
+          create_outgoing_message(phone_number, body, message.id)
         end
-=======
-        create_outgoing_message(phone_number, content, message.id)
->>>>>>> Various refactoring for message delivery
       end
       message.update_column(:outgoing_total, phone_numbers.size)
       true

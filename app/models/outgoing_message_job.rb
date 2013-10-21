@@ -1,4 +1,4 @@
-class OutgoingMessage
+class OutgoingMessageJob
   @queue = :outgoing
 
   def self.perform(list_id, to, from, message_body, message_id = nil)

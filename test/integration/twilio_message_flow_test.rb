@@ -24,7 +24,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
 
     Resque.run!
 
-    # This bit is a little inside baseball but:
+    # This bit is a little inside baseball, but:
 
     # List outgoing count is set
     assert_equal @list.outgoing_count.to_i, @outgoing_count
@@ -32,7 +32,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     # Message outgoing count is set
     message = Message.where(body: @twilio_params['Body']).first
     assert message
-    assert_equal message.outgoing_count.to_i, @outgoing_count
+    assert_equal message.outgoing_count.to_i, @outgoing_count, "Message should be marked with #{@outgoing_count} messages, instead says #{message.outgoing_count.to_i}"
   end
 
 end

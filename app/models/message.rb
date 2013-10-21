@@ -1,10 +1,10 @@
 class Message < ActiveRecord::Base
   include AASM
-  
-  belongs_to :sender, :class_name => 'Contact' 
+
+  belongs_to :sender, :class_name => 'Contact'
   belongs_to :from_phone_number, class_name: 'PhoneNumber'
   belongs_to :recipient, :class_name => 'Contact'
-  belongs_to :list  
+  belongs_to :list
   belongs_to :message_state
 
   attr_accessible :from, :body
@@ -87,12 +87,12 @@ class Message < ActiveRecord::Base
       if first_token == 'join'
         list.handle_join_message(self)
         mark_handled!
-      elsif first_token == 'leave' || first_token == 'quit'        
+      elsif first_token == 'leave' || first_token == 'quit'
         list.handle_leave_message(self)
         mark_handled!
       else
         # Need to decide where we're handling message state;
-        # handle_send_action is only action that returns true/false        
+        # handle_send_action is only action that returns true/false
 
         if list.handle_send_action(self)
           queue_to_send!
@@ -115,6 +115,7 @@ class Message < ActiveRecord::Base
   end
 
   def increment_outgoing_count
+    puts "INCREMENTING OUTGOING COUNT, #{id}"
     $redis.incr "msg_out_#{id}"
   end
 
@@ -142,16 +143,16 @@ class Message < ActiveRecord::Base
   def set_from_number
     return unless sender_number
     incoming_number_str = sender_number.to_s.gsub('+1', '')
-    
+
     if incoming_number_str.present?
-      self.from_phone_number = PhoneNumber.find_or_create_by_number(incoming_number_str) 
+      self.from_phone_number = PhoneNumber.find_or_create_by_number(incoming_number_str)
 
       # TODO: handle this more elegantly (in EmailMessage)
       # If the message comes via email, save the carrier address.
       if is_a?(EmailMessage)
         from_phone_number.update_column(:provider_email, carrier)
       end
-    end    
+    end
   end
 
   def set_list
@@ -166,7 +167,7 @@ class Message < ActiveRecord::Base
       ## Non-keyword list (assigned phone number)
     elsif self.is_a?(EmailMessage)
       ## Email message for a list
-      list_name = default_list 
+      list_name = default_list
       self.list = List.find_by_name(default_list)
     else
       ## Keyword list
