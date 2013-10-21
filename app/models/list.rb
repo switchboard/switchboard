@@ -155,7 +155,7 @@ class List < ActiveRecord::Base
   end
 
   def add_sender_identity?(from_number)
-    identify_sender? && from_number.contact && from_number.contact.full_name.present?
+    from_number && identify_sender? && from_number.contact && from_number.contact.full_name.present?
   end
 
   def split_message_by_160(str)
@@ -175,7 +175,7 @@ class List < ActiveRecord::Base
 
   def handle_send_action(message)
     # Not sure why we're doing this here
-    message.sender = message.from_phone_number.contact
+    message.sender = message.from_phone_number.try(:contact)
     message.save
 
     # TODO it appears that even non list-members can send messages to lists?
@@ -223,7 +223,7 @@ class List < ActiveRecord::Base
       list_memberships.create!(phone_number_id: message.from_phone_number.id)
 
       # Not sure why we do this here, either.
-      message.sender = message.from_phone_number.contact
+      message.sender = message.from_phone_number.try(:contact)
       message.save
     else
       create_outgoing_message(message.from_phone_number, "Sorry, this list is configured as a private list; only the administrator can add new members.")
