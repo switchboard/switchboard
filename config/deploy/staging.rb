@@ -13,6 +13,12 @@ set :use_sudo, false
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
+role :resque_worker, 'switchboard.whatcould.com'
+role :resque_scheduler, 'switchboard.whatcould.com'
+set :workers, { '*' => 1 }
+
+after "deploy:restart", "resque:restart"
+
 
 namespace :deploy do
   task :start do ; end
@@ -21,7 +27,7 @@ namespace :deploy do
     # run "cd #{current_path} && bundle exec rake asset:packager:build_all RAILS_ENV=production"
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 
-    run "cd #{current_path} && bundle exec #{current_path}/script/daemon restart switchboard_server"
+    run "cd #{current_path} && bundle exec #{current_path}/script/daemon stop switchboard_server"
 
     run "curl -s http://switchboard.whatcould.com > /dev/null 2>&1"
   end
@@ -33,5 +39,5 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/aaa_staging_settings.rb #{release_path}/config/initializers/aaa_staging_settings.rb"
   end
   after "deploy:finalize_update", "deploy:symlink_config"
-  
+
 end

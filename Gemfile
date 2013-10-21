@@ -39,6 +39,7 @@ gem 'bcrypt-ruby'
 group :development do
   gem 'sextant'
   gem "capistrano"
+  gem 'capistrano-resque'
   gem "capistrano-ext"
 end
 
