@@ -104,10 +104,11 @@ class Message < ActiveRecord::Base
       end
 
     rescue => e
-      puts "Exception while processing message #{id}"
-      puts "Error: " + e.inspect
-      puts "Backtrace: " + e.backtrace.inspect
-      puts "e: " + e.to_s
+      logger = Resque.logger || Rails.logger
+      logger.info "Exception while processing message #{id}"
+      logger.info "Error: " + e.inspect
+      logger.info "Backtrace: " + e.backtrace.inspect
+      logger.info "e: " + e.to_s
       Airbrake.notify(e)
 
       mark_failure!
