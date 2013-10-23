@@ -29,21 +29,33 @@ class OutgoingMessageJobTest < ActiveSupport::TestCase
       OutgoingMessageJob.perform(@list_id, @to, @from, @body)
     end
 
-    should 'increment list outgoing count but not message count' do
-      TwilioSender.stubs(:send_sms)
-      List.expects(:increment_outgoing_count).with(@list_id)
-      Message.expects(:increment_outgoing_count).never
+    context 'without a message_id' do
+      should 'increment list outgoing count but not message count' do
+        TwilioSender.stubs(:send_sms)
+        List.expects(:increment_outgoing_count).with(@list_id)
+        Message.expects(:increment_outgoing_count).never
 
-      OutgoingMessageJob.perform(@list_id, @to, @from, @body)
+        OutgoingMessageJob.perform(@list_id, @to, @from, @body)
+      end
     end
 
-    should 'increment message outgoing count when passed a message id' do
-      @message_id = '555'
-      TwilioSender.stubs(:send_sms)
-      List.expects(:increment_outgoing_count).with(@list_id)
-      Message.expects(:increment_outgoing_count).with(@message_id)
+    context 'with a message id' do
+      setup do
+        @message_id = 555
+        @message_count = 5
+        TwilioSender.stubs(:send_sms)
+        List.expects(:increment_outgoing_count).with(@list_id)
+        Message.expects(:increment_outgoing_count).with(@message_id).returns(@message_count)
+      end
 
-      OutgoingMessageJob.perform(@list_id, @to, @from, @body, @message_id)
+      should 'increment message outgoing count when passed a message id' do
+        OutgoingMessageJob.perform(@list_id, @to, @from, @body, @message_id, @message_count + 10)
+      end
+
+      should 'mark message as sent when outgoing count equals expected total count' do
+        Message.expects(:find).with(@message_id).returns(stub(:mark_sent!))
+        OutgoingMessageJob.perform(@list_id, @to, @from, @body, @message_id, @message_count)
+      end
     end
 
   end

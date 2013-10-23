@@ -127,6 +127,7 @@ GEM
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     mime-types (1.23)
+    minitest (4.3.2)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
     mono_logger (1.1.0)
@@ -279,6 +280,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  minitest
   mocha
   mysql2
   omniauth

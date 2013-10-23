@@ -18,9 +18,9 @@
     %br
     Contacts: #{@list.phone_numbers.size}
     %br
-    Total messages: #{@list.messages.size}
+    Total outgoing: #{@list.outgoing_count}
     %br
-    Messages this week: #{@list.messages.within_days(7).size}
+    Outgoing this month: #{@list.current_month_outgoing}
     %br
-    Sent messages: #{@list.messages.sent.size}
+    Sent messages: #{@list.sent_count}
     / TODO these numbers are not right now, or don't mean what they seem.

@@ -5,3 +5,5 @@
       = ' '
     %span.from [#{format_phone message.from}]
     = message.body
+    - if message.in_send_queue?
+      %p.status= "Sending #{message.outgoing_count} of #{message.outgoing_total}"

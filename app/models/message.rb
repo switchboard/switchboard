@@ -36,6 +36,10 @@ class Message < ActiveRecord::Base
       transitions from: :processing, to: :in_send_queue
     end
 
+    event :mark_sent do
+      transitions from: :in_send_queue, to: :sent
+    end
+
     event :mark_failure do
       transitions to: :failure
     end
@@ -49,8 +53,8 @@ class Message < ActiveRecord::Base
     where('updated_at > ?', num_days.days.ago)
   end
 
-  def self.most_recent(count)
-    sent.limit(count)
+  def self.for_display
+    where(aasm_state: ['in_send_queue', 'sent'])
   end
 
   def self.single_most_recent_from_contact(contact_id)
@@ -116,16 +120,15 @@ class Message < ActiveRecord::Base
   end
 
   def increment_outgoing_count
-    puts "INCREMENTING OUTGOING COUNT, #{id}"
-    $redis.incr "msg_out_#{id}"
+    $redis.incr("msg_out_#{id}").to_i
   end
 
   def self.increment_outgoing_count(message_id)
-    $redis.incr "msg_out_#{message_id}"
+    $redis.incr("msg_out_#{message_id}").to_i
   end
 
   def outgoing_count
-    $redis.get "msg_out_#{id}"
+    ($redis.get("msg_out_#{id}") || 0).to_i
   end
 
   private

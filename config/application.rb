@@ -21,6 +21,7 @@ module Switchboard
     config.autoload_paths += [
       config.root.join('lib'),
       config.root.join('lib/validators'),
+      config.root.join("lib/concerns"),
       config.root.join('lib/switchboard')
     ]
 
@@ -64,7 +65,7 @@ module Switchboard
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
- 
+
     config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     config.generators do |g|

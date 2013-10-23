@@ -6,6 +6,10 @@ class ListsControllerTest < ActionController::TestCase
     login_as :org_one_user
     @list = lists(:one)
     @non_org_list = lists(:org_two_list)
+
+    # Fixtures do not run hooks
+    SentCount.setup_new_countable(@list)
+    SentCount.setup_new_countable(@non_org_list)
   end
 
   context 'lists#index' do

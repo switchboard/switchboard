@@ -3,7 +3,7 @@ require 'test_helper'
 class ListTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
-  should 'hide deleted lists by default' do
+  test 'hides deleted lists by default' do
     @list = lists(:one)
     @list.soft_delete
     assert ! List.all.include?(@list)
@@ -76,21 +76,24 @@ class ListTest < ActiveSupport::TestCase
     context 'when list allows email' do
       setup do
         @list = lists(:two) # allows & prefers email
+        @list.all_users_can_send_messages = true
+
         @body = 'This is a new message'
-        @message_id = 123
+        @message = FactoryGirl.create(:message, list: @list, body: @body)
+        @outgoing_count = @list.phone_numbers.count
       end
 
       should 'enqueue email if phone has provider email' do
         @phone = FactoryGirl.build(:phone_number, provider_email: 'example.com')
-        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, "#{@phone.number}@#{@phone.provider_email}", instance_of(String), @body, @message_id)
-        @list.create_outgoing_message(@phone, @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, "#{@phone.number}@#{@phone.provider_email}", instance_of(String), @body, @message.id, @outgoing_count)
+        @list.create_outgoing_message(@phone, @body, @message.id, @outgoing_count)
       end
 
       should 'enqueue sms if phone does not have provider email' do
         @phone = FactoryGirl.build(:phone_number)
 
-        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message_id)
-        @list.create_outgoing_message(@phone, @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message.id, @outgoing_count)
+        @list.create_outgoing_message(@phone, @body, @message.id, @outgoing_count)
       end
     end
 
@@ -98,13 +101,14 @@ class ListTest < ActiveSupport::TestCase
       setup do
         @list = lists(:one)
         @body = 'A new message'
+        @message = FactoryGirl.create(:message, list: @list, body: @body)
       end
 
       should 'enqueue sms' do
         @phone = FactoryGirl.build(:phone_number)
 
-        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message_id)
-        @list.create_outgoing_message(@phone, @body, @message_id)
+        Resque.expects(:enqueue).with(OutgoingMessageJob, @list.id, @phone.number, instance_of(String), @body, @message.id, @outgoing_count)
+        @list.create_outgoing_message(@phone, @body, @message.id, @outgoing_count)
       end
     end
   end

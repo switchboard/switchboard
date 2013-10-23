@@ -46,6 +46,7 @@ group :development do
 end
 
 group :test do
+  gem 'minitest', require: 'minitest/autorun'
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'mocha', require: 'mocha/setup'

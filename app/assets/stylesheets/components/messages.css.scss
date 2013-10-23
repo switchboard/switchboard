@@ -1,4 +1,5 @@
 @import 'partials/colors';
+@import "compass/css3/border-radius";
 
 ul.messages {
   margin-left: 10px;
@@ -10,8 +11,22 @@ ul.messages {
     font-size: .9em;
     color: $gray;
   }
+  .date {
+    color: $gray;
+    font-size: .9em;
+  }
   .from {
     font-size: .9em;
     color: $grayLight;
+  }
+  .status {
+    text-indent: 0;
+    display: inline-block;
+    margin: .3em .2em .2em;
+    padding: .3em;
+    font-size: .9em;
+    background: $backgroundGreen;
+    color: #fff;
+    @include border-radius(5px);
   }
 }

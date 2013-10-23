@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023132456) do
+ActiveRecord::Schema.define(:version => 20131023191010) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -177,6 +177,16 @@ ActiveRecord::Schema.define(:version => 20131023132456) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "sent_counts", :force => true do |t|
+    t.integer  "countable_id"
+    t.string   "countable_type"
+    t.date     "date_ending"
+    t.integer  "month_count"
+    t.integer  "total_count"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
   create_table "service_phone_numbers", :force => true do |t|
     t.string   "phone_number"
     t.string   "service"
@@ -230,9 +240,10 @@ ActiveRecord::Schema.define(:version => 20131023132456) do
     t.datetime "password_reset_sent_at"
     t.string   "auth_token"
     t.boolean  "superuser"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.integer  "default_organization_id"
+    t.string   "time_zone",               :default => "Eastern Time (US & Canada)", :null => false
   end
 
 end

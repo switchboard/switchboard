@@ -1,6 +1,8 @@
 require 'csv'
 
 class List < ActiveRecord::Base
+  include MonthlyCountable
+
   has_many :list_memberships, dependent: :destroy
   has_many :phone_numbers, through: :list_memberships
 
@@ -10,6 +12,7 @@ class List < ActiveRecord::Base
            conditions: ['list_memberships.is_admin = ?', true]
 
   has_many :messages, order: 'created_at DESC'
+  has_many :sent_counts, as: :countable, dependent: :destroy
   belongs_to :organization
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
@@ -93,12 +96,12 @@ class List < ActiveRecord::Base
   end
 
   def most_recent_messages(count)
-    messages.sent.limit(count)
+    messages.for_display.limit(count)
   end
 
   # Message id is passed to keep outgoing message counts;
   # It does not need to be passed for administrative messages
-  def create_outgoing_message(phone_number, body, message_id = nil)
+  def create_outgoing_message(phone_number, body, message_id = nil, outgoing_count = nil)
     if phone_number.can_receive_email? && allow_email_gateway? &&
                                   (! allow_commercial_gateway? || prefer_email? )
       to = "#{phone_number.number}@#{phone_number.provider_email}"
@@ -110,7 +113,7 @@ class List < ActiveRecord::Base
       raise "List & subscriber settings make sending message impossible for number #{phone_number.number} "
     end
 
-    Resque.enqueue(OutgoingMessageJob, id, to, from, body, message_id)
+    Resque.enqueue(OutgoingMessageJob, id, to, from, body, message_id, outgoing_count)
   end
 
   def soft_delete
@@ -118,8 +121,12 @@ class List < ActiveRecord::Base
   end
 
   # Message Counts
-
   # ====================
+
+  def sent_count
+    messages.sent.size
+  end
+
   def increment_outgoing_count
     $redis.incr "list_out_#{id}"
   end
@@ -129,9 +136,8 @@ class List < ActiveRecord::Base
   end
 
   def outgoing_count
-    $redis.get "list_out_#{id}"
+    ($redis.get("list_out_#{id}") || 0).to_i
   end
-
 
   def welcome_message
     custom_welcome_message || default_welcome_message
@@ -191,13 +197,15 @@ class List < ActiveRecord::Base
     # TODO it appears that even non list-members can send messages to lists?
     # Not sure if that's a bug or a feature
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
+
       message_split = prepare_content(message)
+      outgoing_count = phone_numbers.size * message_split.length
+      message.update_column(:outgoing_total, outgoing_count)
       phone_numbers.each do |phone_number|
         message_split.each do |body|
-          create_outgoing_message(phone_number, body, message.id)
+          create_outgoing_message(phone_number, body, message.id, outgoing_count)
         end
       end
-      message.update_column(:outgoing_total, phone_numbers.size)
       true
 
     elsif text_admin_with_response? && admin_phone_numbers.any?

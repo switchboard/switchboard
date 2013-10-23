@@ -32,6 +32,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     # Message outgoing count is set
     message = Message.where(body: @twilio_params['Body']).first
     assert message
+    assert message.sent?
     assert_equal message.outgoing_count.to_i, @outgoing_count, "Message should be marked with #{@outgoing_count} messages, instead says #{message.outgoing_count.to_i}"
   end
 
