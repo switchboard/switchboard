@@ -34,7 +34,7 @@ class ListsController < AdminController
 
   def destroy
     @list = current_organization.lists.find(params[:id])
-    @list.destroy
+    @list.soft_delete
     redirect_to lists_path, notice: "The list #{@list.name} was deleted."
   end
 

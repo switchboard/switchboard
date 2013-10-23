@@ -37,7 +37,7 @@ class ListsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-  
+
   context 'lists#edit' do
     should 'render form for editing list' do
       get :edit, id: @list.id
@@ -50,13 +50,13 @@ class ListsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-  
+
   # Would rather be testing this via integration test, leaving this bare-bones
   context 'lists#update' do
     should 'update changed attributes on list' do
       put :update, id: @list.id, list: {use_welcome_message: '1', custom_welcome_message: 'Testing'}
       assert_redirected_to list_path(@list)
-  
+
       @list.reload
       assert @list.use_welcome_message == true
       assert @list.custom_welcome_message == 'Testing'
@@ -73,7 +73,7 @@ class ListsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-  
+
   context 'lists#new' do
     should 'render form for creating new' do
       get :new
@@ -82,12 +82,13 @@ class ListsControllerTest < ActionController::TestCase
       assert_select "input[name='list[all_users_can_send_messages]']"
     end
   end
-  
+
   context 'lists#destroy' do
-    should 'delete list and redirect' do
+    should 'soft-delete list and redirect' do
       delete :destroy, id: @list.id
       assert_redirected_to lists_path
-      assert List.find_by_id(@list.id) == nil
+      assert ! List.find_by_id(@list.id)
+      assert List.unscoped.find_by_id(@list.id)
     end
 
     should 'not allow deleting list outside organization' do
@@ -95,30 +96,30 @@ class ListsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-  
+
   # Would rather be testing this via integration test, leaving this bare-bones
   context 'lists#create' do
     should 'create a new list' do
       put :create, list: {name: 'ANEWUNUSEDNAME', all_users_can_send_messages: '1'}
       @list = assigns(:new_list)
-  
+
       assert_redirected_to list_path(@list)
-  
+
       assert @list.name == 'ANEWUNUSEDNAME'
       assert @list.all_users_can_send_messages == true
     end
-  
+
     should 'show new form if there is a validation error on create' do
       List.any_instance.stubs(:create).returns(false)
       post :create, list: {}
       assert_template 'new'
     end
   end
-  
-  
+
+
   context 'lists#import' do
     should 'render form for uploading CSV' do
-      get :import, id: @list.id 
+      get :import, id: @list.id
       assert_template 'import'
       assert_select "input[name='list[csv_file]']"
     end
@@ -128,25 +129,25 @@ class ListsControllerTest < ActionController::TestCase
       assert_response :not_found
     end
   end
-  
+
   context 'lists#upload_csv' do
     should 'show error when list is invalid' do
       @errors = ['This is an error', 'This is another']
       List.any_instance.stubs(:update_attributes).returns(true)
       List.any_instance.stubs(:import_from_attachment).returns({success_count: 3, errors: @errors})
-  
+
       put :upload_csv, id: @list.id
       assert_select '*', /errors importing/
     end
-  
+
     should 'redirect when csv is successful' do
       List.any_instance.stubs(:update_attributes).returns(true)
       List.any_instance.stubs(:import_from_attachment).returns({success_count: 3, errors: [] })
-  
+
       put :upload_csv, id: @list.id
       assert_redirected_to list_phone_numbers_path(@list)
     end
-  
+
   end
 
 end

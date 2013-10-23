@@ -3,6 +3,12 @@ require 'test_helper'
 class ListTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  should 'hide deleted lists by default' do
+    @list = lists(:one)
+    @list.soft_delete
+    assert ! List.all.include?(@list)
+  end
+
   context 'importing a CSV file' do
     setup do
       ListMembership.any_instance.stubs(:send_welcome_message).returns(true)

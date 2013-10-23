@@ -24,6 +24,8 @@ class List < ActiveRecord::Base
   validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 
+  default_scope where(deleted: false)
+
   def name=(str)
     self[:name] = str.upcase
   end
@@ -111,6 +113,13 @@ class List < ActiveRecord::Base
     Resque.enqueue(OutgoingMessageJob, id, to, from, body, message_id)
   end
 
+  def soft_delete
+    update_column(:deleted, true)
+  end
+
+  # Message Counts
+
+  # ====================
   def increment_outgoing_count
     $redis.incr "list_out_#{id}"
   end
@@ -122,6 +131,7 @@ class List < ActiveRecord::Base
   def outgoing_count
     $redis.get "list_out_#{id}"
   end
+
 
   def welcome_message
     custom_welcome_message || default_welcome_message
