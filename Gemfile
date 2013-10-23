@@ -26,6 +26,8 @@ gem 'simple_form'
 gem 'kaminari'
 gem 'paperclip'
 gem 'airbrake'
+# Included by capistrano-resque but needs upgrade
+gem 'resque-scheduler', git: 'https://github.com/resque/resque-scheduler.git'
 gem 'resque'
 gem 'aasm'
 
