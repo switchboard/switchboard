@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   def store_location(custom_location = nil)
     session[:return_to] = custom_location || (request.get? ? request.url : nil)
   end
-  
+
   def redirect_back_or_default(default = nil, opts = {})
     redirect_to((session[:return_to] || default || root_path), opts)
     session[:return_to] = nil
@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
       if cookies[:auth_token]
         user = User.find_by_auth_token(cookies[:auth_token])
         cookies.delete(:auth_token) if ! user
+        Time.zone = user.time_zone if user
         user
       end
     end
@@ -70,9 +71,9 @@ class ApplicationController < ActionController::Base
   end
 
   def render_404
-    respond_to do |type| 
-      type.html { render file: Rails.public_path + '/404', formats: [:html], status: 404, layout: false } 
-      type.all  { render nothing: true, status: 404 } 
+    respond_to do |type|
+      type.html { render file: Rails.public_path + '/404', formats: [:html], status: 404, layout: false }
+      type.all  { render nothing: true, status: 404 }
     end
     true  # so we can return "render_404"
   end

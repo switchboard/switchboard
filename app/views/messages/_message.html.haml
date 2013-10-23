@@ -3,6 +3,7 @@
     - unless defined? show_list
       %span.list= message.list.name
       = ' '
+    %span.date= message.created_at.to_smart_s
     %span.from [#{format_phone message.from}]
     = message.body
     - if message.in_send_queue?
