@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   helper :all
   protect_from_forgery
   before_filter :get_list
+  before_filter :require_user
 
   helper_method :current_user, :signed_in?, :current_organization, :current_list
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404

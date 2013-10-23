@@ -1,4 +1,4 @@
-class SurveysController < AdminController
+class SurveysController < ApplicationController
 
   def new
     @title = "Create Survey"

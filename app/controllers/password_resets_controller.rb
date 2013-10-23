@@ -1,14 +1,15 @@
 class PasswordResetsController < ApplicationController
+  skip_before_filter :require_user
   layout 'login'
 
   def create
     user = User.find_by_email(params[:password_reset][:email])
     if user
-      user.send_password_reset 
+      user.send_password_reset
       redirect_to signin_path, notice: 'OK, we sent you an email with password reset instructions.'
     else
       flash.now[:notice] = 'We could not find that user in our system.'
-      render :new 
+      render :new
     end
   end
 

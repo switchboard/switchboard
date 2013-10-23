@@ -1,4 +1,4 @@
-class ContactsController < AdminController
+class ContactsController < ApplicationController
 
   def new
     @title = "Add Contact"

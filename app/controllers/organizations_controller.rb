@@ -1,4 +1,4 @@
-class OrganizationsController < AdminController
+class OrganizationsController < ApplicationController
 
   def show
     @organization = current_user.accessible_organizations.find(params[:id])

@@ -1,4 +1,4 @@
-class ListsController < AdminController
+class ListsController < ApplicationController
   skip_before_filter :get_list
 
   # Have to use @new_list because @list is used for routes in admin layout

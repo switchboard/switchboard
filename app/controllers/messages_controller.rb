@@ -1,16 +1,15 @@
 class MessagesController < ApplicationController
   before_filter :require_user, :only => [:new, :index, :send_message]
   skip_before_filter :verify_authenticity_token
-  layout 'admin'
 
   def new
     @message = WebMessage.new
   end
 
   def index
-  end 
+  end
 
-  def create 
+  def create
     # assignment of @message assumed in subclasses
     queue_message if @message
   end
@@ -22,7 +21,7 @@ class MessagesController < ApplicationController
       # Not setting 'to' to list_id
       # @message.to = @list.id
       @message.list = @list
-      if ( @message.save ) 
+      if ( @message.save )
         flash[:notice] = "Message sent."
         redirect_to list_url(@list)
       else
@@ -37,7 +36,7 @@ class MessagesController < ApplicationController
     #  end
     end
   end
- 
+
 
   protected
 
