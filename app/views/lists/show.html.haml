@@ -8,7 +8,6 @@
   %ul.actions
     %li= link_to 'Change list settings', edit_list_path(@list)
     %li= link_to 'Import contacts', import_list_path(@list)
-    %li= link_to 'Manage surveys', "/surveys"
     %li= link_to 'Delete list', list_path(@list), method: :delete, confirm: "Are you sure you want to permanently delete the list #{@list.name}?"
 
 
