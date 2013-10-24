@@ -55,6 +55,19 @@ class Time
       self.month.to_s + '/' + self.day.to_s + '/' + self.strftime('%y')
     end
   end
+
+  def to_smart_s_short
+    if self.to_date == Time.zone.now.to_date
+      self.strftime('%l:%M %p').downcase.strip
+    elsif self.to_date == 1.day.ago.to_date # yesterday
+      self.strftime('%l:%M %p').downcase.strip + self.strftime(' %a')
+    elsif self >= Time.zone.now.beginning_of_year
+      self.strftime('%b ') + self.day.to_s
+    else
+      self.month.to_s + '/' + self.day.to_s + '/' + self.strftime('%y')
+    end
+  end
+
   def to_smart_s_with_prep
     smart_s = self.to_smart_s
     smart_s.include?(':') ? "at #{smart_s}" : "on #{smart_s}"
