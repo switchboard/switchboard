@@ -5,7 +5,8 @@
     #site
       = render 'layouts/page_header'
       #content-container
-        = render 'admin/menu_lists'
+        %ul#main_menu
+          = render 'shared/menu_lists'
         #content
           #new-message
             %h4.breadcrumb

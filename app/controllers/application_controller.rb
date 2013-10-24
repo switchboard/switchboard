@@ -61,6 +61,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin(notice = 'You must be an admistrator to access that page.')
+    unless current_user && current_user.superuser?
+      store_location
+      flash[:notice] = notice
+      redirect_to signin_path
+      return false
+    end
+  end
+
   def current_organization
     @current_organization ||= begin
       if current_user

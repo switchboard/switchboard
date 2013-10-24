@@ -1,0 +1,14 @@
+%h1= @organization.name
+
+%h2 Lists
+%table.admin.linked
+  %thead
+    %th Name
+    %th Users
+    %th Outgoing this month
+  %tbody
+  - @lists.each do |list|
+    %tr
+      %td= list.name
+      %td= list.list_memberships.size
+      %td= list.current_month_outgoing

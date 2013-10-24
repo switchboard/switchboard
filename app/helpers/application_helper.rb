@@ -16,10 +16,6 @@ module ApplicationHelper
     end
   end
 
-  def dashboard_link
-    @list ? list_path(@list) : '/admin/manage'
-  end
-
   def add_contact_link
     @list ? new_list_contact_path(@list) : new_contact_path
   end

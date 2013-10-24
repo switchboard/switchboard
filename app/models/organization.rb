@@ -8,6 +8,8 @@ class Organization < ActiveRecord::Base
 
   attr_accessible :name
 
+  validates :name, presence: true
+
   def lists_including_deleted
     List.unscoped { lists.reload }
   end

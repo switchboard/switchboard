@@ -8,12 +8,12 @@ module MonthlyCountable
     after_create { SentCount.setup_new_countable(self) }
   end
 
-  def last_count
-    sent_counts.order('date_ending DESC').first
+  def last_month_outgoing
+    sent_counts.order('date_ending DESC').first.total_count
   end
 
   def current_month_outgoing
-    outgoing_count - last_count.total_count
+    outgoing_count - last_month_outgoing
   end
 
 end

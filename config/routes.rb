@@ -1,6 +1,7 @@
 require 'resque/server'
 
 Switchboard::Application.routes.draw do
+
   root to: 'pages#show', template: 'home'
 
   get  '/signin' => 'sessions#new',    as: :signin
@@ -50,6 +51,11 @@ Switchboard::Application.routes.draw do
 
   %w[about].each do |page|
     get "/#{page}" => 'pages#show', template: page
+  end
+
+  namespace :admin do
+    get '/' => 'dashboard#index', as: :dashboard
+    resources :organizations
   end
 
   # non-resourceful controllers: Admin, daemon status

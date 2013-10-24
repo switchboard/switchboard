@@ -1,0 +1,15 @@
+%h1 Organizations
+
+%table.admin.linked
+  %thead
+    %th Name
+    %th Lists
+    %th Users
+    %th Outgoing this month
+  %tbody
+  - @organizations.each do |organization|
+    %tr
+      %td= link_to organization.name, [:admin, organization], class: 'clk'
+      %td= organization.lists.size
+      %td= organization.users.size
+      %td= organization.current_month_outgoing
