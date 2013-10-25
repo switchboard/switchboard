@@ -31,12 +31,17 @@ class Message < ActiveRecord::Base
       transitions from: :processing, to: :handled
     end
 
-    # TODO we're never marking messages as 'sent'.
     event :queue_to_send do
+      before do
+        self.queued_at = Time.now
+      end
       transitions from: :processing, to: :in_send_queue
     end
 
     event :mark_sent do
+      before do
+        self.sent_at = Time.now
+      end
       transitions from: :in_send_queue, to: :sent
     end
 
@@ -129,6 +134,11 @@ class Message < ActiveRecord::Base
 
   def outgoing_count
     ($redis.get("msg_out_#{id}") || 0).to_i
+  end
+
+  def percent_complete
+    return 100 if sent?
+    (outgoing_count.to_f / outgoing_total.to_f).round(0)
   end
 
   private
