@@ -1,1 +1,26 @@
 %h1 Admin dashboard
+
+
+%h2 Recent messages
+%table.admin
+  %thead
+    %th Created
+    %th List
+    %th Org
+    %th Status
+    %th Time sent
+    %th Message
+  %tbody
+  - @messages.each do |message|
+    %tr
+      %td{title: message.created_at.to_s(:weekday_short_time)}= message.created_at.to_smart_s_short
+      %td= message.list.try(:name)
+      %td= truncate(message.list.try(:organization).try(:name), length: 15)
+      %td= message.aasm_state.try(:humanize)
+      - if message.sent?
+        %td{title: "Queued at #{ message.queued_at.try(:to_s, :clean)}"}= message.sent_at.to_s(:clean) if message.sent_at
+      - elsif message.in_send_queue?
+        %td{title: "#{message.outgoing_count} of #{message.outgoing_total}"}= "#{message.percent_complete}%"
+      - else
+        %td
+      %td.message= truncate(message.body, length: 50)

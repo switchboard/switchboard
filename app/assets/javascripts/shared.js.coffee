@@ -20,7 +20,8 @@ $(document).ready () ->
   $('table.linked tbody').on('click', 'tr', (e) ->
     nodename = e.target.nodeName.toUpperCase()
     return true if nodename == 'A' || nodename == 'INPUT' || $(e.target).parent()[0].nodeName.toUpperCase() == 'A'
-    window.location = $(this).addClass('clicked').find('a.clk').attr('href')
+    if new_url = $(this).addClass('clicked').find('a.clk').attr('href')
+      window.location = new_url
   )
 
   $('textarea.count_characters').on('keyup', (e) ->
