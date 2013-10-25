@@ -244,6 +244,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.18.1)
     tilt (1.4.1)
+    timecop (0.6.3)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -298,5 +299,6 @@ DEPENDENCIES
   simple_form
   spine-rails
   thin
+  timecop
   twilio-ruby
   uglifier (>= 1.0.3)

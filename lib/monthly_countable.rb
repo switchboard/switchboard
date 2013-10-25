@@ -16,4 +16,12 @@ module MonthlyCountable
     outgoing_count - last_month_outgoing
   end
 
+  module ClassMethods
+    def calculate_monthly_stats
+      find_each do |obj|
+        SentCount.calculate_new_month(obj)
+      end
+    end
+
+  end
 end

@@ -212,7 +212,6 @@ class ListTest < ActiveSupport::TestCase
       end
     end
 
-
   end
 
 end

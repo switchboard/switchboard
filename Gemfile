@@ -51,6 +51,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'mocha', require: 'mocha/setup'
   gem 'resque_unit'
+  gem 'timecop'
 end
 
 group :autotest do

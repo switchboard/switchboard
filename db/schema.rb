@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "crypted_password"
     t.string   "password_salt"
     t.string   "persistence_token"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
 
   create_table "daemon_statuses", :force => true do |t|
     t.boolean  "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "db_files", :force => true do |t|
@@ -63,15 +63,15 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
   create_table "list_memberships", :force => true do |t|
     t.integer  "list_id"
     t.integer  "phone_number_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.boolean  "is_admin"
   end
 
   create_table "lists", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "long_name"
     t.boolean  "allow_email_gateway",         :default => true
     t.boolean  "allow_commercial_gateway",    :default => true
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
 
   create_table "message_states", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "messages", :force => true do |t|
@@ -112,14 +112,14 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
     t.string   "origin_id"
     t.integer  "message_state_id"
     t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "list_id"
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.string   "aasm_state"
-    t.integer  "from_phone_number_id"
     t.integer  "outgoing_total"
+    t.integer  "from_phone_number_id"
     t.datetime "queued_at"
     t.datetime "sent_at"
   end
@@ -141,8 +141,8 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
 
   create_table "phone_message_boxes", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "phone_messages", :force => true do |t|
@@ -152,14 +152,14 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
     t.integer  "phone_message_box_id"
     t.integer  "phone_id"
     t.boolean  "read",                 :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
   end
 
   create_table "phone_numbers", :force => true do |t|
     t.string   "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "contact_id"
@@ -169,14 +169,14 @@ ActiveRecord::Schema.define(:version => 20131024225436) do
 
   create_table "phones", :force => true do |t|
     t.string   "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "queues", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sent_counts", :force => true do |t|
