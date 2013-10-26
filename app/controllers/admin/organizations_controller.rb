@@ -9,10 +9,14 @@ class Admin::OrganizationsController < AdminController
     @lists = @organization.lists.order(:name)
   end
 
+  def edit
+    @organization = Organization.find(params[:id])
+  end
+
   def update
     @organization = Organization.find(params[:id])
     if @organization.update_attributes(params[:organization])
-      redirect_to admin_organizations_path, notice: "The organization #{@organization.name} was updated."
+      redirect_to admin_organization_path(@organization), notice: "The organization #{@organization.name} was updated."
     else
       render :edit
     end
@@ -23,9 +27,9 @@ class Admin::OrganizationsController < AdminController
   end
 
   def create
-    @organization = Organization.build(params[:organization])
+    @organization = Organization.new(params[:organization])
     if @organization.save
-      redirect_to admin_organizations_path, notice: "The organization #{@organization.name} was created."
+      redirect_to admin_organization_path(@organization), notice: "The organization #{@organization.name} was created."
     else
       flash.now.alert = "Organization could not be saved"
       render :new

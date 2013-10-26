@@ -1,0 +1,26 @@
+# Fixtures do not run hooks, so we have to insert these in here manually
+list_one:
+  countable: one (List)
+  date_ending: <%= 1.month.ago.end_of_month.to_date.to_s(:db) %>
+  total_count: 0
+  month_count: 0
+list_two:
+  countable: two (List)
+  date_ending: <%= 1.month.ago.end_of_month.to_date.to_s(:db) %>
+  total_count: 0
+  month_count: 0
+list_org_two_list:
+  countable: org_two_list (List)
+  date_ending: <%= 1.month.ago.end_of_month.to_date.to_s(:db) %>
+  total_count: 0
+  month_count: 0
+org_one:
+  countable: one (Organization)
+  date_ending: <%= 1.month.ago.end_of_month.to_date.to_s(:db) %>
+  total_count: 0
+  month_count: 0
+org_two:
+  countable: two (Organization)
+  date_ending: <%= 1.month.ago.end_of_month.to_date.to_s(:db) %>
+  total_count: 0
+  month_count: 0

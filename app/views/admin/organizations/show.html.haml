@@ -1,10 +1,12 @@
-%h1= @organization.name
+%h1
+  = @organization.name
+  = link_to 'Edit', edit_admin_organization_path(@organization), class: 'action'
 
 %h2 Lists
 %table.admin.linked
   %thead
     %th Name
-    %th Users
+    %th Members
     %th Outgoing this month
   %tbody
   - @lists.each do |list|
