@@ -165,6 +165,36 @@ class ListTest < ActiveSupport::TestCase
     end
   end
 
+  context 'handling leave message' do
+    setup do
+      @list = lists(:one)
+    end
+
+    context 'when number is not a member' do
+      setup do
+        @phone = FactoryGirl.create(:phone_number)
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+      should 'create outgoing message saying user is not a member' do
+        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/are not subscribed/))
+        @list.handle_leave_message(@message)
+      end
+    end
+
+    context 'when number is a member' do
+      setup do
+        @phone = @list.list_memberships.first.phone_number
+        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
+      end
+      should 'create outgoing message saying user is not a member' do
+        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/have been removed/))
+        @list.expects(:remove_phone_number).with(@phone)
+        @list.handle_leave_message(@message)
+      end
+    end
+
+  end
+
   context 'handling join message' do
     setup do
       @list = lists(:one)

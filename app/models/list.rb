@@ -226,6 +226,15 @@ class List < ActiveRecord::Base
     end
   end
 
+  def handle_leave_message(message)
+    if has_number?(message.from_phone_number)
+      remove_phone_number(message.from_phone_number)
+      create_outgoing_message(message.from_phone_number, "You have been removed from the #{name} list, as you requested." )
+    else
+      create_outgoing_message(message.from_phone_number, "It seems like you are trying to leave the list #{name}, but you are not subscribed.")
+    end
+  end
+
   def handle_join_message(message)
     # Handle re-subscribing
     if has_number?(message.from_phone_number)
