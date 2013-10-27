@@ -1,7 +1,6 @@
 class Message < ActiveRecord::Base
   include AASM
 
-  belongs_to :sender, :class_name => 'Contact'
   belongs_to :from_phone_number, class_name: 'PhoneNumber'
   belongs_to :recipient, :class_name => 'Contact'
   belongs_to :list
@@ -64,17 +63,16 @@ class Message < ActiveRecord::Base
     where(aasm_state: ['in_send_queue', 'sent'])
   end
 
-  def self.single_most_recent_from_contact(contact_id)
-    where(sender_id: contact_id).first
-  end
-
-
   def from_email_gateway?
     from =~ /@/
   end
 
   def from_web?
     from == 'Web'
+  end
+
+  def sender
+    from_phone_number.try(:contact)
   end
 
   ## returns phone number of message sender
@@ -104,7 +102,6 @@ class Message < ActiveRecord::Base
       else
         # Need to decide where we're handling message state;
         # handle_send_action is only action that returns true/false
-
         if list.handle_send_action(self)
           queue_to_send!
         else

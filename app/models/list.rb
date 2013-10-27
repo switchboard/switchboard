@@ -190,10 +190,6 @@ class List < ActiveRecord::Base
   end
 
   def handle_send_action(message)
-    # Not sure why we're doing this here
-    message.sender = message.from_phone_number.try(:contact)
-    message.save
-
     # TODO it appears that even non list-members can send messages to lists?
     # Not sure if that's a bug or a feature
     if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
@@ -248,10 +244,6 @@ class List < ActiveRecord::Base
       end
 
       list_memberships.create!(phone_number_id: message.from_phone_number.id)
-
-      # Not sure why we do this here, either.
-      message.sender = message.from_phone_number.try(:contact)
-      message.save
     else
       create_outgoing_message(message.from_phone_number, "Sorry, this list is configured as a private list; only the administrator can add new members.")
     end
