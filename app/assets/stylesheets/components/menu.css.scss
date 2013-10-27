@@ -24,6 +24,10 @@ ul#main_menu {
   li a:hover {
     background-color: $orangeButton!important;
   }
+  li.admin {
+    position: absolute;
+    right: 54px;
+  }
   li.lists {
     > a,
     > span {
