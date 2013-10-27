@@ -205,7 +205,7 @@ class List < ActiveRecord::Base
       true
 
     elsif text_admin_with_response? && admin_phone_numbers.any?
-      admin_msg = "[#{name}] from #{message.from_phone_number.number}"
+      admin_msg = "[#{name} from #{message.from_phone_number.number}"
 
       if message.sender && message.sender.first_name.present?
         admin_msg << "/ #{message.sender.full_name}"
