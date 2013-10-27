@@ -1,6 +1,6 @@
 - if message && message.list
   %li[message]
-    - unless defined? show_list
+    - if defined?(show_list) && show_list
       %span.list= message.list.name
       = ' '
     %span.date= message.created_at.to_smart_s_short

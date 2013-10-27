@@ -54,6 +54,8 @@ class Message < ActiveRecord::Base
   before_create :set_from_number, :set_list
   after_create :enqueue_incoming
 
+  scope :recent, order('created_at DESC')
+
   def self.within_days(num_days)
     where('updated_at > ?', num_days.days.ago)
   end
