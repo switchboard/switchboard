@@ -13,6 +13,7 @@ class Message < ActiveRecord::Base
     state :processing
     state :in_send_queue
     state :handled
+    state :forwarded_to_admin
     state :sent
     state :failure
     state :ignored
@@ -29,6 +30,10 @@ class Message < ActiveRecord::Base
 
     event :mark_handled do
       transitions from: :processing, to: :handled
+    end
+
+    event :mark_administered do
+      transitions from: :processing, to: :forwarded_to_admin
     end
 
     event :queue_to_send do
@@ -108,7 +113,7 @@ class Message < ActiveRecord::Base
         queue_to_send!
       elsif list.can_admin_message?(self)
         list.handle_admin_message(self)
-        mark_handled!
+        mark_administered!
       else
         mark_ignored!
       end
