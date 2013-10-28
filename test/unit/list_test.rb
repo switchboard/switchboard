@@ -120,6 +120,10 @@ class ListTest < ActiveSupport::TestCase
         @message = FactoryGirl.create(:message, list: @list)
       end
 
+      should 'respond that message can be sent' do
+        assert @list.can_send_message?(@message)
+      end
+
       should 'set outgoing total on message' do
         @list.handle_send_action(@message)
         @message.reload
@@ -128,12 +132,13 @@ class ListTest < ActiveSupport::TestCase
 
       should 'send an outgoing message for each' do
         @list.expects(:create_outgoing_message).times(@list.list_memberships.size)
-        success = @list.handle_send_action(@message)
-        assert success
+        @list.handle_send_action(@message)
       end
-
     end
 
+  end
+
+  context 'handling admin message' do
     context 'when message should go to admin' do
       setup do
         @list = lists(:two)
@@ -142,25 +147,13 @@ class ListTest < ActiveSupport::TestCase
         @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
       end
 
+      should 'respond that message can go to admin' do
+        assert @list.can_admin_message?(@message)
+      end
+
       should "send admin the response, with a message that includes the sender's number" do
         @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@phone.number)))
-        success = @list.handle_send_action(@message)
-        assert success
-      end
-    end
-
-    context 'when message can not go to list or to admin' do
-      setup do
-        @list = lists(:two)
-        @list.update_column(:text_admin_with_response, false)
-        @phone = list_memberships(:two_two).phone_number # not an admin
-        @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
-      end
-
-      should 'return false' do
-        @list.expects(:create_outgoing_message).never
-        success = @list.handle_send_action(@message)
-        assert ! success
+        @list.handle_admin_message(@message)
       end
     end
   end

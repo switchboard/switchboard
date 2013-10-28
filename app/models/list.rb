@@ -189,36 +189,37 @@ class List < ActiveRecord::Base
     messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
   end
 
+  def can_send_message?(message)
+    message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
+  end
+
   def handle_send_action(message)
     # TODO it appears that even non list-members can send messages to lists?
     # Not sure if that's a bug or a feature
-    if message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
-
-      message_split = prepare_content(message)
-      outgoing_count = phone_numbers.size * message_split.length
-      message.update_column(:outgoing_total, outgoing_count)
-      phone_numbers.each do |phone_number|
-        message_split.each do |body|
-          create_outgoing_message(phone_number, body, message.id, outgoing_count)
-        end
+    message_split = prepare_content(message)
+    outgoing_count = phone_numbers.size * message_split.length
+    message.update_column(:outgoing_total, outgoing_count)
+    phone_numbers.each do |phone_number|
+      message_split.each do |body|
+        create_outgoing_message(phone_number, body, message.id, outgoing_count)
       end
-      true
+    end
+  end
 
-    elsif text_admin_with_response? && admin_phone_numbers.any?
-      admin_msg = "[#{name} from #{message.from_phone_number.number}"
+  def can_admin_message?(message)
+    text_admin_with_response? && admin_phone_numbers.any?
+  end
 
-      if message.sender && message.sender.first_name.present?
-        admin_msg << "/ #{message.sender.full_name}"
-      end
+  def handle_admin_message(message)
+    admin_msg = "[#{name} from #{message.from_phone_number.number}"
 
-      admin_msg << '] ' << message.tokens.join(' ')
-      admin_phone_numbers.each do |admin_phone_number|
-        create_outgoing_message(admin_phone_number, admin_msg)
-      end
-      true
-    else
-      # Failure; message can't be sent to list or to admins
-      false
+    if message.sender && message.sender.first_name.present?
+      admin_msg << "/ #{message.sender.full_name}"
+    end
+
+    admin_msg << '] ' << message.tokens.join(' ')
+    admin_phone_numbers.each do |admin_phone_number|
+      create_outgoing_message(admin_phone_number, admin_msg)
     end
   end
 

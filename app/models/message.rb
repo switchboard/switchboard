@@ -15,6 +15,7 @@ class Message < ActiveRecord::Base
     state :handled
     state :sent
     state :failure
+    state :ignored
     # Old outgoing/error messages have other states, not including them here.
 
     event :mark_processing do
@@ -48,6 +49,9 @@ class Message < ActiveRecord::Base
       transitions to: :failure
     end
 
+    event :mark_ignored do
+      transitions from: :processing, to: :ignored
+    end
   end
 
   before_create :set_from_number, :set_list
@@ -99,16 +103,14 @@ class Message < ActiveRecord::Base
       elsif first_token == 'leave' || first_token == 'quit'
         list.handle_leave_message(self)
         mark_handled!
+      elsif list.can_send_message?(self)
+        list.handle_send_action(self)
+        queue_to_send!
+      elsif list.can_admin_message?(self)
+        list.handle_admin_message(self)
+        mark_handled!
       else
-        # Need to decide where we're handling message state;
-        # handle_send_action is only action that returns true/false
-        if list.handle_send_action(self)
-          queue_to_send!
-        else
-          # Message can't be sent to list or to admins;
-          # should this throw an exception?
-          mark_failure!
-        end
+        mark_ignored!
       end
 
     rescue => e
