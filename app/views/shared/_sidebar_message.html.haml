@@ -1,0 +1,14 @@
+#recent-messages
+  %h3 RECENT MESSAGES
+  #recent-messages-list
+    %ul.messages
+      - if @list
+        = render partial: 'messages/message', collection: @list.messages.sent.limit(12)
+      - else
+        = render partial: 'messages/message', collection: current_organization.messages.sent.limit(20)
+  .view
+    - if @list
+      = link_to "VIEW ALL RECENT MESSAGES", list_path(@list) + "/messages"
+    - else
+      = link_to "VIEW ALL RECENT MESSAGES", "/messages"
+#dots

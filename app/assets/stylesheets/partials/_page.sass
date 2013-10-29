@@ -6,38 +6,23 @@ body
   font-family: 'Quattrocento Sans', DINPro, Arial, sans-serif
   margin: 20px auto
   max-width: 100%
-  overflow: visible
   position: relative
   width: 865px
+  padding-top: 20px
 
 #site
   width: 811px
-  display: inline
-  float: left
   margin-bottom: 20px
-  padding-bottom: 12px
-
-#bottom-shadow
-  background: $gray33 image-url('bg-btm-left-triangle.png') no-repeat
-  height: 54px
-
-#side-shadow
-  display: inline
-  float: left
-  .top
-    background: $black image-url('bg-top-rt-triangle.png') no-repeat
-    width: 54px
-    min-height: 733px
-    margin-top: 19px
-  .bottom
-    width: 54px
-    height: 54px
-    background: $gray33 image-url('bg-btm-rt-triangle.png') no-repeat
+  padding-right: 54px
+  background: image-url('bg_top_right.png'), image-url('bg_bottom_right.png'), image-url('black_right.png')
+  background-repeat: no-repeat, no-repeat, repeat-y
+  background-position: top right, bottom right, top right
 
 #masthead
   width: 811px
   background: image-url('logo.png') 0 0 no-repeat
   height: 171px
+  margin-top: -20px
 .logo a
   display: block
   overflow: hidden
@@ -55,12 +40,16 @@ body
   min-height: 553px
 
 #footer
-  width: 811px
-  background: $black image-url('dots-footer.jpg') no-repeat 8px 4px
-  height: 28px
-  text-transform: uppercase
-  font-size: 14px
-  font-family: 'Quattrocento Sans', DINPro
+  height: 54px + 28px
+  background: $gray33 image-url('bg_bottom_left.png') bottom left no-repeat
+
+  .page_footer
+    width: 811px
+    background: $black image-url('dots-footer.jpg') no-repeat 8px 4px
+    height: 28px
+    text-transform: uppercase
+    font-size: 14px
+    font-family: 'Quattrocento Sans', DINPro
   ul
     float: right
     margin-right: 6px
@@ -69,7 +58,7 @@ body
   a
     +hover-link
     +float-left
-    margin: 5px 8px 0
+    margin: 7px 8px 0
     color: $red
 
 

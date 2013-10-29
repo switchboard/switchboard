@@ -1,0 +1,10 @@
+- if message && message.list
+  %li[message]
+    - if defined?(show_list) && show_list
+      %span.list= message.list.name
+      = ' '
+    %span.date= message.created_at.to_smart_s_short
+    = message.body
+    %span.from [#{format_phone message.from}]
+    - if message.in_send_queue?
+      %p.status= "Sending #{message.outgoing_count} of #{message.outgoing_total}"

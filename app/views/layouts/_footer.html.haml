@@ -1,3 +1,4 @@
-%ul
-- if current_user
-  #logout= link_to 'Sign out', signout_path
+.page_footer
+  %ul
+  - if current_user
+    #logout= link_to 'Sign out', signout_path

@@ -1,0 +1,13 @@
+- if @messages.none?
+  %p.none No messages
+- else
+  %table.data.default.messages
+    %thead
+      %tr
+        - if @list
+          %th List
+        %th Sent
+        %th Body
+        %th From
+        %th Status
+    = render partial: 'messages/message', collection: @messages
