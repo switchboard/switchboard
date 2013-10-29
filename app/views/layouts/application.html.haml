@@ -16,10 +16,7 @@
                 - if @list
                   |
                 = @title
-            - if content_for?(:main_box_content)
-              = yield :main_box_content
-            - else
-              = yield
+            = yield
           #recent-messages
             %h3 RECENT MESSAGES
             #recent-messages-list

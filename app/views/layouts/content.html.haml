@@ -5,31 +5,28 @@
         #content
           #new-message
             #flash_messages_container
-            - if yield :main_box_content
-              = yield :main_box_content
-            - else
-              %h3 New Message
-              %form
-                %textarea
-                = yield
-                %fieldset#message-options
-                  %legend Message Options
-                  %ul
-                    %li
-                      %input{:id => 'txt-msg', :type => 'checkbox'} 
-                        %label Txt Msg
-                      %input{:id => 'limit', :type => 'checkbox'} 
-                        %label.aqua Limit to 145 characters
-                    %li
-                      %input{:id => 'email', :type => 'checkbox'} 
-                        %label Email
-                    %li
-                      %input{:id => 'rss', :type => 'checkbox'} 
-                        %label RSS            
-                  
-                %button{:type => 'submit', :class => 'send-image'}
- 
-      
+            %h3 New Message
+            %form
+              %textarea
+              = yield
+              %fieldset#message-options
+                %legend Message Options
+                %ul
+                  %li
+                    %input{:id => 'txt-msg', :type => 'checkbox'}
+                      %label Txt Msg
+                    %input{:id => 'limit', :type => 'checkbox'}
+                      %label.aqua Limit to 145 characters
+                  %li
+                    %input{:id => 'email', :type => 'checkbox'}
+                      %label Email
+                  %li
+                    %input{:id => 'rss', :type => 'checkbox'}
+                      %label RSS
+
+              %button{:type => 'submit', :class => 'send-image'}
+
+
 
 
 

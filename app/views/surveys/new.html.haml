@@ -1,16 +1,13 @@
-- content_for :main_box_content do
-
-  
-  - form_tag '/surveys/create' do
-    %ul.create_survey_options
-      %li
-        <span class='survey_option'>Survey Name</span> (cannot contain spaces) 
-        = text_field_tag('survey[name]', nil, :onblur => check_survey_availability_onblur) 
-        = image_tag("spinner.gif", :id => 'survey_name_spinner', :style => 'display: none')
-        %span#availability
-      %li
-        <span class='survey_option'>Survey Description</span><br /> 
-        = text_field_tag('survey[description]', nil) 
-        %span#availability
-      %li
-        = submit_tag 'Create!'
+- form_tag '/surveys/create' do
+  %ul.create_survey_options
+    %li
+      <span class='survey_option'>Survey Name</span> (cannot contain spaces)
+      = text_field_tag('survey[name]', nil, :onblur => check_survey_availability_onblur)
+      = image_tag("spinner.gif", :id => 'survey_name_spinner', :style => 'display: none')
+      %span#availability
+    %li
+      <span class='survey_option'>Survey Description</span><br />
+      = text_field_tag('survey[description]', nil)
+      %span#availability
+    %li
+      = submit_tag 'Create!'

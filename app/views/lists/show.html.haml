@@ -1,26 +1,25 @@
 - page_title @list.name
 
-- content_for :main_box_content do
-  %p
-    = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button'
-    = link_to '<b>+</b> New member'.html_safe, new_list_contact_path(@list), class: 'button'
+%p
+  = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button'
+  = link_to '<b>+</b> New member'.html_safe, new_list_contact_path(@list), class: 'button'
 
-  %ul.actions
-    %li= link_to 'Import contacts', import_list_path(@list)
-    %li= link_to 'Delete list', list_path(@list), method: :delete, confirm: "Are you sure you want to delete the list #{@list.name}?"
+%ul.actions
+  %li= link_to 'Import contacts', import_list_path(@list)
+  %li= link_to 'Delete list', list_path(@list), method: :delete, confirm: "Are you sure you want to delete the list #{@list.name}?"
 
 
-  %h4 LIST STATISTICS
-  %p
+%h4 LIST STATISTICS
+%p
 
-  %p
-    Incoming number: #{format_phone(@list.incoming_number)}
-    %br
-    Contacts: #{@list.phone_numbers.size}
-    %br
-    Total outgoing: #{@list.outgoing_count}
-    %br
-    Outgoing this month: #{@list.current_month_outgoing}
-    %br
-    Sent messages: #{@list.sent_count}
-    / TODO these numbers are not right now, or don't mean what they seem.
+%p
+  Incoming number: #{format_phone(@list.incoming_number)}
+  %br
+  Contacts: #{@list.phone_numbers.size}
+  %br
+  Total outgoing: #{@list.outgoing_count}
+  %br
+  Outgoing this month: #{@list.current_month_outgoing}
+  %br
+  Sent messages: #{@list.sent_count}
+  / TODO these numbers are not right now, or don't mean what they seem.

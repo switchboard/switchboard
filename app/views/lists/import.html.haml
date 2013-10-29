@@ -1,23 +1,21 @@
-- content_for :main_box_content do
+- if @errors
+  .error_block
+    %h3 There were errors importing some contacts.
+    %p You can fix errors and upload again..
 
-  - if @errors
-    .error_block
-      %h3 There were errors importing some contacts.
-      %p You can fix errors and upload again..
+    %h4 Successes
+    %p #{@success_count} contacts successfully added.
 
-      %h4 Successes
-      %p #{@success_count} contacts successfully added.
-
-      %h4 Errors
-      %ul
-        - @errors.each do |error_message|
-          %li= error_message
+    %h4 Errors
+    %ul
+      - @errors.each do |error_message|
+        %li= error_message
 
 
-  = custom_form_for(@list, url: upload_csv_list_path(@list), method: :put, html: {multipart: true, class: 'form-vertical'}) do |f|
-    %h4 Upload Contacts (csv)
-    %p CSV files must be in the following format:
-    %code "firstname,lastname,email,number"
-    = f.input :csv_file, as: :file
-    .input.submit
-      = f.submit 'Upload and import'
+= custom_form_for(@list, url: upload_csv_list_path(@list), method: :put, html: {multipart: true, class: 'form-vertical'}) do |f|
+  %h4 Upload Contacts (csv)
+  %p CSV files must be in the following format:
+  %code "firstname,lastname,email,number"
+  = f.input :csv_file, as: :file
+  .input.submit
+    = f.submit 'Upload and import'

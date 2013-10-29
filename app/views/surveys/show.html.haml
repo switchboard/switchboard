@@ -1,12 +1,11 @@
-- content_for :main_box_content do
-  %h4 
-    = 'Survey: ' + @survey.name
-  %h4
-    = 'Survey Description: ' + @survey.description
+%h4
+  = 'Survey: ' + @survey.name
+%h4
+  = 'Survey Description: ' + @survey.description
 
-  #vertical_menu
+#vertical_menu
 
-    %p
-      = link_to "Add a question", survey_path(@survey) + "/survey/new"
-    %p
-      = link_to "Edit survey", survey_path(@survey) + "/edit"  
+  %p
+    = link_to "Add a question", survey_path(@survey) + "/survey/new"
+  %p
+    = link_to "Edit survey", survey_path(@survey) + "/edit"
