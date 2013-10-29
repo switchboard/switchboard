@@ -20,6 +20,7 @@ class ListsController < ApplicationController
 
   def show
     @list = current_organization.lists.find(params[:id])
+    @messages = @list.messages.for_display.limit(10)
   end
 
   def edit

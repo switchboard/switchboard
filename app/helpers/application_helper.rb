@@ -37,6 +37,14 @@ module ApplicationHelper
     num
   end
 
+  def message_from(message)
+    if message.sender.try(:first_name)
+      message.sender.full_name
+    else
+      format_phone(message.from)
+    end
+  end
+
   def prettify_ajax_errors(objects=[])
     html = '<ul class="flash_notice">'
     objects.each do |obj|

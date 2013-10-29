@@ -2,13 +2,14 @@
 
 nav.pagination {
   margin: 1em 0;
-  span.page a, 
+  span.page a,
   span.page.current {
     padding: 3px 6px;
     border: 1px solid $grayLighter;
     text-align: center;
     display: inline-block;
     margin-left: .2em;
+    text-decoration: none;
   }
   a {
     color: $textLink;

@@ -1,6 +1,7 @@
 - if @list
-  = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button peg_top'
+  #actions
+    = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button peg_top'
 
-%h3 Recent Messages
-%ul#message_list.messages
-  = render partial: 'messages/message', collection: @messages, locals: {show_list: !@list}
+%h2 Recent Messages
+= render 'messages/message_list'
+= paginate @messages

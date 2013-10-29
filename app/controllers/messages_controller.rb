@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
   def index
     if @list
-      @messages = @list.messages.for_display.limit(40)
+      @messages = @list.messages.for_display.page(params[:page]).per(20)
     else
       @messages = Message.joins(:list).where('lists.organization_id = ?', current_organization.id).for_display.recent.limit(40)
     end

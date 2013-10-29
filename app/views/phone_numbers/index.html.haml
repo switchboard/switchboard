@@ -1,11 +1,12 @@
-#show_members
-  - if @list
-    = link_to '<b>+</b> Add member'.html_safe, new_list_contact_path(@list), class: 'button peg_top'
+- if @list
+  #actions
+    = link_to '<b>+</b> Add member'.html_safe, new_list_contact_path(@list), class: 'button'
+    = link_to 'Import contacts', import_list_path(@list), class: 'button'
 
-  #show_member_list
-    - if @list.try(:all_users_can_send_messages) == false
-      %p * checkbox indicates approved sender
-    %table#member_list.default.linked
-      %tbody
-        = render @phone_numbers
-    = paginate @phone_numbers
+#show_member_list
+  - unless @list.try(:all_users_can_send_messages)
+    %p * checkbox indicates approved sender
+  %table#member_list.default.linked
+    %tbody
+      = render @phone_numbers
+  = paginate @phone_numbers

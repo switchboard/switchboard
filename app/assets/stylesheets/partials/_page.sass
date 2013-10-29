@@ -49,11 +49,10 @@ body
 
 #content-container
   font-family: 'Quattrocento Sans', DINPro, Arial, sans-serif
-  //text-transform: uppercase
   margin: 0 auto
   text-align: left
-  height: 553px
   background: $white image-url('dots-vertical.png') repeat-y 0 17px
+  min-height: 553px
 
 #footer
   width: 811px
@@ -88,10 +87,10 @@ body
     margin-bottom: .5em
     color: $orange
   h2
-    font-size: 18px
+    font-size: 20px
     font-weight: bold
     margin-bottom: .5em
-    margin-top: 1em
+    margin-top: 1.5em
   h3
     color: $orange
     font-size: 18px
@@ -141,11 +140,13 @@ body
     width: 76px
     height: 46px
 
-.view a
+.view_all a
   +float-right
   font-weight: bold
   color: $aqua
   font-size: 14px
+  margin-top: .5em
+
 #recent-messages
   padding: 15px
   float: left
@@ -198,7 +199,6 @@ textarea
   background: #aaa
 
 a
-  text-decoration: none
   &:hover
     background-color: #eee
 

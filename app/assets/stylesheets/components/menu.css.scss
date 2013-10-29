@@ -19,6 +19,7 @@ ul#main_menu {
     float: left;
     padding: 9px 10px 0;
     height: $menuHeight;
+    text-decoration: none;
   }
   li.current a,
   li a:hover {

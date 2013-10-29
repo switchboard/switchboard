@@ -1,8 +1,6 @@
 %p
 = custom_form_for(@contact, html: {class: 'form-horizontal'}) do |f|
   - if @list
-    Add to List:
-    %strong= @list.name
     = hidden_field_tag('list_id', @list.id)
   = f.input :first_name, input_html: {autocomplete: 'off'}
   = f.input :last_name, input_html: {autocomplete: 'off'}

@@ -1,37 +1,13 @@
 @import 'partials/colors';
 @import "compass/css3/border-radius";
 
-ul.messages {
-  margin-left: 10px;
-  li {
-    text-indent: -10px;
-    margin-bottom: .3em;
-  }
-  .list {
-    font-size: .9em;
-    color: $gray;
-  }
-  .date {
-    color: $gray;
-    font-size: .9em;
-    &:first-child {
-      width: 5em;
-      display: inline-block;
-      margin-left: 0;
-      text-align: right;
-      padding-right: .25em;
-    }
-  }
-  .from {
-    font-size: .9em;
-    color: $grayLight;
-  }
+table.messages {
   .status {
     text-indent: 0;
     display: inline-block;
-    margin: .3em .2em .2em;
-    padding: .3em;
+    padding: .2em;
     font-size: .9em;
+    vertical-align: top;
     background: $backgroundGreen;
     color: #fff;
     @include border-radius(5px);

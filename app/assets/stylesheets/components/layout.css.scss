@@ -1,0 +1,19 @@
+
+h4.breadcrumb {
+  a {
+    text-decoration: none;
+  }
+}
+
+#actions {
+  float: right;
+  margin-top: -2em;
+}
+
+div.delete {
+  margin-top: 2em;
+  a {
+    color: red!important;
+    text-decoration: underline;
+  }
+}

@@ -1,25 +1,34 @@
 - page_title @list.name
 
-%p
+#actions
   = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button'
   = link_to '<b>+</b> New member'.html_safe, new_list_contact_path(@list), class: 'button'
 
-%ul.actions
-  %li= link_to 'Import contacts', import_list_path(@list)
-  %li= link_to 'Delete list', list_path(@list), method: :delete, confirm: "Are you sure you want to delete the list #{@list.name}?"
+%h2 Recent messages
+= render 'messages/message_list'
+.view_all
+  = link_to "All messages", list_path(@list) + "/messages"
 
 
-%h4 LIST STATISTICS
-%p
+%h2 List Statistics
 
-%p
-  Incoming number: #{format_phone(@list.incoming_number)}
-  %br
-  Contacts: #{@list.phone_numbers.size}
-  %br
-  Total outgoing: #{@list.outgoing_count}
-  %br
-  Outgoing this month: #{@list.current_month_outgoing}
-  %br
-  Sent messages: #{@list.sent_count}
-  / TODO these numbers are not right now, or don't mean what they seem.
+%table.default.stats
+  %tbody
+    %tr
+      %th Incoming number
+      %td= format_phone(@list.incoming_number)
+    %tr
+      %th Contacts
+      %td= @list.phone_numbers.size
+    %tr
+      %th Total outgoing
+      %td= @list.outgoing_count
+    %tr
+      %th Outgoing this month
+      %td= @list.current_month_outgoing
+    %tr
+      %th Sent messages
+      %td= @list.sent_count
+
+.delete
+  = link_to 'Delete list', list_path(@list), class: 'delete_link', method: :delete, confirm: "Are you sure you want to delete the list #{@list.name}?"

@@ -7,23 +7,52 @@ table.default {
       color: $grayLight;
     }
   }
-  td {
-    padding: 3px 4px;
-    color: $grayDarker;
+  td, th {
+    vertical-align: top;
+    padding: 4px 4px;
+  }
+
+  tbody {
+    td, th {
+      color: $grayDarker;
+      border-bottom: 1px solid $grayBorder;
+    }
+
   }
   td.num, th.num {
     text-align: right;
+  }
+
+  td.body {
+    max-width: 22em;
+    p {
+      margin: 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      height: 1.4em!important;
+    }
   }
 }
 
 table.linked {
   a.clk {
-    color: $grayDarker;
+    color: $grayDarker!important;
+    text-decoration: none;
   }
   tr:hover {
     td {
       cursor: pointer;
       background-color: $grayLightest;
+    }
+  }
+}
+
+table.stats {
+  width: 400px!important;
+  tbody {
+    th {
+      color: $grayLight;
     }
   }
 }

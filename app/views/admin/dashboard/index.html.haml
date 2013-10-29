@@ -22,4 +22,5 @@
         %td{title: "#{message.outgoing_count} of #{message.outgoing_total}"}= "#{message.percent_complete}%"
       - else
         %td
-      %td.message= truncate(message.body, length: 50)
+      %td
+        .body= truncate(message.body, length: 50)
