@@ -2,11 +2,17 @@
   %h1.logo= link_to 'Switchboard', '/'
 
   #masthead_dynamic
-    #current_list
     - if current_user
       Hi,
       = link_to current_user.name, edit_profile_path
       = ' | '
-      = link_to current_organization.name, current_organization
+      - if current_user.accessible_organizations.size > 1
+        #org_dropdown
+          = link_to "#{strip_tags(current_organization.name)} <i class='fa fa-caret-down'></i>".html_safe, current_organization
+          %ul
+            - current_user.accessible_organizations.order(:name).each do |org|
+              %li= link_to "#{org.name}".html_safe, switch_organization_path(org)
+      - else
+        = link_to current_organization.name, current_organization
     - else
       = link_to 'Sign in', signin_path

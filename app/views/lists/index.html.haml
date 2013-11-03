@@ -14,4 +14,6 @@
       = render @lists
 
 %br
-%p= link_to add_icon('Add new list', :add), new_list_path, class: 'button'
+%p
+  = link_to add_icon('Add new list', :add), new_list_path, class: 'button'
+  = link_to add_icon("Manage #{current_organization.name}", :settings), current_organization, class: 'button'

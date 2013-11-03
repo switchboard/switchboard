@@ -1,0 +1,44 @@
+@import "compass/utilities";
+@import "partials/_colors";
+
+#masthead_dynamic {
+  text-align: right;
+  padding: 8px 25px 0 0;
+  white-space: nowrap;
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+}
+
+#org_dropdown {
+  display: inline-block;
+  ul {
+    display: none;
+    position: absolute;
+    background: $menuBackground!important;
+    z-index: 100;
+    li {
+      display: inline;
+    }
+    a {
+      max-width: 8em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: block;
+      text-align: left;
+      text-decoration: none;
+      padding: .3em .3em;
+      color: #fff;
+      &:hover {
+        background-color: #bde5f1!important;
+        color: $menuBackground;
+      }
+    }
+  }
+  &:hover {
+    ul {
+      display: block;
+    }
+  }
+}

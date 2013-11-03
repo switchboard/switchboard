@@ -6,7 +6,7 @@ ul#main_menu {
   * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
   @include clearfix;
-  $menuBackground: #353535;
+
   $menuHeight: 34px;
   background: $menuBackground;
   height: $menuHeight;
