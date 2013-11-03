@@ -18,7 +18,7 @@
   /    %li= f.check_box(:prefer_email) + "Prefer email over commercial gateway"
 
   %h3 List Type
-  = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]  
+  = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]
 
   %h3 Response handling
   = f.input :text_admin_with_response, label: 'Send response to all admins'
@@ -30,7 +30,7 @@
   = f.input :add_list_name_header, label: 'Include list name in messages (e.g. [LIST])'
   = f.input :identify_sender, label: 'Include name of sender in messages'
 
-  = f.button :submit, 'Save changes'
+  = submit_button 'Save changes'
 
 :coffeescript
   $ -> new Switchboard.ListController()

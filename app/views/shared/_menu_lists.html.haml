@@ -7,9 +7,9 @@
     - current_organization.lists.each do |list|
       %li= link_to list.name, list
 - if current_list
-  = menu_item 'Settings', edit_list_path(@list), (controller_name == 'lists' && controller.action_name == 'edit')
-  = menu_item 'Members', list_phone_numbers_path(@list), (controller_name == 'phone_numbers')
-  = menu_item 'Messages', list_messages_path(@list), controller_name == 'messages'
+  = menu_item 'Settings', edit_list_path(@list), :settings, (controller_name == 'lists' && controller.action_name == 'edit')
+  = menu_item 'Members', list_phone_numbers_path(@list), :user, (controller_name == 'phone_numbers')
+  = menu_item 'Messages', list_messages_path(@list), :message, controller_name == 'messages'
 
 - if current_user.superuser?
-  %li.admin= menu_item 'Admin', admin_dashboard_path, (controller_name == 'dashboard'), 'admin'
+  %li.admin= menu_item 'Admin', admin_dashboard_path, '', (controller_name == 'dashboard'), 'admin'

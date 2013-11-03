@@ -1,8 +1,8 @@
 - page_title @list.name
 
 #actions
-  = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button'
-  = link_to '<b>+</b> New member'.html_safe, new_list_contact_path(@list), class: 'button'
+  = link_to add_icon('Send a message', :message), new_list_message_path(@list), class: 'button'
+  = link_to add_icon('New member', :user), new_list_contact_path(@list), class: 'button'
 
 %h2 Recent messages
 = render 'messages/message_list'

@@ -1,18 +1,43 @@
 @import "partials/_colors";
 @import "compass/css3/transition";
 
-a.button {
+button.button,
+input.button {
+  margin-bottom: 0; // For input.btn
+}
+
+a.button,
+button.button {
   background-color: $blueButton;
   display: inline-block;
-  padding: .3em .5em;
+  padding: .4em .5em;
   color: #fff!important;
   text-decoration: none;
   @include transition(background-color 0.1s ease);
+  border: none;
+  font-size: 14px;
 
   &:hover {
     background-color: darken($blueButton, 15%);
   }
 
+  i.fa {
+    margin-right: 5px;
+  }
+}
+
+.button.submit {
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.button.disabled,
+button[disabled] {
+  cursor: default;
+  background-image: none;
+  color: #eee!important;
+  background-color: darken($white, 15%)!important;
+  outline: none;
 }
 
 ul.actions {

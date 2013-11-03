@@ -1,7 +1,7 @@
 - if @list
   #actions
-    = link_to '<b>+</b> Add member'.html_safe, new_list_contact_path(@list), class: 'button'
-    = link_to 'Import contacts', import_list_path(@list), class: 'button'
+    = link_to add_icon('Add member', :user), new_list_contact_path(@list), class: 'button'
+    = link_to add_icon('Import contacts', :upload), import_list_path(@list), class: 'button'
 
 #show_member_list
   - unless @list.try(:all_users_can_send_messages)

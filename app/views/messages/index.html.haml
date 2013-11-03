@@ -1,6 +1,6 @@
 - if @list
   #actions
-    = link_to '<b>+</b> Send a message'.html_safe, new_list_message_path(@list), class: 'button peg_top'
+    = link_to add_icon('Send a message', :message), new_list_message_path(@list), class: 'button peg_top'
 
 %h2 Recent Messages
 = render 'messages/message_list'

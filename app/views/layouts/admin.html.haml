@@ -6,8 +6,8 @@
       = render 'layouts/page_header'
       #content-container
         %ul#main_menu
-          %li= menu_item 'Admin', admin_dashboard_path, (controller_name == 'dashboard')
-          %li= menu_item 'Organizations', admin_organizations_path, (controller_name == 'organizations')
+          %li= menu_item 'Admin', admin_dashboard_path, '', (controller_name == 'dashboard')
+          %li= menu_item 'Organizations', admin_organizations_path, '', (controller_name == 'organizations')
         #content.admin
           #main-content
             = yield

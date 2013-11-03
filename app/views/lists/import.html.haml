@@ -17,5 +17,4 @@
   %p CSV files must be in the following format:
   %code "firstname,lastname,email,number"
   = f.input :csv_file, as: :file
-  .input.submit
-    = f.submit 'Upload and import'
+  = submit_button 'Upload and import'

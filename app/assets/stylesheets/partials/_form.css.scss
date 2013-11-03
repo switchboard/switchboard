@@ -78,7 +78,7 @@ form {
    border-top: 1px solid #b4b4b4!important;
 
   }
-  
+
   .input.field_with_errors input,
   .input.field_with_errors textarea {
     background: #fee;
@@ -195,7 +195,7 @@ form {
 	.input.date select.date {
 		margin-top: 8px;
   }
-  
+
   .input.readonly strong  {
     display: block;
     margin-top: 8px;
@@ -282,7 +282,7 @@ form.general_form {
 
 /* Would like to target forms by size in a specific container (eg in this box they have these dimensions)
    but for now will target specific forms. */
-   
+
 #add_contact_form form.form-horizontal {
   $formColumn: 100px;
   $formField: 220px;

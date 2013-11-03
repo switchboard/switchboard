@@ -8,11 +8,29 @@ module ApplicationHelper
     @page_title = str
   end
 
-  def menu_item(link_text, url, current_if = false, cls = '')
+  def menu_item(link_text, url, icon_class, current_if = false, cls = '')
     capture_haml do
       haml_tag(:li, :<, class: "#{cls}#{'current' if current_if}") do
+        if icon_class.present?
+          link_text = add_icon(link_text, icon_class)
+        end
         haml_concat link_to(link_text, url)
       end
+    end
+  end
+
+  ICON_MAPPINGS = {
+    add: 'plus-square',
+    message: 'envelope',
+    user: 'user',
+    settings: 'cogs',
+    upload: 'upload'
+  }.freeze
+
+  def add_icon(str, icon)
+    capture_haml do
+      haml_tag(:i, class: "fa fa-#{ICON_MAPPINGS[icon]}")
+      haml_concat " #{str}"
     end
   end
 
@@ -42,6 +60,16 @@ module ApplicationHelper
       message.sender.full_name
     else
       format_phone(message.from)
+    end
+  end
+
+  def submit_button(label, btn_class = 'button submit', opts = {})
+    opts.merge!({class: btn_class, type: 'submit', 'data-disable-with' => 'Wait...'})
+    opts[:accesskey] ||= 's'
+    capture_haml do
+      haml_tag(:button, :<, opts) do
+        haml_concat label
+      end
     end
   end
 

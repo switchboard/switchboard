@@ -2,7 +2,7 @@
   = f.input :email, required: :false, input_html: {autofocus: true, autocomplete: 'off'}
   = f.input :password, required: :false, input_html: {autocomplete: 'off'}
 
-  = f.button :submit, 'Sign in', class: "primary", disable_with: 'Wait...'
+  = submit_button 'Sign in'
   .input.boolean
     %label{for: 'user_remember'}<
       = check_box_tag :remember_me, 1, params[:remember_me], id: 'user_remember'

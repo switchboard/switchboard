@@ -21,6 +21,9 @@ ul#main_menu {
     height: $menuHeight;
     text-decoration: none;
   }
+  i.fa {
+    margin-right: 3px;
+  }
   li.current a,
   li a:hover {
     background-color: $orangeButton!important;

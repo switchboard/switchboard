@@ -5,4 +5,4 @@
   %p Forget your password? No problem, it happens to everybody. Just enter your email to reset your password.
 = custom_form_for 'password_reset', url: password_resets_path, method: :post, html: {class: 'form-vertical'} do |f|
   = f.input :email, required: :true, input_html: {autofocus: true}
-  = f.button :submit, 'Reset password', button_html: { class: "primary", disable_with: 'Wait...' }
+  = submit_button 'Reset password'
