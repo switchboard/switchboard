@@ -1,6 +1,6 @@
 - if message && message.list
   %tr
-    - if @list
+    - if ! @list
       %td.list= message.list.name
     %td.date
       = message.created_at.to_smart_s_short
