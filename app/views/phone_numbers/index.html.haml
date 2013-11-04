@@ -3,10 +3,13 @@
     = link_to add_icon('Add member', :user), new_list_contact_path(@list), class: 'button'
     = link_to add_icon('Import contacts', :upload), import_list_path(@list), class: 'button'
 
-#show_member_list
-  - unless @list.try(:all_users_can_send_messages)
-    %p * checkbox indicates approved sender
-  %table#member_list.default.linked
-    %tbody
-      = render @phone_numbers
-  = paginate @phone_numbers
+  - if @list.phone_numbers.size > 15
+    = custom_form_for(@search_form, as: 'q', method: 'get', url: list_phone_numbers_path(@list), html: {class: 'search_form form-default'}) do |f|
+      = f.input :q, as: :search, placeholder: 'Search names/numbers', label: false, input_html: {name: 'q', id: 'search_q', autocomplete: 'off'}
+
+#member_list_wrap
+  = render 'member_list'
+
+- if @list
+  :coffeescript
+    $ -> new Switchboard.MembersController()

@@ -1,0 +1,6 @@
+%table#member_list.default.linked
+  %tbody
+    = render @phone_numbers
+= paginate @phone_numbers
+- unless @list.try(:all_users_can_send_messages)
+  %p.table_footer * checkbox indicates approved sender

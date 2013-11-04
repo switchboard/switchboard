@@ -1,0 +1,48 @@
+#member_list_wrap {
+  margin-top: 20px;
+}
+
+.remove_member_icon {
+  float: right;
+}
+
+td.num {
+  font-family: "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+  font-size: 85%;
+}
+
+#search_q {
+  width: 12em;
+}
+
+td.toggle {
+  div {
+    height: 18px;
+    width: 18px;
+    &.saving  {
+      background: image-url('spinner.gif') 0 0 no-repeat;
+      input {
+        display: none;
+      }
+    }
+  }
+}
+
+.toggle {
+  span {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  &:hover {
+    span {
+      display: inline
+    }
+  }
+}
+
+
+

@@ -1,8 +1,8 @@
 %tr{id: "member_#{phone_number.id}"}
   - if @list.try(:all_users_can_send_messages) == false
     %td.toggle
-      = image_tag("spinner.gif", class: "spinner", id: "toggle_admin_spinner_#{phone_number.id}", style: 'position: absolute;')
-      %input.adminToggle{type: 'checkbox', list_id: @list.id, value: phone_number.id, checked: @list.number_is_admin?(phone_number) }
+      %div
+        %input.adminToggle{type: 'checkbox', title: 'Toggle Admin', data: {list: @list.id, phone: phone_number.id}, checked: @list.number_is_admin?(phone_number) }
       %span Toggle Admin
   %td.name
     = link_to phone_number.contact.try(:full_name), @list ? edit_list_contact_path(@list, phone_number.contact) : edit_contact_path(phone_number.contact), class: 'clk'

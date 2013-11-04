@@ -1,3 +1,4 @@
+require 'ostruct'
 class PhoneNumbersController < ApplicationController
 
   def new
@@ -6,13 +7,25 @@ class PhoneNumbersController < ApplicationController
 
   def index
     if @list
-      @title = 'List Membership'
+      @title = 'List Members'
       @phone_numbers = @list.phone_numbers
+      @search_form = OpenStruct.new(params.slice(:q))
+      if @search_form.q.present?
+        escaped_search = @search_form.q.gsub('%', '\%').gsub('_', '\_')
+        if @search_form.q =~ /\d{2}/
+          escaped_search.gsub!(/[^0-9]/, '')
+          @phone_numbers = @phone_numbers.where('number LIKE ?', "%#{escaped_search}%" )
+        else
+          @phone_numbers = @phone_numbers.joins(:contact).where('contacts.first_name LIKE :str OR contacts.last_name LIKE :str', str: "%#{escaped_search}%")
+        end
+      end
     else
       @title = "Members for all your organization's lists"
       @phone_numbers = PhoneNumber.joins(:lists => :organization).where('organizations.id' => current_organization.id)
     end
     @phone_numbers = @phone_numbers.order('updated_at desc').page(params[:page]).per(13)
+
+    render partial: 'member_list', layout: false if request.xhr?
   end
 
   def create

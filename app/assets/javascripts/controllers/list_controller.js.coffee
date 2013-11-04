@@ -28,13 +28,13 @@ class Switchboard.ListController extends Spine.Controller
     list_name = $(e.target).val()
     if(list_name.length > 0)
       $.ajax(
-        url: Switchboard.urls.check_list_availability 
+        url: Switchboard.urls.check_list_availability
         data: {name: list_name}
         success: @check_list_name_ok
       )
     else
       $('#availability').html('')
-  
+
   check_list_name_ok: (data, status, jqxhr) ->
     $('#availability').html(data)
     $('.input.list_name').removeClass('field_with_errors').find('span.error').remove()

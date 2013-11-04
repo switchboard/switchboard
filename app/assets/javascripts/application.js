@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require spine
 //= require shared
-//= require lists
 //= require selects
 //= require_tree ./controllers/
 

@@ -20,21 +20,11 @@ HERE
   def select_list(list_id, action, controller)
     # XXX correct?
     render :partial => '/admin/list', :collection => List.order(:name), :locals => {:action => action, :controller => controller, :list_id => list_id}
-    #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})  
+    #collection_select(nil, nil, List.find(:all), :id, :name, {}, {:id => 'selectlist', :name => 'list_id', :multiple => 1, :size => 20, :onchange => onchange})
   end
 
   def list_class(list_id)
     (params[:selected_list] == list_id.to_s) ? 'active_list' : ""
-  end
-
-  def select_list_onclick(list_id, action, controller)
-    onclick = remote_function(
-      :url => {:controller => controller, :action => action},
-      :with => "'list_id=#{list_id}'",
-      :loading => show_spinner('which_list_spinner'),
-      :complete => hide_spinner('which_list_spinner'),
-      :after => "highlightList('list_id_#{list_id}')" # this is a javascript function
-    ) 
   end
 
   def link_to_remove_member(phone_number, list_id)
@@ -69,7 +59,7 @@ HERE
   end
 
 #  def select_list_members(memberships)
-#    collection_select(nil, nil, memberships, :id, :display_for_select, {}, {:id => 'show_members', :multiple => 1, :size => 20) 
+#    collection_select(nil, nil, memberships, :id, :display_for_select, {}, {:id => 'show_members', :multiple => 1, :size => 20)
 #  end
 
 end

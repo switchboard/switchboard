@@ -83,7 +83,7 @@ class ListsController < ApplicationController
     @list = current_organization.lists.find(params[:list_id])
     number = PhoneNumber.find(params[:list_member_id])
     @list.toggle_admin(number)
-    render :nothing => true
+    render nothing: true
   end
 
   private
