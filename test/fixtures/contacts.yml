@@ -1,12 +1,16 @@
 one:
   first_name: One
   last_name: User
+  full_name: One User
 two:
   first_name: Two
   last_name: User
+  full_name: Two User
 three:
   first_name: Three
   last_name: User
+  full_name: Three User
 four:
   first_name: Four
   last_name: User
+  full_name: Four User

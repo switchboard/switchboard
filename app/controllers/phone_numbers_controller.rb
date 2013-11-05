@@ -16,7 +16,7 @@ class PhoneNumbersController < ApplicationController
           escaped_search.gsub!(/[^0-9]/, '')
           @phone_numbers = @phone_numbers.where('number LIKE ?', "%#{escaped_search}%" )
         else
-          @phone_numbers = @phone_numbers.joins(:contact).where('contacts.first_name LIKE :str OR contacts.last_name LIKE :str', str: "%#{escaped_search}%")
+          @phone_numbers = @phone_numbers.joins(:contact).where('contacts.full_name LIKE ?', "%#{escaped_search}%")
         end
       end
     else
