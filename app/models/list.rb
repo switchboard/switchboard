@@ -213,7 +213,7 @@ class List < ActiveRecord::Base
   def handle_admin_message(message)
     admin_msg = "[#{name} from #{message.from_phone_number.number}"
 
-    if message.sender && message.sender.first_name.present?
+    if message.sender && message.sender.full_name.present?
       admin_msg << "/ #{message.sender.full_name}"
     end
 
