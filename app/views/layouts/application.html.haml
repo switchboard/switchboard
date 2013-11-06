@@ -1,5 +1,5 @@
 = render 'layouts/head'
-%body
+%body{class: Settings.staging_style ? 'staging' : nil}
   = render 'shared/flashes'
   #site-container
     #site
