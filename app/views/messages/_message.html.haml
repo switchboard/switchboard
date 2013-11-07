@@ -5,7 +5,7 @@
     %td.date
       = message.created_at.to_smart_s_short
     %td.body{title: message.body}
-      %p= message.body
+      %div= message.body
     %td.from{title: format_phone(message.from)}= message_from(message)
     %td
       - if message.in_send_queue?
