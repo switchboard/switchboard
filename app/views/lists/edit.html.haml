@@ -4,7 +4,7 @@
   %h3 Welcome Message
   = f.input :use_welcome_message, label: 'Use welcome message'
   #welcome_message_wrap
-    = f.input :custom_welcome_message, as: :text, label: 'List welcome message', input_html: {class: 'count_characters'}
+    = f.input :custom_welcome_message, as: :text, label: 'List welcome message', hint: 'Leave blank to use default welcome message',  input_html: {class: 'count_characters'}
     %span#character_count
 
   %h3 Incoming Phone Number
@@ -30,6 +30,8 @@
   = f.input :add_list_name_header, label: 'Include list name in messages (e.g. [LIST])'
   = f.input :identify_sender, label: 'Include name of sender in messages'
 
+  %h3 Default Language
+  = f.input :default_locale, as: :select, label: false, collection: I18n.available_locales.map{ |locale| [I18n.t('language', locale: locale), locale.to_s] }, include_blank: false, hint: 'This will be the default language for list instructions and system responses.'
   = submit_button 'Save changes'
 
 :coffeescript

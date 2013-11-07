@@ -101,12 +101,11 @@ class Message < ActiveRecord::Base
   def process
     begin
       first_token = tokens.first.downcase
-
-      if first_token == 'join'
-        list.handle_join_message(self)
+      if locale = I18n.locales_for('list_commands.join')[first_token]
+        list.handle_join_message(self, locale)
         mark_handled!
-      elsif first_token == 'leave' || first_token == 'quit'
-        list.handle_leave_message(self)
+      elsif locale = (I18n.locales_for('list_commands.leave')[first_token] || I18n.locales_for('list_commands.quit')[first_token])
+        list.handle_leave_message(self, locale)
         mark_handled!
       elsif list.can_send_message?(self)
         list.handle_send_action(self)

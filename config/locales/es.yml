@@ -1,0 +1,13 @@
+es:
+  language: 'Español'
+  list_commands:
+    join: "conecta"
+    leave: "cancelar"
+    quit: "parar"
+    help: "ayuda"
+  list_responses:
+    removed: "Como lo pidió, ha sido eliminado de la lista %{name}."
+    remove_not_subscribed: "Parece que está intentando darse de baja en la lista %{name}, pero este numero no está suscrito."
+    join_already_subscribed: "Parece que está intentando suscribir a la lista %{name}, pero este numero ya está suscrito."
+    join_private: "Esta lista está privada; solalmente el administrador puede añadir a miembros nuevos."
+    default_welcome: "Bienvendido a la lista '%{name}'. Para darse de baja, envie CANCELAR a este numero."

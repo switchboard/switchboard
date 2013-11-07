@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105013008) do
+ActiveRecord::Schema.define(:version => 20131107140613) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20131105013008) do
     t.datetime "csv_file_updated_at"
     t.integer  "organization_id"
     t.boolean  "deleted",                     :default => false
+    t.string   "default_locale",              :default => "en",  :null => false
   end
 
   add_index "lists", ["organization_id"], :name => "index_lists_on_organization_id"

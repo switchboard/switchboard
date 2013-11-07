@@ -17,6 +17,7 @@ one:
   custom_welcome_message:
   add_list_name_header: false
   identify_sender: false
+  default_locale: en
 two:
   name: MYSECONDLIST
   organization: one
@@ -36,6 +37,7 @@ two:
   custom_welcome_message:
   add_list_name_header: false
   identify_sender: false
+  default_locale: es
 org_two_list:
   name: ORGANIZATIONTWOLIST
   organization: two
@@ -55,3 +57,4 @@ org_two_list:
   custom_welcome_message:
   add_list_name_header: false
   identify_sender: false
+  default_locale: en

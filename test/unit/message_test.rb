@@ -98,31 +98,58 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming join message' do
     setup do
       @list = lists(:one)
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: 'JOIN mumble mumble')
+      command = I18n.t('list_commands.join', locale: :en)
+      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command.upcase} mumble mumble")
       @message.mark_processing!
     end
 
     should 'tell list to send join message' do
-      List.any_instance.expects(:handle_join_message).with(@message).returns(true)
+      List.any_instance.expects(:handle_join_message).with(@message, :en).returns(true)
       @message.process
 
       assert @message.aasm_state == 'handled'
     end
+
+    context 'in alternate locale' do
+      setup do
+        command = I18n.t('list_commands.join', locale: :es)
+        @message.body = "#{command} mumble mumble"
+      end
+      should 'send join message in correct locale' do
+        List.any_instance.expects(:handle_join_message).with(@message, :es).returns(true)
+        @message.process
+      end
+    end
+
   end
 
   context 'incoming leave message' do
     setup do
       @list = lists(:one)
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: 'LEAVE mumble mumble')
+      command = I18n.t('list_commands.leave', locale: :en)
+
+      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command} mumble mumble")
       @message.mark_processing!
     end
 
     should 'tell list to send leave message' do
-      List.any_instance.expects(:handle_leave_message).with(@message).returns(true)
+      List.any_instance.expects(:handle_leave_message).with(@message, :en).returns(true)
       @message.process
 
       assert @message.aasm_state == 'handled'
     end
+
+    context 'in alternate locale' do
+      setup do
+        command = I18n.t('list_commands.leave', locale: :es)
+        @message.body = "#{command} mumble mumble"
+      end
+      should 'send join message in correct locale' do
+        List.any_instance.expects(:handle_leave_message).with(@message, :es).returns(true)
+        @message.process
+      end
+    end
+
   end
 
   context 'incoming regular message' do

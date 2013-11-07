@@ -15,12 +15,11 @@ class List < ActiveRecord::Base
   has_many :sent_counts, as: :countable, dependent: :destroy
   belongs_to :organization
 
-  attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership
-  attr_accessible :use_welcome_message, :welcome_message, :incoming_number
-  attr_accessible :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
+  attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership,
+                  :use_welcome_message, :welcome_message, :incoming_number, :default_locale,
+                  :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
 
   has_attached_file :csv_file
-
 
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
   validates :name, uniqueness: true
@@ -139,8 +138,8 @@ class List < ActiveRecord::Base
     ($redis.get("list_out_#{id}") || 0).to_i
   end
 
-  def welcome_message
-    custom_welcome_message || default_welcome_message
+  def welcome_message(locale = :en)
+    custom_welcome_message.present? ? custom_welcome_message : default_welcome_message(locale)
   end
 
   # Calculate length; ideally would be dry-ed up
@@ -162,12 +161,12 @@ class List < ActiveRecord::Base
       body << " (#{message.from_phone_number.name_and_number})"
     end
 
-    content = [body]
     if (body.length > 160)
-      content = split_message_by_160(body)
+      split_message_by_160(body)
+    else
+      [body]
     end
 
-    content
   end
 
   def add_sender_identity?(from_number)
@@ -223,19 +222,19 @@ class List < ActiveRecord::Base
     end
   end
 
-  def handle_leave_message(message)
+  def handle_leave_message(message, locale = :en)
     if has_number?(message.from_phone_number)
       remove_phone_number(message.from_phone_number)
-      create_outgoing_message(message.from_phone_number, "You have been removed from the #{name} list, as you requested." )
+      create_outgoing_message(message.from_phone_number, I18n.t('list_responses.removed', name: name, locale: locale))
     else
-      create_outgoing_message(message.from_phone_number, "It seems like you are trying to leave the list #{name}, but you are not subscribed.")
+      create_outgoing_message(message.from_phone_number, I18n.t('list_responses.remove_not_subscribed', name: name, locale: locale))
     end
   end
 
-  def handle_join_message(message)
+  def handle_join_message(message, locale = :en)
     # Handle re-subscribing
     if has_number?(message.from_phone_number)
-      create_outgoing_message(message.from_phone_number, "It seems like you are trying to join the list #{name}, but you are already a member.")
+      create_outgoing_message(message.from_phone_number,I18n.t('list_responses.join_already_subscribed', name: name, locale: locale))
     elsif open_membership?
 
       # Not sure why we do this here necessarily
@@ -244,24 +243,26 @@ class List < ActiveRecord::Base
         contact.phone_numbers << message.from_phone_number
       end
 
-      list_memberships.create!(phone_number_id: message.from_phone_number.id)
+      list_memberships.create!(phone_number_id: message.from_phone_number.id, join_locale: locale)
     else
-      create_outgoing_message(message.from_phone_number, "Sorry, this list is configured as a private list; only the administrator can add new members.")
+      create_outgoing_message(message.from_phone_number, I18n.t('list_responses.join_private'))
     end
   end
 
-  def send_welcome_message(phone_number)
-    create_outgoing_message(phone_number, welcome_message) if use_welcome_message?
+  def send_welcome_message(phone_number, locale = nil)
+    create_outgoing_message(phone_number, welcome_message(locale || default_locale)) if use_welcome_message?
   end
 
   protected
 
-    def default_welcome_message
-      msg = "Welcome to the '#{self.name}' list.  Unsubcribe by texting 'leave' to this number."
-      if self.incoming_number.blank?
-        msg = msg + " Respond by texting #{self.name} + your message."
-      end
+  def default_welcome_message(locale = :en)
+    msg = I18n.t('list_responses.default_welcome', name: name, locale: locale)
+    # TODO not sure if this functionality is used?
+    if self.incoming_number.blank?
+      msg << " Respond by texting #{name} + your message."
     end
+    msg
+  end
 
 end
 

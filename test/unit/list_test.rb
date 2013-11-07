@@ -67,7 +67,32 @@ class ListTest < ActiveSupport::TestCase
     assert @content[0] == "[#{@list.name}] #{@message.body}"
   end
 
-  #  def create_outgoing_message(phone_number, body, message_id = nil)
+  context 'sending welcome message' do
+    setup do
+      @list = FactoryGirl.build(:list, use_welcome_message: true, custom_welcome_message: nil)
+    end
+
+    should 'use the custom message when it is filled in' do
+      @list.custom_welcome_message = "HEY WELCOME THERE"
+      assert @list.welcome_message(:en) == @list.custom_welcome_message
+    end
+
+    should 'select the default message if there is no custom message' do
+      assert @list.welcome_message(:en) == I18n.t('list_responses.default_welcome', name: @list.name, locale: :en)
+    end
+
+    should 'send welcome message in the correct locale' do
+      assert @list.welcome_message(:es) == I18n.t('list_responses.default_welcome', name: @list.name, locale: :es)
+    end
+
+    should 'send welcome message in the default locale if none is passed' do
+      @list.default_locale = 'es'
+      assert @list.welcome_message == I18n.t('list_responses.default_welcome', name: @list.name, locale: :es)
+      @list.default_locale = 'en'
+      assert @list.welcome_message == I18n.t('list_responses.default_welcome', name: @list.name, locale: :en)
+    end
+
+  end
 
   context 'sending a message' do
 
@@ -169,7 +194,7 @@ class ListTest < ActiveSupport::TestCase
         @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
       end
       should 'create outgoing message saying user is not a member' do
-        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/are not subscribed/))
+        @list.expects(:create_outgoing_message).with(@phone, I18n.t('list_responses.remove_not_subscribed', name: @list.name, locale: :en))
         @list.handle_leave_message(@message)
       end
     end
@@ -179,11 +204,20 @@ class ListTest < ActiveSupport::TestCase
         @phone = @list.list_memberships.first.phone_number
         @message = FactoryGirl.create(:message, list: @list, from: @phone.number)
       end
-      should 'create outgoing message saying user is not a member' do
-        @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/have been removed/))
+
+      should 'create outgoing message saying user was removed' do
+        # test is a little heavy-handed
+        @list.expects(:create_outgoing_message).with(@phone, I18n.t('list_responses.removed', name: @list.name, locale: :en))
         @list.expects(:remove_phone_number).with(@phone)
-        @list.handle_leave_message(@message)
+        @list.handle_leave_message(@message, :en)
+
       end
+      should 'create message in an alternate locale' do
+        @list.expects(:create_outgoing_message).with(@phone, I18n.t('list_responses.removed', name: @list.name, locale: :es))
+        @list.expects(:remove_phone_number).with(@phone)
+        @list.handle_leave_message(@message, :es)
+      end
+
     end
 
   end
@@ -203,6 +237,11 @@ class ListTest < ActiveSupport::TestCase
         @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/already/))
         @list.handle_join_message(@message)
       end
+
+      should 'create outgoing message saying user is already a member in alternate locale' do
+        @list.expects(:create_outgoing_message).with(@phone, I18n.t('list_responses.join_already_subscribed', name: @list.name, locale: :es))
+        @list.handle_join_message(@message, :es)
+      end
     end
 
     context 'with a closed list' do
@@ -215,6 +254,11 @@ class ListTest < ActiveSupport::TestCase
       should 'create outgoing message saying list is private' do
         @list.expects(:create_outgoing_message).with(@phone, regexp_matches(/private/))
         @list.handle_join_message(@message)
+      end
+
+      should 'create outgoing message saying list is private, in alternate locale' do
+        @list.expects(:create_outgoing_message).with(@phone, I18n.t('list_responses.join_private', name: @list.name, locale: :es))
+        @list.handle_join_message(@message, :es)
       end
     end
 
@@ -232,6 +276,13 @@ class ListTest < ActiveSupport::TestCase
         assert_difference('@list.list_memberships.count', 1) do
           @list.handle_join_message(@message)
         end
+      end
+
+      should 'send welcome message in correct locale' do
+        @list.expects(:create_outgoing_message).never
+        List.any_instance.expects(:send_welcome_message).with(@phone, :es).returns(true)
+
+        @list.handle_join_message(@message, :es)
       end
     end
 

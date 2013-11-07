@@ -1,5 +1,13 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  language: 'English'
+  list_commands:
+    join: "join"
+    leave: "leave"
+    quit: "quit"
+    help: "help"
+  list_responses:
+    removed: "You have been removed from the %{name} list, as you requested."
+    remove_not_subscribed: "It seems like you are trying to leave the list %{name}, but you are not subscribed."
+    join_already_subscribed: "It seems like you are trying to join the list %{name}, but you are already a member."
+    join_private: "Sorry, this list is configured as a private list; only the administrator can add new members."
+    default_welcome: "Welcome to the '%{name}' list. Unsubcribe by texting 'leave' to this number."
