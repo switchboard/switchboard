@@ -1,5 +1,6 @@
 class DaemonStatusController < ApplicationController
   skip_before_filter :require_user
+  layout 'pages'
 
     def alert
       status = DaemonStatus.order("updated_at DESC").first
