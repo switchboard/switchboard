@@ -1,5 +1,5 @@
 set :repository,  "git://github.com/switchboard/switchboard.git"
-set :branch, 'update_layout'
+set :branch, 'development'
 
 server "switchboard.whatcould.com", :web, :app, :db, primary: true
 
@@ -26,8 +26,6 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 
-    run "cd #{current_path} && bundle exec #{current_path}/script/daemon stop switchboard_server"
-
     run "curl -s http://switchboard.whatcould.com > /dev/null 2>&1"
   end
 
@@ -37,6 +35,6 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
     run "ln -nfs #{shared_path}/config/aaa_staging_settings.rb #{release_path}/config/initializers/aaa_staging_settings.rb"
   end
-  after "deploy:finalize_update", "deploy:symlink_config"
+  before "deploy:assets:precompile", "deploy:symlink_config"
 
 end
