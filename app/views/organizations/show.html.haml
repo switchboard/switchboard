@@ -1,5 +1,21 @@
 %h1= @organization.name
 
+%h2 Outgoing message counts
+%p Totals for your organization
+
+%table.default.stats
+  %tbody
+    %tr
+      %th Outgoing this month
+      %td= @organization.current_month_outgoing
+    %tr
+      %th Outgoing last month
+      %td= @organization.last_month_outgoing
+    %tr
+      %th Total outgoing messages
+      %td= @organization.outgoing_count
+
+
 %h2 Organization users
 
 %table#user_list.default
