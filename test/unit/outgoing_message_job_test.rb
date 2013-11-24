@@ -32,7 +32,7 @@ class OutgoingMessageJobTest < ActiveSupport::TestCase
     context 'without a message_id' do
       should 'increment list outgoing count but not message count' do
         TwilioSender.stubs(:send_sms)
-        List.expects(:increment_outgoing_count).with(@list_id)
+        List.expects(:increment_sms_count).with(@list_id)
         Message.expects(:increment_outgoing_count).never
 
         OutgoingMessageJob.perform(@list_id, @to, @from, @body)
@@ -44,7 +44,7 @@ class OutgoingMessageJobTest < ActiveSupport::TestCase
         @message_id = 555
         @message_count = 5
         TwilioSender.stubs(:send_sms)
-        List.expects(:increment_outgoing_count).with(@list_id)
+        List.expects(:increment_sms_count).with(@list_id)
         Message.expects(:increment_outgoing_count).with(@message_id).returns(@message_count)
       end
 

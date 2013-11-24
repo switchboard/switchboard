@@ -126,19 +126,19 @@ class List < ActiveRecord::Base
     messages.sent.size
   end
 
-  def increment_outgoing_count
+  def increment_sms_count
     $redis.incr "list_out_#{id}"
   end
 
-  def self.increment_outgoing_count(list_id)
+  def self.increment_sms_count(list_id)
     $redis.incr "list_out_#{list_id}"
   end
 
-  def outgoing_count
+  def sms_count
     ($redis.get("list_out_#{id}") || 0).to_i
   end
 
-  def welcome_message(locale = :en)
+  def welcome_message(locale = nil)
     custom_welcome_message.present? ? custom_welcome_message : default_welcome_message(locale)
   end
 

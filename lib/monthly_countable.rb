@@ -8,12 +8,12 @@ module MonthlyCountable
     after_create { SentCount.setup_new_countable(self) }
   end
 
-  def last_month_outgoing
+  def last_month_sms
     sent_counts.order('date_ending DESC').first.total_count
   end
 
-  def current_month_outgoing
-    outgoing_count - last_month_outgoing
+  def current_month_sms
+    sms_count - last_month_sms
   end
 
   module ClassMethods

@@ -27,7 +27,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     # This bit is a little inside baseball, but:
 
     # List outgoing count is set
-    assert_equal @list.outgoing_count.to_i, @outgoing_count
+    assert_equal @list.sms_count.to_i, @outgoing_count
 
     # Message outgoing count is set
     message = Message.where(body: @twilio_params['Body']).first

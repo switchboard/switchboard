@@ -12,7 +12,7 @@ class SentCount < ActiveRecord::Base
   def self.calculate_new_month(obj)
     date_ending = (Date.today - 1.month).end_of_month
     new_month = obj.sent_counts.build(date_ending: date_ending)
-    new_month.total_count = obj.outgoing_count
+    new_month.total_count = obj.sms_count
     new_month.month_count = new_month.total_count - new_month.previous_month.total_count
     new_month.save!
   end

@@ -24,7 +24,7 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  def outgoing_count
-    lists_including_deleted.inject(0){|sum, list| sum += list.outgoing_count }
+  def sms_count
+    lists_including_deleted.inject(0){|sum, list| sum += list.sms_count }
   end
 end
