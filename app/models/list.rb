@@ -245,7 +245,7 @@ class List < ActiveRecord::Base
 
       list_memberships.create!(phone_number_id: message.from_phone_number.id, join_locale: locale)
     else
-      create_outgoing_message(message.from_phone_number, I18n.t('list_responses.join_private'))
+      create_outgoing_message(message.from_phone_number, I18n.t('list_responses.join_private', locale: locale))
     end
   end
 
@@ -255,8 +255,8 @@ class List < ActiveRecord::Base
 
   protected
 
-  def default_welcome_message(locale = :en)
-    msg = I18n.t('list_responses.default_welcome', name: name, locale: locale)
+  def default_welcome_message(locale)
+    msg = I18n.t('list_responses.default_welcome', name: name, locale: locale || default_locale)
     # TODO not sure if this functionality is used?
     if self.incoming_number.blank?
       msg << " Respond by texting #{name} + your message."

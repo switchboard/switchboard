@@ -85,9 +85,10 @@ class ListTest < ActiveSupport::TestCase
       assert @list.welcome_message(:es) == I18n.t('list_responses.default_welcome', name: @list.name, locale: :es)
     end
 
-    should 'send welcome message in the default locale if none is passed' do
+    should 'send default welcome message in the default locale if none is passed' do
+      @list.custom_welcome_message = ''
       @list.default_locale = 'es'
-      assert @list.welcome_message == I18n.t('list_responses.default_welcome', name: @list.name, locale: :es)
+      assert @list.welcome_message == I18n.t('list_responses.default_welcome', name: @list.name, locale: :es), "List welcome message is #{@list.welcome_message}, should be #{I18n.t('list_responses.default_welcome', name: @list.name, locale: :es)}"
       @list.default_locale = 'en'
       assert @list.welcome_message == I18n.t('list_responses.default_welcome', name: @list.name, locale: :en)
     end
