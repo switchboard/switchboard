@@ -22,7 +22,7 @@ class ContactsController < ApplicationController
 
     if @success
       if @list
-        @list.list_memberships.create!(:phone_number_id => @contact.phone_numbers.first.id)
+        @list.list_memberships.create(:phone_number_id => @contact.phone_numbers.first.id)
         redirect_path = list_path(@list)
       else
         redirect_path = lists_path
