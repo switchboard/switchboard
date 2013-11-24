@@ -12,6 +12,18 @@ class MessageTest < ActiveSupport::TestCase
       assert @message.list_id == @list.id
     end
 
+    should 'increment list sms count' do
+      message = FactoryGirl.build(:message, to: @list.incoming_number, body: 'mumble mumble')
+      List.any_instance.expects(:increment_sms_count)
+      message.save
+    end
+
+    should 'not increment list sms count for web messages' do
+      message = FactoryGirl.build(:web_message, list: @list, body: 'mumble mumble')
+      List.any_instance.expects(:increment_sms_count).never
+      message.save
+    end
+
     should 'mark processing if ready' do
       @message.mark_processing!
       assert @message.aasm_state == 'processing'

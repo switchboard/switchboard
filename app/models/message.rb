@@ -184,6 +184,7 @@ class Message < ActiveRecord::Base
 
     if self.list = List.find_by_incoming_number(to_number)
       ## Non-keyword list (assigned phone number)
+      list.increment_sms_count
     elsif self.is_a?(EmailMessage)
       ## Email message for a list
       list_name = default_list

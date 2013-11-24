@@ -7,7 +7,7 @@ class IncomingMessageJob
 
     ## Disabling this temporarily
     # survey_state = SurveyState.where(active: true, phone_number_id: 1).first
-    # 
+    #
     # if ( survey_state != nil )
     #   puts("handle survey response.")
     #   survey_state.handle_message(message.from_phone_number, message.body)
@@ -16,7 +16,6 @@ class IncomingMessageJob
     #   next
     # end
 
-    # TODO reconsider this flow; aasm is complicated.
     message.process unless message.aasm_state == 'failure'
   end
 end
