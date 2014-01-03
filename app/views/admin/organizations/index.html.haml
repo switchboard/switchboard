@@ -7,7 +7,8 @@
     %th Name
     %th Lists
     %th Users
-    %th Outgoing this month
+    %th SMS this month
+    %th SMS last month
   %tbody
   - @organizations.each do |organization|
     %tr
@@ -15,3 +16,4 @@
       %td= organization.lists.size
       %td= organization.users.size
       %td= organization.current_month_sms
+      %td= organization.last_month_sms

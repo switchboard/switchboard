@@ -7,10 +7,12 @@
   %thead
     %th Name
     %th Members
-    %th Outgoing this month
+    %th SMS this month
+    %th SMS last month
   %tbody
   - @lists.each do |list|
     %tr
       %td= list.name
       %td= list.list_memberships.size
       %td= list.current_month_sms
+      %td= list.last_month_sms
