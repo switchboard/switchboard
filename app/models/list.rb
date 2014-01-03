@@ -109,7 +109,7 @@ class List < ActiveRecord::Base
       to = phone_number.number
       from = incoming_number
     else
-      raise "List & subscriber settings make sending message impossible for number #{phone_number.number} "
+      raise "List & subscriber settings make sending message impossible for number #{phone_number.number} [list: #{name}]."
     end
 
     Resque.enqueue(OutgoingMessageJob, id, to, from, body, message_id, outgoing_count)
