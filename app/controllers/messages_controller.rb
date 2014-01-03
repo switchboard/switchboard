@@ -20,25 +20,16 @@ class MessagesController < ApplicationController
   end
 
   def send_message
-    confirmed = true
-    if confirmed
-      @message = WebMessage.new(:from => 'Web', :body => params[:web_message][:body])
-      # Not setting 'to' to list_id
-      # @message.to = @list.id
-      @message.list = @list
-      if ( @message.save )
-        flash[:notice] = "Message sent."
-        redirect_to list_url(@list)
-      else
-        flash[:alert] = "Could not send message: " + @message.errors.full_messages[0]
-        render 'new'
-      end
-
-    #else
-    #  render :update do |page|
-    #    page << " $j().toastmessage('showSuccessToast', \"Preview your message to make sure it is correct before clicking send.\");"
-    #    page << "$('confirmed_send_message_button').show();"
-    #  end
+    @message = WebMessage.new(:from => 'Web', :body => params[:web_message][:body])
+    # Not setting 'to' to list_id
+    # @message.to = @list.id
+    @message.list = @list
+    if @message.save
+      flash[:notice] = "Message sent."
+      redirect_to list_url(@list)
+    else
+      flash[:alert] = "Could not send message: " + @message.errors.full_messages[0]
+      render 'new'
     end
   end
 
