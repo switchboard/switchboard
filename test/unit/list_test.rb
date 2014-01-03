@@ -160,6 +160,13 @@ class ListTest < ActiveSupport::TestCase
         @list.expects(:create_outgoing_message).times(@list.list_memberships.size)
         @list.handle_send_action(@message)
       end
+
+      should 'throw an exception if list does not have an incoming_number' do
+        @list.incoming_number = nil
+        assert_raises RuntimeError do
+          @list.handle_send_action(@message)
+        end
+      end
     end
 
   end

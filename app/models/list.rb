@@ -105,7 +105,7 @@ class List < ActiveRecord::Base
                                   (! allow_commercial_gateway? || prefer_email? )
       to = "#{phone_number.number}@#{phone_number.provider_email}"
       from = "#{name}@mmptext.info"
-    elsif allow_commercial_gateway? && phone_number.can_receive_gateway?
+    elsif allow_commercial_gateway? && phone_number.can_receive_gateway? && incoming_number.present?
       to = phone_number.number
       from = incoming_number
     else
