@@ -1,7 +1,7 @@
 %h1 Admin dashboard
 
 %h2 Recent messages
-%table.admin
+%table.admin.messages
   %thead
     %th Created
     %th List
@@ -11,11 +11,11 @@
     %th Message
   %tbody
   - @messages.each do |message|
-    %tr
+    %tr[message]
       %td{title: message.created_at.to_s(:weekday_short_time)}= message.created_at.to_smart_s_short
       %td= message.list.try(:name)
       %td= truncate(message.list.try(:organization).try(:name), length: 15)
-      %td= message.aasm_state.try(:humanize)
+      %td{class: "state_#{message.aasm_state}"}= message.aasm_state.try(:humanize)
       - if message.sent?
         %td{title: "Queued at #{ message.queued_at.try(:to_s, :clean)}"}= message.sent_at.to_s(:clean) if message.sent_at
       - elsif message.in_send_queue?

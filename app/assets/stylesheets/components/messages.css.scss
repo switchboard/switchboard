@@ -12,4 +12,9 @@ table.messages {
     color: #fff;
     @include border-radius(5px);
   }
+
+  .state_error {
+    color: #b00;
+    font-weight: bold;
+  }
 }
