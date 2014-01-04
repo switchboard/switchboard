@@ -17,7 +17,7 @@ class ContactsController < ApplicationController
       @success = @contact.update_attributes(params[:contact].slice(:first_name, :last_name))
     else
       @contact = Contact.new(params[:contact].slice(:first_name, :last_name))
-      @success = @contact.save && @contact.phone_numbers.create(number: @number)
+      @success = @contact.save && @contact.phone_numbers.create(number: @number).valid?
     end
 
     if @success
