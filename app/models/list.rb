@@ -22,7 +22,7 @@ class List < ActiveRecord::Base
   has_attached_file :csv_file
 
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
-  validates :name, uniqueness: true
+  validates :name, uniqueness: {scope: :deleted}, unless: Proc.new { |list| list.deleted? }
   validates :organization, presence: true
   validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 

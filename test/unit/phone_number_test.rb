@@ -7,9 +7,9 @@ class PhoneNumberTest < ActiveSupport::TestCase
     assert phone.number == '2152222222'
   end
 
-  test 'validates valid US phone numbers' do
-    assert ! PhoneNumber.new(number: '(295) 204-1945').valid?
-    assert ! PhoneNumber.new(number: '(911) 204-1945').valid?
-    assert ! PhoneNumber.new(number: '(215) 123-1945').valid?
-  end
+  # test 'validates valid US phone numbers' do
+  #   assert ! PhoneNumber.new(number: '(295) 204-1945').valid?
+  #   assert ! PhoneNumber.new(number: '(911) 204-1945').valid?
+  #   assert ! PhoneNumber.new(number: '(215) 123-1945').valid?
+  # end
 end

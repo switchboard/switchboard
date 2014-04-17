@@ -3,6 +3,19 @@ require 'test_helper'
 class ListTest < ActiveSupport::TestCase
   include ActionDispatch::TestProcess
 
+  test 'has unique names, except when deleted' do
+    @list = lists(:one)
+    @list_b = FactoryGirl.build(:list, name: @list.name)
+    assert ! @list_b.valid?
+
+    @list.deleted = true
+    @list.save
+
+    assert @list_b.valid?
+    @list_b.deleted = true
+    assert @list_b.save
+  end
+
   test 'hides deleted lists by default' do
     @list = lists(:one)
     @list.soft_delete
