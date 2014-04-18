@@ -12,7 +12,7 @@ class TwilioSender
       recipient_phone_number = "+1#{recipient_phone_number}"
     end
 
-    twilio_client.account.sms.messages.create(
+    twilio_client.account.messages.create(
       from: sender_phone_number,
       to: recipient_phone_number,
       body: message
