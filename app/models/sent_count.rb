@@ -19,6 +19,6 @@ class SentCount < ActiveRecord::Base
 
   def previous_month
     previous_month = (date_ending - 1.month).end_of_month
-    countable.sent_counts.where(date_ending: previous_month).first
+    countable.sent_counts.where('date_ending <= ?', previous_month).order('date_ending DESC').first
   end
 end
