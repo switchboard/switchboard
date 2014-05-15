@@ -10,6 +10,13 @@ set :deploy_to, "/srv/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
+set :default_environment, {
+  'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
+  'RUBY_VERSION' => 'ruby 2.0.0',
+  'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
+  'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
+}
+
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
