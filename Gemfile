@@ -40,9 +40,8 @@ gem 'bcrypt-ruby'
 
 group :development do
   gem 'sextant'
-  gem "capistrano"
-  gem 'capistrano-resque'
-  gem "capistrano-ext"
+  gem 'capistrano-rails', github: 'capistrano/capistrano-rails'
+  gem 'capistrano-bundler'
 end
 
 group :test do

@@ -1,35 +1,39 @@
-set :application, "Switchboard"
+set :stage, :production
+set :branch, :master
 
-server "switchboard.mediamobilizing.org", :web, :app, :db, primary: true
-set :user, "switchboard"
+# Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary
+# server in each group is considered to be the first
+# unless any hosts have the primary property set.
+role :app, %w{deploy@switchboard.mediamobilizing.org}
+role :web, %w{deploy@switchboard.mediamobilizing.org}
+role :db,  %w{deploy@switchboard.mediamobilizing.org}
 
-# set :deploy_to, "/home/switchboard/production"
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server
+# definition into the server list. The second argument
+# something that quacks like a has can be used to set
+# extended properties on the server.
+# server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
+
+set :rails_env, :production
 set :deploy_to, '/srv/switchboard'
-set :use_sudo, false
 
-
-role :resque_worker, 'switchboard.mediamobilizing.org'
-role :resque_scheduler, 'switchboard.mediamobilizing.org'
-set :workers, { '*' => 1 }
-
-after "deploy:restart", "resque:restart"
-
+set :default_env, {
+  'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
+  'RUBY_VERSION' => '2.0.0-p353',
+  'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
+  'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
+}
 
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
-
-    run "curl -s http://switchboard.mediamobilizing.org > /dev/null 2>&1"
+  desc 'Fetch page to start Passenger server'
+  task :start_passenger do
+    `curl --silent --show-error https://switchboard.mediamobilizing.org/ > /dev/null 2>&1`
   end
-
-  task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/settings-production.yml #{release_path}/config/settings/production.yml"
-    run "ln -nfs #{shared_path}/config/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
-   run "ln -nfs #{shared_path}/config/aaa_production_settings.rb #{release_path}/config/initializers/aaa_production_settings.rb"
-  end
-  before "deploy:assets:precompile", "deploy:symlink_config"
-
+  after :restart, 'deploy:start_passenger'
 end
+
+
