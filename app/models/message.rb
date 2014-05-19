@@ -69,7 +69,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.for_display
-    where(aasm_state: ['in_send_queue', 'sent'])
+    where(aasm_state: ['in_send_queue', 'sent', 'forwarded_to_admin', 'processing'])
   end
 
   def from_email_gateway?
