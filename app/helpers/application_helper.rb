@@ -55,6 +55,18 @@ module ApplicationHelper
     num
   end
 
+  def link_message_from(message)
+    if message.sender.try(:first_name)
+      if @list && @list.has_number?(message.from_phone_number)
+        link_to message.sender.full_name, edit_list_contact_path(@list, message.sender)
+      else
+        message.sender.full_name
+      end
+    else
+      format_phone(message.from)
+    end
+  end
+
   def message_from(message)
     if message.sender.try(:first_name)
       message.sender.full_name

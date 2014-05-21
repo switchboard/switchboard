@@ -43,6 +43,11 @@ class PhoneNumbersController < ApplicationController
   def destroy
     @number = PhoneNumber.find(params[:id])
     @list.remove_phone_number(@number)
+    respond_to do |format|
+      format.html do
+        redirect_to @list, notice: "Contact #{@number.name_and_number} removed from list."
+      end
+    end
   end
 
   def update

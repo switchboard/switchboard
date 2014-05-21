@@ -1,12 +1,12 @@
 - if message && message.list
-  %tr
+  %tr[message]
     - if ! @list
       %td.list= message.list.name
     %td.date
       = message.created_at.to_smart_s_short
     %td.body{title: message.body}
       %div= message.body
-    %td.from{title: format_phone(message.from)}= message_from(message)
+    %td.from{title: format_phone(message.from) }= link_message_from(message)
     %td
       - if message.in_send_queue?
         %span.status= "Sending #{message.outgoing_count} of #{message.outgoing_total}"

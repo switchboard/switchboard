@@ -1,3 +1,6 @@
 - page_title 'Edit contact'
 #add_contact_form
   = render 'contact_form'
+
+  .delete{style: 'text-align: right'}
+    = link_to 'Remove contact', list_phone_number_path(@list, @contact.phone_numbers.first), method: :delete, confirm: "Are you sure you want to remove this contact from the list #{@list.name}?"
