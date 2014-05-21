@@ -47,6 +47,9 @@ class PhoneNumbersController < ApplicationController
       format.html do
         redirect_to @list, notice: "Contact #{@number.name_and_number} removed from list."
       end
+      format.js do
+
+      end
     end
   end
 
