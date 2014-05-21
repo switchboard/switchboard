@@ -35,7 +35,7 @@ class Switchboard.MembersController extends Spine.Controller
     )
 
   watchAdminCheckboxes: ->
-    $('#member_list').on('change', '.adminToggle', (e) ->
+    @results.on('change', '.adminToggle', (e) ->
       $checkbox = $(e.target)
       $wrap = $checkbox.closest('div')
       user_id = $checkbox.data('phone')
