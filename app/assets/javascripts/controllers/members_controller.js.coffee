@@ -6,6 +6,7 @@ class Switchboard.MembersController extends Spine.Controller
     '#member_list_wrap': 'results'
   events:
     'submit .search_form': 'doSearch'
+    'click #member_list_wrap .pagination': 'changePage'
 
   constructor: ->
     super
@@ -31,6 +32,13 @@ class Switchboard.MembersController extends Spine.Controller
     url_data = {q: @term}
     submit_url = @form_url + '?xhr=1&' + $.param(url_data)
     @results.fadeTo(200, 0.5).load(submit_url,  =>
+      @results.fadeTo(200, 1)
+    )
+
+  changePage: (e) =>
+    e.preventDefault() if e
+    @results.fadeTo(200, 0.5).load(e.target.href,  =>
+      window.history.pushState(e.target.href, document.title, e.target.href);
       @results.fadeTo(200, 1)
     )
 
