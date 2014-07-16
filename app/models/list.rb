@@ -86,12 +86,12 @@ class List < ActiveRecord::Base
 
   def remove_admin(phone_number)
     membership = list_memberships.find_by_phone_number_id(phone_number.id)
-    membership.update_column(:is_admin, false)
+    membership.update_column(:is_admin, false) if membership
   end
 
   def add_admin(phone_number)
     membership = list_memberships.find_by_phone_number_id(phone_number.id)
-    membership.update_column(:is_admin, true)
+    membership.update_column(:is_admin, true) if membership
   end
 
   def most_recent_messages(count)
