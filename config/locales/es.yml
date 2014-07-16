@@ -1,9 +1,8 @@
 es:
   language: 'Español'
   list_commands:
-    join: "conecta"
-    leave: "cancelar"
-    quit: "parar"
+    join: ["conecta", "licencias", "lisensias", "licensias"]
+    leave: ["cancelar", "parar"]
     help: "ayuda"
   list_responses:
     removed: "Como lo pidió, ha sido eliminado de la lista %{name}."

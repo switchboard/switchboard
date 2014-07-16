@@ -111,6 +111,7 @@ class MessageTest < ActiveSupport::TestCase
     setup do
       @list = lists(:one)
       command = I18n.t('list_commands.join', locale: :en)
+      command = command[0] if command.is_a?(Array)
       @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command.upcase} mumble mumble")
       @message.mark_processing!
     end
@@ -125,6 +126,7 @@ class MessageTest < ActiveSupport::TestCase
     context 'in alternate locale' do
       setup do
         command = I18n.t('list_commands.join', locale: :es)
+        command = command[0] if command.is_a?(Array)
         @message.body = "#{command} mumble mumble"
       end
       should 'send join message in correct locale' do
@@ -139,6 +141,7 @@ class MessageTest < ActiveSupport::TestCase
     setup do
       @list = lists(:one)
       command = I18n.t('list_commands.leave', locale: :en)
+      command = command[0] if command.is_a?(Array)
 
       @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command} mumble mumble")
       @message.mark_processing!
@@ -154,6 +157,8 @@ class MessageTest < ActiveSupport::TestCase
     context 'in alternate locale' do
       setup do
         command = I18n.t('list_commands.leave', locale: :es)
+        command = command[0] if command.is_a?(Array)
+
         @message.body = "#{command} mumble mumble"
       end
       should 'send join message in correct locale' do

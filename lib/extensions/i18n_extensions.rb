@@ -2,16 +2,19 @@ module I18nExtension
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def locales_for(*args)
-      options  = args.last.is_a?(Hash) ? args.pop : {}
-      key      = args.shift
+    def locale_for(opts)
+      val = opts[:val]
+      key = opts[:key]
 
-      {}.tap do |hsh|
-        available_locales.collect do |locale|
-          options[:locale] = locale
-          hsh[t(key, options)] = locale
+      available_locales.detect do |locale|
+        locale_val = t(key, locale: locale)
+        if locale_val.is_a?(Array)
+          val.in? locale_val
+        else
+          val == locale_val
         end
       end
+
     end
   end
 end
