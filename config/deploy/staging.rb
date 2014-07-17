@@ -1,47 +1,40 @@
-set :repository,  "git://github.com/switchboard/switchboard.git"
-set :branch, 'develop'
+set :stage, :staging
+set :branch, :master
 
-server "switchboard.whatcould.com", :web, :app, :db, primary: true
+# Simple Role Syntax
+# ==================
+# Supports bulk-adding hosts to roles, the primary
+# server in each group is considered to be the first
+# unless any hosts have the primary property set.
+role :app, %w{deploy@springfield.whatcould.com}
+role :web, %w{deploy@springfield.whatcould.com}
+role :db,  %w{deploy@springfield.whatcould.com}
 
-set :application, "switchboard"
+# Extended Server Syntax
+# ======================
+# This can be used to drop a more detailed server
+# definition into the server list. The second argument
+# something that quacks like a has can be used to set
+# extended properties on the server.
+# server 'example.com', user: 'deploy', roles: %w{web app}, my_property: :my_value
 
-set :user, 'deploy'
-set :deploy_to, "/srv/#{application}"
-set :deploy_via, :remote_cache
-set :use_sudo, false
+set :rails_env, :production
+set :deploy_to, '/srv/switchboard'
 
-set :default_env, {
-  'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
-  'RUBY_VERSION' => 'ruby 2.0.0',
-  'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
-  'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
-}
-
-default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
-
-role :resque_worker, 'switchboard.whatcould.com'
-role :resque_scheduler, 'switchboard.whatcould.com'
-set :workers, { '*' => 1 }
-
-after "deploy:restart", "resque:restart"
-
+# set :default_env, {
+#   'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
+#   'RUBY_VERSION' => '2.0.0-p353',
+#   'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
+#   'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
+# }
 
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-
-    run "curl -s http://switchboard.whatcould.com > /dev/null 2>&1"
+  desc 'Fetch page to start Passenger server'
+  task :start_passenger do
+    `curl --silent --show-error https://switchboard.whatcould.com/ > /dev/null 2>&1`
   end
-
-  task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/settings-production.yml #{release_path}/config/settings/production.yml"
-    run "ln -nfs #{shared_path}/config/airbrake.rb #{release_path}/config/initializers/airbrake.rb"
-    run "ln -nfs #{shared_path}/config/aaa_staging_settings.rb #{release_path}/config/initializers/aaa_staging_settings.rb"
-  end
-  before "deploy:assets:precompile", "deploy:symlink_config"
-
+  after :restart, 'deploy:start_passenger'
 end
+
+
+
