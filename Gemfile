@@ -57,5 +57,5 @@ group :autotest do
   gem 'autotest-standalone'
   gem 'autotest-rails-pure'
   gem 'autotest-growl'
-  gem 'autotest-fsevent'
+  gem 'autotest-fsevent', github: 'davidcv5/autotest-fsevent'
 end

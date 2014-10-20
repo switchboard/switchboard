@@ -7,6 +7,13 @@ GIT
       capistrano-bundler (~> 1.1)
 
 GIT
+  remote: git://github.com/davidcv5/autotest-fsevent.git
+  revision: a0dbdcbfb5e0f6cf3b463a0e5488fdd5bd22cac2
+  specs:
+    autotest-fsevent (0.2.9)
+      sys-uname
+
+GIT
   remote: https://github.com/resque/resque-scheduler.git
   revision: 2913d28837d471d3fbd15fb260c24aea1001a14b
   specs:
@@ -51,8 +58,6 @@ GEM
       builder
       json
     arel (3.0.2)
-    autotest-fsevent (0.2.9)
-      sys-uname
     autotest-growl (0.2.16)
     autotest-rails-pure (4.1.2)
     autotest-standalone (4.5.11)
@@ -101,7 +106,7 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
-    ffi (1.9.3)
+    ffi (1.9.6)
     font-awesome-sass (4.0.1)
       sass-rails (>= 3.1.1)
     fssm (0.2.9)
@@ -271,7 +276,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   airbrake
-  autotest-fsevent
+  autotest-fsevent!
   autotest-growl
   autotest-rails-pure
   autotest-standalone
