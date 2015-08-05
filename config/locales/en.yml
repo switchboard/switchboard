@@ -2,7 +2,7 @@ en:
   language: 'English'
   list_commands:
     join: "join"
-    leave: ["leave", "quit"]
+    leave: ["leave", "quit", "stop", "stopall", "unsubscribe", "cancel", "end"]
     help: "help"
   list_responses:
     removed: "You have been removed from the %{name} list, as you requested."
