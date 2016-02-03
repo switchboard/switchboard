@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.22'
 
 gem 'mysql2'
 gem 'thin'
@@ -8,12 +8,12 @@ gem 'haml-rails'
 gem 'twilio-ruby'
 gem 'coffee-filter'
 gem 'rails_config'
+gem 'sass-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails'
   gem 'compass-rails'
   gem 'font-awesome-sass'
   gem 'uglifier', '>= 1.0.3'
@@ -57,5 +57,5 @@ group :autotest do
   gem 'autotest-standalone'
   gem 'autotest-rails-pure'
   gem 'autotest-growl'
-  gem 'autotest-fsevent', github: 'davidcv5/autotest-fsevent'
+  gem 'autotest-fsevent'
 end
