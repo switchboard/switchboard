@@ -19,7 +19,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     Resque.run!
 
     assert_equal @outgoing_count, Resque.queue(:outgoing).length
-    assert_equal @list.sms_count, 1
+    assert_equal @list.current_month_sms, 1
 
     TwilioSender.expects(:send_sms).times(@outgoing_count)
 
@@ -28,7 +28,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     # This bit is a little inside baseball, but:
 
     # List sms count is set, outgoing count + incoming
-    assert_equal @list.sms_count.to_i, @outgoing_count + 1
+    assert_equal @list.current_month_sms.to_i, @outgoing_count + 1
 
     # Message outgoing count is set
     message = Message.where(body: @twilio_params['Body']).first

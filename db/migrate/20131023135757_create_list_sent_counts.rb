@@ -17,8 +17,6 @@ class CreateListSentCounts < ActiveRecord::Migration
       t.timestamps
     end
 
-    List.all.each{|list| SentCount.setup_new_countable(list) }
-    Organization.all.each{|org| SentCount.setup_new_countable(org) }
   end
 
   def down

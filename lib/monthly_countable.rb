@@ -5,23 +5,29 @@ module MonthlyCountable
 
   included do
     has_many :sent_counts, as: :countable, dependent: :destroy
-    after_create { SentCount.setup_new_countable(self) }
   end
 
   def last_month_sms
-    sent_counts.order('date_ending DESC').first.total_count
+    latest_month_count.month_count
   end
 
-  def current_month_sms
-    sms_count - last_month_sms
+  def last_month_sms_total
+    latest_month_count.total_count
+  end
+
+  def latest_month_count
+    sent_counts.order('date_ending DESC').first || self.sent_counts.build
+  end
+
+  def total_sms
+    current_month_sms + last_month_sms_total
   end
 
   module ClassMethods
     def calculate_monthly_stats
       find_each do |obj|
-        SentCount.calculate_new_month(obj)
+        SentCount.calculate_finished_month(obj)
       end
     end
-
   end
 end

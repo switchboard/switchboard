@@ -24,7 +24,13 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  def sms_count
-    lists_including_deleted.inject(0){|sum, list| sum += list.sms_count }
+  # Organization count is run after List count, so we can
+  # just count the total of the lists
+  def sms_count_for_rollup
+    lists_including_deleted.inject(0){|sum, list| sum += list.last_month_sms }
+  end
+
+  def current_month_sms
+    lists_including_deleted.inject(0){|sum, list| sum += list.current_month_sms }
   end
 end

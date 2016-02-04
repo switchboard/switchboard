@@ -127,17 +127,29 @@ class List < ActiveRecord::Base
   end
 
   def increment_sms_count
-    $redis.incr "list_out_#{id}"
+    $redis.incr redis_count_key
   end
 
   def self.increment_sms_count(list_id)
     $redis.incr "list_out_#{list_id}"
   end
 
-  def sms_count
-    ($redis.get("list_out_#{id}") || 0).to_i
+  def current_month_sms
+    ($redis.get(redis_count_key) || 0).to_i
   end
 
+  def clear_current_sms
+    $redis.set(redis_count_key, 0)
+  end
+
+  def redis_count_key
+    "list_out_#{id}"
+  end
+
+  # Using current-month for count; list_out_123 is reset monthly after count
+  alias_method :sms_count_for_rollup, :current_month_sms
+
+  # ====================
   def welcome_message(locale = nil)
     custom_welcome_message.present? ? custom_welcome_message : default_welcome_message(locale)
   end
