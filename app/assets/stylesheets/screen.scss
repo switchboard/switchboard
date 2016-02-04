@@ -6,10 +6,6 @@
 @import "compass/css3/border-radius";
 
 
-// Import all the default blueprint modules so that we can access their mixins.
-//@import "blueprint";
-//@import "blueprint/colors";
-
 // Combine the partials into a single screen stylesheet.
 @import "partials/base";
 @import "partials/colors";

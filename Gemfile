@@ -9,13 +9,14 @@ gem 'twilio-ruby'
 gem 'coffee-filter'
 gem 'rails_config'
 gem 'sass-rails'
+gem 'font-awesome-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'coffee-rails'
   gem 'compass-rails'
-  gem 'font-awesome-sass'
+  gem 'compass-blueprint'
   gem 'uglifier', '>= 1.0.3'
 end
 

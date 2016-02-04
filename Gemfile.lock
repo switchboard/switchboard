@@ -88,6 +88,8 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
       sass (>= 3.3.13, < 3.5)
+    compass-blueprint (1.0.0)
+      compass
     compass-core (1.0.3)
       multi_json (~> 1.0)
       sass (>= 3.3.0, < 3.5)
@@ -110,8 +112,8 @@ GEM
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.9.10)
-    font-awesome-sass (4.0.1)
-      sass-rails (>= 3.1.1)
+    font-awesome-rails (4.5.0.0)
+      railties (>= 3.2, < 5.0)
     haml (3.1.8)
     haml-rails (0.4)
       actionpack (>= 3.1, < 4.1)
@@ -290,10 +292,11 @@ DEPENDENCIES
   capistrano-rails!
   coffee-filter
   coffee-rails
+  compass-blueprint
   compass-rails
   dynamic_form
   factory_girl_rails
-  font-awesome-sass
+  font-awesome-rails
   haml-rails
   jquery-rails
   kaminari
