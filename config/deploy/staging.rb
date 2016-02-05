@@ -6,9 +6,9 @@ set :branch, :master
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{deploy@springfield.whatcould.com}
-role :web, %w{deploy@springfield.whatcould.com}
-role :db,  %w{deploy@springfield.whatcould.com}
+role :app, %w{deploy@cedar.whatcould.com}
+role :web, %w{deploy@cedar.whatcould.com}
+role :db,  %w{deploy@cedar.whatcould.com}
 
 # Extended Server Syntax
 # ======================
@@ -21,12 +21,12 @@ role :db,  %w{deploy@springfield.whatcould.com}
 set :rails_env, :production
 set :deploy_to, '/srv/switchboard'
 
-# set :default_env, {
-#   'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
-#   'RUBY_VERSION' => '2.0.0-p353',
-#   'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
-#   'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
-# }
+set :default_env, {
+  'PATH' => "/usr/local/ruby/2.2.2/bin:$PATH",
+  'RUBY_VERSION' => '2.2.2',
+  'GEM_HOME' => '/usr/local/ruby/2.2.2/lib/ruby/gems/2.2.0',
+  'GEM_PATH' => '/usr/local/ruby/2.2.2/lib/ruby/gems/2.2.0'
+}
 
 namespace :deploy do
   desc 'Fetch page to start Passenger server'

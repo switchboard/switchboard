@@ -22,10 +22,10 @@ set :rails_env, :production
 set :deploy_to, '/srv/switchboard'
 
 set :default_env, {
-  'PATH' => "/usr/local/ruby/2.0.0-p353/bin:$PATH",
-  'RUBY_VERSION' => '2.0.0-p353',
-  'GEM_HOME' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0',
-  'GEM_PATH' => '/usr/local/ruby/2.0.0-p353/lib/ruby/gems/2.0.0'
+  'PATH' => "/usr/local/ruby/2.2.2/bin:$PATH",
+  'RUBY_VERSION' => '2.2.2',
+  'GEM_HOME' => '/usr/local/ruby/2.2.2/lib/ruby/gems/2.2.0',
+  'GEM_PATH' => '/usr/local/ruby/2.2.2/lib/ruby/gems/2.2.0'
 }
 
 namespace :deploy do
