@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.22'
 
 gem 'mysql2'
-gem 'thin'
 gem 'haml-rails'
 gem 'twilio-ruby'
 gem 'coffee-filter'
@@ -52,6 +51,8 @@ group :test do
   gem 'mocha', require: 'mocha/setup'
   gem 'resque_unit'
   gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :autotest do
