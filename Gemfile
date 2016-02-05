@@ -37,6 +37,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'bcrypt-ruby'
 
+# This is for Rails 3.2 and Ruby 2.2
+gem 'test-unit', '~> 3.0'
 
 group :development do
   gem 'sextant'
