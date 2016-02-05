@@ -147,7 +147,7 @@ GEM
     mono_logger (1.1.0)
     multi_json (1.11.2)
     multipart-post (1.2.0)
-    mysql2 (0.3.11)
+    mysql2 (0.3.20)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -306,7 +306,7 @@ DEPENDENCIES
   kaminari
   minitest
   mocha
-  mysql2
+  mysql2 (= 0.3.20)
   omniauth
   omniauth-facebook
   omniauth-google-oauth2

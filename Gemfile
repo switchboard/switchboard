@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.22'
 
-gem 'mysql2'
+gem 'mysql2', '0.3.20'
 gem 'haml-rails'
 gem 'twilio-ruby'
 gem 'coffee-filter'
