@@ -6,6 +6,7 @@
   %thead
     %th Name
     %th Lists
+    %th{title: 'Lists with attached phone numbers'} Active lists
     %th Users
     %th SMS this month
     %th SMS last month
@@ -14,6 +15,7 @@
     %tr
       %td= link_to organization.name, [:admin, organization], class: 'clk'
       %td= organization.lists.size
+      %td= organization.lists.with_incoming_number.size
       %td= organization.users.size
       %td= organization.current_month_sms
       %td= organization.last_month_sms

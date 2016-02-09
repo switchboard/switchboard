@@ -3,7 +3,7 @@
   = link_to 'Edit', edit_admin_organization_path(@organization), class: 'action'
 
 %h2 Lists
-%table.admin.linked
+%table.admin.linked.organization_lists
   %thead
     %th Name
     %th Members
@@ -11,8 +11,8 @@
     %th SMS last month
   %tbody
   - @lists.each do |list|
-    %tr
-      %td= list.name
+    %tr{class: ('inactive' unless list.incoming_phone_number_id.present?)}
+      %td= link_to list.name, edit_list_path(list)
       %td= list.list_memberships.size
       %td= list.current_month_sms
       %td= list.last_month_sms

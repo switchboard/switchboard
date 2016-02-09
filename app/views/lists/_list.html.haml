@@ -1,4 +1,4 @@
-%tr{id: "list_#{list.id}"}
+%tr{id: "list_#{list.id}", class: ('inactive' unless list.incoming_phone_number_id.present?)}
   %td.name
     = link_to list.name, list, class: 'clk'
   %td.num= list.phone_numbers.size
