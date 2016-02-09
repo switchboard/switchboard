@@ -2,7 +2,7 @@ class Admin::IncomingPhoneNumbersController < AdminController
 
   def index
     IncomingPhoneNumber.fetch_from_twilio
-    @numbers = IncomingPhoneNumber.joins(:list).order('lists.organization_id, lists.name')
+    @numbers = IncomingPhoneNumber.joins('LEFT JOIN `lists` ON `lists`.`incoming_phone_number_id` = `incoming_phone_numbers`.`id`').order('lists.organization_id, lists.name')
   end
 
   def edit
