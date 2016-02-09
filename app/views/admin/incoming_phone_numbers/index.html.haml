@@ -9,9 +9,13 @@
       %th Phone Number
       %th List
       %th Organization
+      %th{title: 'Messages sent by this list, last month + this month'} Recent messages
     %tbody
     - @numbers.each do |number|
       %tr
         %td= link_to format_phone(number.phone_number), edit_admin_number_path(number), class: 'clk'
         %td= number.list.try(:name) || 'Unassigned'
         %td= number.list.organization.try(:name) if number.list
+        %td
+          - if number.list
+            = number.list.current_month_sms + number.list.last_month_sms
