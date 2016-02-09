@@ -13,7 +13,7 @@
   %tbody
   - @lists.each do |list|
     %tr{class: ('inactive' unless list.incoming_phone_number_id.present?)}
-      %td= link_to list.name, edit_list_path(list)
+      %td= link_to list.name, edit_list_path(list), class: 'clk'
       %td= list.list_memberships.size
       %td= list.current_month_sms
       %td= list.last_month_sms
