@@ -56,7 +56,7 @@ Switchboard::Application.routes.draw do
   namespace :admin do
     get '/' => 'dashboard#index', as: :dashboard
     resources :organizations
-    resources :incoming_phone_numbers, except: [:show, :destroy], as: 'numbers' do
+    resources :incoming_phone_numbers, except: [:show], as: 'numbers' do
       member do
         put '/unassign' => 'incoming_phone_numbers#unassign'
       end

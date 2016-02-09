@@ -1,7 +1,7 @@
 class Admin::IncomingPhoneNumbersController < AdminController
 
   def index
-    IncomingPhoneNumber.fetch_from_stripe
+    IncomingPhoneNumber.fetch_from_twilio
     @numbers = IncomingPhoneNumber.order(:phone_number)
   end
 
@@ -24,6 +24,12 @@ class Admin::IncomingPhoneNumbersController < AdminController
     @list = @number.list
     @list.update_column(:incoming_phone_number_id, nil)
     redirect_to admin_numbers_path, notice: "The phone number #{format_phone @number.phone_number} was unlinked from the list #{@list.try(:name)}."
+  end
+
+  def destroy
+    @number = IncomingPhoneNumber.find(params[:id])
+    @number.destroy
+    redirect_to admin_numbers_path, notice: "The number #{format_phone(@number.phone_number)} was deleted from the Twilio account."
   end
 
   private

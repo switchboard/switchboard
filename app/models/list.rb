@@ -29,6 +29,7 @@ class List < ActiveRecord::Base
 
   default_scope where(deleted: false)
   scope :no_incoming_number, -> { where("incoming_phone_number_id is null") }
+  scope :with_incoming_number, -> { where("incoming_phone_number_id is not null") }
 
   def name=(str)
     self[:name] = str.upcase

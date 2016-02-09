@@ -21,6 +21,15 @@ class TwilioClient
     twilio_client.account.incoming_phone_numbers.list
   end
 
+  def self.delete_incoming_phone_number(sid)
+    number = twilio_client.account.incoming_phone_numbers.get(sid)
+    begin
+      number.delete
+    rescue => e
+      #
+    end
+  end
+
   def self.twilio_client
     @@client ||= Twilio::REST::Client.new(Settings.twilio.sid, Settings.twilio.token)
   end

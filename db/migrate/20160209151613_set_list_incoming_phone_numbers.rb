@@ -1,7 +1,7 @@
 class SetListIncomingPhoneNumbers < ActiveRecord::Migration
   # A data-only migration
   def up
-    IncomingPhoneNumber.fetch_from_stripe
+    IncomingPhoneNumber.fetch_from_twilio
     List.all.each do |list|
       next unless list.incoming_number.present?
       number = IncomingPhoneNumber.find_by_phone_number("+1#{list.incoming_number}")

@@ -14,3 +14,6 @@
     = f.input :list_id, as: :select, collection: List.no_incoming_number.collect{|l|["#{l.name} (#{l.organization.name})", l.id] }, include_blank: 'Unassigned / Disabled'
   = f.input :notes
   = submit_button 'Update'
+
+  - unless @number.list
+    .delete_action= link_to 'Delete this number', admin_number_path(@number), method: 'delete', class: 'button destroy', confirm: "Are you sure you want to remove this number from the Twilio account? You can't get it back."

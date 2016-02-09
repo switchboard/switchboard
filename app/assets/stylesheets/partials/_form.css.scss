@@ -283,6 +283,9 @@ form.general_form {
 	border-bottom: 7px solid #777;
 }
 
+.delete_action {
+  float: right;
+}
 
 /* Would like to target forms by size in a specific container (eg in this box they have these dimensions)
    but for now will target specific forms. */

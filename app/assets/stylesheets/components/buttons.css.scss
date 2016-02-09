@@ -40,6 +40,14 @@ button[disabled] {
   outline: none;
 }
 
+.button.destroy {
+  background-color: darken($orangeButton, 15%);
+  &:hover {
+    background-color: darken($orangeButton, 15%);
+  }
+
+}
+
 ul.actions {
   margin: 2em 0 2em 1.5em;
   li {

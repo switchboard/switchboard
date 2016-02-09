@@ -10,7 +10,7 @@ class IncomingPhoneNumbersTest < ActiveSupport::TestCase
     VCR.use_cassette('IncomingPhoneNumbersTest.fetch_numbers') do
 
       assert_difference('IncomingPhoneNumber.count', 1) do
-        IncomingPhoneNumber.fetch_from_stripe
+        IncomingPhoneNumber.fetch_from_twilio
       end
 
       incoming_number = IncomingPhoneNumber.find_by_sid('PN476c9bc2c86815cba0cc73ac6011abfb')
