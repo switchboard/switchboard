@@ -1,6 +1,7 @@
 %h2 List Configuration
 
 = custom_form_for(@list, html: {class: 'form-vertical'}) do |f|
+  = f.input :name, label: 'List name (cannot contain spaces)', required: true, input_html: {autocomplete: 'off', autofocus: true }
   %h3 Welcome Message
   = f.input :use_welcome_message, label: 'Use welcome message'
   #welcome_message_wrap
