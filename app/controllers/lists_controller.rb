@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   skip_before_filter :get_list
+  before_filter :set_list, only: [:show, :edit, :destroy, :update, :import, :upload_csv]
 
   # Have to use @new_list because @list is used for routes in admin layout
   def new
@@ -19,12 +20,10 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = current_organization.lists.find(params[:id])
     @messages = @list.messages.for_display.limit(10)
   end
 
   def edit
-    @list = current_organization.lists.find(params[:id])
     @title = "Configure List"
   end
 
@@ -34,13 +33,11 @@ class ListsController < ApplicationController
 
 
   def destroy
-    @list = current_organization.lists.find(params[:id])
     @list.soft_delete
     redirect_to lists_path, notice: "The list #{@list.name} was deleted."
   end
 
   def update
-    @list = current_organization.lists.find(params[:id])
     if @list.update_attributes(params[:list])
       redirect_to list_path(@list), notice: 'Your list configuration was updated.'
     else
@@ -49,12 +46,10 @@ class ListsController < ApplicationController
   end
 
   def import
-    @list = current_organization.lists.find(params[:id])
     @title = "Import Contacts"
   end
 
   def upload_csv
-    @list = current_organization.lists.find(params[:id])
     if @list.update_attributes(params[:list])
       results = @list.import_from_attachment
       @errors = results[:errors]
@@ -87,5 +82,15 @@ class ListsController < ApplicationController
   end
 
   private
+
+  # Admin switches current org when going to list show/edit
+  def set_list
+    @list = current_organization.lists.find_by_id(params[:id])
+    if ! @list && current_user.superuser?
+      @list = List.find(params[:id])
+      switch_organization(@list.organization)
+    end
+  end
+
 
 end

@@ -7,8 +7,9 @@
     = f.input :custom_welcome_message, as: :text, label: 'List welcome message', hint: 'Leave blank to use default welcome message',  input_html: {class: 'count_characters'}
     %span#character_count
 
-  %h3 Incoming Phone Number
-  = f.input :incoming_number, hint: 'Accept messages to this list from only this phone number (keep blank to use default number).'
+  - if current_user.superuser?
+    %h3 Incoming Phone Number
+    = f.input :incoming_phone_number_id, label: 'Incoming number', as: :select, collection: incoming_phone_numbers_for_list(@list), include_blank: 'Unassigned / Disabled'
 
   / %span.config_heading Sending Preferences
   / %ul

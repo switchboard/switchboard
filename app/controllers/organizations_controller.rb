@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
 
   def switch
     @organization = current_user.accessible_organizations.find(params[:id])
-    current_user.update_column(:default_organization_id, @organization.id)
+    switch_organization(@organization)
     redirect_to lists_path, notice: "You switched to #{@organization.name}."
   end
 

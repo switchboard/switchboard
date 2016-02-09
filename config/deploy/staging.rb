@@ -1,6 +1,9 @@
 set :stage, :staging
 set :branch, :master
 
+set :repo_url, "git://github.com/whatcould/switchboard.git"
+
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary

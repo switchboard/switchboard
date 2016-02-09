@@ -8,6 +8,7 @@
         %ul#main_menu
           %li= menu_item 'Admin', admin_dashboard_path, '', (controller_name == 'dashboard')
           %li= menu_item 'Organizations', admin_organizations_path, '', (controller_name == 'organizations')
+          %li= menu_item 'Twilio Numbers', admin_numbers_path, '', (controller_name == 'incoming_phone_numbers')
         #content.admin
           #main-content
             = yield

@@ -1,0 +1,16 @@
+= custom_form_for(@number, url: admin_number_path(@number), html: {class: 'form-vertical'}) do |f|
+  .input.readonly.text
+    %label Phone number
+    %strong= format_phone @number.phone_number
+  - if @number.list
+    .input.readonly.text
+      %label List
+      %strong
+        = link_to @number.list.name, edit_list_path(@number.list)
+        = ' / '
+        = link_to @number.list.organization.name, edit_admin_organization_path(@number.list.organization)
+      %p= link_to "Unassign", unassign_admin_number_path(@number.id), method: 'put', confirm: 'Are you sure you want to unassign this number?', class: 'button'
+  - else
+    = f.input :list_id, as: :select, collection: List.no_incoming_number.collect{|l|["#{l.name} (#{l.organization.name})", l.id] }, include_blank: 'Unassigned / Disabled'
+  = f.input :notes
+  = submit_button 'Update'

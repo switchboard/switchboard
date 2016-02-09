@@ -14,9 +14,10 @@ class List < ActiveRecord::Base
   has_many :messages, order: 'created_at DESC'
   has_many :sent_counts, as: :countable, dependent: :destroy
   belongs_to :organization
+  belongs_to :incoming_phone_number
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership,
-                  :use_welcome_message, :welcome_message, :incoming_number, :default_locale,
+                  :use_welcome_message, :welcome_message, :default_locale, :incoming_phone_number_id,
                   :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
 
   has_attached_file :csv_file
@@ -24,16 +25,13 @@ class List < ActiveRecord::Base
   validates_format_of :name, :with => /^\S+$/, :message => "List name cannot contain spaces"
   validates :name, uniqueness: {scope: :deleted}, unless: Proc.new { |list| list.deleted? }
   validates :organization, presence: true
-  validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
+  # validates_format_of :incoming_number, with: /^\d{10}$/, message: "Phone number must contain 10 digits with no extra characters", allow_blank: true
 
   default_scope where(deleted: false)
+  scope :no_incoming_number, -> { where("incoming_phone_number_id is null") }
 
   def name=(str)
     self[:name] = str.upcase
-  end
-
-  def incoming_number=(str)
-    write_attribute(:incoming_number, str.try(:gsub, /[^0-9]/, ''))
   end
 
   def import_from_attachment
@@ -105,9 +103,9 @@ class List < ActiveRecord::Base
                                   (! allow_commercial_gateway? || prefer_email? )
       to = "#{phone_number.number}@#{phone_number.provider_email}"
       from = "#{name}@mmptext.info"
-    elsif allow_commercial_gateway? && phone_number.can_receive_gateway? && incoming_number.present?
+    elsif allow_commercial_gateway? && phone_number.can_receive_gateway? && incoming_phone_number.present?
       to = phone_number.number
-      from = incoming_number
+      from = incoming_phone_number.phone_number
     else
       raise "List & subscriber settings make sending message impossible for number #{phone_number.number} [list: #{name}]."
     end
@@ -268,12 +266,7 @@ class List < ActiveRecord::Base
   protected
 
   def default_welcome_message(locale)
-    msg = I18n.t('list_responses.default_welcome', name: name, locale: locale || default_locale)
-    # TODO not sure if this functionality is used?
-    if self.incoming_number.blank?
-      msg << " Respond by texting #{name} + your message."
-    end
-    msg
+    I18n.t('list_responses.default_welcome', name: name, locale: locale || default_locale)
   end
 
 end

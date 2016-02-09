@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160203175651) do
+ActiveRecord::Schema.define(:version => 20160209151613) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(:version => 20160203175651) do
     t.float    "cost_per_text"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "incoming_phone_numbers", :force => true do |t|
+    t.string   "sid"
+    t.string   "phone_number"
+    t.text     "notes"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "invitations", :force => true do |t|
@@ -90,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20160203175651) do
     t.integer  "organization_id"
     t.boolean  "deleted",                     :default => false
     t.string   "default_locale",              :default => "en",  :null => false
+    t.integer  "incoming_phone_number_id"
   end
 
   add_index "lists", ["organization_id"], :name => "index_lists_on_organization_id"

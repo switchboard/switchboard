@@ -5,7 +5,8 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming message' do
     setup do
       @list = lists(:one)
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: 'mumble mumble')
+      @number = incoming_phone_numbers(:one)
+      @message = FactoryGirl.create(:message, to: @number.phone_number, body: 'mumble mumble')
     end
 
     should 'parse the list correctly from the number' do
@@ -13,7 +14,7 @@ class MessageTest < ActiveSupport::TestCase
     end
 
     should 'increment list sms count' do
-      message = FactoryGirl.build(:message, to: @list.incoming_number, body: 'mumble mumble')
+      message = FactoryGirl.build(:message, to: @number.phone_number, body: 'mumble mumble')
       List.any_instance.expects(:increment_sms_count)
       message.save
     end
@@ -38,7 +39,7 @@ class MessageTest < ActiveSupport::TestCase
     end
 
     should 'mark as an error if body is empty' do
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: '')
+      @message = FactoryGirl.create(:message, to: @number.phone_number, body: '')
       @message.save
       @message.mark_processing!
 
@@ -99,6 +100,7 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming keyword-list message' do
     setup do
       @list = lists(:two)
+      @number = incoming_phone_numbers(:two)
       @message = FactoryGirl.create(:message, to: '555-555-5555', body: "#{@list.name} mumble mumble")
     end
 
@@ -110,9 +112,10 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming join message' do
     setup do
       @list = lists(:one)
+      @number = incoming_phone_numbers(:two)
       command = I18n.t('list_commands.join', locale: :en)
       command = command[0] if command.is_a?(Array)
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command.upcase} mumble mumble")
+      @message = FactoryGirl.create(:message, to: @number.phone_number, body: "#{command.upcase} mumble mumble")
       @message.mark_processing!
     end
 
@@ -140,10 +143,11 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming leave message' do
     setup do
       @list = lists(:one)
+      @number = incoming_phone_numbers(:one)
       command = I18n.t('list_commands.leave', locale: :en)
       command = command[0] if command.is_a?(Array)
 
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: "#{command} mumble mumble")
+      @message = FactoryGirl.create(:message, to: @number.phone_number, body: "#{command} mumble mumble")
       @message.mark_processing!
     end
 
@@ -172,7 +176,8 @@ class MessageTest < ActiveSupport::TestCase
   context 'incoming regular message' do
     setup do
       @list = lists(:one)
-      @message = FactoryGirl.create(:message, to: @list.incoming_number, body: 'mumble mumble mumble')
+      @number = incoming_phone_numbers(:one)
+      @message = FactoryGirl.create(:message, to: @number.phone_number, body: 'mumble mumble mumble')
       @message.mark_processing!
     end
   end

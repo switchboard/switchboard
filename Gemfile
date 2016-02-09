@@ -30,6 +30,7 @@ gem 'airbrake'
 gem 'resque-scheduler', git: 'https://github.com/resque/resque-scheduler.git'
 gem 'resque'
 gem 'aasm'
+gem 'strong_parameters'
 
 # Authorization
 gem 'omniauth'

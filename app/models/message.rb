@@ -178,11 +178,9 @@ class Message < ActiveRecord::Base
     # Web messages already have list set
     return if list_id.present?
 
-    # Remove all but digits and take last 10
-    to_number = to.to_s.gsub(/[^0-9]/, '')
-    to_number = to_number[-10..-1] || to_number
-
-    if self.list = List.find_by_incoming_number(to_number)
+    incoming = IncomingPhoneNumber.find_by_phone_number(to)
+    if incoming
+      self.list = incoming.list
       ## Non-keyword list (assigned phone number)
       list.increment_sms_count
     elsif self.is_a?(EmailMessage)

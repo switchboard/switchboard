@@ -5,7 +5,6 @@ one:
   allow_email_gateway: false
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_number: '2155551000'
   use_incoming_keyword: false
   email_admin_with_response: false
   text_admin_with_response: true
@@ -18,6 +17,7 @@ one:
   add_list_name_header: false
   identify_sender: false
   default_locale: en
+  incoming_phone_number: one
 two:
   name: MYSECONDLIST
   organization: one
@@ -25,7 +25,6 @@ two:
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_number: '2155551001'
   use_incoming_keyword: true
   email_admin_with_response: true
   text_admin_with_response: true
@@ -38,6 +37,7 @@ two:
   add_list_name_header: false
   identify_sender: false
   default_locale: es
+  incoming_phone_number: two
 org_two_list:
   name: ORGANIZATIONTWOLIST
   organization: two
@@ -45,7 +45,6 @@ org_two_list:
   allow_email_gateway: true
   allow_commercial_gateway: true
   prefer_email: true
-  incoming_number: '2155551002'
   use_incoming_keyword: true
   email_admin_with_response: true
   text_admin_with_response: false

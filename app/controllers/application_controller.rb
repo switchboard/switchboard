@@ -35,6 +35,17 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
+
+  def format_phone(num)
+    return num if num == 'Web'
+    num = num.to_s.gsub(/^\+1/,'').gsub(/[^0-9]/, '')
+    if num.length == 10
+      num = "#{num[0..2]}.#{num[3..5]}.#{num[6..9]}"
+    end
+    num
+  end
+  helper_method :format_phone
+
   protected
 
   def current_user
@@ -78,6 +89,11 @@ class ApplicationController < ActionController::Base
         nil
       end
     end
+  end
+
+  def switch_organization(organization)
+    @current_organization = organization
+    current_user.update_column(:default_organization_id, organization.id)
   end
 
   def render_404

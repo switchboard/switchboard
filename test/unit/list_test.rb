@@ -175,7 +175,7 @@ class ListTest < ActiveSupport::TestCase
       end
 
       should 'throw an exception if list does not have an incoming_number' do
-        @list.incoming_number = nil
+        @list.incoming_phone_number_id = nil
         assert_raises RuntimeError do
           @list.handle_send_action(@message)
         end

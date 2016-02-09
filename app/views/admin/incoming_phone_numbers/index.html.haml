@@ -1,0 +1,14 @@
+%h1
+  Twilio Phone Numbers
+
+%table.admin.linked
+  %thead
+    %th Phone Number
+    %th List
+    %th Organization
+  %tbody
+  - @numbers.each do |number|
+    %tr
+      %td= link_to format_phone(number.phone_number), edit_admin_number_path(number), class: 'clk'
+      %td= number.list.try(:name) || 'Unassigned'
+      %td= number.list.organization.try(:name) if number.list

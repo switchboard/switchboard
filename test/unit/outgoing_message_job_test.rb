@@ -24,14 +24,14 @@ class OutgoingMessageJobTest < ActiveSupport::TestCase
       @body = 'This is a SMS'
     end
 
-    should 'send an sms with TwilioSender' do
-      TwilioSender.expects(:send_sms).with(@to, @body, @from)
+    should 'send an sms with TwilioClient' do
+      TwilioClient.expects(:send_sms).with(@to, @body, @from)
       OutgoingMessageJob.perform(@list_id, @to, @from, @body)
     end
 
     context 'without a message_id' do
       should 'increment list outgoing count but not message count' do
-        TwilioSender.stubs(:send_sms)
+        TwilioClient.stubs(:send_sms)
         List.expects(:increment_sms_count).with(@list_id)
         Message.expects(:increment_outgoing_count).never
 
@@ -43,7 +43,7 @@ class OutgoingMessageJobTest < ActiveSupport::TestCase
       setup do
         @message_id = 555
         @message_count = 5
-        TwilioSender.stubs(:send_sms)
+        TwilioClient.stubs(:send_sms)
         List.expects(:increment_sms_count).with(@list_id)
         Message.expects(:increment_outgoing_count).with(@message_id).returns(@message_count)
       end

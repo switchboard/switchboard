@@ -5,7 +5,8 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
   setup do
     @list = lists(:one)
     @from = @list.admin_phone_numbers.first.number
-    @to = @list.incoming_number
+    @number = incoming_phone_numbers(:one)
+    @to = @number.phone_number
     @twilio_params = {'Body' => 'Message flow test', 'From' => @from, 'To' => @to}
     @outgoing_count = @list.list_memberships.size
     $redis.flushdb
@@ -21,7 +22,7 @@ class TwilioMessageFlowTest < ActionDispatch::IntegrationTest
     assert_equal @outgoing_count, Resque.queue(:outgoing).length
     assert_equal @list.current_month_sms, 1
 
-    TwilioSender.expects(:send_sms).times(@outgoing_count)
+    TwilioClient.expects(:send_sms).times(@outgoing_count)
 
     Resque.run!
 

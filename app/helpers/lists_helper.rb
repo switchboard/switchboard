@@ -13,6 +13,14 @@ module ListsHelper
   #  )
   #end
 
+  def incoming_phone_numbers_for_list(list)
+    numbers = IncomingPhoneNumber.unassigned.order(:phone_number).compact.collect{|p| [format_phone(p.phone_number), p.id] }
+    if list.incoming_phone_number
+      numbers.unshift ["#{format_phone(list.incoming_phone_number.phone_number)} (current)", list.incoming_phone_number_id ]
+    end
+    numbers
+  end
+
   def count_sent_messages(list)
     list.messages.sent.size
   end
