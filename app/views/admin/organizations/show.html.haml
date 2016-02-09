@@ -8,7 +8,8 @@
     %th Name
     %th Members
     %th SMS this month
-    %th SMS last month
+    %th Last month
+    %th Total
   %tbody
   - @lists.each do |list|
     %tr{class: ('inactive' unless list.incoming_phone_number_id.present?)}
@@ -16,3 +17,4 @@
       %td= list.list_memberships.size
       %td= list.current_month_sms
       %td= list.last_month_sms
+      %td= list.total_sms
