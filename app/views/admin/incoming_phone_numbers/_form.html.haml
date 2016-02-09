@@ -8,7 +8,8 @@
       %strong
         = link_to @number.list.name, edit_list_path(@number.list)
         = ' / '
-        = link_to @number.list.organization.name, edit_admin_organization_path(@number.list.organization)
+        = link_to @number.list.organization.name, admin_organization_path(@number.list.organization)
+      %p #{@number.list.current_month_sms} SMS this month, #{@number.list.last_month_sms} last month
       %p= link_to "Unassign", unassign_admin_number_path(@number.id), method: 'put', confirm: 'Are you sure you want to unassign this number?', class: 'button'
   - else
     = f.input :list_id, as: :select, collection: List.no_incoming_number.collect{|l|["#{l.name} (#{l.organization.name})", l.id] }, include_blank: 'Unassigned / Disabled'
