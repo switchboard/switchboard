@@ -209,8 +209,8 @@ class List < ActiveRecord::Base
     message_split = prepare_content(message)
     outgoing_count = phone_numbers.size * message_split.length
     message.update_column(:outgoing_total, outgoing_count)
-    phone_numbers.each do |phone_number|
-      message_split.each do |body|
+    message_split.each do |body|
+      phone_numbers.each do |phone_number|
         create_outgoing_message(phone_number, body, message.id, outgoing_count)
       end
     end
