@@ -1,6 +1,7 @@
 language: ruby
 services:
   - mysql
+  - redis-server
 script:
   - RAILS_ENV=test bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
