@@ -19,7 +19,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails-cdn'
 gem 'spine-rails'
 gem 'dynamic_form'
 gem 'simple_form'

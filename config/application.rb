@@ -59,7 +59,7 @@ module Switchboard
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.assets.precompile += ['ie.css']
+    config.assets.precompile += ['jquery.js', 'ie.css']
 
 
     # Version of your assets, change this if you want to expire all your assets
