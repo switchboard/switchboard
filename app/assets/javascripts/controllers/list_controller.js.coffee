@@ -5,7 +5,7 @@ class Switchboard.ListController extends Spine.Controller
     'change #list_use_welcome_message': 'checkWelcomeMmessage'
     'keyup #list_name': 'capitalizeListName'
     'change #list_name': 'checkListName'
-    'change input': 'toggleConfirmationDisplay'
+    'change input': 'toggleAnnouncementConfig'
 
   constructor: ->
     super

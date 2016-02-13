@@ -133,6 +133,7 @@ GEM
     jquery-rails-cdn (1.1.2)
       jquery-rails
     json (1.8.3)
+    json2-rails (1.15.05.18)
     jwt (0.1.11)
       multi_json (>= 1.5)
     kaminari (0.14.1)
@@ -246,7 +247,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    spine-rails (0.1.0)
+    spine-rails (0.1.2)
+      json2-rails (>= 0.0.2)
       rails (>= 3.1.0)
     sprockets (2.2.3)
       hike (~> 1.2)
