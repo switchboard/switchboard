@@ -202,7 +202,7 @@ class List < ActiveRecord::Base
   end
 
   def message_needs_confirmation?(message)
-    ! message.from_web? && number_is_admin?(message.from_phone_number) && require_admin_confirmation?
+    ! message.from_web? && ! all_users_can_send_messages? && number_is_admin?(message.from_phone_number) && require_admin_confirmation?
   end
 
   def handle_send_action(message)

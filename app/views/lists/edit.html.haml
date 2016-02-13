@@ -27,11 +27,12 @@
   %h3 List Type
   = f.input :all_users_can_send_messages, label: false, as: :radio_buttons, collection: [['Discussion (anyone can send)', true], ['Announcement (admins can send)', false]  ]
 
-  %h3 Response handling
-  = f.input :text_admin_with_response, label: 'Send response to all admins'
+  #announcement_list_wrap
+    %h3 Response handling
+    = f.input :text_admin_with_response, label: 'Send responses to admins', hint: '(Otherwise, responses are ignored)'
 
-  %h3 Confirmation
-  = f.input :require_admin_confirmation, label: 'Require admin confirmation for outgoing messages from phones'
+    %h3 Confirmation
+    = f.input :require_admin_confirmation, label: 'Require admin confirmation for outgoing messages from phones'
 
   %h3 Join Policy
   = f.input :open_membership, as: :radio_buttons, label: false, collection: [['Open (anyone can join)', true], ['Closed (admins must add members)', false]]
