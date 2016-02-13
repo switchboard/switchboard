@@ -234,7 +234,7 @@ class List < ActiveRecord::Base
   end
 
   def send_confirmation_message(message)
-    admin_msg = "[#{name}]"
+    admin_msg = "[#{name}] "
     admin_msg << message.sender_name_or_number
     admin_msg << " sent a message that needs confirmation. Respond with 'confirm' within #{Settings.message_confirmation_time} minutes to send message."
     send_message_to_admins(admin_msg)
