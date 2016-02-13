@@ -1,1 +1,6 @@
 language: ruby
+services:
+  - mysql
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - mysql -e 'create database switchboard_test;'
