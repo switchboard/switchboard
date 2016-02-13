@@ -2,7 +2,7 @@ language: ruby
 services:
   - mysql
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - RAILS_ENV=test bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
   - bundle exec rake
 before_script:
