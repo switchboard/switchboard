@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160213150728) do
+ActiveRecord::Schema.define(:version => 20160213215631) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -28,23 +28,6 @@ ActiveRecord::Schema.define(:version => 20160213150728) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "full_name"
-  end
-
-  create_table "daemon_statuses", :force => true do |t|
-    t.boolean  "active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "db_files", :force => true do |t|
-    t.binary "data"
-  end
-
-  create_table "gateways", :force => true do |t|
-    t.string   "name"
-    t.float    "cost_per_text"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
   end
 
   create_table "incoming_phone_numbers", :force => true do |t|
@@ -104,12 +87,6 @@ ActiveRecord::Schema.define(:version => 20160213150728) do
 
   add_index "lists", ["organization_id"], :name => "index_lists_on_organization_id"
 
-  create_table "message_states", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "messages", :force => true do |t|
     t.string   "from"
     t.string   "to"
@@ -140,23 +117,6 @@ ActiveRecord::Schema.define(:version => 20160213150728) do
 
   add_index "organizations_users", ["user_id"], :name => "index_organizations_users_on_user_id"
 
-  create_table "phone_message_boxes", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "phone_messages", :force => true do |t|
-    t.string   "body"
-    t.string   "from"
-    t.string   "to"
-    t.integer  "phone_message_box_id"
-    t.integer  "phone_id"
-    t.boolean  "read",                 :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "phone_numbers", :force => true do |t|
     t.string   "number"
     t.datetime "created_at"
@@ -168,18 +128,6 @@ ActiveRecord::Schema.define(:version => 20160213150728) do
     t.string   "gateway_preference"
   end
 
-  create_table "phones", :force => true do |t|
-    t.string   "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "queues", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "sent_counts", :force => true do |t|
     t.integer  "countable_id"
     t.string   "countable_type"
@@ -188,13 +136,6 @@ ActiveRecord::Schema.define(:version => 20160213150728) do
     t.integer  "total_count",    :default => 0
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
-  end
-
-  create_table "service_phone_numbers", :force => true do |t|
-    t.string   "phone_number"
-    t.string   "service"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
   end
 
   create_table "survey_answers", :force => true do |t|

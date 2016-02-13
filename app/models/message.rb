@@ -4,7 +4,6 @@ class Message < ActiveRecord::Base
   belongs_to :from_phone_number, class_name: 'PhoneNumber'
   belongs_to :recipient, :class_name => 'Contact'
   belongs_to :list
-  belongs_to :message_state
 
   attr_accessible :from, :body
 
