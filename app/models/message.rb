@@ -81,7 +81,7 @@ class Message < ActiveRecord::Base
   end
 
   def self.for_display
-    where(aasm_state: ['in_send_queue', 'sent', 'forwarded_to_admin', 'processing'])
+    where(aasm_state: ['incoming', 'processing', 'needs_confirmation', 'in_send_queue', 'sent', 'forwarded_to_admin'])
   end
 
   def from_email_gateway?
@@ -94,6 +94,18 @@ class Message < ActiveRecord::Base
 
   def sender
     from_phone_number.try(:contact)
+  end
+
+  def sender_name_or_number
+    if sender && sender.full_name.present?
+      sender.full_name
+    else
+      from_phone_number.number
+    end
+  end
+
+  def can_be_confirmed?
+    needs_confirmation? && created_at > Settings.message_confirmation_time.minutes.ago
   end
 
   ## returns phone number of message sender

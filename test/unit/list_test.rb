@@ -260,6 +260,14 @@ class ListTest < ActiveSupport::TestCase
         @list.expects(:handle_send_action).with(@needs_confirmation)
         @list.handle_confirmation_message(@confirmation_message)
       end
+
+      should 'sent an admin message when no needs-confirmation messages exist' do
+        @needs_confirmation.update_column(:created_at, 1.day.ago)
+
+        @list.expects(:handle_send_action).with(@needs_confirmation).never
+        @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@admin_phone.contact.first_name)))
+        @list.handle_confirmation_message(@confirmation_message)
+      end
     end
   end
 

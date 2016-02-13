@@ -226,7 +226,7 @@ class List < ActiveRecord::Base
     admin_msg = "[#{name} from #{message.from_phone_number.number}"
 
     if message.sender && message.sender.full_name.present?
-      admin_msg << "/ #{message.sender.full_name}"
+      admin_msg << " / #{message.sender.full_name}"
     end
 
     admin_msg << '] ' << message.tokens.join(' ')
@@ -235,13 +235,7 @@ class List < ActiveRecord::Base
 
   def send_confirmation_message(message)
     admin_msg = "[#{name}]"
-
-    if message.sender && message.sender.full_name.present?
-      admin_msg << "#{message.sender.full_name}"
-    else
-      admin_msg << "#{message.from_phone_number.number}"
-    end
-
+    admin_msg << message.sender_name_or_number
     admin_msg << " sent a message that needs confirmation. Respond with 'confirm' within #{Settings.message_confirmation_time} minutes to send message."
     send_message_to_admins(admin_msg)
   end
@@ -280,12 +274,14 @@ class List < ActiveRecord::Base
   end
 
   def handle_confirmation_message(message, locale = :en)
-    message_to_confirm = messages.needs_confirmation.where('created_at > ?', Settings.message_confirmation_time.minutes.ago).first
-    if message_to_confirm
-      message_to_confirm.mark_confirmed!
-      self.handle_send_action(message_to_confirm)
+    if to_confirm = messages.needs_confirmation.where('created_at > ?', Settings.message_confirmation_time.minutes.ago).first
+      to_confirm.mark_confirmed!
+      handle_send_action(to_confirm)
     else
-      # Respond to admin noting no messages are new enough to be processsed
+      admin_msg = "[#{name}] "
+      admin_msg << message.sender_name_or_number
+      admin_msg << " sent a message to confirm a pending message, but there are no recent messages that need confirmation."
+      send_message_to_admins(admin_msg)
     end
   end
 

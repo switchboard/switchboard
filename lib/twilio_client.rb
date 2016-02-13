@@ -1,8 +1,6 @@
 class TwilioClient
-  # Sender phone number needs to be a number previously validated with Twilio
-  CALLER_ID = "+12153466997"
 
-  def self.send_sms(recipient_phone_number, message, sender_phone_number = CALLER_ID)
+  def self.send_sms(recipient_phone_number, message, sender_phone_number)
     unless sender_phone_number.start_with?("+1")
       sender_phone_number = "+1#{sender_phone_number}"
     end
