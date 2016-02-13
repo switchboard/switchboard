@@ -4,7 +4,7 @@ one:
   long_name: My Very Important List
   allow_email_gateway: false
   allow_commercial_gateway: true
-  prefer_email: true
+  prefer_email: false
   use_incoming_keyword: false
   email_admin_with_response: false
   text_admin_with_response: true
@@ -14,7 +14,7 @@ one:
   moderated_membership: true
   use_welcome_message: true
   custom_welcome_message:
-  add_list_name_header: false
+  add_list_name_header: true
   identify_sender: false
   default_locale: en
   incoming_phone_number: one

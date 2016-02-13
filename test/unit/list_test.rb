@@ -56,28 +56,33 @@ class ListTest < ActiveSupport::TestCase
     end
   end
 
-  should 'split messages by 160 characters' do
-    @list = FactoryGirl.build(:list, add_list_name_header: true)
-    @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.')
+  context 'with long messages' do
+    setup do
+      @list = FactoryGirl.build(:list, add_list_name_header: true)
+    end
 
-    @phone_number = FactoryGirl.build(:phone_number)
+    should 'split messages by 160 characters' do
+      @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.')
+      @phone_number = FactoryGirl.build(:phone_number)
 
-    @content = @list.prepare_content(@message)
+      @content = @list.prepare_content(@message)
 
-    assert @content.length == 3
-    assert @content[0] == "[#{@list.name}] Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim (1/3)"
-    assert @content[2] == 'cillum dolore. (3/3)'
-  end
+      assert @content.length == 3
+      assert @content[0] == "[#{@list.name}] Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim (1/3)"
+      assert @content[2] == 'cillum dolore. (3/3)'
+    end
 
-  should 'not try to split shorter messages' do
-    @list = FactoryGirl.build(:list, add_list_name_header: true)
-    @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam')
+    should 'not try to split shorter messages' do
+      @list = FactoryGirl.build(:list, add_list_name_header: true)
+      @message = FactoryGirl.build(:message, body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam')
 
-    @phone_number = FactoryGirl.build(:phone_number)
+      @phone_number = FactoryGirl.build(:phone_number)
 
-    @content = @list.prepare_content(@message)
-    assert @content.length == 1
-    assert @content[0] == "[#{@list.name}] #{@message.body}"
+      @content = @list.prepare_content(@message)
+      assert @content.length == 1
+      assert @content[0] == "[#{@list.name}] #{@message.body}"
+    end
+
   end
 
   context 'sending welcome message' do

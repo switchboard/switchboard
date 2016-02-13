@@ -166,7 +166,7 @@ class List < ActiveRecord::Base
     # (just an array of words, possibly minus keywords)
     body = message.tokens.join(' ')
 
-    body = "[#{name}] #{body}" if add_list_name_header?
+    body.prepend("[#{name}] ") if add_list_name_header?
 
     if add_sender_identity?(message.from_phone_number)
       body << " (#{message.from_phone_number.name_and_number})"
@@ -177,7 +177,6 @@ class List < ActiveRecord::Base
     else
       [body]
     end
-
   end
 
   def add_sender_identity?(from_number)
@@ -190,10 +189,9 @@ class List < ActiveRecord::Base
     messages = []
     while(str.length > max_length)
       last_space_pos = str[0..max_length].rindex(' ') || max_length - 1
-      split_at = last_space_pos
       messages << str[0..last_space_pos].strip
       str = str[(last_space_pos + 1)..-1]
-      str = str ? str.strip : ''
+      str = str.try(:strip) || ''
     end
     messages << str unless str.length == 0
     messages.each_with_index.map{|msg, index| msg + " (#{index+1}/#{messages.length})"}
