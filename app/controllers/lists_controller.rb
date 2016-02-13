@@ -86,9 +86,13 @@ class ListsController < ApplicationController
   # Admin switches current org when going to list show/edit
   def set_list
     @list = current_organization.lists.find_by_id(params[:id])
-    if ! @list && current_user.superuser?
-      @list = List.find(params[:id])
-      switch_organization(@list.organization)
+    if ! @list
+      if current_user.superuser?
+        @list = List.find(params[:id])
+        switch_organization(@list.organization)
+      else
+        redirect_to lists_path and return
+      end
     end
   end
 

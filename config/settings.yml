@@ -1,3 +1,4 @@
 twilio:
   sid: set-me-in-env.yml
   token: set-me-in-env.yml
+message_confirmation_time: 10

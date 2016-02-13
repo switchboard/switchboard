@@ -68,6 +68,21 @@ class MessageTest < ActiveSupport::TestCase
         end
       end
 
+      context 'list requires confirmation' do
+        setup do
+          List.any_instance.stubs(:can_send_message?).returns(false)
+          List.any_instance.stubs(:message_needs_confirmation?).returns(true)
+          List.any_instance.stubs(:can_admin_message?).returns(true)
+        end
+
+        should 'tell list to send confirmation, mark as needs_confirmation' do
+          List.any_instance.expects(:send_confirmation_message).with(@message)
+          @message.process
+          assert @message.reload.aasm_state == 'needs_confirmation', "aasm_state should be needs_confirmation, was #{@message.aasm_state}"
+        end
+      end
+
+
       context 'message cannot be sent but is administered' do
         setup do
           List.any_instance.stubs(:can_send_message?).returns(false)
@@ -75,7 +90,7 @@ class MessageTest < ActiveSupport::TestCase
         end
 
         should 'mark as forwarded_to_admin' do
-          List.any_instance.expects(:handle_admin_message).with(@message)
+          List.any_instance.expects(:send_admin_message).with(@message)
           @message.process
           assert @message.reload.aasm_state == 'forwarded_to_admin'
         end
@@ -106,6 +121,27 @@ class MessageTest < ActiveSupport::TestCase
 
     should 'parse the list correctly from the number' do
       assert @message.list_id == @list.id
+    end
+  end
+
+  context 'incoming confirmation message' do
+    setup do
+      @list = lists(:one)
+      @list.update_column(:require_admin_confirmation, true)
+      @number = incoming_phone_numbers(:one)
+      @admin_phone = phone_numbers(:one)
+
+      command = I18n.t('list_commands.confirm', locale: :en)
+      command = command[0] if command.is_a?(Array)
+
+      @message = FactoryGirl.create(:message, to: @number.phone_number, from: @admin_phone.number, body: command)
+      @message.mark_processing!
+    end
+
+    should 'tell list to handle messages waiting for confirmation' do
+      List.any_instance.expects(:handle_confirmation_message)
+      @message.process
+      assert @message.aasm_state == 'handled'
     end
   end
 

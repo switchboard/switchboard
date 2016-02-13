@@ -18,6 +18,7 @@ one:
   identify_sender: false
   default_locale: en
   incoming_phone_number: one
+  require_admin_confirmation: false
 two:
   name: MYSECONDLIST
   organization: one
@@ -38,6 +39,7 @@ two:
   identify_sender: false
   default_locale: es
   incoming_phone_number: two
+  require_admin_confirmation: false
 org_two_list:
   name: ORGANIZATIONTWOLIST
   organization: two
@@ -57,3 +59,4 @@ org_two_list:
   add_list_name_header: false
   identify_sender: false
   default_locale: en
+  require_admin_confirmation: false

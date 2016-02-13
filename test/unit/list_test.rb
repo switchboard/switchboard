@@ -204,7 +204,61 @@ class ListTest < ActiveSupport::TestCase
 
       should "send admin the response, with a message that includes the sender's number" do
         @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@phone.number)))
-        @list.handle_admin_message(@message)
+        @list.send_admin_message(@message)
+      end
+    end
+  end
+
+  context 'handling message that needs confirmation' do
+    setup do
+      @list = lists(:two)
+      @phone = list_memberships(:two_two).phone_number # not an admin
+      @admin_phone = list_memberships(:two_admin).phone_number
+      @list.update_column(:require_admin_confirmation, true)
+    end
+
+    context 'when message should be confirmed' do
+      should 'respond that message needs confirmation' do
+        @message = FactoryGirl.create(:message, list: @list, from: @admin_phone.number)
+        assert @list.message_needs_confirmation?(@message)
+      end
+    end
+
+    context 'for web messages, which do not need confirmation' do
+      should 'respond that message does not need confirmation' do
+        @message = FactoryGirl.create(:web_message, list: @list)
+        assert ! @list.message_needs_confirmation?(@message)
+      end
+    end
+
+    context 'sending confirmation message' do
+      setup do
+        @message = FactoryGirl.create(:message, list: @list, from: @admin_phone.number)
+      end
+
+      should "send admin's name in confirmation" do
+        @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@admin_phone.contact.first_name)))
+        @list.send_confirmation_message(@message)
+      end
+
+      should "send admin's phone number in confirmation when admin has no name" do
+        @admin_phone.contact.update_attributes(first_name: nil, last_name: nil)
+
+        @list.expects(:create_outgoing_message).with(@admin_phone, regexp_matches(Regexp.new(@admin_phone.number)))
+        @list.send_confirmation_message(@message)
+      end
+    end
+
+    context 'when message is confirmed, sending original message' do
+      setup do
+        @number = incoming_phone_numbers(:one)
+        @needs_confirmation = FactoryGirl.create(:message, list: @list, to: @number.phone_number, body: 'mumble mumble', aasm_state: 'needs_confirmation')
+        @confirmation_message = FactoryGirl.create(:message, list: @list, to: @number.phone_number, from: @admin_phone.number, body: 'confirm', aasm_state: 'processing')
+      end
+
+      should 'send the original message' do
+        @list.expects(:handle_send_action).with(@needs_confirmation)
+        @list.handle_confirmation_message(@confirmation_message)
       end
     end
   end

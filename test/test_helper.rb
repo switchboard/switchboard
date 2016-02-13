@@ -6,7 +6,8 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def login_as(user)
-    @request.cookies[:auth_token] = (user ? users(user).auth_token : nil)
+    @login_user = user ? users(user) : nil
+    @request.cookies[:auth_token] = @login_user.try(:auth_token)
   end
 
   def assert_links_to(href, content=nil,message=nil)

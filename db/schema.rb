@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160209151613) do
+ActiveRecord::Schema.define(:version => 20160213150728) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20160209151613) do
     t.boolean  "deleted",                     :default => false
     t.string   "default_locale",              :default => "en",  :null => false
     t.integer  "incoming_phone_number_id"
+    t.boolean  "require_admin_confirmation",  :default => false
   end
 
   add_index "lists", ["organization_id"], :name => "index_lists_on_organization_id"
@@ -113,14 +114,10 @@ ActiveRecord::Schema.define(:version => 20160209151613) do
     t.string   "from"
     t.string   "to"
     t.string   "body"
-    t.string   "origin"
-    t.string   "origin_id"
-    t.integer  "message_state_id"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "list_id"
-    t.integer  "recipient_id"
     t.string   "aasm_state"
     t.integer  "outgoing_total"
     t.integer  "from_phone_number_id"

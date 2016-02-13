@@ -1,8 +1,6 @@
 class Contact < ActiveRecord::Base
 
   has_many :phone_numbers
-  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id'
-  has_many :received_messages, class_name: 'Message', foreign_key: 'recipient_id'
 
   accepts_nested_attributes_for :phone_numbers
   validates_associated  :phone_numbers

@@ -4,6 +4,7 @@ es:
     join: ["conecta", "licencias", "lisensias", "licensias"]
     leave: ["cancelar", "parar"]
     help: "ayuda"
+    confirm: "confirmar"
   list_responses:
     removed: "Como lo pidió, ha sido eliminado de la lista %{name}."
     remove_not_subscribed: "Parece que está intentando darse de baja en la lista %{name}, pero este numero no está suscrito."

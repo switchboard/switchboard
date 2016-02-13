@@ -12,6 +12,7 @@ class Message < ActiveRecord::Base
     state :incoming, initial: true
     state :processing
     state :in_send_queue
+    state :needs_confirmation
     state :handled
     state :forwarded_to_admin
     state :sent
@@ -36,11 +37,22 @@ class Message < ActiveRecord::Base
       transitions from: :processing, to: :forwarded_to_admin
     end
 
+    event :mark_needs_confirmation do
+      transitions from: :processing, to: :needs_confirmation
+    end
+
     event :queue_to_send do
       before do
         self.queued_at = Time.now
       end
       transitions from: :processing, to: :in_send_queue
+    end
+
+    event :mark_confirmed do
+      after do
+        self.queue_to_send!
+      end
+      transitions from: :needs_confirmation, to: :processing
     end
 
     event :mark_sent do
@@ -77,7 +89,7 @@ class Message < ActiveRecord::Base
   end
 
   def from_web?
-    from == 'Web'
+    false
   end
 
   def sender
@@ -107,11 +119,17 @@ class Message < ActiveRecord::Base
       elsif tokens.length < 4 && locale = I18n.locale_for(key: 'list_commands.leave', val: first_token)
         list.handle_leave_message(self, locale)
         mark_handled!
+      elsif tokens.length < 4 && locale = I18n.locale_for(key: 'list_commands.confirm', val: first_token)
+        list.handle_confirmation_message(self, locale)
+        mark_handled!
       elsif list.can_send_message?(self)
         list.handle_send_action(self)
         queue_to_send!
+      elsif list.message_needs_confirmation?(self)
+        list.send_confirmation_message(self)
+        mark_needs_confirmation!
       elsif list.can_admin_message?(self)
-        list.handle_admin_message(self)
+        list.send_admin_message(self)
         mark_administered!
       else
         mark_ignored!
@@ -127,6 +145,11 @@ class Message < ActiveRecord::Base
 
       mark_failure!
     end
+  end
+
+  def send_confirmed
+    list.handle_send_action(self)
+    queue_to_send!
   end
 
   def increment_outgoing_count

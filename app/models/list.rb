@@ -18,7 +18,7 @@ class List < ActiveRecord::Base
 
   attr_accessible :name, :custom_welcome_message, :all_users_can_send_messages, :open_membership,
                   :use_welcome_message, :welcome_message, :default_locale, :incoming_phone_number_id,
-                  :text_admin_with_response, :add_list_name_header, :identify_sender, :csv_file
+                  :text_admin_with_response, :require_admin_confirmation, :add_list_name_header, :identify_sender, :csv_file
 
   has_attached_file :csv_file
 
@@ -198,7 +198,11 @@ class List < ActiveRecord::Base
   end
 
   def can_send_message?(message)
-    message.from_web? || all_users_can_send_messages? || number_is_admin?(message.from_phone_number)
+    message.from_web? || all_users_can_send_messages? || (! require_admin_confirmation? && number_is_admin?(message.from_phone_number))
+  end
+
+  def message_needs_confirmation?(message)
+    ! message.from_web? && number_is_admin?(message.from_phone_number) && require_admin_confirmation?
   end
 
   def handle_send_action(message)
@@ -218,7 +222,7 @@ class List < ActiveRecord::Base
     text_admin_with_response? && admin_phone_numbers.any?
   end
 
-  def handle_admin_message(message)
+  def send_admin_message(message)
     admin_msg = "[#{name} from #{message.from_phone_number.number}"
 
     if message.sender && message.sender.full_name.present?
@@ -226,6 +230,23 @@ class List < ActiveRecord::Base
     end
 
     admin_msg << '] ' << message.tokens.join(' ')
+    send_message_to_admins(admin_msg)
+  end
+
+  def send_confirmation_message(message)
+    admin_msg = "[#{name}]"
+
+    if message.sender && message.sender.full_name.present?
+      admin_msg << "#{message.sender.full_name}"
+    else
+      admin_msg << "#{message.from_phone_number.number}"
+    end
+
+    admin_msg << " sent a message that needs confirmation. Respond with 'confirm' within #{Settings.message_confirmation_time} minutes to send message."
+    send_message_to_admins(admin_msg)
+  end
+
+  def send_message_to_admins(admin_msg)
     admin_phone_numbers.each do |admin_phone_number|
       create_outgoing_message(admin_phone_number, admin_msg)
     end
@@ -255,6 +276,16 @@ class List < ActiveRecord::Base
       list_memberships.create!(phone_number_id: message.from_phone_number.id, join_locale: locale)
     else
       create_outgoing_message(message.from_phone_number, I18n.t('list_responses.join_private', locale: locale))
+    end
+  end
+
+  def handle_confirmation_message(message, locale = :en)
+    message_to_confirm = messages.needs_confirmation.where('created_at > ?', Settings.message_confirmation_time.minutes.ago).first
+    if message_to_confirm
+      message_to_confirm.mark_confirmed!
+      self.handle_send_action(message_to_confirm)
+    else
+      # Respond to admin noting no messages are new enough to be processsed
     end
   end
 
