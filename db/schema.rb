@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160213215631) do
+ActiveRecord::Schema.define(:version => 20160802140926) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -136,6 +136,15 @@ ActiveRecord::Schema.define(:version => 20160213215631) do
     t.integer  "total_count",    :default => 0
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "sent_twilio_messages", :force => true do |t|
+    t.string   "twilio_id"
+    t.integer  "list_id"
+    t.string   "to"
+    t.string   "status"
+    t.string   "error_code"
+    t.datetime "created_at"
   end
 
   create_table "survey_answers", :force => true do |t|

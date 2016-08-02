@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  twilio_id: MyString
+  account_id: 1
+  list_id: 1
+  to: MyString
+  status: MyString
+  error_code: MyString
+  created_at: 2016-08-02 09:09:26
+
+two:
+  twilio_id: MyString
+  account_id: 1
+  list_id: 1
+  to: MyString
+  status: MyString
+  error_code: MyString
+  created_at: 2016-08-02 09:09:26

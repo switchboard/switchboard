@@ -15,6 +15,11 @@ class TwilioClient
     )
   end
 
+  def self.update_logged_message_status(sent_message)
+    twilio_message = twilio_client.account.messages.find(sent_message.twilio_id)
+    sent_message.update_attributes(status: twilio_message.status, error_code: twilio_message.error_code)
+  end
+
   def self.incoming_phone_numbers
     twilio_client.account.incoming_phone_numbers.list
   end
