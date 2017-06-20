@@ -7,12 +7,17 @@ class OutgoingMessageJob
       # Not counting emails in list counts
       self.increment_message_count(message_id, outgoing_count) if message_id
     else
-      response = TwilioClient.send_sms(to, message_body, from)
-      if ENV['LOG_TWILIO']
-        SentTwilioMessage.create(list_id: list_id, to: to, twilio_id: response.sid)
+      begin
+        response = TwilioClient.send_sms(to, message_body, from)
+        if ENV['LOG_TWILIO']
+          SentTwilioMessage.create(list_id: list_id, to: to, twilio_id: response.sid)
+        end
+        List.increment_sms_count(list_id)
+        self.increment_message_count(message_id, outgoing_count) if message_id
+      rescue => e
+        Airbrake.notify(e)
+        raise
       end
-      List.increment_sms_count(list_id)
-      self.increment_message_count(message_id, outgoing_count) if message_id
     end
   end
 
