@@ -22,7 +22,7 @@ class Message < ActiveRecord::Base
     event :mark_processing do
       error do |e|
         update_column(:aasm_state, 'failure')
-        Airbrake.notify(e)
+        Rollbar.error(e)
       end
 
       transitions :from => :incoming, :to => :processing, guard: :ready_for_processing?
@@ -152,7 +152,7 @@ class Message < ActiveRecord::Base
       logger.info "Error: " + e.inspect
       logger.info "Backtrace: " + e.backtrace.inspect
       logger.info "e: " + e.to_s
-      Airbrake.notify(e)
+      Rollbar.error(e)
 
       mark_failure!
     end

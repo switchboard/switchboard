@@ -47,9 +47,6 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     addressable (2.4.0)
-    airbrake (6.1.2)
-      airbrake-ruby (~> 2.2, >= 2.2.5)
-    airbrake-ruby (2.2.6)
     arel (3.0.3)
     autotest-fsevent (0.2.12)
       sys-uname
@@ -222,6 +219,8 @@ GEM
       vegas (~> 0.1.2)
     resque_unit (0.4.4)
       json (>= 1.4.6)
+    rollbar (2.15.5)
+      multi_json
     rufus-scheduler (2.0.24)
       tzinfo (>= 0.3.22)
     safe_yaml (1.0.4)
@@ -298,7 +297,6 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  airbrake
   autotest-fsevent
   autotest-growl
   autotest-rails-pure
@@ -328,6 +326,7 @@ DEPENDENCIES
   resque
   resque-scheduler!
   resque_unit
+  rollbar
   sass-rails
   sextant
   shoulda
@@ -342,4 +341,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.5
+   1.16.0

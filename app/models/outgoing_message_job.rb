@@ -15,7 +15,7 @@ class OutgoingMessageJob
         List.increment_sms_count(list_id)
         self.increment_message_count(message_id, outgoing_count) if message_id
       rescue => e
-        Airbrake.notify(e)
+        Rollbar.error(e)
         raise
       end
     end

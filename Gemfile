@@ -25,7 +25,7 @@ gem 'dynamic_form'
 gem 'simple_form'
 gem 'kaminari'
 gem 'paperclip'
-gem 'airbrake'
+gem 'rollbar'
 # Included by capistrano-resque but needs upgrade
 gem 'resque-scheduler', git: 'https://github.com/resque/resque-scheduler.git'
 gem 'resque'
