@@ -16,7 +16,11 @@
   %tbody
     %tr
       %th Incoming number
-      %td= format_phone(@list.incoming_number)
+      %td
+        - if @list.incoming_phone_number
+          = format_phone(@list.incoming_phone_number.phone_number)
+        - else
+          %em No number assigned
     %tr
       %th Contacts
       %td= @list.phone_numbers.size
