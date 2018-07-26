@@ -56,11 +56,12 @@ module Switchboard
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = false
 
+    config.force_ssl = true
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
     config.assets.precompile += ['jquery.js', 'ie.css']
-
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
